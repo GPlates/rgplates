@@ -1,0 +1,12 @@
+LICENSE
+README.md
+.git
+^.*\.Rproj$
+^\.Rproj\.user$
+tests
+_datafiles
+_archive
+_demo
+_doc
+README.Rmd
+README.html
