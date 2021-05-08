@@ -6,7 +6,9 @@
 #' 
 #' @rdname platemodel
 #' @exportClass platemodel
-platemodel <- setClass("platemodel", slots=list(name="character", rotation="character", polygons="character", version="character"))
+platemodel <- setClass(
+	"platemodel",
+	slots=list(name="character", rotation="character", polygons="character", version="character"))
 
 #' @param .Object Constructor argument (not needed).
 #' @param path (\code{character}) Path to a .mod unique plate model object.
@@ -16,7 +18,8 @@ platemodel <- setClass("platemodel", slots=list(name="character", rotation="char
 #' @return A \code{platemodel} class object.
 #' @export platemodel
 #' @examples
-#' # extract provided archive
+#' # extract provided archive usig the chronosphere package
+#' library(chronosphere)
 #' a <- fetch(dat="paleomap", var="model", 
 #'   datadir=system.file("extdata", package="chronosphere"))
 #' # manually attach
@@ -41,7 +44,8 @@ setMethod("initialize",signature="platemodel",
 			.Object@polygons <- gsub("polygons: ", "", file.path(dir, lin[3]))
 			.Object@version <- gsub("version: ", "", lin[4])
 		}else{
-			if(is.null(rotation) | is.null(polygons)) stop("You have to provide both a rotation file and a static polygons object.")
+			if(is.null(rotation) | is.null(polygons))
+				stop("You have to provide both a rotation file and a polygons object.")
 			.Object@rotation <- rotation
 			.Object@polygons <- polygons
 			.Object@name <- ""

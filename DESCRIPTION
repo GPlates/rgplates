@@ -1,10 +1,10 @@
 Package: rgplates
 Type: Package
-Title: R interface for the GPlates Web Service and Console Application 
+Title: R interface for the GPlates Web Service and Desktop Application 
 Version: 0.1
 Author: Adam T. Kocsis, Nussaibah B. Raja
 Maintainer: Adam T. Kocsis <adam.t.kocsis@gmail.com>
-Description: Query functions to the GPlates <https://www.gplates.org/> desktop application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct coordinates, static plates, and Spatial objects without leaving the R running environment. The project is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
+Description: Query functions to the GPlates <https://www.gplates.org/> desktop application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct coordinates, static plates, and Spatial objects without leaving the R running environment. This R extension was supported by the FAU GeoZentrum Nordbayern and is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
 License: CC BY 4.0
 Date: 2021-05-07
 BugReports: https://github.com/adamkocsis/rgplates/issues
@@ -23,4 +23,6 @@ RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+	chronosphere
+	
