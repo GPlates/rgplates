@@ -6,17 +6,11 @@
 #'
 #' @author Adam T. Kocsis (adam.t.kocsis@gmail.com) and Nussaibah B. Raja
 #' @docType package
-#' @name chronosphere
+#' @name rgplates
 NULL
 
-#' @import raster
 #' @import sp
-#' @importFrom methods new cbind2 rbind2
-#' @importFrom utils read.csv download.file unzip flush.console sessionInfo
-#' @importFrom graphics par layout mtext
-#' @importFrom grDevices colorRampPalette rgb
-#' @importFrom grDevices devAskNewPage
-#' @importFrom utils assignInNamespace
-#' @importFrom utils browseURL
+#' @importFrom methods new 
+#' @importFrom utils download.file flush.console sessionInfo
 NULL
 
