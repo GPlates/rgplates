@@ -1,5 +1,5 @@
 
-# chronosphere
+# rgplates
 
 [![](https://img.shields.io/badge/devel%20version-0.1.0-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=orange)](https://cran.r-project.org/package=rgplates)
