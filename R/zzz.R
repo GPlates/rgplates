@@ -1,4 +1,4 @@
-#' R interface for the GPlates Web Service and Desktop Application 
+#' R Interface for the GPlates Web Service and Desktop Application 
 #'
 #' Query functions to the GPlates <https://www.gplates.org/> desktop application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct coordinates, static plates, and Spatial objects without leaving the R running environment. This R extension was supported by the FAU GeoZentrum Nordbayern and is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
 #' 
