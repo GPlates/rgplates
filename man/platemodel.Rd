@@ -25,12 +25,15 @@ A \code{platemodel} class object.
 Meta-object containing paths to a unique plate tectonic model
 }
 \examples{
-# extract provided archive usig the chronosphere package
-library(chronosphere)
-a <- fetch(dat="paleomap", var="model", 
-  datadir=system.file("extdata", package="rgplates"))
-# manually attach
-model <- platemodel(file.path(tempdir(), 
-  "paleomap_model_v19o_r1c/paleomap_model_v19o_r1c.mod"))
-model
+# path to provided archive
+archive <- file.path(
+  system.file("extdata", package="rgplates"), 
+  "paleomap_model_v19o_r1c.zip")
+# extract to temporary directory
+unzip(archive, exdir=tempdir())
+# path to the combined model/rotation file
+path <- file.path(tempdir(), 
+  "paleomap_model_v19o_r1c/paleomap_model_v19o_r1c.mod")
+# register in R - to be used in reconstruct()
+model <- platemodel(path)
 }
