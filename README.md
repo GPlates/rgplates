@@ -7,15 +7,16 @@
 [![CRAN
 checks](https://cranchecks.info/badges/summary/rgplates)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
 
-R interface for the GPlates Web Service and Console Application
+R interface for the GPlates Web Service and Desktop Application
 
 (Ádám T. Kocsis and Nussaïbah B. Raja)
 
 The purpose of the ‘rgplates’ package is to facilitate spatially
 explicit analyses of deep time paleoenvironmental/paleoecological
-research. The functions here were removed from the chronosphere R
-package (v0.4.1), for better compliance with UNIX-principles and more
-efficient distribution/development.
+research. Offline methods require the presence of the GPlates Desktop
+Application (<https://www.gplates.org/>). The functions here were
+removed from the chronosphere R package (v0.4.1), for better compliance
+with UNIX-principles and more efficient distribution/development.
 
 This R extension was supported by the FAU GeoZentrum Nordbayern and is
 developed under the umbrella of the DFG (Deutsche
