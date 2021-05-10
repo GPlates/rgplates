@@ -1,6 +1,6 @@
 Package: rgplates
 Type: Package
-Title: R interface for the GPlates Web Service and Desktop Application 
+Title: R Interface for the GPlates Web Service and Desktop Application 
 Version: 0.1
 Author: Adam T. Kocsis, Nussaibah B. Raja
 Maintainer: Adam T. Kocsis <adam.t.kocsis@gmail.com>
