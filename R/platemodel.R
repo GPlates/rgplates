@@ -21,7 +21,7 @@ platemodel <- setClass(
 #' # extract provided archive usig the chronosphere package
 #' library(chronosphere)
 #' a <- fetch(dat="paleomap", var="model", 
-#'   datadir=system.file("extdata", package="chronosphere"))
+#'   datadir=system.file("extdata", package="rgplates"))
 #' # manually attach
 #' model <- platemodel(file.path(tempdir(), 
 #'   "paleomap_model_v19o_r1c/paleomap_model_v19o_r1c.mod"))

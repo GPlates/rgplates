@@ -1,13 +1,13 @@
-citHeader("To cite chronosphere in publications, use the following citation:")
+citHeader("To cite rgplates in publications, use the following citation:")
 
 citEntry(entry = "misc",
-  title        = "chronosphere: Earth system history variables",
+  title        = "rgplates: R interface for the GPlates Web Service and Desktop Application",
   author       = personList(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja")),
-  url          = "https://doi.org/10.5281/zenodo.3530703",
-  year		= 2020,
+  url          = "",
+  year		= 2021,
 
   textVersion  =
-  paste("Kocsis, Á.T., Raja, N.B. 2019",
-        "chronosphere: Earth system history variables. ",
-        "https://doi.org/10.1111/2041-210X.13161")
+  paste("Kocsis, Á.T., Raja, N.B. 2021",
+        "rgplates: R interface for the GPlates Web Service and Desktop Application. ",
+        "")
 )
