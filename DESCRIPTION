@@ -2,7 +2,12 @@ Package: rgplates
 Type: Package
 Title: R Interface for the GPlates Web Service and Desktop Application 
 Version: 0.1.0
-Author: Adam T. Kocsis, Nussaibah B. Raja
+Authors@R: c(
+	person(given="Adam T.", family="Kocsis", role=c("cre", "aut"),
+		   email="adam.t.kocsis@gmail.com", comment=c(ORCID="0000-0002-9028-665X")),
+ 	person(given="Nussaibah B.", family="Raja", role=c("aut"), comment=c(ORCID="0000-0002-0000-3944")),
+	person(given="Deutsche Forschungsgemeinschaft", role="fnd"),
+	person(given="FAU GeoZentrum Nordbayern", role="fnd"))
 Maintainer: Adam T. Kocsis <adam.t.kocsis@gmail.com>
 Description: Query functions to the GPlates <https://www.gplates.org/> desktop application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct coordinates, static plates, and Spatial objects without leaving the R running environment. This R extension was supported by the FAU GeoZentrum Nordbayern and is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
 License: CC BY 4.0
