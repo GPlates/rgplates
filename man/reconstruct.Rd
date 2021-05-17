@@ -98,7 +98,7 @@ calculate the present-day coordinates of the given paleo-coordinates.}
 \item{plateperiod}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.}
 }
 \value{
-A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input.
+A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input. \code{NULL} in case no model is specified.
 }
 \description{
 Reconstruct the geographic locations from present day coordinates and spatial objects back to their paleo-positions. 
@@ -137,14 +137,11 @@ Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & MÃ
 \examples{
 # With the web service (GPlates Web Service was offline at submission)
 # simple matrices
-# reconstruct(matrix(c(95, 54), nrow=1), 140)
+# replace model with desired choice
+reconstruct(matrix(c(95, 54), nrow=1), 140, model=NULL)
 
 # points reconstruction
 xy <-cbind(long=c(95,142), lat=c(54, -33))
-# reconstruct(xy, 140)
-
-# coastlines/plates
-# coast <- reconstruct("coastlines", 140)
-# plate <- reconstruct("plates", 139)
+reconstruct(xy, 140, model=NULL)
 
 }

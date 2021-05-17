@@ -48,19 +48,16 @@
 #' @param cleanup (\code{logical}) Argument of the local reconstruction submodule. Should the temporary files be deleted immediately after reconstructions?
 #' @param plateperiod (\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.
 #' @param dir (\code{character}) Argument of the local reconstruction submodule. Directory where the temporary files of the reconstruction are stored (defaults to a temporary directory created by R). Remember to toggle \code{cleanup} if you want to see the files.  
-#' @return A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input.
+#' @return A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input. \code{NULL} in case no model is specified.
 #' @examples
 #' # With the web service (GPlates Web Service was offline at submission)
 #' # simple matrices
-#' # reconstruct(matrix(c(95, 54), nrow=1), 140)
+#' # replace model with desired choice
+#' reconstruct(matrix(c(95, 54), nrow=1), 140, model=NULL)
 #'	
 #'	# points reconstruction
 #'	xy <-cbind(long=c(95,142), lat=c(54, -33))
-#'	# reconstruct(xy, 140)
-#'
-#' # coastlines/plates
-#' # coast <- reconstruct("coastlines", 140)
-#' # plate <- reconstruct("plates", 139)
+#'	reconstruct(xy, 140, model=NULL)
 #'	
 #' @rdname reconstruct
 #' @exportMethod reconstruct
@@ -74,7 +71,13 @@ setMethod(
 	"reconstruct", 
 	signature="matrix", 
 	function(x,age, model="PALEOMAP", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=200, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=FALSE){
-	 
+
+	if(is.null(model)){
+		message("No model was specified.")
+		x <- NULL
+		return(x)
+	}
+	
 		# Check long lat!
 		if(!is.numeric(age)) age <- as.numeric(age)
 
@@ -182,7 +185,14 @@ setMethod(
 	"reconstruct", 
 	signature="character", 
 	function(x,age, model="PALEOMAP", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE){
-        if(!any(x==c("plates", "coastlines"))) stop("Invalid 'x' argument.\nThe only valid character input are \"plates\" and \"coastlines\"")
+
+	if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
+		}
+
+	if(!any(x==c("plates", "coastlines"))) stop("Invalid 'x' argument.\nThe only valid character input are \"plates\" and \"coastlines\"")
 		# vectorized
 		if(length(age)>1){
 			
@@ -242,6 +252,12 @@ setMethod(
 	"reconstruct",
 	"SpatialPolygonsDataFrame", 
 	function(x, age, model="PALEOMAP", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE){
+		if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
+		}
+		
 		if(!is.na(x@proj4string)){
 			x <- sp::spTransform(x, sp::CRS("+proj=longlat"))
 		}else{
@@ -296,6 +312,12 @@ setMethod(
 	"reconstruct",
 	"SpatialLinesDataFrame", 
 	function(x, age, model="PALEOMAP", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE){
+		if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
+		}
+
 		if(!is.na(x@proj4string)){
 			x <- sp::spTransform(x, sp::CRS("+proj=longlat"))
 		}else{
