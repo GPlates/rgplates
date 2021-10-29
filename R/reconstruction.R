@@ -545,8 +545,8 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# do reconstruction
 		if(!is.character(x)) if(verbose) message("Reconstructing coordinates.")
 		if(is.character(x)) if(x=="plates") if(verbose) message("Reconstructing plates.")
-			reconstruction <- paste(gplatesExecutable, " reconstruct -l ",pathToFileNoEXT,".gpml -r ", 
-					rotation, " -e shapefile -t ", age, " -o ", pathToFileNoEXT,"_reconstructed -w 1", sep="") 
+			reconstruction <- paste(gplatesExecutable, " reconstruct -l \"",pathToFileNoEXT,".gpml\" -r \"", 
+					rotation, "\" -e shapefile -t ", age, " -o \"", pathToFileNoEXT,"_reconstructed\" -w 1", sep="") 
 			system(reconstruction, ignore.stdout=!verbose,ignore.stderr=!verbose)
 
 	# 4. Processing output
