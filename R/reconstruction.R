@@ -539,7 +539,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# do the plate assignment
 		if(!is.character(x)){
 			if(verbose) message("Assigning plate IDs to .gpml file.")
-			assignment <- paste(gplatesExecutable, " assign-plate-ids -e ",pPer," -p ", platePolygons, " -l ",pathToFileNoEXT,".gpml", sep="")
+			assignment <- paste(gplatesExecutable, " assign-plate-ids -e ",pPer," -p \"", platePolygons, "\" -l \"",pathToFileNoEXT,".gpml\"", sep="")
 			system(assignment, ignore.stdout=!verbose,ignore.stderr=!verbose)
 		}
 		# do reconstruction
