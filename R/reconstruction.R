@@ -533,7 +533,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# convert to gpml
 		if(!is.character(x)){
 			if(verbose) message("Converting shapefile to .gpml.")
-			conversion <- paste(gplatesExecutable, " convert-file-format -l ",pathToFileNoEXT,".shp -e gpml", sep="")
+			conversion <- paste(gplatesExecutable, " convert-file-format -l \"",pathToFileNoEXT,".shp\" -e gpml", sep="")
 			system(conversion, ignore.stdout=!verbose,ignore.stderr=!verbose)
 		}
 		# do the plate assignment
