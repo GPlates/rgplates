@@ -3,7 +3,7 @@
 export(platemodel)
 exportClasses(platemodel)
 exportMethods(reconstruct)
-import(sp)
+import(sf)
 importFrom(methods,new)
 importFrom(utils,flush.console)
 importFrom(utils,sessionInfo)
