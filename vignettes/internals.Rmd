@@ -1,0 +1,18 @@
+---
+title: "How-to Guides"
+description: >
+  Learn how to use rgplates to solve specific problems
+---
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+</script>
+
+This is a function map.
+
+<pre class="mermaid">
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+</pre>

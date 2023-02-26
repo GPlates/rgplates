@@ -1,0 +1,54 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: cosmo
+
+navbar:
+  structure:
+    left: [tutorials, reference, internals, howtos]
+    right: [search, github]
+  components:
+    tutorials:
+      text: Tutorials
+      menu:
+        - text: "0. Installation"
+          href: articles/0_installation.html
+        - text: "1. Online Reconstruction with the GWS"
+          href: articles/1_online_reconstruction.html
+        - text: "2. Offline reconstruction"
+          href: articles/2_offline_reconstruction.html
+        - text: "3. Reconstruction with chronosphere data"
+          href: articles/3_chronosphere.html
+    internals:
+      text: Internals
+      href: articles/internals.html
+    howtos:
+      text: How-to guides on EvolvED
+      href: "https://www.evolv-ed.net/"
+
+
+reference:
+- title: internal
+  contents:
+  - rgplates
+- title: Coordinate Reconstruction
+  desc: Everything related to coordinate reconstruction
+  contents:
+  - reconstruct
+- title: Tectonic model representation
+  desc: Representation of tectonic models for offline reconstruction
+  contents:
+  - platemodel-class
+  
+authors:
+  Adam T. Kocsis:
+    href: "https://palaeobiology.nat.fau.de/people/instructors/kocsis/"
+  Nussaibah B. Raja:
+    href: "https://palaeobiology.nat.fau.de/people/instructors/kiessling/"
+  Deutsche Forschungsgemeinschaft:
+    href: https://www.dfg.de/en/index.jsp
+    html: <img src='https://www.dfg.de/includes/bausteine/open_graph_de/dfgfallback.jpg' alt='dfg' width='80' />
+  FAU GeoZentrum Nordbayern:
+    href: https://www.gzn.nat.fau.eu/
+    html: <img src='https://www.gzn.nat.fau.de/files/2017/05/cropped-gzn-logo.jpg' alt='geozentrum' width='80' />
+

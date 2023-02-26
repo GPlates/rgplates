@@ -1,0 +1,20 @@
+---
+title: "2. Offline reconstruction"
+description: >
+  Learn how to rotate paleocoordinates with the GPlates Desktop Application
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. Offline reconstruction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Offline reconstruction
+

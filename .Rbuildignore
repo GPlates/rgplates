@@ -1,5 +1,4 @@
 LICENSE
-README.md
 .git
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -8,5 +7,9 @@ _datafiles
 _archive
 _demo
 _doc
-README.Rmd
-README.html
+vignettes
+README.*
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+index.*

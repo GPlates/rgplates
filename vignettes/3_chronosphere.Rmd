@@ -1,0 +1,20 @@
+---
+title: "3. Reconstruction with chronosphere data"
+description: >
+  Learn how to rotate paleocoordinates with data from the chronosphere
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{3. Reconstruction with chronosphere data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Chronosphere
+
