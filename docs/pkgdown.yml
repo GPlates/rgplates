@@ -7,5 +7,8 @@ articles:
   2_offline_reconstruction: 2_offline_reconstruction.html
   3_chronosphere: 3_chronosphere.html
   internals: internals.html
-last_built: 2023-02-26T15:32Z
+last_built: 2023-02-26T15:53Z
+urls:
+  reference: https://adamkocsis.github.io/rgplates/reference
+  article: https://adamkocsis.github.io/rgplates/articles
 

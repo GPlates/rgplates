@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/0_installation.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/0_installation.html</loc>
   </url>
   <url>
-    <loc>/articles/1_online_reconstruction.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/1_online_reconstruction.html</loc>
   </url>
   <url>
-    <loc>/articles/2_offline_reconstruction.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/2_offline_reconstruction.html</loc>
   </url>
   <url>
-    <loc>/articles/3_chronosphere.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/3_chronosphere.html</loc>
   </url>
   <url>
-    <loc>/articles/howtos.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/howtos.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/internals.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/internals.html</loc>
   </url>
   <url>
-    <loc>/articles/online.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/online.html</loc>
   </url>
   <url>
-    <loc>/articles/online_models.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/articles/online_models.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/index.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/platemodel.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/reference/platemodel.html</loc>
   </url>
   <url>
-    <loc>/reference/reconstruct.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/reference/reconstruct.html</loc>
   </url>
   <url>
-    <loc>/reference/rgplates.html</loc>
+    <loc>https://adamkocsis.github.io/rgplates/reference/rgplates.html</loc>
   </url>
 </urlset>
