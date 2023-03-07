@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="4. Reconstruction with chronosphere data">
 <meta property="og:description" content="Learn how to rotate paleocoordinates with data from the chronosphere
@@ -85,7 +85,9 @@
   </div>
 </nav><div class="container template-article">
 
-<div class="row">
+
+
+<script src="4_reconstruction_with_chronosphere_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>4. Reconstruction with chronosphere data</h1>
             
@@ -97,10 +99,66 @@
     
     
 <div class="section level2">
-<h2 id="chronosphere">Chronosphere<a class="anchor" aria-label="anchor" href="#chronosphere"></a>
+<h2 id="the-chronosphere">The chronosphere<a class="anchor" aria-label="anchor" href="#the-chronosphere"></a>
 </h2>
+<p>Originally, all functions in <code>rgplates</code> were developed in the envelope of the <code>chronosphere</code> project. However, since the project’s inception the functionality of these modules diverged: <code>rgplates</code> contains functions to execute plate tectonic reconstructions with R, and the <code>chronosphere</code> is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the <code>chronosphere</code> and use them with <code>rgplates</code>.</p>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="loading-packages">Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"></a>
+</h2>
+<p>For this highly optimized workflow, both the <code>rgplates</code> and the <code>chronosphere</code> R package are required.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamkocsis.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: sf</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">chronosphere</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: raster</span></span>
+<span><span class="co">#&gt; Loading required package: sp</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'chronosphere'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:rgplates':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     mapedge, platemodel, reconstruct</span></span></code></pre></div>
+<p><em>NOTE: you will see this message about masking function names. Do not worry about it. The message appears, because these functions are present in both <code>rgplates</code> and the <code>chronosphere</code>, where they originally used to be. However, only the ones in <code>rgplates</code> are getting developed, and the ones in <code>chronosphere</code> will be removed at a very near, major update.</em></p>
+<p>To indicate which functions we call, we will use the <code>::</code> operator. This operator allows us to indicate from which package do we want to use functions.</p>
+</div>
+<div class="section level2">
+<h2 id="downloading-data">Downloading data<a class="anchor" aria-label="anchor" href="#downloading-data"></a>
+</h2>
+<p>Detailed tutorials will be made available later about how to use the chronosphere-portal. For now, all we need to know, is how to access the <code>platemodel</code>-class objects.</p>
+<p>Downloading data from the <code>chronosphere</code> is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. To download the tectonic model (plate polygons and reconstruction tree) that we used earlier (the <a href="">PaleoMAP model</a>), all we need is this command:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu">chronosphere</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">fetch</a></span><span class="op">(</span>dat<span class="op">=</span><span class="st">"paleomap"</span>, var<span class="op">=</span><span class="st">"model"</span>, ver<span class="op">=</span><span class="st">"v3-GPlates"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; If you use the data in publications, please cite its</span></span>
+<span><span class="co">#&gt; reference(s), as well as that of the 'chronosphere' package.</span></span>
+<span><span class="co">#&gt; Scotese, C. R. (2016) Tutorial: PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. URL: https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/</span></span>
+<span><span class="va">pm</span></span>
+<span><span class="co">#&gt; GPlates plate tectonic model.</span></span>
+<span><span class="co">#&gt; PALEOMAP plate tectonic reconstruction files (C. Scotese) </span></span>
+<span><span class="co">#&gt;  - v3 (GPlates resource) </span></span>
+<span><span class="co">#&gt; static polygons:  "PALEOMAP_PlatePolygons.gpml" </span></span>
+<span><span class="co">#&gt; rotation:         "PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<p>The arguments of <code><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">chronosphere::fetch()</a></code> are the the dataset (<code>dat</code>), variable (<code>var</code>) and version (<code>ver</code>) ID of the item that you want to download.</p>
+</div>
+<div class="section level2">
+<h2 id="actual-reconstruction">Actual reconstruction<a class="anchor" aria-label="anchor" href="#actual-reconstruction"></a>
+</h2>
+<p>Which we can immediately put to use with the <a href="articles/3_offline_reconstruction.html">offline reconstruction method</a> (you need to have GPlates installed for this!).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># reconstruct the plates and plot them</span></span>
+<span><span class="va">pl400</span><span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">400</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl400</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<p><img src="4_reconstruction_with_chronosphere_files/figure-html/offRec-1.png" width="700"></p>
+</div>
+<div class="section level2">
+<h2 id="concluding-remarks">Concluding remarks<a class="anchor" aria-label="anchor" href="#concluding-remarks"></a>
+</h2>
+<p>There! With three lines of code, we downloaded the tectonic information, calcuated the rotations and plotted the reconstructed geometries. Simple.</p>
+<p>This is how we originally intended to use the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function’s offline method, and this is what we recommend to adopt as a general workflow.</p>
+<p>Note that we intend to add as many models to the <code>chronosphere</code>, which is getting overhauled to make it as flexible and useful as possible. To keep all currently available data and maintain all functionality, however, is not easy - but it is expected to be done in the first half of 2023.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

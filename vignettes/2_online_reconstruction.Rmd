@@ -16,9 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-
-Out of the box, the package relies on the [GPlates Web Service (GWS)](), an **online** service that executes paleogeographic rotations using data provided in URLs. `rgplates` **(1)** sends the data to the GWS, which **(2)** calculates paleocoordinates, and then **(3)** `rgplates` reads in the returned result. **For this online method, you have to be connected to the internet**. 
+Out of the box, the package relies on the [GPlates Web Service (GWS)](https://gws.gplates.org/), an **online** service that executes paleogeographic rotations using data provided in URLs. `rgplates` **(1)** sends the data to the GWS, which **(2)** calculates paleocoordinates, and then **(3)** `rgplates` reads in the returned result. **For this online method, you have to be connected to the internet**. 
 
 To start, you have to attach the package:
 

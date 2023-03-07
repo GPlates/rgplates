@@ -16,5 +16,55 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Chronosphere
+# The chronosphere
+
+Originally, all functions in `rgplates` were developed in the envelope of the `chronosphere` project. However, since the project's inception the functionality of these modules diverged: `rgplates` contains functions to execute plate tectonic reconstructions with R, and the `chronosphere` is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the `chronosphere` and use them with `rgplates`.
+
+# Loading packages
+
+For this highly optimized workflow, both the `rgplates` and the `chronosphere` R package are required.
+
+```{r loadBoth, echo=TRUE}
+library(rgplates)
+library(chronosphere)
+```
+
+*NOTE: you will see this message about masking function names. Do not worry about it. The message appears, because these functions are present in both `rgplates` and the `chronosphere`, where they originally used to be. However, only the ones in `rgplates` are getting developed, and the ones in `chronosphere` will be removed at a very near, major update.*
+
+To indicate which functions we call, we will use the `::` operator. This operator allows us to indicate from which package do we want to use functions. 
+
+# Downloading data 
+
+Detailed tutorials will be made available later about how to use the chronosphere-portal. For now, all we need to know, is how to access the `platemodel`-class objects.
+
+Downloading data from the `chronosphere` is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. To download the tectonic model (plate polygons and reconstruction tree) that we used earlier (the [PaleoMAP model]()), all we need is this command:
+
+```{r dlModel1, echo=TRUE}
+pm <- chronosphere::fetch(dat="paleomap", var="model", ver="v3-GPlates")
+pm
+```
+
+The arguments of `chronosphere::fetch()` are the the dataset (`dat`), variable (`var`) and version (`ver`) ID of the item that you want to download.
+
+# Actual reconstruction
+
+Which we can immediately put to use with the [offline reconstruction method](articles/3_offline_reconstruction.html) (you need to have GPlates installed for this!). 
+
+
+```{r offRec, echo=TRUE, plot=TRUE}
+# reconstruct the plates and plot them
+pl400<- rgplates::reconstruct("plates", age=400, model=pm)
+plot(pl400$geometry, col="gray", border=NA)
+```
+
+# Concluding remarks
+
+There! With three lines of code, we downloaded the tectonic information, calcuated the rotations and plotted the reconstructed geometries. Simple.
+
+This is how we originally intended to use the `reconstruct()` function's offline method, and this is what we recommend to adopt as a general workflow. 
+
+Note that we intend to add as many models to the `chronosphere`, which is getting overhauled to make it as flexible and useful as possible. To keep all currently available data and maintain all functionality, however, is not easy - but it is expected to be done in the first half of 2023.  
+
+
+
 

@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="3. Offline reconstruction">
 <meta property="og:description" content="Learn how to rotate paleocoordinates with the GPlates Desktop Application
@@ -85,7 +85,9 @@
   </div>
 </nav><div class="container template-article">
 
-<div class="row">
+
+
+<script src="3_offline_reconstruction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>3. Offline reconstruction</h1>
             
@@ -101,7 +103,7 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Instead of relying on connections to the <a href="">GPlates Web Service</a>, the <strong>offline method</strong>, allows you to execute plate tectonic rotations locally, on your computer. For this, you need two things present on your computer besides the <code>rgplates</code> package:</p>
+<p>Instead of relying on connections to the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service</a>, the <strong>offline method</strong>, allows you to execute plate tectonic rotations locally, on your computer. For this, you need two things present on your computer besides the <code>rgplates</code> package:</p>
 <ol style="list-style-type: decimal">
 <li>The <a href="https://www.gplates.org/" class="external-link">GPlates desktop application</a>, to calculate the reconstructions</li>
 <li>The actual tectonic model files, that you do the reconstructions with.</li>
@@ -137,7 +139,7 @@
 <code class="sourceCode R"><span><span class="co"># attaching the package is necesary for both methods</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamkocsis.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
 <span></span>
 <span><span class="co"># this is still the online method:</span></span>
 <span><span class="va">partPol</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
@@ -172,7 +174,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpuZeiJT"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmppZRlRb"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -195,20 +197,20 @@
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "file3d6dc1b25dcb9"                 "file3d6dc38199f9d"                </span></span>
-<span><span class="co">#&gt; [3] "file3d6dc48f0a9be"                 "file3d6dc4d601e75"                </span></span>
-<span><span class="co">#&gt; [5] "file3d6dc56ea4130"                 "file3d6dc643b9bd1"                </span></span>
-<span><span class="co">#&gt; [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt; [9] "PALEOMAP_PoliticalBoundaries.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "file5880f1fbeecb9"                 "file5880f21ff20f0"                </span></span>
+<span><span class="co">#&gt;  [3] "file5880f3a2f4a06"                 "file5880f6faa81f4"                </span></span>
+<span><span class="co">#&gt;  [5] "file5880f76aab15f"                 "file5880f7ed1ffc9"                </span></span>
+<span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str5880fb03e7ac.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>partitioning polyongs</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpuZeiJT/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmppZRlRb/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpuZeiJT/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmppZRlRb/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -297,7 +299,7 @@
 <div class="section level2">
 <h2 id="reconstructing-points">Reconstructing points<a class="anchor" aria-label="anchor" href="#reconstructing-points"></a>
 </h2>
-<p>Reconstructing the positions of points is similar to that of the <strong>online method</strong>. Again, the only difference is that you have to provide the <code>platemodel</code> object as the <code>model</code> argument. Here is the example from <a href="">earlier</a> to calculate and visualize past positions of some cities, now with the <strong>offline method</strong>:</p>
+<p>Reconstructing the positions of points is similar to that of the <strong>online method</strong>. Again, the only difference is that you have to provide the <code>platemodel</code> object as the <code>model</code> argument. Here is the example from <a href="2_online_reconstruction.html">earlier</a> to calculate and visualize past positions of some cities, now with the <strong>offline method</strong>:</p>
 <p>First, we get the data of localities:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">london</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.38</span>, <span class="fl">51.52</span><span class="op">)</span></span>
@@ -338,7 +340,7 @@
 <p>The model files are available from the EarthByte Resources page. For instance, the files of the PaleoMAP model that we used here, are available at: <a href="https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/" class="external-link uri">https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/</a>.</p>
 <p>On the bottom of the page, you will find a single link : <em>Link to rasters, reconstruction files and tutorial</em> which will allow you to download the <code>Scotese_Paleoatlas_v3.zip</code> file. In this zip file, in the directory <code>PALEOMAP Global Plate Model</code>, you can see the same files that we had earlier:</p>
 <div class="figure">
-<img src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png" alt="The contents of the archive"><p class="caption">The contents of the archive</p>
+<img src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png" alt=""><p class="caption">The contents of the archive</p>
 </div>
 <p>You can use these, or any similar files to create <code>platemodel</code> objects, as long as you provide the <strong>absolute</strong> paths to the files.</p>
 <hr>
@@ -346,7 +348,7 @@
 <div class="section level2">
 <h2 id="the-chronosphere">The chronosphere<a class="anchor" aria-label="anchor" href="#the-chronosphere"></a>
 </h2>
-<p>As you can see, handling these files are quite tedious, and we, the developers barely ever use these in such a way. For practical applications we recommend using the offline method of <code>rgplates</code> with the <code>chronosphere</code>, which you can learn more about in the next tutorial: <a href="4_reconstruction_with_chronosphere.html">4. Reconstructions with the chronosphere</a>.</p>
+<p>As you can see, handling these files are quite tedious, and we, the developers of <code>rgplates</code>, barely ever use these in such a way. For practical applications we recommend using the offline method of <code>rgplates</code> with the <code>chronosphere</code>, which you can learn more about in the next tutorial: <a href="4_reconstruction_with_chronosphere.html">4. Reconstructions with the chronosphere</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
