@@ -5,9 +5,12 @@ bibentry(bibtype = "Misc",
   author       = c(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja")),
   url          = "",
   year		= 2023,
-
   textVersion  =
-  paste("Kocsis, Á.T., Raja, N.B. 2023",
-        "rgplates: R interface for the GPlates Web Service and Desktop Application. ",
-        "")
+	  paste("Please cite both rgplates and GPlates:\n",
+		"Kocsis, Á.T., Raja, N.B. (2023).",
+        "rgplates: R interface for the GPlates Web Service and Desktop Application; ",
+        "\n",
+		"Müller, R. D., Cannon, J., Qin, X., Watson, R. J., Gurnis, M., Williams, S., Pfaffelmoser, T., Seton, M., Russell, S. H. J., & Zahirovic, S. (2018). GPlates: Building a Virtual Earth Through Deep Time. Geochemistry, Geophysics, Geosystems, 19(7), Article 7. https://doi.org/10.1029/2018GC007584"
+
+)
 )
