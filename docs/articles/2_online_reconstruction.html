@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="2. Online reconstruction">
 <meta property="og:description" content="Learn how to rotate paleocoordinates with the GPlates Web Service
@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,15 +49,19 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
     <a class="dropdown-item" href="../articles/1_installation.html">1. Installation</a>
     <a class="dropdown-item" href="../articles/2_online_reconstruction.html">2. Online Reconstruction with the GWS</a>
-    <a class="dropdown-item" href="../articles/3_offline_reconstruction.html">3. Offline reconstruction</a>
-    <a class="dropdown-item" href="../articles/4_reconstruction_with_chronosphere.html">4. Reconstruction with chronosphere data</a>
+    <a class="dropdown-item" href="../articles/3_offline_reconstruction.html">3. Offline Reconstruction</a>
+    <a class="dropdown-item" href="../articles/4_reconstruction_with_chronosphere.html">4. Reconstruction with chronosphere Data</a>
   </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../articles/internals.html">Internals</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-internals">Internals</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-internals">
+    <a class="dropdown-item" href="../news/index.html">Changelog</a>
+    <a class="dropdown-item" href="../articles/internals.html">Internal structure</a>
+  </div>
 </li>
 <li class="nav-item">
   <a class="external-link nav-link" href="https://www.evolv-ed.net/">How-to guides on EvolvED</a>
@@ -81,9 +85,7 @@
   </div>
 </nav><div class="container template-article">
 
-
-
-<script src="2_online_reconstruction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>2. Online reconstruction</h1>
             
@@ -97,9 +99,9 @@
 <p>Out of the box, the package relies on the <a href="">GPlates Web Service (GWS)</a>, an <strong>online</strong> service that executes paleogeographic rotations using data provided in URLs. <code>rgplates</code> <strong>(1)</strong> sends the data to the GWS, which <strong>(2)</strong> calculates paleocoordinates, and then <strong>(3)</strong> <code>rgplates</code> reads in the returned result. <strong>For this online method, you have to be connected to the internet</strong>.</p>
 <p>To start, you have to attach the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rgplates</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamkocsis.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE</span></span></code></pre></div>
 <p>When attached, <code>rgplates</code> automatically loads the <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><em>Simple Features for R</em> (<code>sf</code>) package</a>, a standard R package used for processing vector spatial data.</p>
 <hr>
 <div class="section level2">
@@ -236,8 +238,7 @@
 <span><span class="co">#&gt; [1,]    2.3267  38.1654</span></span>
 <span><span class="co">#&gt; [2,]   79.1755 -60.6703</span></span>
 <span><span class="co">#&gt; [3,]  -20.8903  26.0878</span></span></code></pre></div>
-<p>Note that the order of entities remains the same, and the row names are conserved from the input object.</p>
-<p>We can plot these the same way similar to a single city.</p>
+<p>Note that the order of entities remains the same. We can plot these the same way similar to a single city.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
@@ -323,25 +324,25 @@
 <p>Although it is easy to set up, the <strong>online method</strong> has several limitations. For more complete control over the rotations you might want to try out the <strong>offline method</strong> <a href="">(see Tutorial 3 about the Offline Method)</a>.</p>
 <p>If want to stick with the <strong>online method</strong>, you need to be aware of these limiting factors:</p>
 <div class="section level4">
-<h4 id="a--rounding-and-data-quantity">a. Rounding and data quantity<a class="anchor" aria-label="anchor" href="#a--rounding-and-data-quantity"></a>
+<h4 id="rounding-and-data-quantity">Rounding and data quantity<a class="anchor" aria-label="anchor" href="#rounding-and-data-quantity"></a>
 </h4>
 <p>The data for the <strong>online method</strong> are passed to the GWS through URLs, which imposes some technical limitations to rotations. The first limitation is that the ages have to be rounded to integers, which might affect the quality of your results.</p>
 <p>The second potential issue is that the amount of data that can be transmitted is somewhat limited. This works fine for several hundred points, but for rotating thousands of coordinates, you definitely need to work with the <strong>offline method</strong> instead.</p>
 <p>The <strong>offline method</strong> can handle ages like <code>17.24</code> Ma without problems, and an arbitary amount of data.</p>
 </div>
 <div class="section level4">
-<h4 id="b--pre-built-models">b. Pre-built models<a class="anchor" aria-label="anchor" href="#b--pre-built-models"></a>
+<h4 id="pre-built-models">Pre-built models<a class="anchor" aria-label="anchor" href="#pre-built-models"></a>
 </h4>
 <p>Although the <strong>online method</strong> is easy to set up, it uses-pre defined models to actually execute the rotations. If you cwant to use customized, or other models, which are not yet implemented in the GWS, you will need to use the <strong>offline</strong> method.</p>
 </div>
 <div class="section level4">
-<h4 id="c--internet-connection">c. Internet connection<a class="anchor" aria-label="anchor" href="#c--internet-connection"></a>
+<h4 id="internet-connection">Internet connection<a class="anchor" aria-label="anchor" href="#internet-connection"></a>
 </h4>
 <p>Since the calculations are not performed on your computer, but by the servers that host the GWS, you cannot use this method if you have no internet connection. Also, if you think about reproducibility, it is easy to see that you have no control over whether this service remains usable in the future - and neither can we.</p>
 <p>There are docker containers that allow you to instantiate the GWS, which might help with this issue - but if you really want to make sure that your code remains reproducible - you might want to try the <strong>offline method instead</strong>.</p>
 </div>
 <div class="section level4">
-<h4 id="d--additional-options">d. Additional options<a class="anchor" aria-label="anchor" href="#d--additional-options"></a>
+<h4 id="additional-options">Additional options<a class="anchor" aria-label="anchor" href="#additional-options"></a>
 </h4>
 <p>There are also some additional options that you can customize, which are not exposed for you to set in the GWS, which might affect your results.</p>
 </div>

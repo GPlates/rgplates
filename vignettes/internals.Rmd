@@ -7,14 +7,144 @@ description: >
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>
 
-# Dependencies and imports
 
-# Function map
+# Requirements
+
+## Dependencies
+
+- `sf` *(Simple features)*: `rgplates` depends on the `sf` package to handle vector spatial data, such as plates, present-day coastlines, and spatial data that have explict Coordinate Reference System information. 
+
+## Imports
+
+Functions reused from other packages (necessary in all cases):
+
+- `methods::new()`: Used to create `platemodel` instances.
+- `utils::flush.console()`: Used for console-feedback.
+
+## Suggests
+
+Functions from some packages that are used by some functions only (optional):
+
+- `knitr` and `markdown`: used for vignette creation.
+- `geojsonsf`: used by the **online method** of `reconstruct()` to read in the spatial output of the GWS. 
+- `sp`: optional output formats for vector spatial data.
+- `chronosphere`: informal suggestion in help files for downloading `platemodel` instances.
+
+* * *
+
+
+# Function call diagram
 
 <pre class="mermaid">
 flowchart LR
-  A[Hard edge] --> B(Round edge)
-  B --> C{Decision}
-  C --> D[Result one]
-  C --> E[Result two]
+
+  classDef extern fill:#CCC
+  classDef ui fill:#f96
+
+  reconstruct_matrix-->IteratedPointReconstruction
+  reconstruct_matrix-->reconstructGPlates
+  reconstruct_sf-->reconstructGPlates
+  reconstruct_character-->gplates_reconstruct_coastlines
+  reconstruct_character-->gplates_reconstruct_static_polygons
+  reconstruct_character-->reconstructGPlates
+  reconstruct_Spatial-->reconstructGPlates
+  reconstruct_sf-->reconstructGPlates
+
+  subgraph front_end.R
+
+  reconstruct:::ui-->reconstruct_matrix
+  reconstruct-->reconstruct_data.frame
+  reconstruct-->reconstruct_numeric
+  reconstruct-->reconstruct_character
+  reconstruct-->reconstruct_Spatial
+  reconstruct-->reconstruct_sf
+  reconstruct_data.frame-->reconstruct_matrix
+  reconstruct_numeric-->reconstruct_matrix
+
+  end
+
+
+  reconstructGPlates-->getOS
+  reconstructGPlates-->st_as_sf
+  reconstructGPlates-->st_transform
+  reconstructGPlates-->st_crs
+  reconstructGPlates-->randomString
+  reconstructGPlates-->st_write
+  reconstructGPlates-->st_read
+  reconstructGPlates-->st_as_Spatial
+  reconstructGPlates-->st_coordinates
+  reconstructGPlates-->fileFromPath
+
+  subgraph offline.R
+
+  reconstructGPlates-->testGPlates
+  reconstructGPlates-->winDefaultGPlates
+  reconstructGPlates-->macDefaultGPlates
+  
+  end
+
+  gplates_reconstruct_coastlines-->geojson_sf
+  gplates_reconstruct_static_polygons-->geojson_sf
+
+  subgraph online.R
+
+  gplates_reconstruct_static_polygons
+  gplates_reconstruct_coastlines
+  IteratedPointReconstruction-->gplates_reconstruct_points
+  gplates_reconstruct_points
+
+  end
+  
+  mapedge:::ui-->SpatialPolygons
+  mapedge-->Polygons
+  mapedge-->CRS
+  mapedge-->st_geometry
+  mapedge-->st_polygon
+
+  subgraph utility.R
+
+  mapedge
+  getOS
+  fileFromPath
+  randomString
+  mapedge-->detailedBounds
+  
+  end
+
+  platemodel_show-->fileFromPath
+
+  subgraph platemodel.R
+  platemodel_classdef:::ui
+  platemodel_initialize:::ui
+  platemodel_show:::ui
+  end
+
+  subgraph EXT[EXTERNALS]
+	subgraph sf
+
+	st_as_sf:::extern
+	st_transform:::extern
+	st_crs:::extern
+	st_write:::extern
+	st_read:::extern
+	st_as_Spatial:::extern
+	st_coordinates:::extern
+	st_geometry:::extern
+	st_polygon:::extern
+
+	end
+
+	subgraph sp
+	CRS:::extern
+	Polygons:::extern
+	SpatialPolygons:::extern
+	end
+
+	subgraph geojsonsf
+	geojson_sf:::extern
+	end
+  end
+  
+  style EXT fill:#eee,border:#bbb
+
 </pre>

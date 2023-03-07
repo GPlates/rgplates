@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Internals">
 <meta property="og:description" content="Technial details of the package interals.">
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,15 +47,19 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
     <a class="dropdown-item" href="../articles/1_installation.html">1. Installation</a>
     <a class="dropdown-item" href="../articles/2_online_reconstruction.html">2. Online Reconstruction with the GWS</a>
-    <a class="dropdown-item" href="../articles/3_offline_reconstruction.html">3. Offline reconstruction</a>
-    <a class="dropdown-item" href="../articles/4_reconstruction_with_chronosphere.html">4. Reconstruction with chronosphere data</a>
+    <a class="dropdown-item" href="../articles/3_offline_reconstruction.html">3. Offline Reconstruction</a>
+    <a class="dropdown-item" href="../articles/4_reconstruction_with_chronosphere.html">4. Reconstruction with chronosphere Data</a>
   </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="active nav-item">
-  <a class="nav-link" href="../articles/internals.html">Internals</a>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-internals">Internals</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-internals">
+    <a class="dropdown-item" href="../news/index.html">Changelog</a>
+    <a class="dropdown-item" href="../articles/internals.html">Internal structure</a>
+  </div>
 </li>
 <li class="nav-item">
   <a class="external-link nav-link" href="https://www.evolv-ed.net/">How-to guides on EvolvED</a>
@@ -79,9 +83,7 @@
   </div>
 </nav><div class="container template-article">
 
-
-
-<script src="internals_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Internals</h1>
             
@@ -95,18 +97,159 @@
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script><div class="section level2">
-<h2 id="dependencies-and-imports">Dependencies and imports<a class="anchor" aria-label="anchor" href="#dependencies-and-imports"></a>
+<h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
 </h2>
+<div class="section level3">
+<h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+</h3>
+<ul>
+<li>
+<code>sf</code> <em>(Simple features)</em>: <code>rgplates</code> depends on the <code>sf</code> package to handle vector spatial data, such as plates, present-day coastlines, and spatial data that have explict Coordinate Reference System information.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="imports">Imports<a class="anchor" aria-label="anchor" href="#imports"></a>
+</h3>
+<p>Functions reused from other packages (necessary in all cases):</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/methods/new.html" class="external-link">methods::new()</a></code>: Used to create <code>platemodel</code> instances.</li>
+<li>
+<code><a href="https://rdrr.io/r/utils/flush.console.html" class="external-link">utils::flush.console()</a></code>: Used for console-feedback.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="suggests">Suggests<a class="anchor" aria-label="anchor" href="#suggests"></a>
+</h3>
+<p>Functions from some packages that are used by some functions only (optional):</p>
+<ul>
+<li>
+<code>knitr</code> and <code>markdown</code>: used for vignette creation.</li>
+<li>
+<code>geojsonsf</code>: used by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to read in the spatial output of the GWS.</li>
+<li>
+<code>sp</code>: optional output formats for vector spatial data.</li>
+<li>
+<code>chronosphere</code>: informal suggestion in help files for downloading <code>platemodel</code> instances.</li>
+</ul>
+<hr>
+</div>
 </div>
 <div class="section level2">
-<h2 id="function-map">Function map<a class="anchor" aria-label="anchor" href="#function-map"></a>
+<h2 id="function-call-diagram">Function call diagram<a class="anchor" aria-label="anchor" href="#function-call-diagram"></a>
 </h2>
 <pre class="mermaid">
 flowchart LR
-  A[Hard edge] --&gt; B(Round edge)
-  B --&gt; C{Decision}
-  C --&gt; D[Result one]
-  C --&gt; E[Result two]
+
+  classDef extern fill:#CCC
+  classDef ui fill:#f96
+
+  reconstruct_matrix--&gt;IteratedPointReconstruction
+  reconstruct_matrix--&gt;reconstructGPlates
+  reconstruct_sf--&gt;reconstructGPlates
+  reconstruct_character--&gt;gplates_reconstruct_coastlines
+  reconstruct_character--&gt;gplates_reconstruct_static_polygons
+  reconstruct_character--&gt;reconstructGPlates
+  reconstruct_Spatial--&gt;reconstructGPlates
+  reconstruct_sf--&gt;reconstructGPlates
+
+  subgraph front_end.R
+
+  reconstruct:::ui--&gt;reconstruct_matrix
+  reconstruct--&gt;reconstruct_data.frame
+  reconstruct--&gt;reconstruct_numeric
+  reconstruct--&gt;reconstruct_character
+  reconstruct--&gt;reconstruct_Spatial
+  reconstruct--&gt;reconstruct_sf
+  reconstruct_data.frame--&gt;reconstruct_matrix
+  reconstruct_numeric--&gt;reconstruct_matrix
+
+  end
+
+
+  reconstructGPlates--&gt;getOS
+  reconstructGPlates--&gt;st_as_sf
+  reconstructGPlates--&gt;st_transform
+  reconstructGPlates--&gt;st_crs
+  reconstructGPlates--&gt;randomString
+  reconstructGPlates--&gt;st_write
+  reconstructGPlates--&gt;st_read
+  reconstructGPlates--&gt;st_as_Spatial
+  reconstructGPlates--&gt;st_coordinates
+  reconstructGPlates--&gt;fileFromPath
+
+  subgraph offline.R
+
+  reconstructGPlates--&gt;testGPlates
+  reconstructGPlates--&gt;winDefaultGPlates
+  reconstructGPlates--&gt;macDefaultGPlates
+  
+  end
+
+  gplates_reconstruct_coastlines--&gt;geojson_sf
+  gplates_reconstruct_static_polygons--&gt;geojson_sf
+
+  subgraph online.R
+
+  gplates_reconstruct_static_polygons
+  gplates_reconstruct_coastlines
+  IteratedPointReconstruction--&gt;gplates_reconstruct_points
+  gplates_reconstruct_points
+
+  end
+  
+  mapedge:::ui--&gt;SpatialPolygons
+  mapedge--&gt;Polygons
+  mapedge--&gt;CRS
+  mapedge--&gt;st_geometry
+  mapedge--&gt;st_polygon
+
+  subgraph utility.R
+
+  mapedge
+  getOS
+  fileFromPath
+  randomString
+  mapedge--&gt;detailedBounds
+  
+  end
+
+  platemodel_show--&gt;fileFromPath
+
+  subgraph platemodel.R
+  platemodel_classdef:::ui
+  platemodel_initialize:::ui
+  platemodel_show:::ui
+  end
+
+  subgraph EXT[EXTERNALS]
+    subgraph sf
+
+    st_as_sf:::extern
+    st_transform:::extern
+    st_crs:::extern
+    st_write:::extern
+    st_read:::extern
+    st_as_Spatial:::extern
+    st_coordinates:::extern
+    st_geometry:::extern
+    st_polygon:::extern
+
+    end
+
+    subgraph sp
+    CRS:::extern
+    Polygons:::extern
+    SpatialPolygons:::extern
+    end
+
+    subgraph geojsonsf
+    geojson_sf:::extern
+    end
+  end
+  
+  style EXT fill:#eee,border:#bbb
+
 </pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

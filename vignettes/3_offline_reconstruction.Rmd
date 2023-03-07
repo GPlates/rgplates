@@ -122,27 +122,27 @@ You can confirm that this is the right path by listing out the contents of this 
 list.files(rgPath)
 ```
 
-The model data are in the `extdata` directory, in the archive `paleomap_model_v19o_r1c.zip`. We have to locate this archive and extract it to the temporary directory (the `exdir` argument)
+The model data are in the `extdata` directory, in the archive `paleomap_v3.zip`. We have to locate this archive and extract it to the temporary directory (the `exdir` argument)
 
 ```{r unzipping, echo=TRUE}
-unzip(file.path(rgPath,"extdata/paleomap_model_v19o_r1c.zip"), exdir=td)
+unzip(file.path(rgPath,"extdata/paleomap_v3.zip"), exdir=td)
 ```
 
-The archive contains one directory `paleomap_model_v19o_r1c`. You can confirm that the extraction has indeed happened by looking into this directory in the temporary directory:
+You can confirm that the extraction has indeed happened by looking into the temporary directory:
 
 ```{R listtemp, echo=TRUE}
-list.files(file.path(td,"paleomap_model_v19o_r1c"))
+list.files(file.path(td))
 ```
 
 There are two files that are important for us: the one that ends with `.gpml` (the **partitioning polyongs** in GPlates Markup Language format) and the one that ends with `.rot` (the **reconstruction tree/rotation file**). We know the absolute paths to these files, they can be found at:
 
 ```{R absoluteGPML, echo=TRUE}
-pathToPolygons <- file.path(td, "paleomap_model_v19o_r1c/PALEOMAP_PlatePolygons__forPgeog_v19o.gpml")
+pathToPolygons <- file.path(td, "PALEOMAP_PlatePolygons.gpml")
 pathToPolygons
 ```
 
 ```{R absoluterot, echo=TRUE}
-pathToRotations <- file.path(td, "paleomap_model_v19o_r1c/m06c9h_3id_forPgeog_19o_r1c.rot")
+pathToRotations <- file.path(td, "PALEOMAP_PlateModel.rot")
 pathToRotations
 ```
 

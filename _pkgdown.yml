@@ -15,13 +15,17 @@ navbar:
           href: articles/1_installation.html
         - text: "2. Online Reconstruction with the GWS"
           href: articles/2_online_reconstruction.html
-        - text: "3. Offline reconstruction"
+        - text: "3. Offline Reconstruction"
           href: articles/3_offline_reconstruction.html
-        - text: "4. Reconstruction with chronosphere data"
+        - text: "4. Reconstruction with chronosphere Data"
           href: articles/4_reconstruction_with_chronosphere.html
     internals:
       text: Internals
-      href: articles/internals.html
+      menu: 
+      - href: news/index.html
+        text: Changelog 
+      - href: articles/internals.html
+        text: Internal structure
     howtos:
       text: How-to guides on EvolvED
       href: "https://www.evolv-ed.net/"
@@ -31,16 +35,20 @@ reference:
 - title: internal
   contents:
   - rgplates
-- title: Coordinate reconstruction
+- title: Plates and feature reconstruction
   desc: >
-    Everything related to coordinate reconstruction. 
+    Everything related to reconstruction of geometries to their past state. 
   contents:
   - reconstruct
 - title: Tectonic model representation
   desc: Representation of tectonic models for offline reconstruction
   contents:
   - platemodel-class
-  
+- title: Utilities 
+  desc: Useful auxilliary function(s)
+  contents:
+  - mapedge
+
 authors:
   Adam T. Kocsis:
     href: "https://palaeobiology.nat.fau.de/people/instructors/kocsis/"
