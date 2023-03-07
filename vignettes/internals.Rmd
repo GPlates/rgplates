@@ -1,13 +1,15 @@
 ---
-title: "How-to Guides"
+title: "Internals"
 description: >
-  Learn how to use rgplates to solve specific problems
+  Technial details of the package interals.
 ---
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>
 
-This is a function map.
+# Dependencies and imports
+
+# Function map
 
 <pre class="mermaid">
 flowchart LR

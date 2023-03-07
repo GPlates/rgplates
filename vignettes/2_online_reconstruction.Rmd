@@ -1,0 +1,236 @@
+---
+title: "2. Online reconstruction"
+description: >
+  Learn how to rotate paleocoordinates with the GPlates Web Service
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. Online reconstruction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+Out of the box, the package relies on the [GPlates Web Service (GWS)](), an **online** service that executes paleogeographic rotations using data provided in URLs. `rgplates` **(1)** sends the data to the GWS, which **(2)** calculates paleocoordinates, and then **(3)** `rgplates` reads in the returned result. **For this online method, you have to be connected to the internet**. 
+
+To start, you have to attach the package:
+
+```{r attach, echo=TRUE }
+library(rgplates)
+```
+
+When attached, `rgplates` automatically loads the [*Simple Features for R* (`sf`) package](https://cran.r-project.org/web/packages/sf/index.html), a standard R package used for processing vector spatial data. 
+
+* * *
+
+## Reconstructing plates
+
+All paleocoordinate rotations are executed with the `reconstruct()` function. The default model used by this is the model of the [PALEOMAP](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) project, developed by C. Scotese. *(If you look at the reference of `reconstruct()`, you can see that by default `model="PALEOMAP"`).*
+
+Every tectonic model relies on plates, which are rotated on the surface of Earth. The plate positions can be reconstructed to any age that the model covers. The present-day positions of the plates can be queried with the `reconstruct()` function, with the string `"plates"` passed as the first argument, and the target `age` set to `0` (in Ma).
+
+```{r presentday, echo=TRUE }
+pl0 <- reconstruct("plates", age=0)
+pl0
+```
+
+The `rgplates` package relies on [`sf`](https://cran.r-project.org/web/packages/sf/index.html) to handle vector spatial data - like the plates. You can do anything with this that you normally can with and `sf` object: manipulate it, change its map projection, export or use it for calculations. These data are in standard [equirectangular projection](https://en.wikipedia.org/wiki/Equirectangular_projection), registered with longitude and latitude data.  
+
+You can plot the distribution of plates with the `plot()` function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.
+
+```{r presentdayplot, plot=TRUE, echo=TRUE }
+plot(pl0$geometry)
+```
+
+Setting the `age` argument allows you to access the state of the plate tectonic configuration at past points in time. `age` accepts dates in millions of years. To reconstruct the position of the plates at around the Triassic/Jurassic boundary (approx. 200Ma), you have to set the `age` argument to `200`:
+
+```{r tjb, echo=TRUE }
+pl200 <- reconstruct("plates", age=200)
+pl200
+```
+
+You can plot the results in a similar way:
+
+```{r tjbplot, echo=TRUE , plot=TRUE}
+plot(pl200$geometry)
+```
+
+Note that unlike the result for the present day (0Ma), the oceanic plates are not returned for the past plate configuration. *(Most models do not return the oceanic plates, this is a characteristic of the PALEOMAP model)* 
+
+Again, both the `pl0` and the `pl200` objects are `sf`-class objects. You can customize their plotting as you would for any other `sf` object - for instance setting a fill color for the polygons and not plotting their boundaries.
+
+
+```{r tjbplot2, echo=TRUE , plot=TRUE}
+plot(pl200$geometry, col="gray", border=NA)
+```
+
+* * *
+
+## Individual locations
+
+This is nice, but plotting the plates on their own has only so much use. The true use of `reconstruct()` is the ability to calculate the paleocoordinates of present-day locations for a given `age`.
+
+#### Single present-day point
+
+Let's consider the location of London ([here it is on Google maps](https://www.google.com/maps/place/London,+Egyes%C3%BClt+Kir%C3%A1lys%C3%A1g/@51.528308,-0.3817792,10z/data=!3m1!4b1!4m5!3m4!1s0x47d8a00baf21de75:0x52963a5addd52a99!8m2!3d51.5072178!4d-0.1275862))! Either in the URL, or with the user interface of Google maps, you can find that the coordinates of the city center are around 51.52°N (latitude) and 0.38°W (longitude). To figure out where the city was at the Triassic/Jurassic boundary you need to: **(1)** register these coordinates in R; and **(2)** provide them to the `reconstruct()` function.
+
+
+*Note that we are dealing with global-scale, approximate coordinates here. For more precise results, always make sure that the CRS of the points is matching the CRS of the maps (including ellipses)!*
+
+Because with the usually used equirectangular projection the *x*-axis of plotting become *longitude*, and the *y* axis becomes latitude, we usually register the coordinates in the order of longitude first, and latitude second (with easting longitudes and northing latitudes registered as positive values).
+
+To make this structure absolutely clear, it is best to register coordinates as 2-column matrices, with *longitude* being the *first*, and *latitude* the *second* column:
+
+```{r london}
+# the coordinates
+london <- c(-0.38, 51.52)
+
+# make it a matrix
+londonMat <- matrix(london, ncol=2, byrow=TRUE)
+
+# add column names (optional)
+colnames(londonMat) <- c("long", "lat")
+londonMat
+```
+
+Since the coordinate reference system (CRS) of the maps is longitude-latitude, you can use these coordinates directly to indicate the positionx of the city on the present-day map using `points()` - in this case with red plus signs:
+
+```{r presentdayplotlondon, plot=TRUE, echo=TRUE }
+plot(pl0$geometry)
+points(londonMat, col="red", pch=3)
+```
+
+#### Paleocoordinates of a single locality
+
+Finding the paleocoordinates of such localities is as easy as calculating those of the plates. You have to use the matrix that you defined earlier (`londonMat`) as the first argument, of `reconstruct()` (where `"plates"` was given earlier), and provide a target age in million years:
+
+
+```{r londonreconstruct}
+londonMat200 <- reconstruct(londonMat, age=200)
+londonMat200
+```
+
+The result of this calculation is a similar `matrix`: now including the paleolongitude and paleolatitude columns. If you provide coordinates as a plain `matrix`, coordinates are inferred to be longitude and latitude. 
+
+You can visualize this the same way, as you visualized the present-day position of the location:
+
+```{r londonPast, plot=TRUE, echo=TRUE }
+plot(pl200$geometry, col="gray", border=NA)
+points(londonMat200, col="red", pch=3)
+```
+
+#### Paleocoordinates of a multiple localities
+
+If you want to reconstruct multiple locations, all you need to provide is more rows in the matrix. For instance, if you also want to calculate the positions of [Sydney, AU](https://www.google.com/maps/place/Sydney+%C3%9Aj-D%C3%A9l-Wales,+Ausztr%C3%A1lia/@-33.8469759,150.3715249,9z/data=!3m1!4b1!4m5!3m4!1s0x6b129838f39a743f:0x3017d681632a850!8m2!3d-33.8688197!4d151.2092955) (33.85°S, 151.11°E) and [Montréal (CA)](https://www.google.com/maps/place/Montr%C3%A9al,+Qu%C3%A9bec,+Kanada/@45.5578125,-74.2723072,9z/data=!3m1!4b1!4m5!3m4!1s0x4cc91a541c64b70d:0x654e3138211fefef!8m2!3d45.5018869!4d-73.5673919) (45.52°N, 73.61°W), you need to add these in a similar fashion.
+
+```{r addcities, echo=TRUE}
+# coordinates of the two other cities
+sydney<- c(151.17, -33.85)
+montreal<- c(-73.61, 45.52)
+
+# all cities in a single matrix
+cities<- rbind(london, sydney, montreal)
+
+#optional column names
+colnames(cities) <- c("long", "lat")
+cities
+```
+
+Now that we have a matrix of longitudes and latitudes, all we need to do is use this as the first argument of the `reconstruct()` function:
+
+```{r citiesRec, echo=TRUE}
+cities200 <- reconstruct(cities, age=200)
+cities200
+```
+
+Note that the order of entities remains the same. We can plot these the same way similar to a single city. 
+
+```{r citiesPlot, echo=TRUE, plot=TRUE}
+# the background map
+plot(pl200$geometry, col="gray", border=NA)
+
+# the reconstructed cities 
+points(cities200, col="red", pch=3)
+```
+
+* * *
+
+## Present-day coastlines
+
+Some models the (*PaleoMAP* model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string `"coastlines"` as the first argument of the `reconstruct()` function:
+
+```{r coastlines reconstr}
+coast200 <- reconstruct("coastlines", age=200)
+coast200
+```
+
+This returns an `sf`-class object, similar to the plates. You can visualize these with `plot()` and draw them on top of the other maps, but you have to set the `add=TRUE`, otherwise a new plot will be created.
+
+```{r citiesPlotCoast, echo=TRUE, plot=TRUE}
+# the background map
+plot(pl200$geometry, col="gray", border=NA)
+
+# the reconstructed cities 
+points(cities200, col="red", pch=3)
+
+# the coastlines
+plot(coast200$geometry, add=TRUE)
+```
+
+* * *
+
+## Other reconstruction models
+
+If you look into the [*Details* of the reference of `reconstruct()`](../reference/reconstruct.html#details), you will see that the `model` argument can be set to other character strings besides `"PALEOMAP".` These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to [reconstruct the position position of the plates at 200Ma](#reconstructing-plates), with the Seton et al. 2012 model, all you have to do is set `model="SETON2012"`:
+
+```{r setonplates, echo=TRUE}
+pl200seton <- reconstruct("plates", age=200, model="SETON2012")
+pl200seton
+```
+
+You can compare this with the PaleoMAP model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in [HTML RGBA](https://www.w3schools.com/css/css_colors_rgb.asp): `"#FF000077"`):
+
+```{r platescompare, echo=TRUE, plot=TRUE}
+plot(pl200$geometry, col="gray", border=NA)
+plot(pl200seton$geometry, col="#FF000077", add=TRUE, border=NA)
+```
+
+You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.
+
+* * *
+
+
+## Disadvantages of the *online method*
+
+Although it is easy to set up, the **online method** has several limitations. For more complete control over the rotations you might want to try out the **offline method** [(see Tutorial 3 about the Offline Method)](). 
+
+If want to stick with the **online method**, you need to be aware of these limiting factors:
+
+#### Rounding and data quantity
+
+The data for the **online method** are passed to the GWS through URLs, which imposes some technical limitations to rotations. The first limitation is that the ages have to be rounded to integers, which might affect the quality of your results. 
+
+The second potential issue is that the amount of data that can be transmitted is somewhat limited. This works fine for several hundred points, but for rotating thousands of coordinates, you definitely need to work with the **offline method** instead. 
+
+The **offline method** can handle ages like `17.24` Ma without problems, and an arbitary amount of data.  
+
+#### Pre-built models
+
+Although the **online method** is easy to set up, it uses-pre defined models to actually execute the rotations. If you cwant to use customized, or other models, which are not yet implemented in the GWS, you will need to use the **offline** method. 
+
+#### Internet connection
+
+Since the calculations are not performed on your computer, but by the servers that host the GWS, you cannot use this method if you have no internet connection. Also, if you think about reproducibility, it is easy to see that you have no control over whether this service remains usable in the future - and neither can we. 
+
+There are docker containers that allow you to instantiate the GWS, which might help with this issue - but if you really want to make sure that your code remains reproducible - you might want to try the **offline method instead**.  
+
+#### Additional options
+
+There are also some additional options that you can customize, which are not exposed for you to set in the GWS, which might affect your results.

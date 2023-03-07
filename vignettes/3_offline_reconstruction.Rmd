@@ -1,0 +1,254 @@
+---
+title: "3. Offline reconstruction"
+description: >
+  Learn how to rotate paleocoordinates with the GPlates Desktop Application
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{3. Offline reconstruction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Although the **online reconstruction method** can help with getting through quick calculations, the true power of the `rgplates` package lies in what we call the **offline reconstruction method**.
+
+* * *
+
+
+## Introduction
+
+Instead of relying on connections to the [GPlates Web Service](), the **offline method**, allows you to execute plate tectonic rotations locally, on your computer. For this, you need two things present on your computer besides the `rgplates` package:
+
+1. The [GPlates desktop application](https://www.gplates.org/), to calculate the reconstructions 
+2. The actual tectonic model files, that you do the reconstructions with.  
+
+* * *
+
+## The GPlates desktop application
+
+<img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;">
+
+GPlates is the current standard program that we used to build, manipulate and employ plate tectonic reconstructions. GPlates has a very well developed Graphical User Interface (GUI), that you can use indepenently from anything in this tutorial. If you wish to learn more about GPlates itself, you can find a lot of material [here](https://www.gplates.org/education).  
+
+You will not have to leave the R environment or use the GUI of GPlates in order to use the **offline method** of`rgplates`. You just have to make sure that the application is installed on your computer, and `rgplates` will take care of the rest.
+
+
+#### Installing GPlates
+
+Besides [installing the `rgplates` package](1_installation.html), you will have to install the [GPlates Desktop Application]((https://www.earthbyte.org/download-gplates-2-3/)) on your computer. After seeing which file you need on your operating system, you will have to scroll down to the bottom of the page, select which file you wish to download and follow the instructions. 
+
+This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions `v2.2` and `v2.3`. `rgplates` will be able to find the GPlates installation on *Mac* and *GNU/Linux* out of the box. There also should not be any issues on *Windows*, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).
+
+* * *
+
+## The tectonic models
+
+To use the **offline method**, you have to have a tectonic model on your computer. Actually, there is no such thing as *a plate tectonic model*. From the technical point of view, every model consists at least two data items:
+
+- the **Partitioning polygons**
+- and the **Reconstruction tree** (aka. rotation file)
+
+The **partitioning polygons** are vector spatial data (polygons) that represent the present-day distribution of the tectonic plates. GPlates moves these polygons on the surface of Earth with rotations that are described in the **reconstruction tree**. These are typically developed together (which we usually refer to be *a model*), but they are stored separately in different files. In other words, GPlates is only the program to execute the rotations/reconstructions, but you also need to have the files 
+
+The **online method** relies on files that are on the servers of the GPlates Web Service. For instance, the partitioning polygons of the PaleoMAP model are visible if you just ask for the `"plates"`, the the present-day as age (i.e. `0`Ma). 
+
+
+```{r example, plot=TRUE, echo=TRUE}
+# attaching the package is necesary for both methods
+library(rgplates)
+
+# this is still the online method:
+partPol<- reconstruct("plates", age=0)
+
+# these are the partitioning polyongs visualized
+plot(partPol$geometry)
+```
+
+In order to use the **offline method** we need to  
+
+1. have both the **partitioning polygons** and the **reconstruction tree** on our computer, 
+2. represent them in R, 
+3. pass them to the `reconstruct()` function.
+
+* * *
+
+## PALEOMAP model files
+
+For the sake of making the first trial simple, we will be using model files of the PaleoMAP project, that are distributed with the `rgplates` package. 
+
+These files are in the package's install directory in a zip archive. What we will do is:
+
+1. Create a new temporary directory to store our model files
+2. Unzip the model files there and 
+3. load them into R. 
+
+*Note: there are even simpler ways to get these files and represent them into R in other ways (such as with the [chronosphere](), that we will look into in [Tutorial 4.]()) but for didactic purposes, I recommend doing this first with the way  that follows.* 
+
+#### Temporary directory
+
+Temporary directories are the best places to store transient data, files, that are created during a cacluation and which are not necessary outside your R session (of course you don't need to store these here, you can use any directory on your computer).
+
+Temporary directories are easy to create, you just have to use the `tempdir()` function, which will create such a directory for you, and also tell you where to find it:
+
+```{r tempdir, echo}
+td <- tempdir()
+td
+```
+
+*Each operating system handles these differently, so don't be surprised if yours don't match the result above - actually, this will likely be different in every session when you run the function above.*
+
+
+#### Unzipping the model
+
+The files of the model are quite big, bigger than what is recommended by the CRAN guidelines, so they had to be compressed. We will have to unzip these using the `unzip()` function - but first we have to find where they are. 
+
+The path to the R packages' installation can be found using the `system.file()` function.
+
+```{r packagepath, echo=TRUE}
+# the path to the rgplates package
+rgPath <- system.file(package="rgplates")
+```
+
+You can confirm that this is the right path by listing out the contents of this directory with `list.files()`
+
+
+```{r packagefiles, echo=TRUE}
+list.files(rgPath)
+```
+
+The model data are in the `extdata` directory, in the archive `paleomap_model_v19o_r1c.zip`. We have to locate this archive and extract it to the temporary directory (the `exdir` argument)
+
+```{r unzipping, echo=TRUE}
+unzip(file.path(rgPath,"extdata/paleomap_model_v19o_r1c.zip"), exdir=td)
+```
+
+The archive contains one directory `paleomap_model_v19o_r1c`. You can confirm that the extraction has indeed happened by looking into this directory in the temporary directory:
+
+```{R listtemp, echo=TRUE}
+list.files(file.path(td,"paleomap_model_v19o_r1c"))
+```
+
+There are two files that are important for us: the one that ends with `.gpml` (the **partitioning polyongs** in GPlates Markup Language format) and the one that ends with `.rot` (the **reconstruction tree/rotation file**). We know the absolute paths to these files, they can be found at:
+
+```{R absoluteGPML, echo=TRUE}
+pathToPolygons <- file.path(td, "paleomap_model_v19o_r1c/PALEOMAP_PlatePolygons__forPgeog_v19o.gpml")
+pathToPolygons
+```
+
+```{R absoluterot, echo=TRUE}
+pathToRotations <- file.path(td, "paleomap_model_v19o_r1c/m06c9h_3id_forPgeog_19o_r1c.rot")
+pathToRotations
+```
+
+* * *
+
+## The `platemodel`-class
+
+Now that we have the files and we know how to find them, we have represent them in R in some way, so we can indicate that we want them to be used with GPlates to do our plate tectonic reconstructions.
+
+We need to create a `platemodel` class object to do just this. All we need to provide, is the paths to these files, separately for the **partitioning poylgons** and the **rotation files**:
+
+```{r platemodel}
+pm <- platemodel(
+	polygons=pathToPolygons,
+	rotation=pathToRotations
+)
+pm
+```
+
+This is a `platemodel`-class object, which is actually nothing else but a thin wrapper that includes where the files are actually located. 
+
+**Now is a great time to mention that this is where the true flexibility of the *offline method* lies. You can use any third party model files here, as long as you provide the appropriate absolute paths to the files, the methods that follow should work. See more about this [below](#alternative-ways-to-get-model-files)**
+
+* * *
+
+## Reconstructing the plates
+
+The recontruction itself works the same way, as with the **online method**, the only difference is that instead of using a string for the `model` argument (which defaults to `"PALEOMAP"`), we will use the `platemodel`-class object `pm`.
+
+Here are the plates reconstructed for `200`Ma with the PaleoMAP model - now calculated with the offline method:
+
+```{r offlineplates, echo=TRUE}
+plOff200 <- reconstruct("plates", age=200, model=pm)
+plOff200
+```
+
+Note that this is a similar `sf` class object that we saw earlier with the **online method**, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using `plot()`.
+
+```{r platevisualize, echo=TRUE, plot=TRUE}
+plot(plOff200$geometry, border=NA, col="gray")
+```
+
+* * *
+
+## Reconstructing points
+
+Reconstructing the positions of points is similar to that of the **online method**. Again, the only difference is that you have to provide the `platemodel` object as the `model` argument. Here is the example from [earlier]() to calculate and visualize past positions of some cities, now with the **offline method**:
+
+First, we get the data of localities:
+
+```{r coordinates, echo=TRUE}
+london <- c(-0.38, 51.52)
+sydney<- c(151.17, -33.85)
+montreal<- c(-73.61, 45.52)
+
+# all cities in a single matrix
+cities<- rbind(london, sydney, montreal)
+
+#optional column names
+colnames(cities) <- c("long", "lat")
+cities
+```
+
+Second, we reconstruct with our model
+
+```{r offlinepoints, echo=TRUE}
+cities200 <- reconstruct(cities, age=200, model=pm)
+cities200
+```
+
+And then we plot:
+
+```{r citiesPlot, echo=TRUE, plot=TRUE}
+# the background map
+plot(plOff200$geometry, col="gray", border=NA)
+
+# the reconstructed cities 
+points(cities200, col="red", pch=3)
+```
+
+* * *
+
+## Alternative ways to get model files 
+
+The model files are available from the EarthByte Resources page. For instance, the files of the PaleoMAP model that we used here, are available at: https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/.
+
+On the bottom of the page, you will find a single link : *Link to rasters, reconstruction files and tutorial* which will allow you to download the `Scotese_Paleoatlas_v3.zip` file. In this zip file, in the directory `PALEOMAP Global Plate Model`, you can see the same files that we had earlier:
+
+![The contents of the archive](https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png)
+
+You can use these, or any similar files to create `platemodel` objects, as long as you provide the **absolute** paths to the files.
+
+* * *
+
+## The chronosphere
+
+As you can see, handling these files are quite tedious, and we, the developers barely ever use these in such a way. For practical applications we recommend using the offline method of `rgplates` with the `chronosphere`, which you can learn more about in the next tutorial: [4. Reconstructions with the chronosphere](4_reconstruction_with_chronosphere.html).
+
+
+
+
+
+
+
+
+
+
+
+

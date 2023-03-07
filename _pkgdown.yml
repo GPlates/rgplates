@@ -11,14 +11,14 @@ navbar:
     tutorials:
       text: Tutorials
       menu:
-        - text: "0. Installation"
-          href: articles/0_installation.html
-        - text: "1. Online Reconstruction with the GWS"
-          href: articles/1_online_reconstruction.html
-        - text: "2. Offline reconstruction"
-          href: articles/2_offline_reconstruction.html
-        - text: "3. Reconstruction with chronosphere data"
-          href: articles/3_chronosphere.html
+        - text: "1. Installation"
+          href: articles/1_installation.html
+        - text: "2. Online Reconstruction with the GWS"
+          href: articles/2_online_reconstruction.html
+        - text: "3. Offline reconstruction"
+          href: articles/3_offline_reconstruction.html
+        - text: "4. Reconstruction with chronosphere data"
+          href: articles/4_reconstruction_with_chronosphere.html
     internals:
       text: Internals
       href: articles/internals.html
@@ -31,8 +31,9 @@ reference:
 - title: internal
   contents:
   - rgplates
-- title: Coordinate Reconstruction
-  desc: Everything related to coordinate reconstruction
+- title: Coordinate reconstruction
+  desc: >
+    Everything related to coordinate reconstruction. 
   contents:
   - reconstruct
 - title: Tectonic model representation
@@ -44,7 +45,7 @@ authors:
   Adam T. Kocsis:
     href: "https://palaeobiology.nat.fau.de/people/instructors/kocsis/"
   Nussaibah B. Raja:
-    href: "https://palaeobiology.nat.fau.de/people/instructors/kiessling/"
+    href: "https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/"
   Deutsche Forschungsgemeinschaft:
     href: https://www.dfg.de/en/index.jsp
     html: <img src='https://www.dfg.de/includes/bausteine/open_graph_de/dfgfallback.jpg' alt='dfg' width='80' />

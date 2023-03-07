@@ -1,10 +1,10 @@
 ---
-title: "2. Offline reconstruction"
+title: "4. Reconstruction with chronosphere data"
 description: >
-  Learn how to rotate paleocoordinates with the GPlates Desktop Application
+  Learn how to rotate paleocoordinates with data from the chronosphere
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{2. Offline reconstruction}
+  %\VignetteIndexEntry{4. Reconstruction with chronosphere data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,5 +16,5 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Offline reconstruction
+# Chronosphere
 

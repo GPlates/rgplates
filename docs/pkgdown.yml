@@ -2,12 +2,12 @@ pandoc: 2.9.2.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  0_installation: 0_installation.html
-  1_online_reconstruction: 1_online_reconstruction.html
-  2_offline_reconstruction: 2_offline_reconstruction.html
-  3_chronosphere: 3_chronosphere.html
+  1_installation: 1_installation.html
+  2_online_reconstruction: 2_online_reconstruction.html
+  3_offline_reconstruction: 3_offline_reconstruction.html
+  4_reconstruction_with_chronosphere: 4_reconstruction_with_chronosphere.html
   internals: internals.html
-last_built: 2023-02-26T15:53Z
+last_built: 2023-03-06T20:16Z
 urls:
   reference: https://adamkocsis.github.io/rgplates/reference
   article: https://adamkocsis.github.io/rgplates/articles
