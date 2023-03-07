@@ -6,11 +6,20 @@ bibentry(bibtype = "Misc",
   url          = "",
   year		= 2023,
   textVersion  =
-	  paste("Please cite both rgplates and GPlates:\n",
+	  paste(
 		"Kocsis, Á.T., Raja, N.B. (2023).",
-        "rgplates: R interface for the GPlates Web Service and Desktop Application; ",
-        "\n",
-		"Müller, R. D., Cannon, J., Qin, X., Watson, R. J., Gurnis, M., Williams, S., Pfaffelmoser, T., Seton, M., Russell, S. H. J., & Zahirovic, S. (2018). GPlates: Building a Virtual Earth Through Deep Time. Geochemistry, Geophysics, Geosystems, 19(7), Article 7. https://doi.org/10.1029/2018GC007584"
-
+        "rgplates: R interface for the GPlates Web Service and Desktop Application; "
+	)
 )
+
+bibentry(bibtype="Article",
+  title="GPlates: building a virtual Earth through deep time",
+  author=c(as.person("Dietmar R. Müller"), as.person("John Cannon"),as.person("Xiaodong Qin"), as.person("Robin J. Watson"),as.person("Michael Gurnis"), as.person("Simon Williams"), as.person("Tobias Pfaffelmoser"), as.person("Maria Seton"), as.person("Samuel H.J. Russell"), as.person("Sabin Zahirovic")),
+  journal="Geochemistry, Geophysics, Geosystems",
+  volume=19,
+  number=7,
+  pages="2243--2261",
+  year=2018,
+  publisher="Wiley Online Library",
+	textVersion="Müller, R. D., Cannon, J., Qin, X., Watson, R. J., Gurnis, M., Williams, S., Pfaffelmoser, T., Seton, M., Russell, S. H. J., & Zahirovic, S. (2018). GPlates: Building a Virtual Earth Through Deep Time. Geochemistry, Geophysics, Geosystems, 19(7), Article 7. https://doi.org/10.1029/2018GC007584"
 )

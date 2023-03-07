@@ -1,14 +1,16 @@
-# Change log of the R package 'rgplates
+# Change log of the R package 'rgplates'
 
-## [0.2.1] - 2023-03-08 (build 5)
+# rgplates 0.2.1 - 2023-03-08 
 ### Added
-- the mapedge() function
+- the `mapedge()` function
 - function website assets
 
 ### Changed
-- example data switched to Paleomap 2016
+- example data switched to PaleoMAP v3
 
-## [0.2.0] - 2022-09-19 (build 4)
+* * *
+
+# rgplates 0.2.0 - 2022-09-19
 ### Added
 - Package now depends on the sustainable 'sf'-based interface to GPLates
 - Defense against non-integer reconstruction dates for the online method.
@@ -28,12 +30,16 @@
 ### Known issues
 - Matrix-based reconstructinos do not accept missing values. 
 
-## [0.1.0] - 2021-05-11 (build 3)
+* * *
+
+# rgplates 0.1.0 - 2021-05-11 
 ### Changed
 - Bug fix for spaces in usernames on Windows machines.
 
 
-## [0.1.0] - 2021-05-11 (build 2)
+* * *
+
+# rgplates 0.1.0 - 2021-05-11 
 ### Added 
 - material copied over from chronosphere 0.4.1 
 - reconstruct(model=NULL) argumentation.
