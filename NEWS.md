@@ -1,6 +1,14 @@
 # Change log of the R package 'rgplates
 
-## [0.2.0] - 2021-05-11 (build 4)
+## [0.2.1] - 2023-03-08 (build 5)
+### Added
+- the mapedge() function
+- function website assets
+
+### Changed
+- example data switched to Paleomap 2016
+
+## [0.2.0] - 2022-09-19 (build 4)
 ### Added
 - Package now depends on the sustainable 'sf'-based interface to GPLates
 - Defense against non-integer reconstruction dates for the online method.

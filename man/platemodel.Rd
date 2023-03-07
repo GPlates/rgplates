@@ -28,12 +28,15 @@ Meta-object containing paths to a unique plate tectonic model
 # path to provided archive
 archive <- file.path(
   system.file("extdata", package="rgplates"), 
-  "paleomap_model_v19o_r1c.zip")
+  "paleomap_v3.zip")
 # extract to temporary directory
 unzip(archive, exdir=tempdir())
-# path to the combined model/rotation file
-path <- file.path(tempdir(), 
-  "paleomap_model_v19o_r1c/paleomap_model_v19o_r1c.mod")
+# path to the rotation file
+rotPath <- file.path(tempdir(), 
+  "PALEOMAP_PlateModel.rot")
+# path to the polygons
+polPath <- file.path(tempdir(), 
+  "PALEOMAP_PlatePolygons.gpml")
 # register in R - to be used in reconstruct()
-model <- platemodel(path)
+model <- platemodel(rotation=rotPath, polygons=polPath)
 }

@@ -1,13 +1,13 @@
 citHeader("To cite rgplates in publications, use the following citation:")
 
-citEntry(entry = "misc",
+bibentry(bibtype = "Misc",
   title        = "rgplates: R interface for the GPlates Web Service and Desktop Application",
-  author       = personList(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja")),
+  author       = c(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja")),
   url          = "",
-  year		= 2021,
+  year		= 2023,
 
   textVersion  =
-  paste("Kocsis, Á.T., Raja, N.B. 2021",
+  paste("Kocsis, Á.T., Raja, N.B. 2023",
         "rgplates: R interface for the GPlates Web Service and Desktop Application. ",
         "")
 )
