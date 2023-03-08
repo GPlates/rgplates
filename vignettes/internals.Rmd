@@ -58,7 +58,7 @@ flowchart LR
   reconstruct-->reconstruct-numeric-method
   reconstruct-->reconstruct-character-method
   reconstruct-->reconstruct-Spatial-method
-  reconstruct-->reconstructx-sf-method
+  reconstruct-->reconstruct-sf-method
   reconstruct-data.frame-method-->reconstruct-matrix-method
   reconstruct-numeric-method-->reconstruct-matrix-method
 
