@@ -61,7 +61,7 @@ detailedBounds <- function(x,y, xmin=-180, xmax=180, ymin=-90, ymax=90){
 #' @param ymax (\code{numeric}) Maximum value of y (latitude).
 #' @param out (\code{character}) Output format, either \code{"sf"} or \code{"sp"}. The default \code{"sf"} returns simple feature geometries, \code{"sp"} returns \code{SpatialPolygons} from the \code{sp} package.
 #' 
-#' @return A \code{SpatialPolygons} class object.
+#' @return An \code{sfc}-, or \code{SpatialPolygons}-class object.
 #' @examples
 #' # requires rgdal
 #' edge <- mapedge()
