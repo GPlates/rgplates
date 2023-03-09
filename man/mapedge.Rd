@@ -30,7 +30,7 @@ mapedge(
 \item{out}{(\code{character}) Output format, either \code{"sf"} or \code{"sp"}. The default \code{"sf"} returns simple feature geometries, \code{"sp"} returns \code{SpatialPolygons} from the \code{sp} package.}
 }
 \value{
-A \code{SpatialPolygons} class object.
+An \code{sfc}-, or \code{SpatialPolygons}-class object.
 }
 \description{
 Function to plot the edge of a map with different projections.
