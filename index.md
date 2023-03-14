@@ -43,9 +43,10 @@ philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) and more
 efficient distribution/development, the original chronosphere has been
 broken up to three R packages:
 
-  - `rgplates`: functions related to tectonic reconstructions.
-  - `via`: Virtual Arrays for efficient organisation of high-dimenional
-    data.
+  - [`rgplates`](https://adamkocsis.github.io/rgplates/): functions
+    related to tectonic reconstructions.
+  - [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
+    efficient organisation of high-dimenional data.
   - `chronosphere`: version-controlled data distribution.
 
 This is a beta version, and like R, comes with absolutely no warranty.
