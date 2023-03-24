@@ -1,7 +1,16 @@
 url: https://adamkocsis.github.io/rgplates
 template:
+  opengraph:
+    image:
+      src: man/figures/logo.png
+      alt: The rgplates sticker.
+    twitter:
+      creator: "@atkocsis"
+      card: summary_large_image
   bootstrap: 5
   bootswatch: cosmo
+  bslib:
+    primary: "#1A6BB0"
 
 navbar:
   structure:
