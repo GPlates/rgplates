@@ -9,7 +9,11 @@ checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-pro
 
 #### R interface for the *GPlates Web Service* and the *GPlates Application*
 
+<br>
+
 ## About
+
+-----
 
 Functions to the [GPlates Web Service](https://gws.gplates.org/) and the
 [GPlates Desktop Application](https://www.gplates.org/) allow users to
@@ -30,9 +34,42 @@ reconstruction trees and partitioning polygons. Examples of such plate
 tectonic models are accessible via the
 [chronosphere-portal](http://www.chronosphere-portal.org/).
 
+## Example
+
 -----
 
+You can reconstruct the positions of the plates at 65 Ma using the
+[PaleoMAP
+model](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) and
+transform them to [Mollweide](https://epsg.io/54009) projection using
+with this chunk of code:
+
+``` r
+library(rgplates)
+
+# Rotation of plates using the Gplates Web Service
+plates <- reconstruct("plates", age=65, model="PALEOMAP")
+
+# the edge of the map (for mollweide)
+edge <- mapedge()
+
+# transform to Mollweide
+epsg <- "ESRI:54009"
+platesMoll <- sf::st_transform(plates, crs=epsg)
+edgeMoll <- sf::st_transform(edge, crs=epsg)
+
+# plot
+plot(edgeMoll, col="#1A6BB0", border="gray30")
+plot(platesMoll, border=NA, col="gray90", add=TRUE)
+```
+
+![](man/figures/rgplates_example.png)
+
+<br>
+
 ## Notes
+
+-----
 
 #### History
 
