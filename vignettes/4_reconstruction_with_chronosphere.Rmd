@@ -4,7 +4,7 @@ description: >
   Learn how to rotate paleocoordinates with data from the chronosphere
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{4. Reconstruction with chronosphere data}
+  %\VignetteIndexEntry{4. Reconstruction with data from the chronosphere}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
