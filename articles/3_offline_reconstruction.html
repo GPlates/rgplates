@@ -101,20 +101,21 @@
     
     
 <p>Although the <strong>online reconstruction method</strong> can help with getting through quick calculations, the true power of the <code>rgplates</code> package lies in what we call the <strong>offline reconstruction method</strong>.</p>
-<hr>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<hr>
 <p>Instead of relying on connections to the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service</a>, the <strong>offline method</strong>, allows you to execute plate tectonic rotations locally, on your computer. For this, you need two things present on your computer besides the <code>rgplates</code> package:</p>
 <ol style="list-style-type: decimal">
 <li>The <a href="https://www.gplates.org/" class="external-link">GPlates desktop application</a>, to calculate the reconstructions</li>
 <li>The actual tectonic model files, that you do the reconstructions with.</li>
 </ol>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="the-gplates-desktop-application">The GPlates desktop application<a class="anchor" aria-label="anchor" href="#the-gplates-desktop-application"></a>
 </h2>
+<hr>
 <p><img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;"></p>
 <p>GPlates is the current standard program that we used to build, manipulate and employ plate tectonic reconstructions. GPlates has a very well developed Graphical User Interface (GUI), that you can use indepenently from anything in this tutorial. If you wish to learn more about GPlates itself, you can find a lot of material <a href="https://www.gplates.org/education" class="external-link">here</a>.</p>
 <p>You will not have to leave the R environment or use the GUI of GPlates in order to use the <strong>offline method</strong> of<code>rgplates</code>. You just have to make sure that the application is installed on your computer, and <code>rgplates</code> will take care of the rest.</p>
@@ -123,12 +124,13 @@
 </h4>
 <p>Besides <a href="1_installation.html">installing the <code>rgplates</code> package</a>, you will have to install the <a href="(https://www.earthbyte.org/download-gplates-2-3/)" class="external-link">GPlates Desktop Application</a> on your computer. After seeing which file you need on your operating system, you will have to scroll down to the bottom of the page, select which file you wish to download and follow the instructions.</p>
 <p>This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions <code>v2.2</code> and <code>v2.3</code>. <code>rgplates</code> will be able to find the GPlates installation on <em>Mac</em> and <em>GNU/Linux</em> out of the box. There also should not be any issues on <em>Windows</em>, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).</p>
-<hr>
+<p><br></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="the-tectonic-models">The tectonic models<a class="anchor" aria-label="anchor" href="#the-tectonic-models"></a>
 </h2>
+<hr>
 <p>To use the <strong>offline method</strong>, you have to have a tectonic model on your computer. Actually, there is no such thing as <em>a plate tectonic model</em>. From the technical point of view, every model consists at least two data items:</p>
 <ul>
 <li>the <strong>Partitioning polygons</strong>
@@ -147,7 +149,7 @@
 <span><span class="va">partPol</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># these are the partitioning polyongs visualized</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">partPol</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">partPol</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/example-1.png" width="700"></p>
 <p>In order to use the <strong>offline method</strong> we need to</p>
 <ol style="list-style-type: decimal">
@@ -155,11 +157,12 @@
 <li>represent them in R,</li>
 <li>pass them to the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function.</li>
 </ol>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="paleomap-model-files">PALEOMAP model files<a class="anchor" aria-label="anchor" href="#paleomap-model-files"></a>
 </h2>
+<hr>
 <p>For the sake of making the first trial simple, we will be using model files of the PaleoMAP project, that are distributed with the <code>rgplates</code> package.</p>
 <p>These files are in the package’s install directory in a zip archive. What we will do is:</p>
 <ol style="list-style-type: decimal">
@@ -176,7 +179,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpQl6Ndt"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -199,26 +202,27 @@
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "file4ba311accd58e"                 "file4ba311c8a5a57"                </span></span>
-<span><span class="co">#&gt; [3] "file4ba3144527c47"                 "file4ba314ed7d5d2"                </span></span>
-<span><span class="co">#&gt; [5] "file4ba3156ad49c6"                 "file4ba317e3ee943"                </span></span>
+<span><span class="co">#&gt; [1] "file4e3a62e18145b"                 "file4e3a63e76008"                 </span></span>
+<span><span class="co">#&gt; [3] "file4e3a6634da4b8"                 "file4e3a676ec080"                 </span></span>
+<span><span class="co">#&gt; [5] "file4e3a677ba3b5b"                 "file4e3a6d4e84a8"                 </span></span>
 <span><span class="co">#&gt; [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
 <span><span class="co">#&gt; [9] "PALEOMAP_PoliticalBoundaries.gpml"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>partitioning polyongs</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpQl6Ndt/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpQl6Ndt/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
-<hr>
+<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<p><br></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="the-platemodel-class">The <code>platemodel</code>-class<a class="anchor" aria-label="anchor" href="#the-platemodel-class"></a>
 </h2>
+<hr>
 <p>Now that we have the files and we know how to find them, we have represent them in R in some way, so we can indicate that we want them to be used with GPlates to do our plate tectonic reconstructions.</p>
 <p>We need to create a <code>platemodel</code> class object to do just this. All we need to provide, is the paths to these files, separately for the <strong>partitioning poylgons</strong> and the <strong>rotation files</strong>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -232,11 +236,12 @@
 <span><span class="co">#&gt; rotation:         "PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p>This is a <code>platemodel</code>-class object, which is actually nothing else but a thin wrapper that includes where the files are actually located.</p>
 <p><strong>Now is a great time to mention that this is where the true flexibility of the <em>offline method</em> lies. You can use any third party model files here, as long as you provide the appropriate absolute paths to the files, the methods that follow should work. See more about this <a href="#alternative-ways-to-get-model-files">below</a></strong></p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="reconstructing-the-plates">Reconstructing the plates<a class="anchor" aria-label="anchor" href="#reconstructing-the-plates"></a>
 </h2>
+<hr>
 <p>The recontruction itself works the same way, as with the <strong>online method</strong>, the only difference is that instead of using a string for the <code>model</code> argument (which defaults to <code>"PALEOMAP"</code>), we will use the <code>platemodel</code>-class object <code>pm</code>.</p>
 <p>Here are the plates reconstructed for <code>200</code>Ma with the PaleoMAP model - now calculated with the offline method:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -292,15 +297,16 @@
 <span><span class="co">#&gt; 8           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.68091 7...</span></span>
 <span><span class="co">#&gt; 9           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-18.03005 7...</span></span>
 <span><span class="co">#&gt; 10          0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-18.60138 7...</span></span></code></pre></div>
-<p>Note that this is a similar <code>sf</code> class object that we saw earlier with the <strong>online method</strong>, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
+<p>Note that this is a similar <code>sf</code> class object that we saw earlier with the <strong>online method</strong>, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/platevisualize-1.png" width="700"></p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="reconstructing-points">Reconstructing points<a class="anchor" aria-label="anchor" href="#reconstructing-points"></a>
 </h2>
+<hr>
 <p>Reconstructing the positions of points is similar to that of the <strong>online method</strong>. Again, the only difference is that you have to provide the <code>platemodel</code> object as the <code>model</code> argument. Here is the example from <a href="2_online_reconstruction.html">earlier</a> to calculate and visualize past positions of some cities, now with the <strong>offline method</strong>:</p>
 <p>First, we get the data of localities:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -329,27 +335,29 @@
 <p>And then we plot:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the reconstructed cities </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">cities200</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/citiesPlot-1.png" width="700"></p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="alternative-ways-to-get-model-files">Alternative ways to get model files<a class="anchor" aria-label="anchor" href="#alternative-ways-to-get-model-files"></a>
 </h2>
+<hr>
 <p>The model files are available from the EarthByte Resources page. For instance, the files of the PaleoMAP model that we used here, are available at: <a href="https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/" class="external-link uri">https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/</a>.</p>
 <p>On the bottom of the page, you will find a single link : <em>Link to rasters, reconstruction files and tutorial</em> which will allow you to download the <code>Scotese_Paleoatlas_v3.zip</code> file. In this zip file, in the directory <code>PALEOMAP Global Plate Model</code>, you can see the same files that we had earlier:</p>
 <div class="figure">
 <img src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png" alt="The contents of the archive"><p class="caption">The contents of the archive</p>
 </div>
 <p>You can use these, or any similar files to create <code>platemodel</code> objects, as long as you provide the <strong>absolute</strong> paths to the files.</p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="the-chronosphere">The chronosphere<a class="anchor" aria-label="anchor" href="#the-chronosphere"></a>
 </h2>
+<hr>
 <p>As you can see, handling these files are quite tedious, and we, the developers of <code>rgplates</code>, barely ever use these in such a way. For practical applications we recommend using the offline method of <code>rgplates</code> with the <code>chronosphere</code>, which you can learn more about in the next tutorial: <a href="4_reconstruction_with_chronosphere.html">4. Reconstructions with the chronosphere</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

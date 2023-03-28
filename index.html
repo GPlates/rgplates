@@ -115,7 +115,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamkocsis.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Rotation of plates using the Gplates Web Service</span></span>
+<span><span class="co"># Rotation of plates using the GPlates Web Service</span></span>
 <span><span class="va">plates</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">65</span>, model<span class="op">=</span><span class="st">"PALEOMAP"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the edge of the map (for mollweide)</span></span>
@@ -127,8 +127,8 @@
 <span><span class="va">edgeMoll</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">edge</span>, crs<span class="op">=</span><span class="va">epsg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">edgeMoll</span>, col<span class="op">=</span><span class="st">"#1A6BB0"</span>, border<span class="op">=</span><span class="st">"gray30"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">platesMoll</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray90"</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">edgeMoll</span>, col<span class="op">=</span><span class="st">"#1A6BB0"</span>, border<span class="op">=</span><span class="st">"gray30"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">platesMoll</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray90"</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/rgplates_example.png"></p>
 <p><br></p>
 </div>
@@ -144,7 +144,7 @@
 <li>
 <a href="https://adamkocsis.github.io/rgplates/"><code>rgplates</code></a>: functions related to tectonic reconstructions.</li>
 <li>
-<a href="https://adamkocsis.github.io/via/" class="external-link"><code>via</code></a>: Virtual Arrays for efficient organisation of high-dimenional data.</li>
+<a href="https://adamkocsis.github.io/via/" class="external-link"><code>via</code></a>: Virtual Arrays for efficient organisation of high-dimensional data.</li>
 <li>
 <code>chronosphere</code>: version-controlled data distribution.</li>
 </ul>

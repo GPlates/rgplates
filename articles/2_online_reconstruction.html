@@ -107,10 +107,11 @@
 <span><span class="co">#&gt; Loading required package: sf</span></span>
 <span><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE</span></span></code></pre></div>
 <p>When attached, <code>rgplates</code> automatically loads the <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><em>Simple Features for R</em> (<code>sf</code>) package</a>, a standard R package used for processing vector spatial data.</p>
-<hr>
+<p><br></p>
 <div class="section level2">
 <h2 id="reconstructing-plates">Reconstructing plates<a class="anchor" aria-label="anchor" href="#reconstructing-plates"></a>
 </h2>
+<hr>
 <p>All paleocoordinate rotations are executed with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function. The default model used by this is the model of the <a href="https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/" class="external-link">PALEOMAP</a> project, developed by C. Scotese. <em>(If you look at the reference of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>, you can see that by default <code>model="PALEOMAP"</code>).</em></p>
 <p>Every tectonic model relies on plates, which are rotated on the surface of Earth. The plate positions can be reconstructed to any age that the model covers. The present-day positions of the plates can be queried with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function, with the string <code>"plates"</code> passed as the first argument, and the target <code>age</code> set to <code>0</code> (in Ma).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -134,9 +135,9 @@
 <span><span class="co">#&gt; 9  POLYGON ((-112.1621 28.3617...</span></span>
 <span><span class="co">#&gt; 10 POLYGON ((-108.7002 23.7579...</span></span></code></pre></div>
 <p>The <code>rgplates</code> package relies on <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><code>sf</code></a> to handle vector spatial data - like the plates. You can do anything with this that you normally can with and <code>sf</code> object: manipulate it, change its map projection, export or use it for calculations. These data are in standard <a href="https://en.wikipedia.org/wiki/Equirectangular_projection" class="external-link">equirectangular projection</a>, registered with longitude and latitude data.</p>
-<p>You can plot the distribution of plates with the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.</p>
+<p>You can plot the distribution of plates with the <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot()</a></code> function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/presentdayplot-1.png" width="700"></p>
 <p>Setting the <code>age</code> argument allows you to access the state of the plate tectonic configuration at past points in time. <code>age</code> accepts dates in millions of years. To reconstruct the position of the plates at around the Triassic/Jurassic boundary (approx. 200Ma), you have to set the <code>age</code> argument to <code>200</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -161,18 +162,19 @@
 <span><span class="co">#&gt; 10 POLYGON ((-18.6014 71.6729,...</span></span></code></pre></div>
 <p>You can plot the results in a similar way:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/tjbplot-1.png" width="700"></p>
 <p>Note that unlike the result for the present day (0Ma), the oceanic plates are not returned for the past plate configuration. <em>(Most models do not return the oceanic plates, this is a characteristic of the PALEOMAP model)</em></p>
 <p>Again, both the <code>pl0</code> and the <code>pl200</code> objects are <code>sf</code>-class objects. You can customize their plotting as you would for any other <code>sf</code> object - for instance setting a fill color for the polygons and not plotting their boundaries.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/tjbplot2-1.png" width="700"></p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="individual-locations">Individual locations<a class="anchor" aria-label="anchor" href="#individual-locations"></a>
 </h2>
+<hr>
 <p>This is nice, but plotting the plates on their own has only so much use. The true use of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> is the ability to calculate the paleocoordinates of present-day locations for a given <code>age</code>.</p>
 <div class="section level4">
 <h4 id="single-present-day-point">Single present-day point<a class="anchor" aria-label="anchor" href="#single-present-day-point"></a>
@@ -195,7 +197,7 @@
 <span><span class="co">#&gt; [1,] -0.38 51.52</span></span></code></pre></div>
 <p>Since the coordinate reference system (CRS) of the maps is longitude-latitude, you can use these coordinates directly to indicate the positionx of the city on the present-day map using <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points()</a></code> - in this case with red plus signs:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">londonMat</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/presentdayplotlondon-1.png" width="700"></p>
 </div>
@@ -211,7 +213,7 @@
 <p>The result of this calculation is a similar <code>matrix</code>: now including the paleolongitude and paleolatitude columns. If you provide coordinates as a plain <code>matrix</code>, coordinates are inferred to be longitude and latitude.</p>
 <p>You can visualize this the same way, as you visualized the present-day position of the location:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">londonMat200</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/londonPast-1.png" width="700"></p>
 </div>
@@ -245,17 +247,18 @@
 <p>Note that the order of entities remains the same. We can plot these the same way similar to a single city.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the reconstructed cities </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">cities200</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/citiesPlot-1.png" width="700"></p>
-<hr>
+<p><br></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="present-day-coastlines">Present-day coastlines<a class="anchor" aria-label="anchor" href="#present-day-coastlines"></a>
 </h2>
+<hr>
 <p>Some models the (<em>PaleoMAP</em> model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string <code>"coastlines"</code> as the first argument of the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coast200</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">200</span><span class="op">)</span></span>
@@ -277,22 +280,23 @@
 <span><span class="co">#&gt; 8  POLYGON ((46.3363 -62.9012,...</span></span>
 <span><span class="co">#&gt; 9  POLYGON ((51.8124 -57.6803,...</span></span>
 <span><span class="co">#&gt; 10 POLYGON ((45.5484 -63.5128,...</span></span></code></pre></div>
-<p>This returns an <code>sf</code>-class object, similar to the plates. You can visualize these with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> and draw them on top of the other maps, but you have to set the <code>add=TRUE</code>, otherwise a new plot will be created.</p>
+<p>This returns an <code>sf</code>-class object, similar to the plates. You can visualize these with <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot()</a></code> and draw them on top of the other maps, but you have to set the <code>add=TRUE</code>, otherwise a new plot will be created.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the reconstructed cities </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">cities200</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the coastlines</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast200</span><span class="op">$</span><span class="va">geometry</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast200</span><span class="op">$</span><span class="va">geometry</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/citiesPlotCoast-1.png" width="700"></p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="other-reconstruction-models">Other reconstruction models<a class="anchor" aria-label="anchor" href="#other-reconstruction-models"></a>
 </h2>
+<hr>
 <p>If you look into the <a href="../reference/reconstruct.html#details"><em>Details</em> of the reference of <code>reconstruct()</code></a>, you will see that the <code>model</code> argument can be set to other character strings besides <code>"PALEOMAP".</code> These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to <a href="#reconstructing-plates">reconstruct the position position of the plates at 200Ma</a>, with the Seton et al. 2012 model, all you have to do is set <code>model="SETON2012"</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl200seton</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">200</span>, model<span class="op">=</span><span class="st">"SETON2012"</span><span class="op">)</span></span>
@@ -316,15 +320,16 @@
 <span><span class="co">#&gt; 10 POLYGON ((10.5413 35.9903, ...</span></span></code></pre></div>
 <p>You can compare this with the PaleoMAP model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in <a href="https://www.w3schools.com/css/css_colors_rgb.asp" class="external-link">HTML RGBA</a>: <code>"#FF000077"</code>):</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200seton</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#FF000077"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl200seton</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#FF000077"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_files/figure-html/platescompare-1.png" width="700"></p>
 <p>You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.</p>
-<hr>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="disadvantages-of-the-online-method">Disadvantages of the <em>online method</em><a class="anchor" aria-label="anchor" href="#disadvantages-of-the-online-method"></a>
 </h2>
+<hr>
 <p>Although it is easy to set up, the <strong>online method</strong> has several limitations. For more complete control over the rotations you might want to try out the <strong>offline method</strong> <a href="">(see Tutorial 3 about the Offline Method)</a>.</p>
 <p>If want to stick with the <strong>online method</strong>, you need to be aware of these limiting factors:</p>
 <div class="section level4">
