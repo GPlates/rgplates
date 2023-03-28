@@ -1,5 +1,5 @@
 ---
-title: "4. Reconstruction with chronosphere data"
+title: "4. Reconstruction with data from the chronosphere"
 description: >
   Learn how to rotate paleocoordinates with data from the chronosphere
 output: rmarkdown::html_vignette
@@ -16,11 +16,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-# The chronosphere
+
 
 Originally, all functions in `rgplates` were developed in the envelope of the `chronosphere` project. However, since the project's inception the functionality of these modules diverged: `rgplates` contains functions to execute plate tectonic reconstructions with R, and the `chronosphere` is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the `chronosphere` and use them with `rgplates`.
 
+<br>
+
 # Loading packages
+
+* * *
 
 For this highly optimized workflow, both the `rgplates` and the `chronosphere` R package are required.
 
@@ -33,7 +37,11 @@ library(chronosphere)
 
 To indicate which functions we call, we will use the `::` operator. This operator allows us to indicate from which package do we want to use functions. 
 
+<br>
+
 # Downloading data 
+
+* * * 
 
 Detailed tutorials will be made available later about how to use the chronosphere-portal. For now, all we need to know, is how to access the `platemodel`-class objects.
 
@@ -46,7 +54,11 @@ pm
 
 The arguments of `chronosphere::fetch()` are the the dataset (`dat`), variable (`var`) and version (`ver`) ID of the item that you want to download.
 
+<br>
+
 # Actual reconstruction
+
+* * *
 
 Which we can immediately put to use with the [offline reconstruction method](articles/3_offline_reconstruction.html) (you need to have GPlates installed for this!). 
 
@@ -57,13 +69,21 @@ pl400<- rgplates::reconstruct("plates", age=400, model=pm)
 plot(pl400$geometry, col="gray", border=NA)
 ```
 
+
 # Concluding remarks
+
+* * *
 
 There! With three lines of code, we downloaded the tectonic information, calcuated the rotations and plotted the reconstructed geometries. Simple.
 
 This is how we originally intended to use the `reconstruct()` function's offline method, and this is what we recommend to adopt as a general workflow. 
 
 Note that we intend to add as many models to the `chronosphere`, which is getting overhauled to make it as flexible and useful as possible. To keep all currently available data and maintain all functionality, however, is not easy - but it is expected to be done in the first half of 2023.  
+
+
+<div class="alert alert-primary" role="info">
+If you are interested in more tutorials, keep an eye open for the [Evolv-ED blog](https://www.evolv-ed.net/), where we intend to deposit additional guides on how to integrate `rgplates` in more complex analytical pipelines.
+</div>
 
 
 

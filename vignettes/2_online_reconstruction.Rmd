@@ -26,9 +26,11 @@ library(rgplates)
 
 When attached, `rgplates` automatically loads the [*Simple Features for R* (`sf`) package](https://cran.r-project.org/web/packages/sf/index.html), a standard R package used for processing vector spatial data. 
 
-* * *
+<br>
 
 ## Reconstructing plates
+
+* * *
 
 All paleocoordinate rotations are executed with the `reconstruct()` function. The default model used by this is the model of the [PALEOMAP](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) project, developed by C. Scotese. *(If you look at the reference of `reconstruct()`, you can see that by default `model="PALEOMAP"`).*
 
@@ -69,9 +71,11 @@ Again, both the `pl0` and the `pl200` objects are `sf`-class objects. You can cu
 plot(pl200$geometry, col="gray", border=NA)
 ```
 
-* * *
+<br>
 
 ## Individual locations
+
+* * *
 
 This is nice, but plotting the plates on their own has only so much use. The true use of `reconstruct()` is the ability to calculate the paleocoordinates of present-day locations for a given `age`.
 
@@ -158,9 +162,11 @@ plot(pl200$geometry, col="gray", border=NA)
 points(cities200, col="red", pch=3)
 ```
 
-* * *
+<br>
 
 ## Present-day coastlines
+
+* * *
 
 Some models the (*PaleoMAP* model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string `"coastlines"` as the first argument of the `reconstruct()` function:
 
@@ -182,9 +188,11 @@ points(cities200, col="red", pch=3)
 plot(coast200$geometry, add=TRUE)
 ```
 
-* * *
+<br>
 
 ## Other reconstruction models
+
+* * *
 
 If you look into the [*Details* of the reference of `reconstruct()`](../reference/reconstruct.html#details), you will see that the `model` argument can be set to other character strings besides `"PALEOMAP".` These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to [reconstruct the position position of the plates at 200Ma](#reconstructing-plates), with the Seton et al. 2012 model, all you have to do is set `model="SETON2012"`:
 
@@ -202,10 +210,11 @@ plot(pl200seton$geometry, col="#FF000077", add=TRUE, border=NA)
 
 You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.
 
-* * *
-
+<br>
 
 ## Disadvantages of the *online method*
+
+* * *
 
 Although it is easy to set up, the **online method** has several limitations. For more complete control over the rotations you might want to try out the **offline method** [(see Tutorial 3 about the Offline Method)](). 
 

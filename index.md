@@ -47,7 +47,7 @@ with this chunk of code:
 ``` r
 library(rgplates)
 
-# Rotation of plates using the Gplates Web Service
+# Rotation of plates using the GPlates Web Service
 plates <- reconstruct("plates", age=65, model="PALEOMAP")
 
 # the edge of the map (for mollweide)
@@ -83,7 +83,7 @@ broken up to three R packages:
   - [`rgplates`](https://adamkocsis.github.io/rgplates/): functions
     related to tectonic reconstructions.
   - [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
-    efficient organisation of high-dimenional data.
+    efficient organisation of high-dimensional data.
   - `chronosphere`: version-controlled data distribution.
 
 This is a beta version, and like R, comes with absolutely no warranty.

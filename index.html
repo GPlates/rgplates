@@ -615,7 +615,7 @@ body {
 <p>You can reconstruct the positions of the plates at 65 Ma using the <a href="https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/">PaleoMAP model</a> and transform them to <a href="https://epsg.io/54009">Mollweide</a> projection using with this chunk of code:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(rgplates)</a>
 <a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Rotation of plates using the Gplates Web Service</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Rotation of plates using the GPlates Web Service</span></a>
 <a class="sourceLine" id="cb1-4" title="4">plates &lt;-<span class="st"> </span><span class="kw">reconstruct</span>(<span class="st">&quot;plates&quot;</span>, <span class="dt">age=</span><span class="dv">65</span>, <span class="dt">model=</span><span class="st">&quot;PALEOMAP&quot;</span>)</a>
 <a class="sourceLine" id="cb1-5" title="5"></a>
 <a class="sourceLine" id="cb1-6" title="6"><span class="co"># the edge of the map (for mollweide)</span></a>
@@ -638,7 +638,7 @@ body {
 <p>The functions here were originally developed and published as part of the <a href="https://cran.r-project.org/package=chronosphere">chronosphere</a> R package. For better compliance with <a href="https://en.wikipedia.org/wiki/Unix_philosophy">UNIX philosophy</a> and more efficient distribution/development, the original chronosphere has been broken up to three R packages:</p>
 <ul>
 <li><a href="https://adamkocsis.github.io/rgplates/"><code>rgplates</code></a>: functions related to tectonic reconstructions.</li>
-<li><a href="https://adamkocsis.github.io/via/"><code>via</code></a>: Virtual Arrays for efficient organisation of high-dimenional data.</li>
+<li><a href="https://adamkocsis.github.io/via/"><code>via</code></a>: Virtual Arrays for efficient organisation of high-dimensional data.</li>
 <li><code>chronosphere</code>: version-controlled data distribution.</li>
 </ul>
 <p>This is a beta version, and like R, comes with absolutely no warranty.</p>

@@ -18,19 +18,21 @@ knitr::opts_chunk$set(
 
 Although the **online reconstruction method** can help with getting through quick calculations, the true power of the `rgplates` package lies in what we call the **offline reconstruction method**.
 
-* * *
-
 
 ## Introduction
+
+* * *
 
 Instead of relying on connections to the [GPlates Web Service](https://gws.gplates.org/), the **offline method**, allows you to execute plate tectonic rotations locally, on your computer. For this, you need two things present on your computer besides the `rgplates` package:
 
 1. The [GPlates desktop application](https://www.gplates.org/), to calculate the reconstructions 
 2. The actual tectonic model files, that you do the reconstructions with.  
 
-* * *
+<br>
 
 ## The GPlates desktop application
+
+* * *
 
 <img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;">
 
@@ -45,9 +47,11 @@ Besides [installing the `rgplates` package](1_installation.html), you will have 
 
 This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions `v2.2` and `v2.3`. `rgplates` will be able to find the GPlates installation on *Mac* and *GNU/Linux* out of the box. There also should not be any issues on *Windows*, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).
 
-* * *
+<br>
 
 ## The tectonic models
+
+* * *
 
 To use the **offline method**, you have to have a tectonic model on your computer. Actually, there is no such thing as *a plate tectonic model*. From the technical point of view, every model consists at least two data items:
 
@@ -76,9 +80,11 @@ In order to use the **offline method** we need to
 2. represent them in R, 
 3. pass them to the `reconstruct()` function.
 
-* * *
+<br>
 
 ## PALEOMAP model files
+
+* * *
 
 For the sake of making the first trial simple, we will be using model files of the PaleoMAP project, that are distributed with the `rgplates` package. 
 
@@ -146,9 +152,11 @@ pathToRotations <- file.path(td, "PALEOMAP_PlateModel.rot")
 pathToRotations
 ```
 
-* * *
+<br>
 
 ## The `platemodel`-class
+
+* * *
 
 Now that we have the files and we know how to find them, we have represent them in R in some way, so we can indicate that we want them to be used with GPlates to do our plate tectonic reconstructions.
 
@@ -166,9 +174,11 @@ This is a `platemodel`-class object, which is actually nothing else but a thin w
 
 **Now is a great time to mention that this is where the true flexibility of the *offline method* lies. You can use any third party model files here, as long as you provide the appropriate absolute paths to the files, the methods that follow should work. See more about this [below](#alternative-ways-to-get-model-files)**
 
-* * *
+<br>
 
 ## Reconstructing the plates
+
+* * *
 
 The recontruction itself works the same way, as with the **online method**, the only difference is that instead of using a string for the `model` argument (which defaults to `"PALEOMAP"`), we will use the `platemodel`-class object `pm`.
 
@@ -185,9 +195,11 @@ Note that this is a similar `sf` class object that we saw earlier with the **onl
 plot(plOff200$geometry, border=NA, col="gray")
 ```
 
-* * *
+<br>
 
 ## Reconstructing points
+
+* * *
 
 Reconstructing the positions of points is similar to that of the **online method**. Again, the only difference is that you have to provide the `platemodel` object as the `model` argument. Here is the example from [earlier](2_online_reconstruction.html) to calculate and visualize past positions of some cities, now with the **offline method**:
 
@@ -223,9 +235,11 @@ plot(plOff200$geometry, col="gray", border=NA)
 points(cities200, col="red", pch=3)
 ```
 
-* * *
+<br>
 
 ## Alternative ways to get model files 
+
+* * *
 
 The model files are available from the EarthByte Resources page. For instance, the files of the PaleoMAP model that we used here, are available at: https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/.
 
@@ -235,9 +249,11 @@ On the bottom of the page, you will find a single link : *Link to rasters, recon
 
 You can use these, or any similar files to create `platemodel` objects, as long as you provide the **absolute** paths to the files.
 
-* * *
+<br>
 
 ## The chronosphere
+
+* * *
 
 As you can see, handling these files are quite tedious, and we, the developers of `rgplates`, barely ever use these in such a way. For practical applications we recommend using the offline method of `rgplates` with the `chronosphere`, which you can learn more about in the next tutorial: [4. Reconstructions with the chronosphere](4_reconstruction_with_chronosphere.html).
 
