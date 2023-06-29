@@ -34,6 +34,7 @@ Instead of relying on connections to the [GPlates Web Service](https://gws.gplat
 
 * * *
 
+
 <img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;">
 
 GPlates is the current standard program that we used to build, manipulate and employ plate tectonic reconstructions. GPlates has a very well developed Graphical User Interface (GUI), that you can use indepenently from anything in this tutorial. If you wish to learn more about GPlates itself, you can find a lot of material [here](https://www.gplates.org/education).  
@@ -68,7 +69,7 @@ The **online method** relies on files that are on the servers of the GPlates Web
 library(rgplates)
 
 # this is still the online method:
-partPol<- reconstruct("plates", age=0)
+partPol<- reconstruct("static_polygons", age=0)
 
 # these are the partitioning polyongs visualized
 plot(partPol$geometry)
@@ -82,7 +83,7 @@ In order to use the **offline method** we need to
 
 <br>
 
-## PALEOMAP model files
+## Model files
 
 * * *
 
@@ -94,7 +95,7 @@ These files are in the package's install directory in a zip archive. What we wil
 2. Unzip the model files there and 
 3. load them into R. 
 
-*Note: there are even simpler ways to get these files and represent them into R in other ways (such as with the [chronosphere](), that we will look into in [Tutorial 4.]()) but for didactic purposes, I recommend doing this first with the way  that follows.* 
+*Note: there are even simpler ways to get these files and represent them into R in other ways (such as with the [chronosphere](https://chronosphere.info), that we will look into in [Tutorial 4.](/articles/4_reconstruction_with_chronosphere.html)) but for didactic purposes, I recommend doing this first with the way  that follows.* 
 
 #### Temporary directory
 
@@ -140,7 +141,7 @@ You can confirm that the extraction has indeed happened by looking into the temp
 list.files(file.path(td))
 ```
 
-There are two files that are important for us: the one that ends with `.gpml` (the **partitioning polyongs** in GPlates Markup Language format) and the one that ends with `.rot` (the **reconstruction tree/rotation file**). We know the absolute paths to these files, they can be found at:
+There are two files that are important for us: the one that ends with `.gpml` (the **static plate polygons** in GPlates Markup Language format) and the one that ends with `.rot` (the **reconstruction tree/rotation file**). We know the absolute paths to these files, they can be found at:
 
 ```{R absoluteGPML, echo=TRUE}
 pathToPolygons <- file.path(td, "PALEOMAP_PlatePolygons.gpml")
@@ -160,11 +161,11 @@ pathToRotations
 
 Now that we have the files and we know how to find them, we have represent them in R in some way, so we can indicate that we want them to be used with GPlates to do our plate tectonic reconstructions.
 
-We need to create a `platemodel` class object to do just this. All we need to provide, is the paths to these files, separately for the **partitioning poylgons** and the **rotation files**:
+We need to create a `platemodel` class object to do just this. All we need to provide, is the paths to these files. The **rotation file** has a special place in the `platemodel` object, so that is to be provided separately. The **static plate polygons** become a feature collection, that has to be named. To make the interface behave the same way in the **online method** this will be called `"static_polygons"`:
 
 ```{r platemodel}
 pm <- platemodel(
-	polygons=pathToPolygons,
+	features=c("static_polygons"=pathToPolygons),
 	rotation=pathToRotations
 )
 pm
@@ -180,19 +181,19 @@ This is a `platemodel`-class object, which is actually nothing else but a thin w
 
 * * *
 
-The recontruction itself works the same way, as with the **online method**, the only difference is that instead of using a string for the `model` argument (which defaults to `"PALEOMAP"`), we will use the `platemodel`-class object `pm`.
+The recontruction itself works the same way, as with the **online method**, the only difference is that instead of using a string for the `model` argument (which defaults to `"MERDITH2021"`), we will use the `platemodel`-class object `pm`.
 
-Here are the plates reconstructed for `200`Ma with the PaleoMAP model - now calculated with the offline method:
+Here are the plates reconstructed for `100`Ma with the PaleoMAP model - now calculated with the offline method:
 
 ```{r offlineplates, echo=TRUE}
-plOff200 <- reconstruct("plates", age=200, model=pm)
-plOff200
+plOff100 <- reconstruct("static_polygons", age=100, model=pm)
+plOff100
 ```
 
 Note that this is a similar `sf` class object that we saw earlier with the **online method**, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using `plot()`.
 
 ```{r platevisualize, echo=TRUE, plot=TRUE}
-plot(plOff200$geometry, border=NA, col="gray")
+plot(plOff100$geometry, border=NA, col="gray")
 ```
 
 <br>
@@ -221,21 +222,26 @@ cities
 Second, we reconstruct with our model
 
 ```{r offlinepoints, echo=TRUE}
-cities200 <- reconstruct(cities, age=200, model=pm)
-cities200
+cities100 <- reconstruct(cities, age=100, model=pm)
+cities100
 ```
 
 And then we plot:
 
 ```{r citiesPlot, echo=TRUE, plot=TRUE}
 # the background map
-plot(plOff200$geometry, col="gray", border=NA)
+plot(plOff100$geometry, col="gray", border=NA)
 
 # the reconstructed cities 
-points(cities200, col="red", pch=3)
+points(cities100, col="red", pch=3)
 ```
 
+<div class="alert alert-primary" role="info", markdown="1">
+Note: in order to to this, a plateID needs to be assigned to every point. We use the `partitioning` argument to select which feature collection of the `platemodel` object will be used as partitioning polygons. This defaults to `"static_polygons"` (check out the documentation of `reconstruct()`!), so we did not have to say anything here. For other `platemodel` objects, you might need to set this explicitly!
+</div>
+
 <br>
+
 
 ## Alternative ways to get model files 
 

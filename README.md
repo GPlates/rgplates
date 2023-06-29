@@ -36,12 +36,3 @@ distribution/development.
 This is a beta version.
 
 See the blog entry below for an example application:
-
-# Installing
-
-While the initial submissions are getting processed, the package can be
-built usiung the source deposited on this repository.
-
-``` r
-install.packages("https://github.com/adamkocsis/rgplates/raw/main/_archive/source/rgplates_0.2.1.tar.gz", repos=NULL, type="source")
-```

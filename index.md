@@ -48,19 +48,19 @@ using with this chunk of code:
 library(rgplates)
 
 # Rotation of plates using the GPlates Web Service
-plates <- reconstruct("plates", age=65, model="MERDITH")
+coastlines <- reconstruct("coastlines", age=65, model="MERDITH2021")
 
 # the edge of the map (for mollweide)
 edge <- mapedge()
 
 # transform to Mollweide
 epsg <- "ESRI:54009"
-platesMoll <- sf::st_transform(plates, crs=epsg)
+coastsMoll <- sf::st_transform(coastlines, crs=epsg)
 edgeMoll <- sf::st_transform(edge, crs=epsg)
 
 # plot
 plot(edgeMoll, col="#1A6BB0", border="gray30")
-plot(platesMoll, border=NA, col="gray90", add=TRUE)
+plot(coastsMoll, border=NA, col="gray90", add=TRUE)
 ```
 
 ![](man/figures/rgplates_example.png)
@@ -96,5 +96,6 @@ paloecoordinate rotations easier to implement, i.e. for applying a
 rotation model - but not as a replacement of tools dedidacted to complex
 paleogeographic reconstruction and model development. For more complex
 analyses you are more than welcome to check out
+[gplately](https://gplates.github.io/gplately/) and
 [pyGPlates](https://www.gplates.org/docs/pygplates/), the awesome python
-module developed by the GPlates team.
+packages developed by the GPlates team.

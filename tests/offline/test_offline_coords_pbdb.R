@@ -269,7 +269,7 @@ dat <- chronosphere::fetch("pbdb", ver="20220510", datadir=file.path(wd, "data/c
 # Reconstructions are implemented in the package 'rgplates'
 library(rgplates)
 # The PaleoDEMs
-dems<- chronosphere::fetch("paleomap", "dem", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+dems<- chronosphere::fetch("paleomap", "dem", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE, attach=FALSE)
 
 # the ages of the dems
 names(dems)
@@ -324,7 +324,7 @@ collections <- collections[collections$lat<=90, ]
 paleoCoords_old <- reconstruct_old(
 	collections[, c("lng", "lat")] 
 	, age = collections$stg_map 
-	, model=modelOLD 
+	, model=modelOld
 	, enumerate=FALSE 
 	, plateperiod=FALSE 
 )
@@ -349,7 +349,7 @@ expect_equal(paleoCoords_old, paleoCoords_new)
 paleoCoords_old <- reconstruct_old(
 	collections[, c("lng", "lat")] 
 	, age = collections$stg_map 
-	, model=modelOLD 
+	, model=modelOld
 	, enumerate=FALSE 
 	, plateperiod=TRUE 
 )

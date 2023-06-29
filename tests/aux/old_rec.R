@@ -237,7 +237,7 @@ setMethod(
 	"reconstruct_old", 
 	signature="data.frame", 
 	function(x,... ){
-		reconstruct(as.matrix(x), ...)
+		reconstruct_old(as.matrix(x), ...)
 })
 
 #' @rdname reconstruct
@@ -245,7 +245,7 @@ setMethod(
 	"reconstruct_old", 
 	signature="numeric", 
 	function(x,... ){
-		if(length(x)==2) reconstruct(matrix(x, nrow=1), ...) else stop("Only 2 element vectors are allowed!")
+		if(length(x)==2) reconstruct_old(matrix(x, nrow=1), ...) else stop("Only 2 element vectors are allowed!")
 })
 
 #' @rdname reconstruct
@@ -942,4 +942,46 @@ gplates_reconstruct_polygon <- function(sp, age, model="PALEOMAP", verbose=TRUE)
 	rpoly <- rgdal::readOGR(rawdata, "OGRGeoJSON", verbose = FALSE)
 	
 	return(rpoly)
+}
+
+
+
+getOS <- function(){
+  sysinf <- Sys.info()
+  if (!is.null(sysinf)){
+    os <- sysinf['sysname']
+    if (os == 'Darwin')
+      os <- "osx"
+  } else { ## mystery machine
+    os <- .Platform$OS.type
+    if (grepl("^darwin", R.version$os))
+      os <- "osx"
+    if (grepl("linux-gnu", R.version$os))
+      os <- "linux"
+  }
+  tolower(os)
+}
+
+
+
+# get directory from a paht
+fileFromPath <- function(x){
+  res <- rep(NA, length(x))
+  for(i in 1:length(x)){
+	all <- unlist(strsplit(x[i], "/"))
+	res[i] <- paste(all[length(all)], collapse="/")
+  }
+  names(res) <- names(x)
+  return(res)
+}
+
+# from: https://ryouready.wordpress.com/2008/12/18/generate-random-string-name/
+randomString <- function(n=1, length=12){
+  # initialize vector
+  randomString <- c(1:n)                  
+  for (i in 1:n){
+    randomString[i] <- paste(sample(c(0:9, letters, LETTERS),
+                                    length, replace=TRUE), collapse="")
+  }
+  return(randomString)
 }

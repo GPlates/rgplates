@@ -18,13 +18,13 @@
 \arguments{
 \item{.Object}{Constructor argument (not needed).}
 
-\item{rotation}{(\code{character}) The path to the rotation file-part of the model.}
+\item{rotation}{(\code{character}) The path to the rotation file.}
 
 \item{features}{(\code{character}) Named vector of features with the paths to the individual files.}
 
-\item{name}{(\code{character}) Optional name of the model.}
+\item{name}{(\code{character}) (Optional) name of the model.}
 
-\item{polygons}{(\code{character}) (Deprecated) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.}
+\item{polygons}{(\code{character}) (Deprecated) The path to the static plate polygon file.}
 }
 \value{
 A \code{platemodel} class object.

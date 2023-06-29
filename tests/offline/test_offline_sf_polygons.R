@@ -4,7 +4,7 @@ library(rgplates)
 model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
 
 # example 
-myers <- chronosphere::fetch("Myers-hotspots", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+myers <- chronosphere::fetch("myers-hotspots", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
 myers <-  st_as_sf(myers)
 
 ################################################################################

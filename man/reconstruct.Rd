@@ -15,7 +15,7 @@ reconstruct(x, ...)
 \S4method{reconstruct}{matrix}(
   x,
   age,
-  model = "PALEOMAP",
+  model = "MERDITH2021",
   listout = TRUE,
   verbose = FALSE,
   enumerate = TRUE,
@@ -24,7 +24,7 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE,
+  plateperiod = TRUE,
   partitioning = "static_polygons"
 )
 
@@ -35,7 +35,7 @@ reconstruct(x, ...)
 \S4method{reconstruct}{character}(
   x,
   age,
-  model = "PALEOMAP",
+  model = "MERDITH2021",
   listout = TRUE,
   verbose = FALSE,
   path.gplates = NULL,
@@ -75,11 +75,11 @@ reconstruct(x, ...)
 \arguments{
 \item{x}{are the features to be reconstructed. Can be a vector with longitude and latitude representing
 a single point or a matrix/dataframe with the first column as longitude and second column as latitude, or a \code{SpatialPolygonsDataFrame} class object. 
-The character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"continents"} return static plates, rotated present-day coastlines and continents, respectively.}
+For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object.}
 
 \item{...}{arguments passed to class-specific methods.}
 
-\item{age}{(\code{numeric})is the age in Ma at which the points will be reconstructed}
+\item{age}{(\code{numeric}) is the age in Ma at which the points will be reconstructed}
 
 \item{model}{(\code{character} or \code{\link{platemodel}}) The  reconstruction model. The class of this argument selects the submodule used for reconstruction, a \code{character} value will invoke the remote reconstruction submodule and will submit \code{x} to the GPlates Web Service. A \code{platemodel} class object will call the local-reconstruction submodule. The default is \code{"PALEOMAP"}. See details for available models.}
 
@@ -102,7 +102,7 @@ calculate the present-day coordinates of the given paleo-coordinates.}
 
 \item{plateperiod}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.}
 
-\item{partitioning}{(\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to the "static_polygons".}
+\item{partitioning}{(\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to \code{"static_polygons"}.}
 
 \item{gmeta}{(\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?}
 }
@@ -112,22 +112,23 @@ A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{
 \description{
 Reconstruct the geographic locations from present day coordinates and spatial objects back to their paleo-positions. 
 Each location will be assigned a plate id and moved back in time using the chosen reconstruction model.
-#' The function implements two reconstruction submodules, which are selected with the \code{model} argument:
 }
 \details{
+The function implements two reconstruction submodules, which are selected with the \code{model} argument:
+
 If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gws.gplates.org/}, remote reconstruction submodule).
-The available reconstruction models for this submodule are:
+The available reconstruction models for this submodule are (as of 2023-06-29):
 \itemize{
- \item "SETON2012" (Seton et al., 2012) for coastlines and plate polygons (0-200 Ma).
+ \item "SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).
  \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
- \item "MULLER2016" (Muller et al., 2016) for coastlines and plate polygons (0-230 Ma).
+ \item "MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).
  \item "GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma). 
- \item "PALEOMAP" (Scotese, 2016) for coastlines and plate polygons (0-1100 Ma). 
- \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma). 
- \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma).
- \item "MULLER2019" (Müller et al., 2019) for coastlines and plate polygons. (0-250 Ma).
- \item "MERDITH2021" (Merdith et al., 2021) for coastlines and plate polygons (0-1000 Ma). 
- \item "MULLER2022" (Müller et al., 2022) for coastlines and plate polygons (0-1000 Ma). 
+ \item "PALEOMAP" (Scotese, 2016) for coastlines only (0-1100 Ma). 
+ \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma). 
+ \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).
+ \item "MULLER2019" (Müller et al., 2019) for coastlines and static plate polygons. (0-250 Ma).
+ \item "MERDITH2021" (Merdith et al., 2021, default) for coastlines and static plate polygons (0-1000 Ma). 
+ \item "MULLER2022" (Müller et al., 2022) for coastlines and static plate polygons (0-1000 Ma). 
 }
 
 If \code{model} is a \code{\link{platemodel}} class object, then the function will try to use the GPLates desktop application (\url{https://www.gplates.org/}) to reconstruct the coordinates (local reconstruction submodule).

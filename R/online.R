@@ -2,7 +2,7 @@
 # GPlates Web Service internals:
 
 # correcting the point recontstruction problem, wrapper around the point reconstruction funciton
-IteratedPointReconstruction <- function(coords,age, chunk=200, model="PALEOMAP", reverse=FALSE, verbose=TRUE){
+IteratedPointReconstruction <- function(coords,age, chunk=200, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
 	if(any(age%%1!=0)){
 		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
 		age <- round(age)
@@ -73,7 +73,7 @@ IteratedPointReconstruction <- function(coords,age, chunk=200, model="PALEOMAP",
 # @param coords are the coordinates to be reconstructed. Can be a vector with longitude and latitude representing
 # a single point or a matrix/dataframe with the first column as longitude and second column as latitude
 # @param age is the age in Ma at which the points will be reconstructed
-# @param	model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
+# @param	model is the reconstruction model. The default is "MERDITH2021". Add more details about additional models here
 # @param reverse the flag to control the direction of reconstruction. If reverse = TRUE, the function will 
 # calculate the present-day coordinates of the given paleo-coordinates.
 # @param verbose Should the function output urls?
@@ -85,7 +85,7 @@ IteratedPointReconstruction <- function(coords,age, chunk=200, model="PALEOMAP",
 # 
 # xy <-cbind(long=c(95,142), lat=c(54, -33))
 # gplates_reconstruct_points(xy, 140)
-gplates_reconstruct_points <- function(coords,age, model="PALEOMAP", reverse=FALSE, verbose=TRUE){
+gplates_reconstruct_points <- function(coords,age, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
 	
 	url <- 'https://gws.gplates.org/reconstruct/reconstruct_points/'
 	
@@ -131,7 +131,7 @@ gplates_reconstruct_points <- function(coords,age, model="PALEOMAP", reverse=FAL
 # @param model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
 # @param verbose Should the function output urls?
 # @return SpatialPolygonsDataFrame
-gplates_reconstruct_this <- function(age, this, model="PALEOMAP", verbose=TRUE){
+gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRUE){
 	if(any(age%%1!=0)){
 		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
 		age <- round(age)

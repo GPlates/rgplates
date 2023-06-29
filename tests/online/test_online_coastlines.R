@@ -78,7 +78,7 @@ expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # Matthew 2016
 expect_silent(
-	rec <- reconstruct("coastlines", 0, model="MATTHEWS2016")
+	rec <- reconstruct("coastlines", 0, model="MATTHEWS2016_pmag_ref")
 )
 expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")

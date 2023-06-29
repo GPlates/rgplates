@@ -1,6 +1,7 @@
 # Change log of the R package 'rgplates'
 
-# rgplates - 0.3.0 - 2023-06-28 
+# rgplates 0.3.0 - 2023-06-29 
+
 ### Added 
 - The `platemodel` class now accepts multiple feature collections. These can be recontructed by setting the `x` argument of `recontruct()`.  
 
@@ -10,7 +11,17 @@
 - Documentation to reflect models avialble through the GPlates web service
 - Changed default method of online reconstruction to `"MERDITH2021"`
 
+### Removed
+- unnecessary imports from `utils`
+
+* * *
+
 # rgplates 0.2.1 - 2023-03-08 
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8094071.svg)](https://doi.org/10.5281/zenodo.8094071)
+
+
 ### Added
 - the `mapedge()` function
 - function website assets
@@ -21,6 +32,13 @@
 * * *
 
 # rgplates 0.2.0 - 2022-09-19
+
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8094042.svg)](https://doi.org/10.5281/zenodo.8094042)
+
+
+
 ### Added
 - Package now depends on the sustainable 'sf'-based interface to GPLates
 - Defense against non-integer reconstruction dates for the online method.
@@ -43,13 +61,18 @@
 * * *
 
 # rgplates 0.1.0 - 2021-05-11 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8093991.svg)](https://doi.org/10.5281/zenodo.8093991)
+
 ### Changed
 - Bug fix for spaces in usernames on Windows machines.
 
 
 * * *
 
-# rgplates 0.1.0 - 2021-05-11 
+# rgplates 0.1.0 - 2021-05-09 
+
+
 ### Added 
 - material copied over from chronosphere 0.4.1 
 - reconstruct(model=NULL) argumentation.

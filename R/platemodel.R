@@ -11,10 +11,10 @@ platemodel <- setClass(
 	slots=list(name="character", rotation="character", features="character"))
 
 #' @param .Object Constructor argument (not needed).
-#' @param rotation (\code{character}) The path to the rotation file-part of the model.
+#' @param rotation (\code{character}) The path to the rotation file.
 #' @param features (\code{character}) Named vector of features with the paths to the individual files.
-#' @param name (\code{character}) Optional name of the model. 
-#' @param polygons (\code{character}) (Deprecated) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.
+#' @param name (\code{character}) (Optional) name of the model. 
+#' @param polygons (\code{character}) (Deprecated) The path to the static plate polygon file.
 #' @rdname platemodel 
 #' @return A \code{platemodel} class object.
 #' @export platemodel

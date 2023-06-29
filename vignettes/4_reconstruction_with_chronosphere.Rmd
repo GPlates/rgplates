@@ -65,7 +65,7 @@ Which we can immediately put to use with the [offline reconstruction method](art
 
 ```{r offRec, echo=TRUE, plot=TRUE}
 # reconstruct the plates and plot them
-pl400<- rgplates::reconstruct("plates", age=400, model=pm)
+pl400<- rgplates::reconstruct("static_polygons", age=400, model=pm)
 plot(pl400$geometry, col="gray", border=NA)
 ```
 

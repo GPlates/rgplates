@@ -5,6 +5,7 @@ model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/ch
 
 # example 
 myers <- chronosphere::fetch("myers-hotspots", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+myers <- as(myers, "Spatial")
 
 ################################################################################
 # 2. Explicit WGS 84 CRS
