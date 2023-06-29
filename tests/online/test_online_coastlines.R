@@ -6,7 +6,7 @@ options(timeout = 5*60)
 ################################################################################
 # today
 expect_silent(
-	rec0 <- reconstruct("coastlines", 0, model="PALEOMAP")
+	rec0 <- reconstruct("coastlines", 0, model="MERDITH2021")
 )
 
 # correct type
@@ -19,7 +19,7 @@ expect_equal(sf::st_crs(rec0)[[1]], "4326")
 ################################################################################
 # past
 expect_silent(
-	rec140 <- reconstruct("coastlines", 140, model="PALEOMAP")
+	rec140 <- reconstruct("coastlines", 140, model="MERDITH2021")
 )
 
 expect_inherits(rec140, "sf")
@@ -28,7 +28,7 @@ expect_equal(sf::st_crs(rec140)[[1]], "4326")
 ################################################################################
 # Multiple
 expect_silent(
-	rec <- reconstruct("coastlines", age=c(0, 140), model="PALEOMAP")
+	rec <- reconstruct("coastlines", age=c(0, 140), model="MERDITH2021")
 )
 
 expect_inherits(rec, "list")
@@ -40,7 +40,7 @@ expect_equal(rec[["140"]], rec140)
 # Test inaccurate ages! - only rounded ones are allowed
 # Reconstructed to 140.4 
 expect_message(
-	rec140_4 <- reconstruct("coastlines", age=140.4, model="PALEOMAP")
+	rec140_4 <- reconstruct("coastlines", age=140.4, model="MERDITH2021")
 )	
 
 expect_equal(rec140_4, rec140)

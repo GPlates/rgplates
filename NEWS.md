@@ -1,5 +1,15 @@
 # Change log of the R package 'rgplates'
 
+# rgplates - 0.3.0 - 2023-06-28 
+### Added 
+- The `platemodel` class now accepts multiple feature collections. These can be recontructed by setting the `x` argument of `recontruct()`.  
+
+### Changed
+- The interface of the `reconstruct()` function now matches that of the GPlates web service. Use `"static_polygons"` instead of `"plates"`. 
+- The `plateperiod` argument of `reconstruct()` now defaults to `TRUE`
+- Documentation to reflect models avialble through the GPlates web service
+- Changed default method of online reconstruction to `"MERDITH2021"`
+
 # rgplates 0.2.1 - 2023-03-08 
 ### Added
 - the `mapedge()` function

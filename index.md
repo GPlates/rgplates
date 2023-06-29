@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.2.1-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.3.0-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -39,16 +39,16 @@ tectonic models are accessible via the
 -----
 
 You can reconstruct the positions of the plates at 65 Ma using the
-[PaleoMAP
-model](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) and
-transform them to [Mollweide](https://epsg.io/54009) projection using
-with this chunk of code:
+[Merdith et al. 2021
+model](https://www.sciencedirect.com/science/article/pii/S0012825220305237)
+and transform them to [Mollweide](https://epsg.io/54009) projection
+using with this chunk of code:
 
 ``` r
 library(rgplates)
 
 # Rotation of plates using the GPlates Web Service
-plates <- reconstruct("plates", age=65, model="PALEOMAP")
+plates <- reconstruct("plates", age=65, model="MERDITH")
 
 # the edge of the map (for mollweide)
 edge <- mapedge()
@@ -74,17 +74,18 @@ plot(platesMoll, border=NA, col="gray90", add=TRUE)
 #### History
 
 The functions here were originally developed and published as part of
-the [chronosphere](https://cran.r-project.org/package=chronosphere) R
-package. For better compliance with [UNIX
+the [chronosphere](https://chronosphere.info/r_client/) R package. For
+better compliance with [UNIX
 philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) and more
 efficient distribution/development, the original chronosphere has been
 broken up to three R packages:
 
+  - [`chronosphere`](https://chronosphere.info/r_client/):
+    version-controlled data distribution.
   - [`rgplates`](https://adamkocsis.github.io/rgplates/): functions
     related to tectonic reconstructions.
   - [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
     efficient organisation of high-dimensional data.
-  - `chronosphere`: version-controlled data distribution.
 
 This is a beta version, and like R, comes with absolutely no warranty.
 

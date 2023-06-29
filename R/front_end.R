@@ -10,11 +10,16 @@
 #' If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gws.gplates.org/}, remote reconstruction submodule).
 #' The available reconstruction models for this submodule are:
 #' \itemize{
-#'	 \item "SETON2012" (Seton et al., 2012) for coastlines and plate polygons.
-#'	 \item "MULLER2016" (Muller et al., 2016) for coastlines and plate polygons.
-#'	 \item "GOLONKA" (Wright et al. 2013) for coastlines only. 
-#'	 \item "PALEOMAP" (Scotese and Wright, 2018) for coastlines and plate polygons. 
-#'	 \item "MATTHEWS2016" (Matthews et al., 2016) for coastlines and plate polygons. 
+#'	 \item "SETON2012" (Seton et al., 2012) for coastlines and plate polygons (0-200 Ma).
+#'	 \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
+#'	 \item "MULLER2016" (Muller et al., 2016) for coastlines and plate polygons (0-230 Ma).
+#'	 \item "GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma). 
+#'	 \item "PALEOMAP" (Scotese, 2016) for coastlines and plate polygons (0-1100 Ma). 
+#'	 \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma). 
+#'	 \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma).
+#'	 \item "MULLER2019" (Müller et al., 2019) for coastlines and plate polygons. (0-250 Ma).
+#'	 \item "MERDITH2021" (Merdith et al., 2021) for coastlines and plate polygons (0-1000 Ma). 
+#'	 \item "MULLER2022" (Müller et al., 2022) for coastlines and plate polygons (0-1000 Ma). 
 #' }
 #' 
 #' If \code{model} is a \code{\link{platemodel}} class object, then the function will try to use the GPLates desktop application (\url{https://www.gplates.org/}) to reconstruct the coordinates (local reconstruction submodule).
@@ -25,9 +30,15 @@
 #' @section References:
 #' Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
 #' \cr
+#' \cr Andrew S. Merdith, Simon E. Williams, Alan S. Collins, Michael G. Tetley, Jacob A. Mulder, Morgan L. Blades, Alexander Young, Sheree E. Armistead, John Cannon, Sabin Zahirovic, R. Dietmar Müller, (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic, Earth-Science Reviews, Volume 214, 2021, 103477, ISSN 0012-8252, https://doi.org/10.1016/j.earscirev.2020.103477.
+#' \cr
 #' \cr Müller, R. D., Seton, M., Zahirovic, S., Williams, S. E., Matthews, K. J., Wright, N. M., … Cannon, J. (2016). Ocean Basin Evolution and Global-Scale Plate Reorganization Events Since Pangea Breakup. Annual Review of Earth and Planetary Sciences, 44(1), 107–138. https://doi.org/10.1146/annurev-earth-060115-012211
 #' \cr
-#' \cr Scotese, C., & Wright, N. M. (2018). PALEOMAP Paleodigital Elevation Models (PaleoDEMS) for the Phanerozoic PALEOMAP Project. Retrieved from https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/
+#' \cr  Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
+#' \cr
+#' \cr Müller, R. D., Flament, N., Cannon, J., Tetley, M. G., Williams, S. E., Cao, X., Bodur, Ö. F., Zahirovic, S., and Merdith, A.: A tectonic-rules-based mantle reference frame since 1 billion years ago – implications for supercontinent cycles and plate–mantle system evolution, Solid Earth, 13, 1127–1159, https://doi.org/10.5194/se-13-1127-2022, 2022.
+#' \cr
+#' \cr Scotese, C. R. (2016). PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. http://www.earthbyte.org/paleomap‐ paleoatlas‐for‐gplates
 #' \cr
 #' \cr Seton, M., Müller, R. D., Zahirovic, S., Gaina, C., Torsvik, T., Shephard, G., … Chandler, M. (2012). Global continental and ocean basin reconstructions since 200Ma. Earth-Science Reviews, 113(3–4), 212–270. https://doi.org/10.1016/j.earscirev.2012.03.002
 #' \cr
@@ -35,7 +46,7 @@
 #' 
 #' @param x are the features to be reconstructed. Can be a vector with longitude and latitude representing
 #' a single point or a matrix/dataframe with the first column as longitude and second column as latitude, or a \code{SpatialPolygonsDataFrame} class object. 
-#' The character strings \code{"plates"} and \code{"coastlines"} return static plates and rotated present-day coastlines, respectively.
+#' The character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"continents"} return static plates, rotated present-day coastlines and continents, respectively.
 #' @param ... arguments passed to class-specific methods.
 #' @param age (\code{numeric})is the age in Ma at which the points will be reconstructed
 #' @param model (\code{character} or \code{\link{platemodel}}) The  reconstruction model. The class of this argument selects the submodule used for reconstruction, a \code{character} value will invoke the remote reconstruction submodule and will submit \code{x} to the GPlates Web Service. A \code{platemodel} class object will call the local-reconstruction submodule. The default is \code{"PALEOMAP"}. See details for available models.
@@ -48,6 +59,7 @@
 #' @param plateperiod (\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.
 #' @param dir (\code{character}) Argument of the local reconstruction submodule. Directory where the temporary files of the reconstruction are stored (defaults to a temporary directory created by R). Remember to toggle \code{cleanup} if you want to see the files.  
 #' @param gmeta (\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?  
+#' @param partitioning (\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to the "static_polygons". 
 #' @return A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input. \code{NULL} in case no model is specified.
 #' @examples
 #' # With the web service 
@@ -70,7 +82,7 @@ setGeneric("reconstruct", function(x,...) standardGeneric("reconstruct"))
 setMethod(
 	"reconstruct", 
 	signature="matrix", 
-	function(x,age, model="PALEOMAP", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=200, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=FALSE){
+	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=200, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons"){
 
 	if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
 
@@ -111,7 +123,7 @@ setMethod(
                     }else{
                         fresh <- reconstructGPlates(x=x, age=age[i], model=model,
 							path.gplates=path.gplates, dir=dir, verbose=verbose, 
-							cleanup=cleanup, plateperiod=plateperiod)
+							cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
                     }
 					# attribute copy, if there is anything
 					if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
@@ -156,7 +168,7 @@ setMethod(
 				    }else{
                         container[index,] <- reconstructGPlates(x=current,
 							age=ageLevs[i], model=model, path.gplates=path.gplates, 
-							dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod)
+							dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
                     }
                 }
 			}
@@ -169,7 +181,7 @@ setMethod(
             }else{
                 container <- reconstructGPlates(x=x, age=age, model=model,
 					path.gplates=path.gplates, dir=dir, verbose=verbose, 
-					cleanup=cleanup, plateperiod=plateperiod)
+					cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
             }
 		}
 
@@ -199,7 +211,7 @@ setMethod(
 setMethod(
 	"reconstruct", 
 	signature="character", 
-	function(x,age, model="PALEOMAP", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE){
+	function(x,age, model="PALEOMAP", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons"){
 
 	if(is.null(model)){
 			message("No model was specified.")
@@ -207,7 +219,6 @@ setMethod(
 			return(x)
 		}
 
-	if(!any(x==c("plates", "coastlines"))) stop("Invalid 'x' argument.\nThe only valid character input are \"plates\" and \"coastlines\"")
 		# vectorized
 		if(length(age)>1){
 			
@@ -221,17 +232,11 @@ setMethod(
 			# iterate over ages
 			for(i in 1:length(age)){
 				# what is needed?
-				if(x=="coastlines"){
-					feature <- gplates_reconstruct_coastlines(age=age[i], model=model, verbose=verbose)
-				}
-
-				if(x=="plates"){
-					if(is.character(model)){
-						feature <- gplates_reconstruct_static_polygons(age=age[i], model=model, verbose=verbose)
-					}else{
-						feature <- reconstructGPlates(x="plates", age=age[i], model=model,
-							path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup)
-					}
+				if(is.character(model)){
+					feature <- gplates_reconstruct_this(age=age[i], this=x, model=model, verbose=verbose)
+				}else{
+					feature <- reconstructGPlates(x=x, age=age[i], model=model,
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning)
 				}
 
 				# save it
@@ -245,17 +250,11 @@ setMethod(
 		# single entry
 		}else{
 			# what do you want?
-			if(x=="coastlines"){
-				container <- gplates_reconstruct_coastlines(age=age, model=model, verbose=verbose)
-			}
-
-			if(x=="plates"){
-				if(is.character(model)){
-					container <- gplates_reconstruct_static_polygons(age=age, model=model, verbose=verbose)
-				}else{
-					container <- reconstructGPlates(x="plates", age=age, model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup)
-				}
+			if(is.character(model)){
+				container <- gplates_reconstruct_this(age=age, this=x, model=model, verbose=verbose)
+			}else{
+				container <- reconstructGPlates(x=x, age=age, model=model,
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning)
 			}
 		}
 		# return container
@@ -268,7 +267,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"Spatial", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons"){
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -293,7 +292,7 @@ setMethod(
 #					container[[i]] <- gplates_reconstruct_polygon(sp=x, age=age[i], model=model, verbose=verbose)
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
 				}
 			}
 
@@ -309,7 +308,7 @@ setMethod(
 #				container <- gplates_reconstruct_polygon(sp=x, age, model=model, verbose=verbose)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod, partitioning=partitioning)
 			}
 			
 		}
@@ -325,7 +324,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"sf", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, gmeta=FALSE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons"){
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -351,7 +350,7 @@ setMethod(
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i],
 						model=model, path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup,plateperiod=plateperiod, gmeta=gmeta)
+						cleanup=cleanup,plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning)
 				}
 			}
 
@@ -368,7 +367,7 @@ setMethod(
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=plateperiod, gmeta=gmeta)
+						cleanup=cleanup, plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning)
 			}
 			
 		}

@@ -24,7 +24,8 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE
+  plateperiod = FALSE,
+  partitioning = "static_polygons"
 )
 
 \S4method{reconstruct}{data.frame}(x, ...)
@@ -40,7 +41,8 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE
+  plateperiod = FALSE,
+  partitioning = "static_polygons"
 )
 
 \S4method{reconstruct}{Spatial}(
@@ -52,7 +54,8 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE
+  plateperiod = FALSE,
+  partitioning = "static_polygons"
 )
 
 \S4method{reconstruct}{sf}(
@@ -65,13 +68,14 @@ reconstruct(x, ...)
   cleanup = TRUE,
   dir = NULL,
   plateperiod = FALSE,
-  gmeta = FALSE
+  gmeta = FALSE,
+  partitioning = "static_polygons"
 )
 }
 \arguments{
 \item{x}{are the features to be reconstructed. Can be a vector with longitude and latitude representing
 a single point or a matrix/dataframe with the first column as longitude and second column as latitude, or a \code{SpatialPolygonsDataFrame} class object. 
-The character strings \code{"plates"} and \code{"coastlines"} return static plates and rotated present-day coastlines, respectively.}
+The character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"continents"} return static plates, rotated present-day coastlines and continents, respectively.}
 
 \item{...}{arguments passed to class-specific methods.}
 
@@ -98,6 +102,8 @@ calculate the present-day coordinates of the given paleo-coordinates.}
 
 \item{plateperiod}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.}
 
+\item{partitioning}{(\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to the "static_polygons".}
+
 \item{gmeta}{(\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?}
 }
 \value{
@@ -112,11 +118,16 @@ Each location will be assigned a plate id and moved back in time using the chose
 If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gws.gplates.org/}, remote reconstruction submodule).
 The available reconstruction models for this submodule are:
 \itemize{
- \item "SETON2012" (Seton et al., 2012) for coastlines and plate polygons.
- \item "MULLER2016" (Muller et al., 2016) for coastlines and plate polygons.
- \item "GOLONKA" (Wright et al. 2013) for coastlines only. 
- \item "PALEOMAP" (Scotese and Wright, 2018) for coastlines and plate polygons. 
- \item "MATTHEWS2016" (Matthews et al., 2016) for coastlines and plate polygons. 
+ \item "SETON2012" (Seton et al., 2012) for coastlines and plate polygons (0-200 Ma).
+ \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
+ \item "MULLER2016" (Muller et al., 2016) for coastlines and plate polygons (0-230 Ma).
+ \item "GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma). 
+ \item "PALEOMAP" (Scotese, 2016) for coastlines and plate polygons (0-1100 Ma). 
+ \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma). 
+ \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and plate polygons (0-410 Ma).
+ \item "MULLER2019" (Müller et al., 2019) for coastlines and plate polygons. (0-250 Ma).
+ \item "MERDITH2021" (Merdith et al., 2021) for coastlines and plate polygons (0-1000 Ma). 
+ \item "MULLER2022" (Müller et al., 2022) for coastlines and plate polygons (0-1000 Ma). 
 }
 
 If \code{model} is a \code{\link{platemodel}} class object, then the function will try to use the GPLates desktop application (\url{https://www.gplates.org/}) to reconstruct the coordinates (local reconstruction submodule).
@@ -127,9 +138,15 @@ The function will try to find the main GPlates executable in its default install
 
 Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
 \cr
+\cr Andrew S. Merdith, Simon E. Williams, Alan S. Collins, Michael G. Tetley, Jacob A. Mulder, Morgan L. Blades, Alexander Young, Sheree E. Armistead, John Cannon, Sabin Zahirovic, R. Dietmar Müller, (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic, Earth-Science Reviews, Volume 214, 2021, 103477, ISSN 0012-8252, https://doi.org/10.1016/j.earscirev.2020.103477.
+\cr
 \cr Müller, R. D., Seton, M., Zahirovic, S., Williams, S. E., Matthews, K. J., Wright, N. M., … Cannon, J. (2016). Ocean Basin Evolution and Global-Scale Plate Reorganization Events Since Pangea Breakup. Annual Review of Earth and Planetary Sciences, 44(1), 107–138. https://doi.org/10.1146/annurev-earth-060115-012211
 \cr
-\cr Scotese, C., & Wright, N. M. (2018). PALEOMAP Paleodigital Elevation Models (PaleoDEMS) for the Phanerozoic PALEOMAP Project. Retrieved from https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/
+\cr  Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
+\cr
+\cr Müller, R. D., Flament, N., Cannon, J., Tetley, M. G., Williams, S. E., Cao, X., Bodur, Ö. F., Zahirovic, S., and Merdith, A.: A tectonic-rules-based mantle reference frame since 1 billion years ago – implications for supercontinent cycles and plate–mantle system evolution, Solid Earth, 13, 1127–1159, https://doi.org/10.5194/se-13-1127-2022, 2022.
+\cr
+\cr Scotese, C. R. (2016). PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. http://www.earthbyte.org/paleomap‐ paleoatlas‐for‐gplates
 \cr
 \cr Seton, M., Müller, R. D., Zahirovic, S., Gaina, C., Torsvik, T., Shephard, G., … Chandler, M. (2012). Global continental and ocean basin reconstructions since 200Ma. Earth-Science Reviews, 113(3–4), 212–270. https://doi.org/10.1016/j.earscirev.2012.03.002
 \cr

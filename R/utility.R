@@ -23,8 +23,13 @@ getOS <- function(){
 
 # get directory from a paht
 fileFromPath <- function(x){
-  all <- unlist(strsplit(x, "/"))
-  paste(all[length(all)], collapse="/")
+  res <- rep(NA, length(x))
+  for(i in 1:length(x)){
+	all <- unlist(strsplit(x[i], "/"))
+	res[i] <- paste(all[length(all)], collapse="/")
+  }
+  names(res) <- names(x)
+  return(res)
 }
 
 # from: https://ryouready.wordpress.com/2008/12/18/generate-random-string-name/

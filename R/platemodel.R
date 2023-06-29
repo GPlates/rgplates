@@ -8,12 +8,13 @@
 #' @exportClass platemodel
 platemodel <- setClass(
 	"platemodel",
-	slots=list(name="character", rotation="character", polygons="character", version="character"))
+	slots=list(name="character", rotation="character", features="character"))
 
 #' @param .Object Constructor argument (not needed).
-#' @param path (\code{character}) Path to a .mod unique plate model object.
-#' @param rotation (\code{character}) If \code{path} is \code{NULL}, the path to the rotation file-part of the model.
-#' @param polygons (\code{character}) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.
+#' @param rotation (\code{character}) The path to the rotation file-part of the model.
+#' @param features (\code{character}) Named vector of features with the paths to the individual files.
+#' @param name (\code{character}) Optional name of the model. 
+#' @param polygons (\code{character}) (Deprecated) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.
 #' @rdname platemodel 
 #' @return A \code{platemodel} class object.
 #' @export platemodel
@@ -31,32 +32,31 @@ platemodel <- setClass(
 #' polPath <- file.path(tempdir(), 
 #'   "PALEOMAP_PlatePolygons.gpml")
 #' # register in R - to be used in reconstruct()
-#' model <- platemodel(rotation=rotPath, polygons=polPath)
+#' model <- platemodel(rotation=rotPath, features=c("static_polygons"=polPath))
 setMethod("initialize",signature="platemodel",
-	definition=function(.Object,path=NULL, rotation=NULL, polygons=NULL){
-		if(!is.null(path)){
-			fullPath <- normalizePath(path)
-
-			# replace windows like paths with UNIX paths
-			fullPath <- gsub("\\\\","/", fullPath)
-	
-			# get the directory
-			all <- unlist(strsplit(fullPath, "/"))
-			dir <- paste(all[-length(all)], collapse="/")
-	
-			lin <- readLines(path, 4)
-			.Object@name <- gsub("name: ", "", lin[1])
-			.Object@rotation <- gsub("rotation: ", "", file.path(dir, lin[2]))
-			.Object@polygons <- gsub("polygons: ", "", file.path(dir, lin[3]))
-			.Object@version <- gsub("version: ", "", lin[4])
-		}else{
-			if(is.null(rotation) | is.null(polygons))
-				stop("You have to provide both a rotation file and a polygons object.")
+	definition=function(.Object, rotation=NULL, features=NULL, name=NULL, polygons=NULL){
+			if(is.null(rotation)) stop("You have to provide a rotation file.")
 			.Object@rotation <- rotation
-			.Object@polygons <- polygons
-			.Object@name <- ""
-			.Object@version <- ""
-		}
+			if(!is.null(features)){
+				.Object@features <- features
+				names(features)
+			}
+
+			if(!is.null(polygons)){
+				if(is.null(features)){
+					.Object@features <- ""
+					names(.Object@features) <- "static_polygons"
+
+				}
+				.Object@features["static_polygons"] <- polygons
+			}
+
+			if(!is.null(name)){
+				.Object@name <- name
+			}else{
+			
+				.Object@name <- ""
+			}
 
 		return(.Object)
 	}
@@ -67,12 +67,16 @@ setMethod("show",signature="platemodel",
 	definition=function(object){
 		cat("GPlates plate tectonic model.\n")
 		if(object@name!="") cat(object@name, "\n - ")
-		if(object@version!="") cat( object@version, "\n")
 
-		cat("static polygons: ", paste("\"", fileFromPath(object@polygons),"\"", sep=""), "\n")
-		cat("rotation:        ", paste("\"", fileFromPath(object@rotation),"\"", sep=""), "\n")
+		cat("rotation:           ", paste("\"", fileFromPath(object@rotation),"\"", sep=""), "\n")
+		for(i in 1:length(object@features)){
+			current <- object@features[i]
+			namLength <- nchar(names(current))
+			reps <- 20-namLength
+			if(reps<0) reps <- 0
+			cat(paste0(names(current), ":", paste(rep(" ",reps ), collapse=""), paste("\"", fileFromPath(current),"\"", sep=""), "\n"))
+
+		}
 
 	}
 )
-
-	

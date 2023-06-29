@@ -131,7 +131,7 @@ gplates_reconstruct_points <- function(coords,age, model="PALEOMAP", reverse=FAL
 # @param model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
 # @param verbose Should the function output urls?
 # @return SpatialPolygonsDataFrame
-gplates_reconstruct_coastlines <- function(age, model="PALEOMAP", verbose=TRUE){
+gplates_reconstruct_this <- function(age, this, model="PALEOMAP", verbose=TRUE){
 	if(any(age%%1!=0)){
 		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
 		age <- round(age)
@@ -139,47 +139,12 @@ gplates_reconstruct_coastlines <- function(age, model="PALEOMAP", verbose=TRUE){
 	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
 	
 	#download and save data
-	url <- 'http://gws.gplates.org/reconstruct/coastlines/'
+	url <- paste0('http://gws.gplates.org/reconstruct/', this, '/')
 	query <- sprintf('?time=%d&model=%s', age, model)
 	
 	fullrequest <- sprintf(paste0(url,query))
 	if(verbose) cat("Getting data from:", fullrequest, "\n")
 
-	r <- readLines(fullrequest, warn=FALSE)
-	
-	#read data
-	dat <- geojsonsf::geojson_sf(r)
-	
-	return(dat)
-}
-
-#  reconstruct static polygons
-#  
-#  Retrieve reconstructed static polygons for defined ages
-#  
-#  @param age is the age in Ma at which the points will be reconstructed
-#  @param	model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
-#  @param verbose Should the function output urls?
-#  
-# @return SpatialPolygonsDataFrame
-# 
-# @examples
-#  gplates_reconstruct_static_polygons(140)
-#  
-gplates_reconstruct_static_polygons <- function(age, model="PALEOMAP", verbose=TRUE){
-	if(any(age%%1!=0)){
-		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
-		age <- round(age)
-	}
-	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
-	
-	#download and save data
-	url <- 'http://gws.gplates.org/reconstruct/static_polygons/'
-	query <- sprintf('?time=%d&model=%s',age, model)
-	
-	fullrequest <- sprintf(paste0(url,query))
-	if(verbose) cat("Getting data from:", fullrequest, "\n")
-	
 	r <- readLines(fullrequest, warn=FALSE)
 	
 	#read data
