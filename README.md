@@ -1,11 +1,11 @@
 
 # rgplates
 
-[![](https://img.shields.io/badge/devel%20version-0.2.1-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.3.0-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=orange)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
-checks](https://cranchecks.info/badges/summary/rgplates)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
+checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
 
 R interface for the GPlates Web Service and Desktop Application
 
@@ -36,12 +36,3 @@ distribution/development.
 This is a beta version.
 
 See the blog entry below for an example application:
-
-# Installing
-
-While the initial submissions are getting processed, the package can be
-built usiung the source deposited on this repository.
-
-``` r
-install.packages("https://github.com/adamkocsis/rgplates/raw/main/_archive/source/rgplates_0.2.1.tar.gz", repos=NULL, type="source")
-```

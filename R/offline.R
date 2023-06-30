@@ -3,14 +3,13 @@
 
 
 #Mac examples
-#	library(chronosphere)
 #	x<- fetch("pared", "public")[,c("longitude", "latitude")]
 #	mo <- fetch("paleomap", "model")
 #	reconstruct(x, age=10, model=mo, verbose=TRUE)
 #reconstruct(x, age=10, model=mo, verbose=TRUE, path.gplates="/Users/Nick/Downloads/GPlates-2.2.0/gplates.app/Contents/MacOS/gplates")
 
-reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE){
-	if(!inherits(model, "platemodel")) stop("You need a GPlates tectonic model for this method.")
+reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons"){
+	if(!inherits(model, "platemodel")) stop("You need a GPlates tectonic object for this method.")
 	
     # 1. FIND GPlates
 		# A. get operating system
@@ -28,7 +27,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 				# leave the model intact in the namespace (easier debug)
 				rotation <- model@rotation
-				platePolygons <- model@polygons
+				plateFeatures<- model@features
 
 				# separator character between directories
 				dirSep <- "/"
@@ -45,7 +44,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 				# 2. replace model paths with \\
 				rotation <- gsub("/","\\\\", model@rotation)
-				platePolygons <- gsub("/","\\\\", model@polygons)
+				plateFeatures<- gsub("/","\\\\", model@features)
 
 				# characters to include directory 
 				dirSep <- "\\\\"
@@ -63,7 +62,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 				# leave the model intact in the namespace (easier debug)
 				rotation <- model@rotation
-				platePolygons <- model@polygons
+				plateFeatures <- model@features
 
 				# separator character between directories
 				dirSep <- "/"
@@ -77,7 +76,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			
 			# leave the model intact in the namespace (easier debug)
 			rotation <- model@rotation
-			platePolygons <- model@polygons
+			plateFeatures <- model@features
 
 			# separator character between directories
 			dirSep <- "/"
@@ -90,7 +89,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 				# 2. replace model paths with \\
 				rotation <- gsub("/","\\\\", model@rotation)
-				platePolygons <- gsub("/","\\\\", model@polygons)
+				plateFeatures <- gsub("/","\\\\", model@features)
 
 				# characters to include directory 
 				dirSep <- "\\\\"
@@ -108,6 +107,12 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 	# 2. Setup reconstruction environment
 		# folder where files will be executed
 		if(is.null(dir)) tempd <- tempdir() else tempd <- dir
+
+		# copy all model feature to working directory
+		sources <- plateFeatures
+		plateFeatures <-file.path(tempd, fileFromPath(sources)) 
+		names(plateFeatures) <- names(sources)
+		results <- file.copy(sources, plateFeatures)
 
 		# prepare x
 		# create a SpatialPointsDataFrame from long-lat matrix
@@ -166,13 +171,20 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 #			rgdal::writeOGR(xTransform, dsn=paste(pathToFileNoEXT, ".shp", sep=""), layer=layer, driver="ESRI Shapefile")
 			sf::st_write(xTransform, dsn=paste(pathToFileNoEXT, ".shp", sep=""),
 				layer=layer, driver="ESRI Shapefile", quiet=!verbose)
+			# select partitioning feature
+			platePolygons <- plateFeatures[partitioning]
+
 
 		}else{
 		# feature to reconstruct is the static polygons
-			if(length(x)!=1) stop("Only the 'plates' can be reconstructed with this method.")
-			if(x=="plates"){
+			if(length(x)!=1) stop("Only one feature collection can be reconstructed with this method.")
+			# look for x in the feature set
+			validFeature <- any(x==names(plateFeatures))
+			if(validFeature){
 				# use original one - even for windows.
-				pathToFileNoEXT <- gsub(".gpml", "",model@polygons)
+				pathToFileNoEXT <- gsub(".gpml", "",plateFeatures[x])
+			}else{
+				stop("The requested feature collection is not part of the model. ")
 			}
 		}
 
@@ -198,7 +210,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		}
 		# do reconstruction
 		if(!is.character(x)) if(verbose) message("Reconstructing coordinates.")
-		if(is.character(x)) if(x=="plates") if(verbose) message("Reconstructing plates.")
+		if(is.character(x)) if(validFeature) if(verbose) message(paste0("Reconstructing '",  x, "'."))
 			reconstruction <- paste(gplatesExecutable, " reconstruct -l \"",pathToFileNoEXT,".gpml\" -r \"", 
 					rotation, "\" -e shapefile -t ", age, " -o \"", pathToFileNoEXT,"_reconstructed\" -w 1", sep="") 
 			system(reconstruction, ignore.stdout=!verbose,ignore.stderr=!verbose)
@@ -208,59 +220,71 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		multiple <- FALSE
 
 		# reading coordinates
-		if(!is.character(x)){
-			if(verbose) message("Reading reconstructed geometries.")
+		if(verbose) message("Reading reconstructed geometries.")
 
-			# the single file
-			targetSingle <- paste(pathToFileNoEXT,"_reconstructed.shx",	sep="")
-			targetSingleNoPath <- fileFromPath(targetSingle)
+		# the single file
+		targetSingle <- paste(pathToFileNoEXT,"_reconstructed.shx",	sep="")
+		targetSingleNoPath <- fileFromPath(targetSingle)
 
-			# produced directory? 
-			targetDir<- paste(pathToFileNoEXT,"_reconstructed",	sep="")
-			targetDirNoPath <- fileFromPath(targetDir)
+		# produced directory? 
+		targetDir<- paste(pathToFileNoEXT,"_reconstructed",	sep="")
+		targetDirNoPath <- fileFromPath(targetDir)
 
-			# is this a single file? 
-			allFiles <- list.files(tempd)
+		# is this a single file? 
+		allFiles <- list.files(tempd)
 
-			# is the target single file created?
-			if(any(allFiles==targetSingleNoPath)){
-				if(verbose) message("Found single output geometry files.")
-				rotated <- sf::st_read(targetSingle, quiet=!verbose)
+		# is the target single file created?
+		if(any(allFiles==targetSingleNoPath)){
+			if(verbose) message("Found single output geometry files.")
+			rotated <- sf::st_read(targetSingle, quiet=!verbose)
+		}
+
+		# did GPlates produce a whole directory? 
+		if(any(allFiles==targetDirNoPath)){
+			# Was an output multiple?
+			multiple <- TRUE
+
+			if(verbose) message("Found multiple output geometry files.")
+			# read in files from there
+			allDirFiles <- list.files(targetDir)	
+
+			# files to read in
+			toRead <- allDirFiles[grep(".shx", allDirFiles)]
+
+			# the container
+			rotatedList <- NULL
+			for(i in 1:length(toRead)){
+				# read in one bit
+				rotatedList[[i]] <- sf::st_read(file.path(targetDir, toRead[i]), quiet=!verbose)
 			}
 
-			# did GPlates produce a whole directory? 
-			if(any(allFiles==targetDirNoPath)){
-				# Was an output multiple?
-				multiple <- TRUE
+			# make this just one object
+			rotated <- NULL
+			# the final set of columns
+			allColumns <- unique(unlist(lapply(rotatedList, colnames)))
+			allColumns <- c(allColumns[allColumns!="geometry"], "geometry")
 
-				if(verbose) message("Found multiple output geometry files.")
-				# read in files from there
-				allDirFiles <- list.files(targetDir)	
+			for(i in 1:length(rotatedList)){
 
-				# files to read in
-				toRead <- allDirFiles[grep(".shx", allDirFiles)]
+				# focus on one
+				one <- rotatedList[[i]]
 
-				# the container
-				rotated <- NULL
-				for(i in 1:length(toRead)){
-					# read in one bit
-					one <- sf::st_read(file.path(targetDir, toRead[i]), quiet=!verbose)
-
-					# bind it to the rest
-					rotated <- rbind(rotated, one)
-						
+				# if columns are missing, add them
+				missingColumns <- allColumns[!allColumns%in%colnames(one)]
+				if(length(missingColumns)>0){
+					for (j in 1:length(missingColumns)){
+						one[[missingColumns[j]]] <- NA
+					}
 				}
+				# reorder the columns
+				rotated <- rbind(rotated, one[,allColumns])
 
 			}
-		} 
-		if(is.character(x)){
-			if(x=="plates") if(verbose) message("Reading plates.")
-			pathToFile <- paste(pathToFileNoEXT,"_reconstructed",dirSep ,fileFromPath(pathToFileNoEXT),"_reconstructed_polygon.shx", sep="")
-			rotated <- sf::st_read(pathToFile, quiet=!verbose)
+
 		}
 		
 		# if the originals were sf - nothing happens
-		if(inherits(originals, "sf") | inherits(originals, "Spatial")){
+		if(inherits(originals, "sf") | inherits(originals, "Spatial") | inherits(x, "character")){
 			# omission of gplates metadata? 
 			if(!gmeta){
 				rotated <- 	rotated[, -which(colnames(rotated)%in%c("ANCHOR", "TIME", "FILE1", "RECONFILE1"))]
@@ -320,8 +344,8 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 	# 5. Finish
 		# remove temporary files
-		if(!inherits(x, "character")){
-			if(cleanup){		
+		if(cleanup){		
+			if(!inherits(x, "character")){
 				system(paste("rm -r ",tempd, "/",layer,"*", sep=""))
 			}
 		}

@@ -1,3 +1,74 @@
+platemodelOLD <- setClass(
+	"platemodelOLD",
+	slots=list(name="character", rotation="character", polygons="character", version="character"))
+
+#' @param .Object Constructor argument (not needed).
+#' @param path (\code{character}) Path to a .mod unique plate model object.
+#' @param rotation (\code{character}) If \code{path} is \code{NULL}, the path to the rotation file-part of the model.
+#' @param polygons (\code{character}) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.
+#' @rdname platemodel 
+#' @return A \code{platemodel} class object.
+#' @export platemodel
+#' @examples
+#' # path to provided archive
+#' archive <- file.path(
+#'   system.file("extdata", package="rgplates"), 
+#'   "paleomap_v3.zip")
+#' # extract to temporary directory
+#' unzip(archive, exdir=tempdir())
+#' # path to the rotation file
+#' rotPath <- file.path(tempdir(), 
+#'   "PALEOMAP_PlateModel.rot")
+#' # path to the polygons
+#' polPath <- file.path(tempdir(), 
+#'   "PALEOMAP_PlatePolygons.gpml")
+#' # register in R - to be used in reconstruct()
+#' model <- platemodel(rotation=rotPath, polygons=polPath)
+setMethod("initialize",signature="platemodelOLD",
+	definition=function(.Object,path=NULL, rotation=NULL, polygons=NULL){
+		if(!is.null(path)){
+			fullPath <- normalizePath(path)
+
+			# replace windows like paths with UNIX paths
+			fullPath <- gsub("\\\\","/", fullPath)
+	
+			# get the directory
+			all <- unlist(strsplit(fullPath, "/"))
+			dir <- paste(all[-length(all)], collapse="/")
+	
+			lin <- readLines(path, 4)
+			.Object@name <- gsub("name: ", "", lin[1])
+			.Object@rotation <- gsub("rotation: ", "", file.path(dir, lin[2]))
+			.Object@polygons <- gsub("polygons: ", "", file.path(dir, lin[3]))
+			.Object@version <- gsub("version: ", "", lin[4])
+		}else{
+			if(is.null(rotation) | is.null(polygons))
+				stop("You have to provide both a rotation file and a polygons object.")
+			.Object@rotation <- rotation
+			.Object@polygons <- polygons
+			.Object@name <- ""
+			.Object@version <- ""
+		}
+
+		return(.Object)
+	}
+)
+
+
+setMethod("show",signature="platemodelOLD",
+	definition=function(object){
+		cat("GPlates plate tectonic model.\n")
+		if(object@name!="") cat(object@name, "\n - ")
+		if(object@version!="") cat( object@version, "\n")
+
+		cat("static polygons: ", paste("\"", fileFromPath(object@polygons),"\"", sep=""), "\n")
+		cat("rotation:        ", paste("\"", fileFromPath(object@rotation),"\"", sep=""), "\n")
+
+	}
+)
+
+	
+
 ###########################################################################
 # Front-end wrapper function
 
@@ -166,7 +237,7 @@ setMethod(
 	"reconstruct_old", 
 	signature="data.frame", 
 	function(x,... ){
-		reconstruct(as.matrix(x), ...)
+		reconstruct_old(as.matrix(x), ...)
 })
 
 #' @rdname reconstruct
@@ -174,7 +245,7 @@ setMethod(
 	"reconstruct_old", 
 	signature="numeric", 
 	function(x,... ){
-		if(length(x)==2) reconstruct(matrix(x, nrow=1), ...) else stop("Only 2 element vectors are allowed!")
+		if(length(x)==2) reconstruct_old(matrix(x, nrow=1), ...) else stop("Only 2 element vectors are allowed!")
 })
 
 #' @rdname reconstruct
@@ -360,7 +431,7 @@ setMethod(
 
 
 reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE){
-	if(class(model)!="platemodel") stop("You need a GPlates tectonic model for this method.")
+	if(class(model)!="platemodelOLD") stop("You need a GPlates tectonic model for this method.")
 	if(! requireNamespace("rgdal", quietly=TRUE)) stop("This method requires the 'rgdal' package to run")
 	
     # 1. FIND GPlates
@@ -871,4 +942,46 @@ gplates_reconstruct_polygon <- function(sp, age, model="PALEOMAP", verbose=TRUE)
 	rpoly <- rgdal::readOGR(rawdata, "OGRGeoJSON", verbose = FALSE)
 	
 	return(rpoly)
+}
+
+
+
+getOS <- function(){
+  sysinf <- Sys.info()
+  if (!is.null(sysinf)){
+    os <- sysinf['sysname']
+    if (os == 'Darwin')
+      os <- "osx"
+  } else { ## mystery machine
+    os <- .Platform$OS.type
+    if (grepl("^darwin", R.version$os))
+      os <- "osx"
+    if (grepl("linux-gnu", R.version$os))
+      os <- "linux"
+  }
+  tolower(os)
+}
+
+
+
+# get directory from a paht
+fileFromPath <- function(x){
+  res <- rep(NA, length(x))
+  for(i in 1:length(x)){
+	all <- unlist(strsplit(x[i], "/"))
+	res[i] <- paste(all[length(all)], collapse="/")
+  }
+  names(res) <- names(x)
+  return(res)
+}
+
+# from: https://ryouready.wordpress.com/2008/12/18/generate-random-string-name/
+randomString <- function(n=1, length=12){
+  # initialize vector
+  randomString <- c(1:n)                  
+  for (i in 1:n){
+    randomString[i] <- paste(sample(c(0:9, letters, LETTERS),
+                                    length, replace=TRUE), collapse="")
+  }
+  return(randomString)
 }

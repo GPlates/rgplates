@@ -11,6 +11,5 @@ NULL
 
 #' @import sf
 #' @importFrom methods new 
-#' @importFrom utils flush.console sessionInfo
 NULL
 

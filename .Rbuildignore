@@ -13,3 +13,4 @@ README.*
 ^docs$
 ^pkgdown$
 index.*
+man/figures/rgplates_example.png

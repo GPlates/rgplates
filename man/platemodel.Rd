@@ -7,16 +7,24 @@
 \alias{initialize,platemodel-method}
 \title{Class of objects representing plate tectonic models}
 \usage{
-\S4method{initialize}{platemodel}(.Object, path = NULL, rotation = NULL, polygons = NULL)
+\S4method{initialize}{platemodel}(
+  .Object,
+  rotation = NULL,
+  features = NULL,
+  name = NULL,
+  polygons = NULL
+)
 }
 \arguments{
 \item{.Object}{Constructor argument (not needed).}
 
-\item{path}{(\code{character}) Path to a .mod unique plate model object.}
+\item{rotation}{(\code{character}) The path to the rotation file.}
 
-\item{rotation}{(\code{character}) If \code{path} is \code{NULL}, the path to the rotation file-part of the model.}
+\item{features}{(\code{character}) Named vector of features with the paths to the individual files.}
 
-\item{polygons}{(\code{character}) If \code{path} is \code{NULL}, the path to the plate polygon file-part of the model.}
+\item{name}{(\code{character}) (Optional) name of the model.}
+
+\item{polygons}{(\code{character}) (Deprecated) The path to the static plate polygon file.}
 }
 \value{
 A \code{platemodel} class object.
@@ -38,5 +46,5 @@ rotPath <- file.path(tempdir(),
 polPath <- file.path(tempdir(), 
   "PALEOMAP_PlatePolygons.gpml")
 # register in R - to be used in reconstruct()
-model <- platemodel(rotation=rotPath, polygons=polPath)
+model <- platemodel(rotation=rotPath, features=c("static_polygons"=polPath))
 }

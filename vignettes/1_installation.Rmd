@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+<br>
+
 ## Stable version from the CRAN
+* * *
 
 The stable version of the package is available on [CRAN servers](https://cran.r-project.org/package=rgplates), which means that you can install it with the regular `install.packages()` function.
 
@@ -27,17 +30,18 @@ install.packages("rgplates")
 If for some reason, the installlation from CRAN fails, you might need to look into alternative methods.
 
 
-* * * 
+<br>
 
 ## Alternative methods
+* * * 
 
 #### Stable version from GitHub
 
-For the sake of completeness and simplicity, the sources of the stable version is also deposited on GitHub. The `install.packages()` function can be used to install this from source (although you might have install dependencies of the package. )
+For the sake of completeness and simplicity, the sources of the stable version is also deposited on Zenodo. The `install.packages()` function can be used to install this from source (although you might have install dependencies of the package. )
 
 ```{r stable, eval=FALSE}
 install.packages(
-	"https://github.com/adamkocsis/rgplates/raw/main/_archive/source/rgplates_0.2.1.tar.gz", 
+	"https://zenodo.org/record/8098723/files/rgplates_0.3.0.tar.gz?download=1", 
 	repos=NULL, type="source")
 ```
 

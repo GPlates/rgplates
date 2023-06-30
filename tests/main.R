@@ -16,6 +16,7 @@ parallel::clusterCall(cl, source, "rgplates/tests/source.R")
 online <- run_test_dir("rgplates/tests/online")
 offline <- run_test_dir("rgplates/tests/offline")
 utilty <- run_test_dir("rgplates/tests/utility")
+platemodel <- run_test_dir("rgplates/tests/platemodels")
 
 # Finish
 stopCluster(cl)

@@ -26,16 +26,18 @@ library(rgplates)
 
 When attached, `rgplates` automatically loads the [*Simple Features for R* (`sf`) package](https://cran.r-project.org/web/packages/sf/index.html), a standard R package used for processing vector spatial data. 
 
-* * *
+<br>
 
 ## Reconstructing plates
 
-All paleocoordinate rotations are executed with the `reconstruct()` function. The default model used by this is the model of the [PALEOMAP](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) project, developed by C. Scotese. *(If you look at the reference of `reconstruct()`, you can see that by default `model="PALEOMAP"`).*
+* * *
 
-Every tectonic model relies on plates, which are rotated on the surface of Earth. The plate positions can be reconstructed to any age that the model covers. The present-day positions of the plates can be queried with the `reconstruct()` function, with the string `"plates"` passed as the first argument, and the target `age` set to `0` (in Ma).
+All paleocoordinate rotations are executed with the `reconstruct()` function. The default model used by this is the [Merdith et al. 2021](https://www.earthbyte.org/webdav/ftp/Data_Collections/Merdith_etal_2021_ESR/), described [here](https://www.sciencedirect.com/science/article/abs/pii/S0301926807001635). *(If you look at the reference of `reconstruct()`, you can see that by default `model="MERDITH2021"`).*
+
+Every tectonic model relies on plates, which are rotated on the surface of Earth. Plate positions) can be reconstructed to any age that the model covers. The present-day positions of the plates can be queried with the `reconstruct()` function, with a string passed (`static_plates` or `plate_polygons`, depending on the model) as the first argument, and the target `age` set to `0` (in Ma). 
 
 ```{r presentday, echo=TRUE }
-pl0 <- reconstruct("plates", age=0)
+pl0 <- reconstruct("static_polygons", age=0)
 pl0
 ```
 
@@ -47,31 +49,59 @@ You can plot the distribution of plates with the `plot()` function. To focus on 
 plot(pl0$geometry)
 ```
 
-Setting the `age` argument allows you to access the state of the plate tectonic configuration at past points in time. `age` accepts dates in millions of years. To reconstruct the position of the plates at around the Triassic/Jurassic boundary (approx. 200Ma), you have to set the `age` argument to `200`:
+Setting the `age` argument allows you to access the state of the plate tectonic configuration at past points in time. `age` accepts dates in millions of years. To reconstruct the position of the plates at around the Early/Late Cretaceous boundary (approx. 100Ma), you have to set the `age` argument to `100`:
 
 ```{r tjb, echo=TRUE }
-pl200 <- reconstruct("plates", age=200)
-pl200
+pl100 <- reconstruct("static_polygons", age=100)
+pl100
 ```
 
 You can plot the results in a similar way:
 
-```{r tjbplot, echo=TRUE , plot=TRUE}
-plot(pl200$geometry)
+```{r elcplot, echo=TRUE , plot=TRUE}
+plot(pl100$geometry)
 ```
 
-Note that unlike the result for the present day (0Ma), the oceanic plates are not returned for the past plate configuration. *(Most models do not return the oceanic plates, this is a characteristic of the PALEOMAP model)* 
-
-Again, both the `pl0` and the `pl200` objects are `sf`-class objects. You can customize their plotting as you would for any other `sf` object - for instance setting a fill color for the polygons and not plotting their boundaries.
-
-
-```{r tjbplot2, echo=TRUE , plot=TRUE}
-plot(pl200$geometry, col="gray", border=NA)
-```
+## Reconstructing modern `coastlines`
 
 * * *
 
+Note that the result includes oceanic plates as well, which can be quite distracting when you want to visualize past distribution of the continents. To help with this, the paleogeographic positions of the present-day coastlines (and plate margins) can be quite helpful, which can be accessed, by providing `coastlines` as the first argument of the `reconstruct` function:
+
+```{r elccoast, echo=TRUE}
+c0 <- reconstruct("coastlines", age=0)
+c100 <- reconstruct("coastlines", age=100)
+c100
+```
+
+You can visalize these in the same way:
+
+```{r tjbcoastplot, echo=TRUE , plot=TRUE}
+plot(c100$geometry)
+```
+
+
+
+Again, the `pl0` and `pl100` and `c100` objects are `sf`-class objects. You can customize their plotting as you would for any other `sf` object - for instance setting a fill color for the polygons and not plotting their boundaries.
+
+
+```{r tjbplot2, echo=TRUE , plot=TRUE}
+plot(pl100$geometry, col="gray", border=NA)
+```
+
+You can easily plot them on top of each other:
+
+```{r tjbplot3, echo=TRUE , plot=TRUE}
+plot(pl100$geometry, col="gray", border=NA)
+plot(c100$geometry, col="darkgray", border=NA, add=TRUE)
+```
+
+
+<br>
+
 ## Individual locations
+
+* * *
 
 This is nice, but plotting the plates on their own has only so much use. The true use of `reconstruct()` is the ability to calculate the paleocoordinates of present-day locations for a given `age`.
 
@@ -101,18 +131,18 @@ londonMat
 Since the coordinate reference system (CRS) of the maps is longitude-latitude, you can use these coordinates directly to indicate the positionx of the city on the present-day map using `points()` - in this case with red plus signs:
 
 ```{r presentdayplotlondon, plot=TRUE, echo=TRUE }
-plot(pl0$geometry)
+plot(c0$geometry)
 points(londonMat, col="red", pch=3)
 ```
 
 #### Paleocoordinates of a single locality
 
-Finding the paleocoordinates of such localities is as easy as calculating those of the plates. You have to use the matrix that you defined earlier (`londonMat`) as the first argument, of `reconstruct()` (where `"plates"` was given earlier), and provide a target age in million years:
+Finding the paleocoordinates of such localities is as easy as calculating those of the plates. You have to use the matrix that you defined earlier (`londonMat`) as the first argument, of `reconstruct()` (where `"static_polygons"` and `"coastlines"` were given earlier), and provide a target age in million years:
 
 
 ```{r londonreconstruct}
-londonMat200 <- reconstruct(londonMat, age=200)
-londonMat200
+londonMat100 <- reconstruct(londonMat, age=100)
+londonMat100
 ```
 
 The result of this calculation is a similar `matrix`: now including the paleolongitude and paleolatitude columns. If you provide coordinates as a plain `matrix`, coordinates are inferred to be longitude and latitude. 
@@ -120,8 +150,8 @@ The result of this calculation is a similar `matrix`: now including the paleolon
 You can visualize this the same way, as you visualized the present-day position of the location:
 
 ```{r londonPast, plot=TRUE, echo=TRUE }
-plot(pl200$geometry, col="gray", border=NA)
-points(londonMat200, col="red", pch=3)
+plot(pl100$geometry, col="gray", border=NA)
+points(londonMat100, col="red", pch=3)
 ```
 
 #### Paleocoordinates of a multiple localities
@@ -144,68 +174,73 @@ cities
 Now that we have a matrix of longitudes and latitudes, all we need to do is use this as the first argument of the `reconstruct()` function:
 
 ```{r citiesRec, echo=TRUE}
-cities200 <- reconstruct(cities, age=200)
-cities200
+cities100 <- reconstruct(cities, age=100)
+cities100
 ```
 
 Note that the order of entities remains the same. We can plot these the same way similar to a single city. 
 
 ```{r citiesPlot, echo=TRUE, plot=TRUE}
 # the background map
-plot(pl200$geometry, col="gray", border=NA)
+plot(c100$geometry, col="gray", border=NA)
 
 # the reconstructed cities 
-points(cities200, col="red", pch=3)
+points(cities100, col="red", pch=3)
 ```
 
-* * *
+<br>
 
 ## Present-day coastlines
 
-Some models the (*PaleoMAP* model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string `"coastlines"` as the first argument of the `reconstruct()` function:
+* * *
+
+Some models the (*MERDITH2021* model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string `"coastlines"` as the first argument of the `reconstruct()` function:
 
 ```{r coastlines reconstr}
-coast200 <- reconstruct("coastlines", age=200)
-coast200
+coast100 <- reconstruct("coastlines", age=100)
+coast100
 ```
 
 This returns an `sf`-class object, similar to the plates. You can visualize these with `plot()` and draw them on top of the other maps, but you have to set the `add=TRUE`, otherwise a new plot will be created.
 
 ```{r citiesPlotCoast, echo=TRUE, plot=TRUE}
 # the background map
-plot(pl200$geometry, col="gray", border=NA)
+plot(c100$geometry, col="gray", border=NA)
 
 # the reconstructed cities 
-points(cities200, col="red", pch=3)
+points(cities100, col="red", pch=3)
 
 # the coastlines
-plot(coast200$geometry, add=TRUE)
+plot(coast100$geometry, add=TRUE)
 ```
 
-* * *
+<br>
 
 ## Other reconstruction models
 
-If you look into the [*Details* of the reference of `reconstruct()`](../reference/reconstruct.html#details), you will see that the `model` argument can be set to other character strings besides `"PALEOMAP".` These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to [reconstruct the position position of the plates at 200Ma](#reconstructing-plates), with the Seton et al. 2012 model, all you have to do is set `model="SETON2012"`:
+* * *
+
+If you look into the [*Details* of the reference of `reconstruct()`](../reference/reconstruct.html#details), you will see that the `model` argument can be set to other character strings besides `"MERDITH2021".` These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to [reconstruct the position position of the plates at 100Ma](#reconstructing-plates), with the Seton et al. 2012 model, all you have to do is set `model="SETON2012"`:
 
 ```{r setonplates, echo=TRUE}
-pl200seton <- reconstruct("plates", age=200, model="SETON2012")
-pl200seton
+c100seton <- reconstruct("coastlines", age=100, model="SETON2012")
+c100seton
 ```
 
-You can compare this with the PaleoMAP model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in [HTML RGBA](https://www.w3schools.com/css/css_colors_rgb.asp): `"#FF000077"`):
+You can compare this with the Merdith et al. model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in [HTML RGBA](https://www.w3schools.com/css/css_colors_rgb.asp): `"#FF000077"`):
 
 ```{r platescompare, echo=TRUE, plot=TRUE}
-plot(pl200$geometry, col="gray", border=NA)
-plot(pl200seton$geometry, col="#FF000077", add=TRUE, border=NA)
+plot(c100$geometry, col="gray", border=NA)
+plot(c100seton$geometry, col="#FF000077", add=TRUE, border=NA)
 ```
 
 You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.
 
-* * *
-
+<br>
 
 ## Disadvantages of the *online method*
+
+* * *
 
 Although it is easy to set up, the **online method** has several limitations. For more complete control over the rotations you might want to try out the **offline method** [(see Tutorial 3 about the Offline Method)](). 
 
@@ -219,7 +254,7 @@ The second potential issue is that the amount of data that can be transmitted is
 
 The **offline method** can handle ages like `17.24` Ma without problems, and an arbitary amount of data.  
 
-#### Pre-built models
+#### External models
 
 Although the **online method** is easy to set up, it uses-pre defined models to actually execute the rotations. If you cwant to use customized, or other models, which are not yet implemented in the GWS, you will need to use the **offline** method. 
 

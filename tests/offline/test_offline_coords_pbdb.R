@@ -269,7 +269,7 @@ dat <- chronosphere::fetch("pbdb", ver="20220510", datadir=file.path(wd, "data/c
 # Reconstructions are implemented in the package 'rgplates'
 library(rgplates)
 # The PaleoDEMs
-dems<- chronosphere::fetch("paleomap", "dem", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+dems<- chronosphere::fetch("paleomap", "dem", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE, attach=FALSE)
 
 # the ages of the dems
 names(dems)
@@ -296,6 +296,7 @@ collections <- unique(collections)
 # However for that to work we need plate reconstruction model files. These can be acquired from chronosphere.
 # For the PaleoMAP project this is:
 model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+modelOld <- platemodelOLD(rotation=model@rotation, polygons=model@features['static_polygons'])
 
 # to effectively reconstruct the coordinates we need to put the target ages to our tables
 # for every stg id we have a mapage, we just need to copy this from the time scale table to the collections
@@ -323,7 +324,7 @@ collections <- collections[collections$lat<=90, ]
 paleoCoords_old <- reconstruct_old(
 	collections[, c("lng", "lat")] 
 	, age = collections$stg_map 
-	, model=model 
+	, model=modelOld
 	, enumerate=FALSE 
 	, plateperiod=FALSE 
 )
@@ -348,7 +349,7 @@ expect_equal(paleoCoords_old, paleoCoords_new)
 paleoCoords_old <- reconstruct_old(
 	collections[, c("lng", "lat")] 
 	, age = collections$stg_map 
-	, model=model 
+	, model=modelOld
 	, enumerate=FALSE 
 	, plateperiod=TRUE 
 )

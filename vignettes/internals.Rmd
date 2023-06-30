@@ -44,8 +44,7 @@ flowchart LR
   reconstruct-matrix-method-->IteratedPointReconstruction
   reconstruct-matrix-method-->reconstructGPlates
   reconstruct-sf-method-->reconstructGPlates
-  reconstruct-character-method-->gplates_reconstruct_coastlines
-  reconstruct-character-method-->gplates_reconstruct_static_polygons
+  reconstruct-character-method-->gplates_reconstruct_this
   reconstruct-character-method-->reconstructGPlates
   reconstruct-Spatial-method-->reconstructGPlates
   reconstruct-sf-method-->reconstructGPlates
@@ -84,13 +83,13 @@ flowchart LR
   
   end
 
-  gplates_reconstruct_coastlines-->geojson_sf
-  gplates_reconstruct_static_polygons-->geojson_sf
+  gplates_reconstruct_this-->geojson_sf
+  gplates_reconstruct_this-->geojson_sf
 
   subgraph online.R
 
-  gplates_reconstruct_static_polygons
-  gplates_reconstruct_coastlines
+  gplates_reconstruct_this
+  gplates_reconstruct_this
   IteratedPointReconstruction-->gplates_reconstruct_points
   gplates_reconstruct_points
 
