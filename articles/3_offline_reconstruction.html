@@ -18,7 +18,8 @@
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="3. Offline reconstruction">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="3. Offline reconstruction">
 <meta property="og:description" content="Learn how to rotate paleocoordinates with the GPlates Desktop Application
 ">
 <meta property="og:image" content="https://adamkocsis.github.io/rgplates/reference/figures/logo.png">
@@ -39,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,10 +147,10 @@
 <span><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE</span></span>
 <span></span>
 <span><span class="co"># this is still the online method:</span></span>
-<span><span class="va">partPol</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">partPol</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># these are the partitioning polyongs visualized</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">partPol</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">partPol</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/example-1.png" width="700"></p>
 <p>In order to use the <strong>offline method</strong> we need to</p>
 <ol style="list-style-type: decimal">
@@ -160,7 +161,7 @@
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="paleomap-model-files">PALEOMAP model files<a class="anchor" aria-label="anchor" href="#paleomap-model-files"></a>
+<h2 id="model-files">Model files<a class="anchor" aria-label="anchor" href="#model-files"></a>
 </h2>
 <hr>
 <p>For the sake of making the first trial simple, we will be using model files of the PaleoMAP project, that are distributed with the <code>rgplates</code> package.</p>
@@ -170,7 +171,7 @@
 <li>Unzip the model files there and</li>
 <li>load them into R.</li>
 </ol>
-<p><em>Note: there are even simpler ways to get these files and represent them into R in other ways (such as with the <a href="">chronosphere</a>, that we will look into in <a href="">Tutorial 4.</a>) but for didactic purposes, I recommend doing this first with the way that follows.</em></p>
+<p><em>Note: there are even simpler ways to get these files and represent them into R in other ways (such as with the <a href="https://chronosphere.info" class="external-link">chronosphere</a>, that we will look into in <a href="/articles/4_reconstruction_with_chronosphere.html">Tutorial 4.</a>) but for didactic purposes, I recommend doing this first with the way that follows.</em></p>
 <div class="section level4">
 <h4 id="temporary-directory">Temporary directory<a class="anchor" aria-label="anchor" href="#temporary-directory"></a>
 </h4>
@@ -179,7 +180,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -194,28 +195,27 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">rgPath</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "CITATION"    "DESCRIPTION" "extdata"     "help"        "html"       </span></span>
-<span><span class="co">#&gt;  [6] "INDEX"       "LICENSE"     "Meta"        "NAMESPACE"   "NEWS.md"    </span></span>
-<span><span class="co">#&gt; [11] "R"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [6] "INDEX"       "Meta"        "NAMESPACE"   "NEWS.md"     "R"</span></span></code></pre></div>
 <p>The model data are in the <code>extdata</code> directory, in the archive <code>paleomap_v3.zip</code>. We have to locate this archive and extract it to the temporary directory (the <code>exdir</code> argument)</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">rgPath</span>,<span class="st">"extdata/paleomap_v3.zip"</span><span class="op">)</span>, exdir<span class="op">=</span><span class="va">td</span><span class="op">)</span></span></code></pre></div>
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "file4e3a62e18145b"                 "file4e3a63e76008"                 </span></span>
-<span><span class="co">#&gt; [3] "file4e3a6634da4b8"                 "file4e3a676ec080"                 </span></span>
-<span><span class="co">#&gt; [5] "file4e3a677ba3b5b"                 "file4e3a6d4e84a8"                 </span></span>
+<span><span class="co">#&gt; [1] "file16e10d34c3bf00"                "file16e10d3906f1cf"               </span></span>
+<span><span class="co">#&gt; [3] "file16e10d43270a00"                "file16e10d4eadbf5b"               </span></span>
+<span><span class="co">#&gt; [5] "file16e10d5a131bea"                "file16e10d739806c3"               </span></span>
 <span><span class="co">#&gt; [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
 <span><span class="co">#&gt; [9] "PALEOMAP_PoliticalBoundaries.gpml"</span></span></code></pre></div>
-<p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>partitioning polyongs</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
+<p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>static plate polygons</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpfoTYL1/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -224,16 +224,16 @@
 </h2>
 <hr>
 <p>Now that we have the files and we know how to find them, we have represent them in R in some way, so we can indicate that we want them to be used with GPlates to do our plate tectonic reconstructions.</p>
-<p>We need to create a <code>platemodel</code> class object to do just this. All we need to provide, is the paths to these files, separately for the <strong>partitioning poylgons</strong> and the <strong>rotation files</strong>:</p>
+<p>We need to create a <code>platemodel</code> class object to do just this. All we need to provide, is the paths to these files. The <strong>rotation file</strong> has a special place in the <code>platemodel</code> object, so that is to be provided separately. The <strong>static plate polygons</strong> become a feature collection, that has to be named. To make the interface behave the same way in the <strong>online method</strong> this will be called <code>"static_polygons"</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/platemodel.html">platemodel</a></span><span class="op">(</span></span>
-<span>    polygons<span class="op">=</span><span class="va">pathToPolygons</span>,</span>
+<span>    features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"static_polygons"</span><span class="op">=</span><span class="va">pathToPolygons</span><span class="op">)</span>,</span>
 <span>    rotation<span class="op">=</span><span class="va">pathToRotations</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">pm</span></span>
 <span><span class="co">#&gt; GPlates plate tectonic model.</span></span>
-<span><span class="co">#&gt; static polygons:  "PALEOMAP_PlatePolygons.gpml" </span></span>
-<span><span class="co">#&gt; rotation:         "PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; rotation:            "PALEOMAP_PlateModel.rot" </span></span>
+<span><span class="co">#&gt; static_polygons:     "PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <p>This is a <code>platemodel</code>-class object, which is actually nothing else but a thin wrapper that includes where the files are actually located.</p>
 <p><strong>Now is a great time to mention that this is where the true flexibility of the <em>offline method</em> lies. You can use any third party model files here, as long as you provide the appropriate absolute paths to the files, the methods that follow should work. See more about this <a href="#alternative-ways-to-get-model-files">below</a></strong></p>
 <p><br></p>
@@ -242,64 +242,64 @@
 <h2 id="reconstructing-the-plates">Reconstructing the plates<a class="anchor" aria-label="anchor" href="#reconstructing-the-plates"></a>
 </h2>
 <hr>
-<p>The recontruction itself works the same way, as with the <strong>online method</strong>, the only difference is that instead of using a string for the <code>model</code> argument (which defaults to <code>"PALEOMAP"</code>), we will use the <code>platemodel</code>-class object <code>pm</code>.</p>
-<p>Here are the plates reconstructed for <code>200</code>Ma with the PaleoMAP model - now calculated with the offline method:</p>
+<p>The recontruction itself works the same way, as with the <strong>online method</strong>, the only difference is that instead of using a string for the <code>model</code> argument (which defaults to <code>"MERDITH2021"</code>), we will use the <code>platemodel</code>-class object <code>pm</code>.</p>
+<p>Here are the plates reconstructed for <code>100</code>Ma with the PaleoMAP model - now calculated with the offline method:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plOff200</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"plates"</span>, age<span class="op">=</span><span class="fl">200</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
-<span><span class="va">plOff200</span></span>
-<span><span class="co">#&gt; Simple feature collection with 137 features and 20 fields</span></span>
-<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<code class="sourceCode R"><span><span class="va">plOff100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
+<span><span class="va">plOff100</span></span>
+<span><span class="co">#&gt; Simple feature collection with 176 features and 17 fields</span></span>
+<span><span class="co">#&gt; Geometry type: GEOMETRY</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -77.06245 xmax: 180 ymax: 90</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -90 xmax: 180 ymax: 90</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt; First 10 features:</span></span>
-<span><span class="co">#&gt;    ANCHOR TIME                       FILE1              RECONFILE1 APPEARANCE</span></span>
-<span><span class="co">#&gt; 1       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot          0</span></span>
-<span><span class="co">#&gt; 2       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 3       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 4       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 5       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 6       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 7       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 8       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 9       0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt; 10      0  200 PALEOMAP_PlatePolygons.gpml PALEOMAP_PlateModel.rot        245</span></span>
-<span><span class="co">#&gt;    DISAPPEARA PlateID NAME DESCR PLATEID2               GPGIM_TYPE</span></span>
-<span><span class="co">#&gt; 1           0     307 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 2        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 3        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 4        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 5        -999     107 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 6        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 7        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 8        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 9        -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
-<span><span class="co">#&gt; 10       -999     114 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt;    APPEARANCE DISAPPEARA PlateID NAME DESCR PLATEID2               GPGIM_TYPE</span></span>
+<span><span class="co">#&gt; 1           0          0     307 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 2           0          0     317 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 3           0          0     318 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 4           0          0     318 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 5           0          0     324 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 6           0          0     325 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 7           0          0     326 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 8           0          0     327 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 9           0          0     328 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
+<span><span class="co">#&gt; 10          0          0     332 &lt;NA&gt;  &lt;NA&gt;        0 gpml:UnclassifiedFeature</span></span>
 <span><span class="co">#&gt;                                      FEATURE_ID RECON_METH L_PLATE R_PLATE</span></span>
 <span><span class="co">#&gt; 1  GPlates-a074f39a-5707-40a6-a430-f83bfe15b2f9       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 2  GPlates-3246953f-91a0-49b3-b117-2b2182f9611c       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 3  GPlates-36b87a59-9d33-484d-b282-0bdfd3eae9cd       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 4  GPlates-30b458cf-730c-42f6-a4b7-7539b7d08fca       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 5  GPlates-25a896c4-8a59-4c32-b044-426c8805c442       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 6  GPlates-c1906b89-906f-4770-99fc-0f69f6f5480f       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 7  GPlates-d097f7e5-67c9-418d-bfea-91286cc32a4a       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 8  GPlates-1c79b576-0994-429f-9090-57a7c3b19d2a       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 9  GPlates-4c5109ee-2973-4872-924d-e35a1710a72b       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt; 10 GPlates-799ea8f3-cde5-4e14-9fef-27a836d654fe       &lt;NA&gt;       0       0</span></span>
-<span><span class="co">#&gt;    SPREAD_ASY TYPE PLATEID1 FROMAGE TOAGE                       geometry</span></span>
-<span><span class="co">#&gt; 1           0 &lt;NA&gt;      307       0     0 MULTIPOLYGON (((17.33753 17...</span></span>
-<span><span class="co">#&gt; 2           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.23688 7...</span></span>
-<span><span class="co">#&gt; 3           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.37055 7...</span></span>
-<span><span class="co">#&gt; 4           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.37055 7...</span></span>
-<span><span class="co">#&gt; 5           0 &lt;NA&gt;      107     245  -999 MULTIPOLYGON (((-2.46371 32...</span></span>
-<span><span class="co">#&gt; 6           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.73256 7...</span></span>
-<span><span class="co">#&gt; 7           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.73256 7...</span></span>
-<span><span class="co">#&gt; 8           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-19.68091 7...</span></span>
-<span><span class="co">#&gt; 9           0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-18.03005 7...</span></span>
-<span><span class="co">#&gt; 10          0 &lt;NA&gt;      114     245  -999 MULTIPOLYGON (((-18.60138 7...</span></span></code></pre></div>
-<p>Note that this is a similar <code>sf</code> class object that we saw earlier with the <strong>online method</strong>, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot()</a></code>.</p>
+<span><span class="co">#&gt; 2  GPlates-3abdf9a1-c4c8-4def-8c86-2b25b95269fe       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 3  GPlates-c84f234b-adbd-4f52-9405-1c9e069a6a2c       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 4  GPlates-98e4413f-494d-4b32-9948-6f223204fd38       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 5  GPlates-d310c935-1c98-4d05-b25b-7850edf1f2d9       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 6  GPlates-9fbf671b-ac6a-4c2c-8112-9b50a66bff4b       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 7  GPlates-1fac7bb6-1a17-40aa-8311-49de470f27c2       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 8  GPlates-9aef7a27-3c7b-4dfa-bd69-dfd9d0fe02b1       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 9  GPlates-8028caed-9793-4a4b-9f52-065907811953       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt; 10 GPlates-6d7476bd-7ff6-4c6d-b1a7-5e617e21844c       &lt;NA&gt;       0       0</span></span>
+<span><span class="co">#&gt;    SPREAD_ASY TYPE PLATEID1 FROMAGE TOAGE IMPORT_AGE</span></span>
+<span><span class="co">#&gt; 1           0 &lt;NA&gt;      307       0     0         NA</span></span>
+<span><span class="co">#&gt; 2           0 &lt;NA&gt;      317     140     0         NA</span></span>
+<span><span class="co">#&gt; 3           0 &lt;NA&gt;      318     140     0         NA</span></span>
+<span><span class="co">#&gt; 4           0 &lt;NA&gt;      318     140     0         NA</span></span>
+<span><span class="co">#&gt; 5           0 &lt;NA&gt;      324     120     0         NA</span></span>
+<span><span class="co">#&gt; 6           0 &lt;NA&gt;      325     140     0         NA</span></span>
+<span><span class="co">#&gt; 7           0 &lt;NA&gt;      326     140     0         NA</span></span>
+<span><span class="co">#&gt; 8           0 &lt;NA&gt;      327     160     0         NA</span></span>
+<span><span class="co">#&gt; 9           0 &lt;NA&gt;      328     100     0         NA</span></span>
+<span><span class="co">#&gt; 10          0 &lt;NA&gt;      332     100     0         NA</span></span>
+<span><span class="co">#&gt;                          geometry</span></span>
+<span><span class="co">#&gt; 1  MULTIPOLYGON (((18.777 14.8...</span></span>
+<span><span class="co">#&gt; 2  MULTIPOLYGON (((-11.93605 4...</span></span>
+<span><span class="co">#&gt; 3  MULTIPOLYGON (((-12.35329 4...</span></span>
+<span><span class="co">#&gt; 4  MULTIPOLYGON (((-10.12266 4...</span></span>
+<span><span class="co">#&gt; 5  MULTIPOLYGON (((0.3944122 5...</span></span>
+<span><span class="co">#&gt; 6  MULTIPOLYGON (((-9.975426 4...</span></span>
+<span><span class="co">#&gt; 7  MULTIPOLYGON (((-7.277245 4...</span></span>
+<span><span class="co">#&gt; 8  MULTIPOLYGON (((3.206152 50...</span></span>
+<span><span class="co">#&gt; 9  MULTIPOLYGON (((1.64657 31....</span></span>
+<span><span class="co">#&gt; 10 MULTIPOLYGON (((0.4759208 3...</span></span></code></pre></div>
+<p>Note that this is a similar <code>sf</code> class object that we saw earlier with the <strong>online method</strong>, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff100</span><span class="op">$</span><span class="va">geometry</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/platevisualize-1.png" width="700"></p>
 <p><br></p>
 </div>
@@ -326,20 +326,21 @@
 <span><span class="co">#&gt; montreal -73.61  45.52</span></span></code></pre></div>
 <p>Second, we reconstruct with our model</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities200</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">cities</span>, age<span class="op">=</span><span class="fl">200</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
-<span><span class="va">cities200</span></span>
+<code class="sourceCode R"><span><span class="va">cities100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">cities</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
+<span><span class="va">cities100</span></span>
 <span><span class="co">#&gt;                long       lat</span></span>
-<span><span class="co">#&gt; london     2.326686  38.16536</span></span>
-<span><span class="co">#&gt; sydney    79.175489 -60.67032</span></span>
-<span><span class="co">#&gt; montreal -20.890271  26.08778</span></span></code></pre></div>
+<span><span class="co">#&gt; london     1.550889  39.94383</span></span>
+<span><span class="co">#&gt; sydney   144.703860 -64.28464</span></span>
+<span><span class="co">#&gt; montreal -35.631821  37.69961</span></span></code></pre></div>
 <p>And then we plot:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff200</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plOff100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the reconstructed cities </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">cities200</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">cities100</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_offline_reconstruction_files/figure-html/citiesPlot-1.png" width="700"></p>
+<p>Note: in order to to this, a plateID needs to be assigned to every point. We use the <code>partitioning</code> argument to select which feature collection of the <code>platemodel</code> object will be used as partitioning polygons. This defaults to <code>"static_polygons"</code> (check out the documentation of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>!), so we did not have to say anything here. For other <code>platemodel</code> objects, you might need to set this explicitly!</p>
 <p><br></p>
 </div>
 <div class="section level2">
