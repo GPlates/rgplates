@@ -32,7 +32,7 @@ thousands of coordinates, Simple Features
 ([`sp`](https://cran.r-project.org/package=sp)) objects with custom
 reconstruction trees and partitioning polygons. Examples of such plate
 tectonic models are accessible via the
-[chronosphere-portal](http://www.chronosphere-portal.org/).
+[chronosphere](http://www.chronosphere.info/).
 
 ## Example
 
