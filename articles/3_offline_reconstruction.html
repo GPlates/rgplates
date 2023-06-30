@@ -180,7 +180,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -202,20 +202,20 @@
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "file16e10d34c3bf00"                "file16e10d3906f1cf"               </span></span>
-<span><span class="co">#&gt; [3] "file16e10d43270a00"                "file16e10d4eadbf5b"               </span></span>
-<span><span class="co">#&gt; [5] "file16e10d5a131bea"                "file16e10d739806c3"               </span></span>
+<span><span class="co">#&gt; [1] "file16e73a2ab168eb"                "file16e73a3aaef5e2"               </span></span>
+<span><span class="co">#&gt; [3] "file16e73a4ff0a120"                "file16e73a6c67a950"               </span></span>
+<span><span class="co">#&gt; [5] "file16e73a6f5c9bb7"                "file16e73ae1634c2"                </span></span>
 <span><span class="co">#&gt; [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
 <span><span class="co">#&gt; [9] "PALEOMAP_PoliticalBoundaries.gpml"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>static plate polygons</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp9D1bfb/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
