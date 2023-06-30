@@ -236,9 +236,7 @@ plot(plOff100$geometry, col="gray", border=NA)
 points(cities100, col="red", pch=3)
 ```
 
-<div class="alert alert-primary" role="info", markdown="1">
 Note: in order to to this, a plateID needs to be assigned to every point. We use the `partitioning` argument to select which feature collection of the `platemodel` object will be used as partitioning polygons. This defaults to `"static_polygons"` (check out the documentation of `reconstruct()`!), so we did not have to say anything here. For other `platemodel` objects, you might need to set this explicitly!
-</div>
 
 <br>
 

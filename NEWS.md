@@ -2,6 +2,8 @@
 
 # rgplates 0.3.0 - 2023-06-29 
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8098723.svg)](https://doi.org/10.5281/zenodo.8098723)
+
 ### Added 
 - The `platemodel` class now accepts multiple feature collections. These can be recontructed by setting the `x` argument of `recontruct()`.  
 
