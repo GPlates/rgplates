@@ -25,7 +25,8 @@ reconstruct(x, ...)
   cleanup = TRUE,
   dir = NULL,
   plateperiod = TRUE,
-  partitioning = "static_polygons"
+  partitioning = "static_polygons",
+  check = TRUE
 )
 
 \S4method{reconstruct}{data.frame}(x, ...)
@@ -42,7 +43,8 @@ reconstruct(x, ...)
   cleanup = TRUE,
   dir = NULL,
   plateperiod = FALSE,
-  partitioning = "static_polygons"
+  partitioning = "static_polygons",
+  check = TRUE
 )
 
 \S4method{reconstruct}{Spatial}(
@@ -103,6 +105,8 @@ calculate the present-day coordinates of the given paleo-coordinates.}
 \item{plateperiod}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.}
 
 \item{partitioning}{(\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to \code{"static_polygons"}.}
+
+\item{check}{(\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
 
 \item{gmeta}{(\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?}
 }

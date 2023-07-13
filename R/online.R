@@ -138,8 +138,13 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 	}
 	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
 	
+	if (this=="plate_polygons"){
+		this <- "topology/plate_polygons"
+	}else{
+		this <- paste0("reconstruct/", this)
+	}
 	#download and save data
-	url <- paste0('http://gws.gplates.org/reconstruct/', this, '/')
+	url <- paste0('http://gws.gplates.org/', this, '/')
 	query <- sprintf('?time=%d&model=%s', age, model)
 	
 	fullrequest <- sprintf(paste0(url,query))
@@ -188,3 +193,24 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 	
 ## 	return(rpoly)
 ## }
+
+CheckGWS <- function(x, model, age, verbose=TRUE){
+	# load the relevant data
+	if(verbose){
+		message("Checking validity of entries for GWS.")
+	}
+	data(gws)
+
+	# limit to model
+	gwsMod <- gws[which(gws$model==model), ]
+
+	if(nrow(gwsMod)==0) stop("The selected model is not a registered output of theof the GPlates Web Service.")
+
+	# limit to feature
+	feat <- gwsMod[which(gwsMod$feature==x), ]
+	if(nrow(feat)==0) stop(paste0("'", x, "' is not returned for model '", model, "'."))
+
+	# check whether it is the right range
+	if(!(age <= feat$from & age >= feat$to)) stop(paste0("The model '", model, "' has a valid age range of ", feat$from, " Ma to ", feat$to, " Ma. "))
+
+}

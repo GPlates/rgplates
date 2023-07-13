@@ -1,5 +1,17 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.3.1 - 2023-07-13 
+
+### Added
+- The `gws` data object that includes details about the reconstructable features in the GPlates Web services
+- Routines to check user entry to the GPlates Web Service with the `gws`. Object.
+
+### Fixed
+- Minor bug that did not allow topological features to be reconstructed.  
+
+* * *
+
+
 # rgplates 0.3.0 - 2023-06-29 
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8098723.svg)](https://doi.org/10.5281/zenodo.8098723)
