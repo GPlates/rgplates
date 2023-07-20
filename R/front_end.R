@@ -126,7 +126,7 @@ setMethod(
                     }else{
                         fresh <- reconstructGPlates(x=x, age=age[i], model=model,
 							path.gplates=path.gplates, dir=dir, verbose=verbose, 
-							cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
+							cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
                     }
 					# attribute copy, if there is anything
 					if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
@@ -172,7 +172,7 @@ setMethod(
 				    }else{
                         container[index,] <- reconstructGPlates(x=current,
 							age=ageLevs[i], model=model, path.gplates=path.gplates, 
-							dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
+							dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
                     }
                 }
 			}
@@ -186,7 +186,7 @@ setMethod(
             }else{
                 container <- reconstructGPlates(x=x, age=age, model=model,
 					path.gplates=path.gplates, dir=dir, verbose=verbose, 
-					cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
+					cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
             }
 		}
 
@@ -242,7 +242,7 @@ setMethod(
 					feature <- gplates_reconstruct_this(age=age[i], this=x, model=model, verbose=verbose)
 				}else{
 					feature <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check)
 				}
 
 				# save it
@@ -261,7 +261,7 @@ setMethod(
 				container <- gplates_reconstruct_this(age=age, this=x, model=model, verbose=verbose)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check)
 			}
 		}
 		# return container
@@ -299,7 +299,7 @@ setMethod(
 #					container[[i]] <- gplates_reconstruct_polygon(sp=x, age=age[i], model=model, verbose=verbose)
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
 				}
 			}
 
@@ -315,7 +315,7 @@ setMethod(
 #				container <- gplates_reconstruct_polygon(sp=x, age, model=model, verbose=verbose)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod, partitioning=partitioning)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod, partitioning=partitioning, check=check)
 			}
 			
 		}
@@ -357,7 +357,7 @@ setMethod(
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i],
 						model=model, path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup,plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning)
+						cleanup=cleanup,plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning, check=check)
 				}
 			}
 
@@ -374,7 +374,7 @@ setMethod(
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning)
+						cleanup=cleanup, plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning, check=check)
 			}
 			
 		}

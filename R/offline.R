@@ -8,8 +8,33 @@
 #	reconstruct(x, age=10, model=mo, verbose=TRUE)
 #reconstruct(x, age=10, model=mo, verbose=TRUE, path.gplates="/Users/Nick/Downloads/GPlates-2.2.0/gplates.app/Contents/MacOS/gplates")
 
-reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons"){
+reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons", check=TRUE){
 	if(!inherits(model, "platemodel")) stop("You need a GPlates tectonic object for this method.")
+	# 0. Process the attributes
+	if(inherits(model@features, "data.frame")){
+		if(check){
+			# check for the ages!
+			if(is.character(x)){
+				checkThis <- x
+			#fall through, use the partitioning!
+			}else{
+				checkThis <- partitioning
+			}
+			# the part corresponding to this
+			if(!any(checkThis==rownames(model@features))) stop(paste0("The feature collection '",checkThis,"' is not found."))
+			thisPart <-model@features[ checkThis, ] 
+
+			# get the ages
+			young <- thisPart[ , "to"]
+			old <- thisPart[ , "from"]
+			if(!(age>=young && age <=old) ) stop(paste0("Invalid age. '", checkThis, "' is valid between ", old, " Ma and ", young, " Ma."))
+		}
+
+		# omit the age info, use characters as features
+		nam <- rownames(model@features)
+		model@features <- model@features[, "feature_collection"]
+		names(model@features) <- nam
+	}	
 	
     # 1. FIND GPlates
 		# A. get operating system
