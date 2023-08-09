@@ -12,7 +12,7 @@ Each location will be assigned a plate id and moved back in time using the chose
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  cleanup <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plateperiod <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span></span>
+<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for data.frame</span></span>
@@ -106,7 +107,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  cleanup <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plateperiod <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span></span>
+<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for Spatial</span></span>
@@ -120,7 +122,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  cleanup <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plateperiod <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span></span>
+<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sf</span></span>
@@ -135,7 +138,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plateperiod <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  gmeta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span></span>
+<span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -198,6 +202,10 @@ calculate the present-day coordinates of the given paleo-coordinates.</p></dd>
 
 <dt>partitioning</dt>
 <dd><p>(<code>character</code>) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to <code>"static_polygons"</code>.</p></dd>
+
+
+<dt>check</dt>
+<dd><p>(<code>logical</code>) Should the validity of the entries for the GWS checked with the information stored in <code><a href="gws.html">gws</a></code>? (default: <code>TRUE</code>)</p></dd>
 
 
 <dt>gmeta</dt>

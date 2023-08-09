@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,23 +175,23 @@
 <code class="sourceCode R"><span><span class="va">c0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">c100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">c100</span></span>
-<span><span class="co">#&gt; Simple feature collection with 2325 features and 0 fields</span></span>
+<span><span class="co">#&gt; Simple feature collection with 2450 features and 0 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -89.3405 xmax: 180 ymax: 83.2672</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -89.3928 xmax: 180 ymax: 83.1004</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt; First 10 features:</span></span>
 <span><span class="co">#&gt;                          geometry</span></span>
-<span><span class="co">#&gt; 1  POLYGON ((-2.5971 28.2165, ...</span></span>
-<span><span class="co">#&gt; 2  POLYGON ((-62.2284 16.1275,...</span></span>
-<span><span class="co">#&gt; 3  POLYGON ((156.5373 47.5787,...</span></span>
-<span><span class="co">#&gt; 4  POLYGON ((155.3442 54.4575,...</span></span>
-<span><span class="co">#&gt; 5  POLYGON ((154.9981 54.6689,...</span></span>
-<span><span class="co">#&gt; 6  POLYGON ((155.9178 54.7233,...</span></span>
-<span><span class="co">#&gt; 7  POLYGON ((155.1026 51.041, ...</span></span>
-<span><span class="co">#&gt; 8  POLYGON ((8.4086 28.9336, 8...</span></span>
-<span><span class="co">#&gt; 9  POLYGON ((40.1772 -9.0413, ...</span></span>
-<span><span class="co">#&gt; 10 POLYGON ((40.504 -7.6052, 4...</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  POLYGON ((132.3511 47.0744,...</span></span>
+<span><span class="co">#&gt; 2  POLYGON ((141.963 46.5718, ...</span></span>
+<span><span class="co">#&gt; 3  POLYGON ((134.1119 44.0571,...</span></span>
+<span><span class="co">#&gt; 4  POLYGON ((134.1819 42.4726,...</span></span>
+<span><span class="co">#&gt; 5  POLYGON ((133.5996 44.4895,...</span></span>
+<span><span class="co">#&gt; 6  POLYGON ((142.7117 48.1375,...</span></span>
+<span><span class="co">#&gt; 7  POLYGON ((133.7077 44.7113,...</span></span>
+<span><span class="co">#&gt; 8  POLYGON ((133.5384 44.3543,...</span></span>
+<span><span class="co">#&gt; 9  POLYGON ((132.7962 42.5404,...</span></span>
+<span><span class="co">#&gt; 10 POLYGON ((132.486 42.1309, ...</span></span></code></pre></div>
 <p>You can visalize these in the same way:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c100</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
@@ -299,23 +299,23 @@
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coast100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">coast100</span></span>
-<span><span class="co">#&gt; Simple feature collection with 2325 features and 0 fields</span></span>
+<span><span class="co">#&gt; Simple feature collection with 2450 features and 0 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -89.3405 xmax: 180 ymax: 83.2672</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -180 ymin: -89.3928 xmax: 180 ymax: 83.1004</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt; First 10 features:</span></span>
 <span><span class="co">#&gt;                          geometry</span></span>
-<span><span class="co">#&gt; 1  POLYGON ((-2.5971 28.2165, ...</span></span>
-<span><span class="co">#&gt; 2  POLYGON ((-62.2284 16.1275,...</span></span>
-<span><span class="co">#&gt; 3  POLYGON ((156.5373 47.5787,...</span></span>
-<span><span class="co">#&gt; 4  POLYGON ((155.3442 54.4575,...</span></span>
-<span><span class="co">#&gt; 5  POLYGON ((154.9981 54.6689,...</span></span>
-<span><span class="co">#&gt; 6  POLYGON ((155.9178 54.7233,...</span></span>
-<span><span class="co">#&gt; 7  POLYGON ((155.1026 51.041, ...</span></span>
-<span><span class="co">#&gt; 8  POLYGON ((8.4086 28.9336, 8...</span></span>
-<span><span class="co">#&gt; 9  POLYGON ((40.1772 -9.0413, ...</span></span>
-<span><span class="co">#&gt; 10 POLYGON ((40.504 -7.6052, 4...</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  POLYGON ((132.3511 47.0744,...</span></span>
+<span><span class="co">#&gt; 2  POLYGON ((141.963 46.5718, ...</span></span>
+<span><span class="co">#&gt; 3  POLYGON ((134.1119 44.0571,...</span></span>
+<span><span class="co">#&gt; 4  POLYGON ((134.1819 42.4726,...</span></span>
+<span><span class="co">#&gt; 5  POLYGON ((133.5996 44.4895,...</span></span>
+<span><span class="co">#&gt; 6  POLYGON ((142.7117 48.1375,...</span></span>
+<span><span class="co">#&gt; 7  POLYGON ((133.7077 44.7113,...</span></span>
+<span><span class="co">#&gt; 8  POLYGON ((133.5384 44.3543,...</span></span>
+<span><span class="co">#&gt; 9  POLYGON ((132.7962 42.5404,...</span></span>
+<span><span class="co">#&gt; 10 POLYGON ((132.486 42.1309, ...</span></span></code></pre></div>
 <p>This returns an <code>sf</code>-class object, similar to the plates. You can visualize these with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> and draw them on top of the other maps, but you have to set the <code>add=TRUE</code>, otherwise a new plot will be created.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>

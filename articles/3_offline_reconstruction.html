@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -180,7 +180,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpMRfz5O"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -194,28 +194,29 @@
 <p>You can confirm that this is the right path by listing out the contents of this directory with <code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files()</a></code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">rgPath</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "CITATION"    "DESCRIPTION" "extdata"     "help"        "html"       </span></span>
-<span><span class="co">#&gt;  [6] "INDEX"       "Meta"        "NAMESPACE"   "NEWS.md"     "R"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "CITATION"    "data"        "DESCRIPTION" "extdata"     "help"       </span></span>
+<span><span class="co">#&gt;  [6] "html"        "INDEX"       "Meta"        "NAMESPACE"   "NEWS.md"    </span></span>
+<span><span class="co">#&gt; [11] "R"</span></span></code></pre></div>
 <p>The model data are in the <code>extdata</code> directory, in the archive <code>paleomap_v3.zip</code>. We have to locate this archive and extract it to the temporary directory (the <code>exdir</code> argument)</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">rgPath</span>,<span class="st">"extdata/paleomap_v3.zip"</span><span class="op">)</span>, exdir<span class="op">=</span><span class="va">td</span><span class="op">)</span></span></code></pre></div>
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "file16e73a2ab168eb"                "file16e73a3aaef5e2"               </span></span>
-<span><span class="co">#&gt; [3] "file16e73a4ff0a120"                "file16e73a6c67a950"               </span></span>
-<span><span class="co">#&gt; [5] "file16e73a6f5c9bb7"                "file16e73ae1634c2"                </span></span>
+<span><span class="co">#&gt; [1] "file4de021fce81a6"                 "file4de023ba7e2c3"                </span></span>
+<span><span class="co">#&gt; [3] "file4de02450d8e21"                 "file4de025a4f6191"                </span></span>
+<span><span class="co">#&gt; [5] "file4de0266adcbfb"                 "file4de027ff2bb84"                </span></span>
 <span><span class="co">#&gt; [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
 <span><span class="co">#&gt; [9] "PALEOMAP_PoliticalBoundaries.gpml"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>static plate polygons</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpMRfz5O/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpVvkV0G/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpMRfz5O/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -232,8 +233,8 @@
 <span><span class="op">)</span></span>
 <span><span class="va">pm</span></span>
 <span><span class="co">#&gt; GPlates plate tectonic model.</span></span>
-<span><span class="co">#&gt; rotation:            "PALEOMAP_PlateModel.rot" </span></span>
-<span><span class="co">#&gt; static_polygons:     "PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; rotation:                      "PALEOMAP_PlateModel.rot" </span></span>
+<span><span class="co">#&gt; static_polygons:               "PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <p>This is a <code>platemodel</code>-class object, which is actually nothing else but a thin wrapper that includes where the files are actually located.</p>
 <p><strong>Now is a great time to mention that this is where the true flexibility of the <em>offline method</em> lies. You can use any third party model files here, as long as you provide the appropriate absolute paths to the files, the methods that follow should work. See more about this <a href="#alternative-ways-to-get-model-files">below</a></strong></p>
 <p><br></p>

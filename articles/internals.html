@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,6 +121,8 @@
 <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">methods::new()</a></code>: Used to create <code>platemodel</code> instances.</li>
 <li>
 <code><a href="https://rdrr.io/r/utils/flush.console.html" class="external-link">utils::flush.console()</a></code>: Used for console-feedback.</li>
+<li>
+<code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code>: Used for accessing the <code>gws</code> object internally.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -151,9 +153,11 @@ flowchart LR
 
   reconstruct-matrix-method--&gt;IteratedPointReconstruction
   reconstruct-matrix-method--&gt;reconstructGPlates
+  reconstruct-matrix-method--&gt;CheckGWS
   reconstruct-sf-method--&gt;reconstructGPlates
   reconstruct-character-method--&gt;gplates_reconstruct_this
   reconstruct-character-method--&gt;reconstructGPlates
+  reconstruct-character-method--&gt;CheckGWS
   reconstruct-Spatial-method--&gt;reconstructGPlates
   reconstruct-sf-method--&gt;reconstructGPlates
 
@@ -200,6 +204,7 @@ flowchart LR
   gplates_reconstruct_this
   IteratedPointReconstruction--&gt;gplates_reconstruct_points
   gplates_reconstruct_points
+  CheckGWS
 
   end
   

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,25 @@
       <small>Source: <a href="https://github.com/adamkocsis/rgplates/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.1" id="rgplates-031---2023-08-09">rgplates 0.3.1 - 2023-08-09<a class="anchor" aria-label="anchor" href="#rgplates-031---2023-08-09"></a></h2>
+<p><a href="https://doi.org/10.5281/zenodo.8229554" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.8229554.svg" alt="DOI"></a></p>
+<div class="section level4">
+<h4 id="added-0-3-1">Added<a class="anchor" aria-label="anchor" href="#added-0-3-1"></a></h4>
+<ul><li>The <code>gws</code> data object that includes details about the reconstructable features in the GPlates Web services</li>
+<li>Routines to check user entry to the GPlates Web Service with the <code>gws</code> Object.</li>
+<li>The <code>platemodel</code> class now accepts feature descriptions as a <code>data.frame</code>. This allows the inclusion of valid age ranges for the reconstruction of feature collections.</li>
+<li>Simon Williams as contributor, as his code was the basis for accessing the GWS</li>
+<li>import of <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="fixed-0-3-1">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-3-1"></a></h4>
+<ul><li>Minor bug that did not allow topological features to be reconstructed.<br></li>
+<li>Minor bug that occurred when <code>enumerate=FALSE</code> and cases when the target <code>age</code> included <code>NA</code>s</li>
+<li>An error that occurred when <code>plateperiod=TRUE</code>, the target age went beyond the duration of the plates and no coordinates were returned by the GPlates Desktop Application.</li>
+</ul><hr></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="rgplates-030---2023-06-29">rgplates 0.3.0 - 2023-06-29<a class="anchor" aria-label="anchor" href="#rgplates-030---2023-06-29"></a></h2><p class="text-muted">CRAN release: 2023-06-29</p>
 <p><a href="https://doi.org/10.5281/zenodo.8098723" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.8098723.svg" alt="DOI"></a></p>

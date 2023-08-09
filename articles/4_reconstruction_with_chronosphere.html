@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,6 +101,7 @@
 
     
     
+<p><a href="https://chronosphere.info" class="external-link"><img src="https://chronosphere.info/images/chronosphere/chronosphere_500.png" width="200" align="right"></a></p>
 <p>Originally, all functions in <code>rgplates</code> were developed in the envelope of the <code>chronosphere</code> project. However, since the project’s inception the functionality of these modules diverged: <code>rgplates</code> contains functions to execute plate tectonic reconstructions with R, and the <code>chronosphere</code> is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the <code>chronosphere</code> and use them with <code>rgplates</code>.</p>
 <p><br></p>
 <div class="section level2">
@@ -119,8 +120,6 @@
 <span><span class="co">#&gt; Note that the package was split for efficient maintenance and development:</span></span>
 <span><span class="co">#&gt;  - Plate tectonic calculations -&gt; package 'rgplates'</span></span>
 <span><span class="co">#&gt;  - Arrays of raster and vector spatials -&gt; package 'via'</span></span></code></pre></div>
-<p><em>NOTE: you will see this message about masking function names. Do not worry about it. The message appears, because these functions are present in both <code>rgplates</code> and the <code>chronosphere</code>, where they originally used to be. However, only the ones in <code>rgplates</code> are getting developed, and the ones in <code>chronosphere</code> will be removed at a very near, major update.</em></p>
-<p>To indicate which functions we call, we will use the <code>::</code> operator. This operator allows us to indicate from which package do we want to use functions.</p>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -128,9 +127,9 @@
 </h2>
 <hr>
 <p>Detailed tutorials will be made available later about how to use the chronosphere-portal. For now, all we need to know, is how to access the <code>platemodel</code>-class objects.</p>
-<p>Downloading data from the <code>chronosphere</code> is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. To download the tectonic model (plate polygons and reconstruction tree) that we used earlier (the <a href="">PaleoMAP model</a>), all we need is this command:</p>
+<p>Downloading data iwth the <code>chronosphere</code> is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. The following expression will download a more detailed tectonic model (feature collections and reconstruction tree) which were used by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0012825220305237" class="external-link">Merdith et al. 2021</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu">chronosphere</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">fetch</a></span><span class="op">(</span>dat<span class="op">=</span><span class="st">"paleomap"</span>, var<span class="op">=</span><span class="st">"model"</span>, ver<span class="op">=</span><span class="st">"v3-GPlates"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu">chronosphere</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">fetch</a></span><span class="op">(</span>dat<span class="op">=</span><span class="st">"EarthByte"</span>, var<span class="op">=</span><span class="st">"MERDITH2021"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Accessing chronos registry tables.</span></span>
@@ -138,7 +137,7 @@
 <span><span class="co">#&gt; Downloading registry tables.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span><span class="co">#&gt; Item no. 4, dat:paleomap, var: model, ver: v3-GPlates, res: NA.</span></span>
+<span><span class="co">#&gt; Item no. 717, dat:EarthByte, var: MERDITH2021, ver: 1.1, res: NA.</span></span>
 <span><span class="co">#&gt; ------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ------------------------------------------------------------</span></span>
@@ -153,33 +152,57 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; If you use the data in publications, please cite its</span></span>
 <span><span class="co">#&gt; reference(s), as well as that of the 'chronosphere' project.</span></span>
-<span><span class="co">#&gt; Scotese, C. R. (2016). PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. http://www.earthbyte.org/paleomap‐ paleoatlas‐for‐gplates</span></span>
-<span><span class="co">#&gt; Scotese, Christopher R, &amp; Wright, Nicky M. (2018). PALEOMAP Paleodigital Elevation Models (PaleoDEMS) for the Phanerozoic [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5460860</span></span>
-<span><span class="va">pm</span></span>
-<span><span class="co">#&gt; GPlates plate tectonic model.</span></span>
-<span><span class="co">#&gt; rotation:            "PALEOMAP_PlateModel.rot" </span></span>
-<span><span class="co">#&gt; static_polygons:     "PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; Merdith, Andrew S., Simon E. Williams, Alan S. Collins, Michael G. Tetley, Jacob A. Mulder, Morgan L. Blades, Alexander Young, et al. 2021. “Extending Full-Plate Tectonic Models into Deep Time: Linking the Neoproterozoic and the Phanerozoic.” Earth-Science Reviews 214 (March): 103477. https://doi.org/10.1016/j.earscirev.2020.103477.</span></span>
+<span><span class="co">#&gt; Merdith, Andrew. 2020. “Plate model for ’Extending Full-Plate Tectonic Models into Deep Time: Linking the Neoproterozoic and the Phanerozoic ’.” Zenodo. https://doi.org/10.5281/zenodo.4485738.</span></span></code></pre></div>
 <p>The arguments of <code><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">chronosphere::fetch()</a></code> are the the dataset (<code>dat</code>), variable (<code>var</code>) and version (<code>ver</code>) ID of the item that you want to download.</p>
 <p><br></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pm</span></span>
+<span><span class="co">#&gt; GPlates plate tectonic model.</span></span>
+<span><span class="co">#&gt; rotation:                      "1000_0_rotfile_Merdith_et_al.rot" </span></span>
+<span><span class="co">#&gt; static_polygons:               "shapes_static_polygons_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; cratons:                       "shapes_cratons_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; continents:                    "shapes_continents_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; coastlines:                    "shapes_coastlines_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; plate_boundaries_250:          "250-0_plate_boundaries_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; plate_boundaries_410:          "410-250_plate_boundaries_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; convergence:                   "1000-410-Convergence_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; divergence:                    "1000-410-Divergence_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; topologies:                    "1000-410-Topologies_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; transforms:                    "1000-410-Transforms_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; topology-building-blocks:      "TopologyBuildingBlocks_Merdith_et_al.gpml"</span></span>
+<span><span class="co">#&gt; poles:                         "1000-410_poles.gpml"</span></span></code></pre></div>
+<p>This tectonic model has some additional feature collections that can be reconstructed on demand. To make the use of this <code>platemodel</code> class more straightforward, it also includes information on the feature collections’ time frame of validity.</p>
 </div>
 <div class="section level2">
 <h2 id="actual-reconstruction">Actual reconstruction<a class="anchor" aria-label="anchor" href="#actual-reconstruction"></a>
 </h2>
 <hr>
-<p>Which we can immediately put to use with the <a href="articles/3_offline_reconstruction.html">offline reconstruction method</a> (you need to have GPlates installed for this!).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>The model can be used with the <a href="articles/3_offline_reconstruction.html">offline reconstruction method</a> (you need to have GPlates installed for this!). Names of the feature collections can be passed as the subject of reconstruction. For instance to get the <code>"static_polygons"</code> feature collection you would have to use:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># reconstruct the plates and plot them</span></span>
-<span><span class="va">pl400</span><span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">400</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl400</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<p><img src="4_reconstruction_with_chronosphere_files/figure-html/offRec-1.png" width="700"></p>
+<span><span class="va">pl100</span><span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span></code></pre></div>
+<p>which includes all static plate polygons that existed at 100Ma. This can be plotted with:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray70"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<p><img src="4_reconstruction_with_chronosphere_files/figure-html/statPol-1.png" width="700"></p>
+<p>Additional feature collections can be reconstructed just as easily. For instance, if you are interested in the positions of the continental plates (<code>"continents"</code>) and the reconstructed positions of the present-day coastlines (<code>"coastlines"</code>), respectively:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">continents100</span> <span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"continents"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span>
+<span><span class="va">coastlines100</span> <span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span></code></pre></div>
+<p>These you can plot on top of the original maps with:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">continents100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#bc683a"</span>, border<span class="op">=</span><span class="cn">NA</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coastlines100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#63351c"</span>, border<span class="op">=</span><span class="cn">NA</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="4_reconstruction_with_chronosphere_files/figure-html/plotOther-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="concluding-remarks">Concluding remarks<a class="anchor" aria-label="anchor" href="#concluding-remarks"></a>
 </h2>
 <hr>
-<p>There! With three lines of code, we downloaded the tectonic information, calcuated the rotations and plotted the reconstructed geometries. Simple.</p>
+<p>There! With a couple lines of code, you can download the tectonic information, calculate the rotations and plot the reconstructed geometries. Simple.</p>
 <p>This is how we originally intended to use the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function’s offline method, and this is what we recommend to adopt as a general workflow.</p>
-<p>Note that we intend to add as many models to the <code>chronosphere</code>, which is getting overhauled to make it as flexible and useful as possible. To keep all currently available data and maintain all functionality, however, is not easy - but it is expected to be done in the first half of 2023.</p>
+<p>Note that we intend to add as many models to the <code>chronosphere</code>, which was recently overhauled to make it as flexible and useful as possible.</p>
 <div class="alert alert-primary" role="info">
 <p>If you are interested in more tutorials, keep an eye open for the <a href="https://www.evolv-ed.net/" class="external-link">Evolv-ED blog</a>, where we intend to deposit additional guides on how to integrate <code>rgplates</code> in more complex analytical pipelines.</p>
 </div>
