@@ -2,6 +2,8 @@
 
 # rgplates 0.3.1 - 2023-08-09 
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8229554.svg)](https://doi.org/10.5281/zenodo.8229554)
+
 ### Added
 - The `gws` data object that includes details about the reconstructable features in the GPlates Web services
 - Routines to check user entry to the GPlates Web Service with the `gws` Object.
