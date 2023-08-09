@@ -20,6 +20,7 @@ Functions reused from other packages (necessary in all cases):
 
 - `methods::new()`: Used to create `platemodel` instances.
 - `utils::flush.console()`: Used for console-feedback.
+- `utils::data()`: Used for accessing the `gws` object internally.
 
 ## Suggests
 
@@ -43,9 +44,11 @@ flowchart LR
 
   reconstruct-matrix-method-->IteratedPointReconstruction
   reconstruct-matrix-method-->reconstructGPlates
+  reconstruct-matrix-method-->CheckGWS
   reconstruct-sf-method-->reconstructGPlates
   reconstruct-character-method-->gplates_reconstruct_this
   reconstruct-character-method-->reconstructGPlates
+  reconstruct-character-method-->CheckGWS
   reconstruct-Spatial-method-->reconstructGPlates
   reconstruct-sf-method-->reconstructGPlates
 
@@ -92,6 +95,7 @@ flowchart LR
   gplates_reconstruct_this
   IteratedPointReconstruction-->gplates_reconstruct_points
   gplates_reconstruct_points
+  CheckGWS
 
   end
   

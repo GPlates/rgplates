@@ -4,12 +4,13 @@
 #' 
 #' This is still the Beta version. As is R, this is free software and comes with ABSOLUTELY NO WARRANTY. Nevertheless, notes about found bugs and suggestions are more than welcome. 
 #'
-#' @author Adam T. Kocsis (adam.t.kocsis@gmail.com) and Nussaibah B. Raja
+#' @author Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja and Simon Williams
 #' @docType package
 #' @name rgplates
 NULL
 
 #' @import sf
 #' @importFrom methods new 
+#' @importFrom utils data 
 NULL
 

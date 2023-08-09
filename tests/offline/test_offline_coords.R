@@ -67,6 +67,12 @@ expect_equivalent(is.na(rec100_pp[5,]), c(FALSE, FALSE))
 expect_equivalent(is.na(rec100_pp[8,]), c(FALSE, FALSE))
 
 ################################################################################
+# Reconstructed to 140 with plateperiod=FALSE, - single coordinates
+
+# provides error without exception
+expect_silent(recOne <- reconstruct(mat[1,, drop=FALSE ], age=140, model=model, plateperiod=TRUE))
+
+################################################################################
 # Reconstructed to c(0,100) with listout
 rec <- reconstruct(mat, age=c(0,100), listout=TRUE,  model=model, plateperiod=TRUE)
 
@@ -98,5 +104,39 @@ mat_na[c(1, 3), ] <-NA
 expect_error(
 	rec100 <- reconstruct(mat_na, age=100, model=model)
 )
+
+
+################################################################################
+# ENUMERATE=FALSE
+# more target than needed with enumerate
+target <- rep(1:nrow(mat)/2, each=2)*2
+expect_warning(rec <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=TRUE, enumerate=FALSE))
+
+# Enumerate=FALSE, platePeriod=TRUE
+target <- rep(1:(nrow(mat)/2), each=2)*2
+expect_silent(recEnPP <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=TRUE, enumerate=FALSE))
+expect_equivalent(recEnPP[1,], as.numeric(c(NA, NA)))
+expect_equivalent(recEnPP[5,], as.numeric(c(NA, NA)))
+expect_equivalent(recEnPP[8,], as.numeric(c(NA, NA)))
+
+# Enumerate=FALSE, platePeriod=FALSE
+expect_silent(recEn <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+keep <- which(!is.na(recEnPP[,1]))
+expect_equivalent(recEn[keep,], recEnPP[keep, ])
+
+# missing ages (beginning)
+targetMiss <- target
+targetMiss[c(1:2)] <- NA
+expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+keep <- which(!is.na(recEnMiss[,1]))
+expect_equivalent(recEn[keep,], recEnMiss[keep, ])
+
+# missing ages (middle)
+targetMiss <- target
+targetMiss[c(3:4)] <- NA
+expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+keep <- which(!is.na(recEnMiss[,1]))
+expect_equivalent(recEn[keep,], recEnMiss[keep, ])
+
 
 

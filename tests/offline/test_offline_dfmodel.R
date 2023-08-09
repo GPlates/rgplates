@@ -1,6 +1,6 @@
 library(rgplates)
 
-dir <- "data"
+dir <- paste0(wd, "/data")
 
 features<-data.frame(
 	feature_collection=c(

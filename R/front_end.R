@@ -120,7 +120,7 @@ setMethod(
 				# iterate over ages
 				for(i in 1:length(age)){
                     if(is.character(model)){
-						if(check) CheckGWS("coastliens", model, age=age[i], verbose=verbose)
+						if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
 						fresh <- IteratedPointReconstruction(coords=x, chunk=chunk,
 							age=age[i], model=model, reverse=reverse, verbose=verbose)
                     }else{
@@ -188,6 +188,13 @@ setMethod(
 					path.gplates=path.gplates, dir=dir, verbose=verbose, 
 					cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
             }
+			# if everything returned i just missing value
+			# return original structure with missing
+			if(all(is.na(container))){
+				container <- x
+				container[] <- NA
+
+			}
 		}
 
 		# and return
@@ -274,7 +281,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"Spatial", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons"){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons", check=TRUE){
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -331,7 +338,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"sf", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons"){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons", check=TRUE){
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL

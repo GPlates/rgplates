@@ -49,35 +49,35 @@ expect_equal(rec140_4, rec140)
 # Multiple models
 # Seton model
 expect_silent(
-	rec <- reconstruct("static_polygons", 0, model="SETON2012")
+	rec <- reconstruct("plate_polygons", 0, model="SETON2012")
 )
 expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # Müller 2016
 expect_silent(
-	rec <- reconstruct("static_polygons", 0, model="MULLER2016")
+	rec <- reconstruct("plate_polygons", 0, model="MULLER2016")
 )
 expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # the GOLONKA model
-expect_silent(
+expect_error(
 	rec <- reconstruct("static_polygons", 0, model="GOLONKA")
 )
-expect_inherits(rec, "sf")
-expect_equal(sf::st_crs(rec)[[1]], "4326")
+## expect_inherits(rec, "sf")
+## expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # the scotese model
-## expect_silent(
-## 	rec <- reconstruct("static_polygons", 0, model="PALEOMAP")
-## )
+expect_error(
+	rec <- reconstruct("static_polygons", 0, model="PALEOMAP")
+)
 ## expect_inherits(rec, "sf")
 ## expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # Matthew 2016
 expect_silent(
-	rec <- reconstruct("static_polygons", 0, model="MATTHEWS2016_pmag_ref")
+	rec <- reconstruct("plate_polygons", 0, model="MATTHEWS2016_pmag_ref")
 )
 expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")

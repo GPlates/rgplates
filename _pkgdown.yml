@@ -49,6 +49,7 @@ reference:
     Everything related to reconstruction of geometries to their past state. 
   contents:
   - reconstruct
+  - gws
 - title: Tectonic model representation
   desc: Representation of tectonic models for offline reconstruction
   contents:
@@ -63,6 +64,8 @@ authors:
     href: "https://palaeobiology.nat.fau.de/people/instructors/kocsis/"
   Nussaibah B. Raja:
     href: "https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/"
+  Simon Williams:
+    href: "https://discover.utas.edu.au/Simon.Williams/about"
   Deutsche Forschungsgemeinschaft:
     href: https://www.dfg.de/en/index.jsp
     html: <img src='https://www.dfg.de/includes/bausteine/open_graph_de/dfgfallback.jpg' alt='dfg' width='80' />

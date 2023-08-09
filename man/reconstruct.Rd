@@ -57,7 +57,8 @@ reconstruct(x, ...)
   cleanup = TRUE,
   dir = NULL,
   plateperiod = FALSE,
-  partitioning = "static_polygons"
+  partitioning = "static_polygons",
+  check = TRUE
 )
 
 \S4method{reconstruct}{sf}(
@@ -71,7 +72,8 @@ reconstruct(x, ...)
   dir = NULL,
   plateperiod = FALSE,
   gmeta = FALSE,
-  partitioning = "static_polygons"
+  partitioning = "static_polygons",
+  check = TRUE
 )
 }
 \arguments{

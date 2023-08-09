@@ -17,10 +17,13 @@ knitr::opts_chunk$set(
 ```
 
 
+<a href="https://chronosphere.info"><img src="https://chronosphere.info/images/chronosphere/chronosphere_500.png" width=200 align="right"></a>
 
-Originally, all functions in `rgplates` were developed in the envelope of the `chronosphere` project. However, since the project's inception the functionality of these modules diverged: `rgplates` contains functions to execute plate tectonic reconstructions with R, and the `chronosphere` is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the `chronosphere` and use them with `rgplates`.
+Originally, all functions in `rgplates` were developed in the envelope of the `chronosphere` project. However, since the project's inception the functionality of these modules diverged: `rgplates` contains functions to execute plate tectonic reconstructions with R, and the `chronosphere` is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the `chronosphere` and use them with `rgplates`. 
+
 
 <br>
+
 
 # Loading packages
 
@@ -33,10 +36,6 @@ library(rgplates)
 library(chronosphere)
 ```
 
-*NOTE: you will see this message about masking function names. Do not worry about it. The message appears, because these functions are present in both `rgplates` and the `chronosphere`, where they originally used to be. However, only the ones in `rgplates` are getting developed, and the ones in `chronosphere` will be removed at a very near, major update.*
-
-To indicate which functions we call, we will use the `::` operator. This operator allows us to indicate from which package do we want to use functions. 
-
 <br>
 
 # Downloading data 
@@ -45,28 +44,61 @@ To indicate which functions we call, we will use the `::` operator. This operato
 
 Detailed tutorials will be made available later about how to use the chronosphere-portal. For now, all we need to know, is how to access the `platemodel`-class objects.
 
-Downloading data from the `chronosphere` is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. To download the tectonic model (plate polygons and reconstruction tree) that we used earlier (the [PaleoMAP model]()), all we need is this command:
+Downloading data iwth the `chronosphere` is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. The following expression will download a more detailed tectonic model (feature collections and reconstruction tree) which were used by [Merdith et al. 2021](https://www.sciencedirect.com/science/article/abs/pii/S0012825220305237):
 
 ```{r dlModel1, echo=TRUE}
-pm <- chronosphere::fetch(dat="paleomap", var="model", ver="v3-GPlates")
-pm
+pm <- chronosphere::fetch(dat="EarthByte", var="MERDITH2021")
 ```
 
 The arguments of `chronosphere::fetch()` are the the dataset (`dat`), variable (`var`) and version (`ver`) ID of the item that you want to download.
 
 <br>
 
+```{r dlModel2, echo=TRUE}
+pm
+```
+
+This tectonic model has some additional feature collections that can be reconstructed on demand. To make the use of this `platemodel` class more straightforward, it also includes information on the feature collections' time frame of validity.
+
+
 # Actual reconstruction
 
 * * *
 
-Which we can immediately put to use with the [offline reconstruction method](articles/3_offline_reconstruction.html) (you need to have GPlates installed for this!). 
+The model can be used with the [offline reconstruction method](articles/3_offline_reconstruction.html) (you need to have GPlates installed for this!). Names of the feature collections can be passed as the subject of reconstruction. For instance to get the `"static_polygons"` feature collection you would have to use:
 
 
 ```{r offRec, echo=TRUE, plot=TRUE}
 # reconstruct the plates and plot them
-pl400<- rgplates::reconstruct("static_polygons", age=400, model=pm)
-plot(pl400$geometry, col="gray", border=NA)
+pl100<- rgplates::reconstruct("static_polygons", age=100, model=pm)
+```
+
+which includes all static plate polygons that existed at 100Ma. This can be plotted with:
+
+```{r statPol, echo=TRUE, plot=TRUE}
+plot(pl100$geometry, col="gray70", border=NA)
+```
+
+Additional feature collections can be reconstructed just as easily. For instance, if you are interested in the positions of the continental plates (`"continents"`) and the reconstructed positions of the present-day coastlines (`"coastlines"`), respectively:
+
+
+```{r other, echo=TRUE, plot=TRUE}
+continents100 <- rgplates::reconstruct("continents", age=100, model=pm)
+coastlines100 <- rgplates::reconstruct("coastlines", age=100, model=pm)
+```
+
+
+These you can plot on top of the original maps with:
+
+```{r plotOtherNo, echo=TRUE, eval=FALSE}
+plot(continents100$geometry, col="#bc683a", border=NA, add=TRUE)
+plot(coastlines100$geometry, col="#63351c", border=NA, add=TRUE)
+```
+
+```{r plotOther, echo=FALSE, plot=TRUE}
+plot(pl100$geometry, col="gray70", border=NA)
+plot(continents100$geometry, col="#bc683a", border=NA, add=TRUE)
+plot(coastlines100$geometry, col="#63351c", border=NA, add=TRUE)
 ```
 
 
@@ -74,11 +106,11 @@ plot(pl400$geometry, col="gray", border=NA)
 
 * * *
 
-There! With three lines of code, we downloaded the tectonic information, calcuated the rotations and plotted the reconstructed geometries. Simple.
+There! With a couple lines of code, you can download the tectonic information, calculate the rotations and plot the reconstructed geometries. Simple.
 
 This is how we originally intended to use the `reconstruct()` function's offline method, and this is what we recommend to adopt as a general workflow. 
 
-Note that we intend to add as many models to the `chronosphere`, which is getting overhauled to make it as flexible and useful as possible. To keep all currently available data and maintain all functionality, however, is not easy - but it is expected to be done in the first half of 2023.  
+Note that we intend to add as many models to the `chronosphere`, which was recently overhauled to make it as flexible and useful as possible. 
 
 
 <div class="alert alert-primary" role="info">

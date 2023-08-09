@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.3.0-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.3.1-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -19,6 +19,8 @@ Functions to the [GPlates Web Service](https://gws.gplates.org/) and the
 [GPlates Desktop Application](https://www.gplates.org/) allow users to
 reconstruct past positions of geographic entities based on user-selected
 rotation models without leaving the R running environment.
+
+<a href="https://www.gplates.org/"><img src="https://www.gplates.org/static/414ecd6de023f40b06d3749161135550/newlogo.svg" width=250 align="right"></a>
 
 The **online reconstruction** (with the [GPlates Web
 Service](https://gws.gplates.org/)) makes the rotation of static plates,

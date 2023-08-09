@@ -1,13 +1,18 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.3.1 - 2023-07-13 
+# rgplates 0.3.1 - 2023-08-09 
 
 ### Added
 - The `gws` data object that includes details about the reconstructable features in the GPlates Web services
-- Routines to check user entry to the GPlates Web Service with the `gws`. Object.
+- Routines to check user entry to the GPlates Web Service with the `gws` Object.
+- The `platemodel` class now accepts feature descriptions as a `data.frame`. This allows the inclusion of valid age ranges for the reconstruction of feature collections.
+- Simon Williams as contributor, as his code was the basis for accessing the GWS
+- import of `utils::data()`
 
 ### Fixed
 - Minor bug that did not allow topological features to be reconstructed.  
+- Minor bug that occurred when `enumerate=FALSE` and cases when the target `age` included `NA`s
+- An error that occurred when `plateperiod=TRUE`, the target age went beyond the duration of the plates and no coordinates were returned by the GPlates Desktop Application. 
 
 * * *
 

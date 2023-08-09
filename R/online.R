@@ -3,6 +3,8 @@
 
 # correcting the point recontstruction problem, wrapper around the point reconstruction funciton
 IteratedPointReconstruction <- function(coords,age, chunk=200, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
+	# shortcut - will be put in matrix automatically
+	if(is.na(age)) return(NA)
 	if(any(age%%1!=0)){
 		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
 		age <- round(age)
@@ -199,7 +201,9 @@ CheckGWS <- function(x, model, age, verbose=TRUE){
 	if(verbose){
 		message("Checking validity of entries for GWS.")
 	}
-	data(gws)
+	gws <- NULL
+	# use lazy loading to get it into the memory
+	data(gws, envir=environment())
 
 	# limit to model
 	gwsMod <- gws[which(gws$model==model), ]
