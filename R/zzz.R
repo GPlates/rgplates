@@ -7,7 +7,7 @@
 #' @author Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja and Simon Williams
 #' @docType package
 #' @name rgplates
-NULL
+"_PACKAGE"
 
 #' @import sf
 #' @importFrom methods new 
