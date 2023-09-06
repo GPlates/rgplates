@@ -1,3 +1,15 @@
+# Needed
+## install.packages(NULL
+## 	, "ncdf4"
+## 	, "rgdal"
+## 	, "divDyn"
+## 	, "chronosphere"
+## 	, "tinytest"
+## 	, "terra"
+## 	, "via"
+## )
+
+
 library(tinytest)
 library(parallel)
 
@@ -9,7 +21,7 @@ wd <- file.path(Sys.getenv("WorkSpace"), "2021-04-28_rgplates")
 setwd(wd)
 
 # make a cluster of 8
-cl <- parallel::makeCluster(8, outfile="")
+cl <- parallel::makeCluster(4, outfile="")
 parallel::clusterCall(cl, source, "rgplates/tests/source.R")
 
 # the online 

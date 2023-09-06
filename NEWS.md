@@ -1,5 +1,10 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.3.2 - 2023-09-06
+
+### Fixed
+- Bug fix for windows paths in the offline reconstruction methods 
+
 # rgplates 0.3.1 - 2023-08-09 
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8229554.svg)](https://doi.org/10.5281/zenodo.8229554)
