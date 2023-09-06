@@ -4,7 +4,7 @@ library(rgplates)
 model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
 
 # example 
-admin <- st_read("/mnt/sky/Dropbox/WorkSpace/2021-04-28_rgplates/data/Paleomap/paleomap_adminlines_19o/admin.shx", quiet=TRUE)
+admin <- st_read(file.path(wd,"data/Paleomap/paleomap_adminlines_19o/admin.shx"), quiet=TRUE)
 
 ################################################################################
 # 2. Explicit WGS 84 CRS
