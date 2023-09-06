@@ -3,7 +3,9 @@ library(sp)
 source(file.path(wd, "rgplates/tests/aux/old_rec.R"))
 
 
+# the necessary data
 dat <- chronosphere::fetch("pbdb", ver="20220510", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
+model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE, ver="v3-GPlates")
 
 # 1. taxonomic filtering
 	# filter records not identified at least to genus
@@ -295,7 +297,6 @@ collections <- unique(collections)
 # for this reason, rgplates has an offline method for reconstructions, which uses the console interface of GPlates
 # However for that to work we need plate reconstruction model files. These can be acquired from chronosphere.
 # For the PaleoMAP project this is:
-model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
 modelOld <- platemodelOLD(rotation=model@rotation, polygons=model@features['static_polygons'])
 
 # to effectively reconstruct the coordinates we need to put the target ages to our tables
@@ -321,13 +322,16 @@ collections <- collections[collections$lat<=90, ]
 # the plateperiod = FALSE
 
 # now we can execute the reconstruction, this takes a couple of minutes (3-5). 
-paleoCoords_old <- reconstruct_old(
-	collections[, c("lng", "lat")] 
-	, age = collections$stg_map 
-	, model=modelOld
-	, enumerate=FALSE 
-	, plateperiod=FALSE 
-)
+## paleoCoords_old <- reconstruct_old(
+## 	collections[, c("lng", "lat")] 
+## 	, age = collections$stg_map 
+## 	, model=modelOld
+## 	, enumerate=FALSE 
+## 	, plateperiod=FALSE 
+## )
+
+## saveRDS(paleoCoords_old, file="data/OLD_PBDB/20220510_plateperiodFALSE.rds")
+paleoCoords_old <- readRDS(file=file.path(wd, "data/OLD_PBDB/20220510_plateperiodFALSE.rds"))
 
 paleoCoords_new <- reconstruct(
 	collections[, c("lng", "lat")] 
@@ -346,14 +350,15 @@ expect_equal(paleoCoords_old, paleoCoords_new)
 # the plateperiod = TRUE
 
 # now we can execute the reconstruction, this takes a couple of minutes (3-5). 
-paleoCoords_old <- reconstruct_old(
-	collections[, c("lng", "lat")] 
-	, age = collections$stg_map 
-	, model=modelOld
-	, enumerate=FALSE 
-	, plateperiod=TRUE 
-)
-
+## paleoCoords_old <- reconstruct_old(
+## 	collections[, c("lng", "lat")] 
+## 	, age = collections$stg_map 
+## 	, model=modelOld
+## 	, enumerate=FALSE 
+## 	, plateperiod=TRUE 
+## )
+# saveRDS(paleoCoords_old, file="data/OLD_PBDB/20220510_plateperiodTrue.rds")
+paleoCoords_old <- readRDS(file=file.path(wd, "data/OLD_PBDB/20220510_plateperiodTrue.rds"))
 
 paleoCoords_new <- reconstruct(
 	collections[, c("lng", "lat")] 
