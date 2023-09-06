@@ -42,6 +42,9 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# A. get operating system
 		os <- getOS()
 
+		# assume a non-retarded operating system...
+		win <- FALSE
+
 		# B. should the program look for a default path for gplates?
 		if(is.null(path.gplates)){
 			# depending on the os
@@ -61,6 +64,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 			}
 			if(os=="windows"){
+				win <- TRUE
 				# 1. find GPLATES exectutable if possible
 				# directory and executable
 				gplatesPaths <- winDefaultGPlates()
@@ -110,6 +114,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			
 			# windows needs special treatment
 			if(os=="windows"){
+				win <- TRUE
 			
 				# system call to executable
 				gplatesExecutable <- paste("\"", path.gplates, "\"", sep="")
@@ -137,7 +142,10 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 		# copy all model feature to working directory
 		sources <- plateFeatures
-		plateFeatures <-file.path(tempd, fileFromPath(sources)) 
+		plateFeatures <-file.path(tempd, fileFromPath(sources, win=win)) 
+		# bug fix for windows
+		if (win) plateFeatures <- gsub("/","\\\\", plateFeatures)
+
 		names(plateFeatures) <- names(sources)
 		results <- file.copy(sources, plateFeatures)
 
@@ -194,6 +202,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			layer<- paste(randomString(length=3), age, sep="_")
 			if(verbose) message(paste("Exported data identified as ", layer))
 			pathToFileNoEXT <- paste(tempd, "/", layer,sep="")
+			if (win) pathToFileNoEXT <- gsub("/","\\\\", pathToFileNoEXT)
 			if(verbose) message("Exporting 'x' as a shapefile.")
 #			rgdal::writeOGR(xTransform, dsn=paste(pathToFileNoEXT, ".shp", sep=""), layer=layer, driver="ESRI Shapefile")
 			sf::st_write(xTransform, dsn=paste(pathToFileNoEXT, ".shp", sep=""),
@@ -210,6 +219,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			if(validFeature){
 				# use original one - even for windows.
 				pathToFileNoEXT <- gsub(".gpml", "",plateFeatures[x])
+				if (win) pathToFileNoEXT <- gsub("/","\\\\", pathToFileNoEXT)
 			}else{
 				stop("The requested feature collection is not part of the model. ")
 			}
@@ -251,11 +261,11 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 
 		# the single file
 		targetSingle <- paste(pathToFileNoEXT,"_reconstructed.shx",	sep="")
-		targetSingleNoPath <- fileFromPath(targetSingle)
+		targetSingleNoPath <- fileFromPath(targetSingle, win=win)
 
 		# produced directory? 
 		targetDir<- paste(pathToFileNoEXT,"_reconstructed",	sep="")
-		targetDirNoPath <- fileFromPath(targetDir)
+		targetDirNoPath <- fileFromPath(targetDir, win=win)
 
 		# is this a single file? 
 		allFiles <- list.files(tempd)

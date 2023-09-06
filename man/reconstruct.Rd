@@ -98,7 +98,7 @@ For the online subroutine, the character strings \code{"static_polygons"}, \code
 \item{reverse}{(\code{logical}) Argument of the remote reconstruction submodule. The flag to control the direction of reconstruction. If \code{reverse = TRUE}, the function will 
 calculate the present-day coordinates of the given paleo-coordinates.}
 
-\item{path.gplates}{(\code{character}) Argument of the local reconstruction submodule. In case the GPlates executable file is not found at the coded default location, the full path to the executable (gplates-<ver>.exe on Windows) can be entered here.}
+\item{path.gplates}{(\code{character}) Argument of the local reconstruction submodule. In case the GPlates executable file is not found at the coded default location, the full path to the executable (gplates-<ver>.exe on Windows) can be entered here. e.g. \code{"C:/gplates_2.3.0_win64/gplates.exe"}.}
 
 \item{cleanup}{(\code{logical}) Argument of the local reconstruction submodule. Should the temporary files be deleted immediately after reconstructions?}
 

@@ -22,11 +22,19 @@ getOS <- function(){
 
 
 # get directory from a paht
-fileFromPath <- function(x){
+fileFromPath <- function(x, win=FALSE){
   res <- rep(NA, length(x))
-  for(i in 1:length(x)){
-	all <- unlist(strsplit(x[i], "/"))
-	res[i] <- paste(all[length(all)], collapse="/")
+
+  if(!win){
+	for(i in 1:length(x)){
+		all <- unlist(strsplit(x[i], "/"))
+		res[i] <- paste(all[length(all)], collapse="/")
+	}
+  }else{
+	for(i in 1:length(x)){
+		all <- unlist(strsplit(x[i], "\\\\"))
+		res[i] <- paste(all[length(all)], collapse="\\\\")
+	}
   }
   names(res) <- names(x)
   return(res)
