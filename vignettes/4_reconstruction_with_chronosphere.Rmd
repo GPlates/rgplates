@@ -47,10 +47,10 @@ Detailed tutorials will be made available later about how to use the chronospher
 Downloading data iwth the `chronosphere` is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. The following expression will download a more detailed tectonic model (feature collections and reconstruction tree) which were used by [Merdith et al. 2021](https://www.sciencedirect.com/science/article/abs/pii/S0012825220305237):
 
 ```{r dlModel1, echo=TRUE}
-pm <- chronosphere::fetch(dat="EarthByte", var="MERDITH2021")
+pm <- chronosphere::fetch(src="EarthByte", ser="MERDITH2021")
 ```
 
-The arguments of `chronosphere::fetch()` are the the dataset (`dat`), variable (`var`) and version (`ver`) ID of the item that you want to download.
+The arguments of `chronosphere::fetch()` are the the source (`src`), series (`ser`) and version (`ver`) ID of the item that you want to download.
 
 <br>
 

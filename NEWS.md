@@ -2,6 +2,8 @@
 
 # rgplates 0.3.2 - 2023-09-06
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8321157.svg)](https://doi.org/10.5281/zenodo.8321157)
+
 ### Fixed
 - Bug fix for windows paths in the offline reconstruction methods 
 
