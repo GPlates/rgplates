@@ -203,7 +203,7 @@ CheckGWS <- function(x, model, age, verbose=TRUE){
 	}
 	gws <- NULL
 	# use lazy loading to get it into the memory
-	data(gws, envir=environment())
+	data(gws, envir=environment(), package="rgplates")
 
 	# limit to model
 	gwsMod <- gws[which(gws$model==model), ]
