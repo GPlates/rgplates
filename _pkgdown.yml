@@ -1,4 +1,4 @@
-url: https://adamkocsis.github.io/rgplates
+url: https://adamtkocsis.com/rgplates
 template:
   opengraph:
     image:
@@ -68,7 +68,7 @@ authors:
     href: "https://discover.utas.edu.au/Simon.Williams/about"
   Deutsche Forschungsgemeinschaft:
     href: https://www.dfg.de/en/index.jsp
-    html: <img src='https://www.dfg.de/includes/bausteine/open_graph_de/dfgfallback.jpg' alt='dfg' width='80' />
+    html: <img src='https://risources.dfg.de/img/dfg_logo.gif' alt='dfg' width='80' />
   FAU GeoZentrum Nordbayern:
     href: https://www.gzn.nat.fau.eu/
     html: <img src='https://www.gzn.nat.fau.de/files/2017/05/cropped-gzn-logo.jpg' alt='geozentrum' width='80' />

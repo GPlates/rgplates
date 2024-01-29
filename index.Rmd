@@ -28,7 +28,7 @@ Functions to the [GPlates Web Service](https://gws.gplates.org/) and the [GPlate
 
 The **online reconstruction** (with the [GPlates Web Service](https://gws.gplates.org/)) makes the rotation of static plates, coastlines, and a low number of geographic coordinates available using nothing but an internet connection. 
 
-The **offline reconstruction** requires an external installation of the GPlates Desktop Application, but allows the efficient batch rotation of thousands of coordinates, Simple Features ([`sf`](https://cran.r-project.org/package=sf)) and Spatial ([`sp`](https://cran.r-project.org/package=sp)) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the [chronosphere](http://www.chronosphere.info/). 
+The **offline reconstruction** requires an external installation of the GPlates Desktop Application, but allows the efficient batch rotation of thousands of coordinates, Simple Features ([`sf`](https://cran.r-project.org/package=sf)) and Spatial ([`sp`](https://cran.r-project.org/package=sp)) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the [chronosphere](https://www.chronosphere.info/). 
 
 
 ## Example
