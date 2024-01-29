@@ -112,3 +112,27 @@ mapedge <- function(x=360, y=180, xmin=-180, xmax=180, ymin=-90, ymax=90, out="s
   	return(final)
 }
 
+
+checkSuggested <- function(x){
+	
+	# check for necessary packages
+	packages <- c(geojsonsf=FALSE,httr2=FALSE)
+
+	if(! requireNamespace("geojsonsf", quietly=TRUE)) packages["geojsonsf"] <- TRUE
+	if(! requireNamespace("httr2", quietly=TRUE)) packages["httr2"] <- TRUE
+
+
+	if(any(packages)){
+		if(sum(packages)==1){
+			error <- paste0("This method requires the \"", names(packages)[packages], "\" package.\n",
+				"Please install it with:\n\ninstall.packages(\"", names(packages)[packages], "\")")
+
+		}else{
+			error <- paste0("This method requires the \"geojsonsf\" and \"httr2\" packages.\n",
+				"Please install them with:\n\ninstall.packages(c(\"geojsonsf\", \"httr2\"))")
+
+		}
+	
+		stop(error)
+	}
+}

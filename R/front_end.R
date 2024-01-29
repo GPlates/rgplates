@@ -78,21 +78,25 @@ setGeneric("reconstruct", function(x,...) standardGeneric("reconstruct"))
 
 # have to use long function definitions for documentation.
 #' @param enumerate (\code{logical}) Should be all coordinate/age combinations be enumerated and reconstructed (set to \code{TRUE} by default)? \code{FALSE} is applicable only if the number of rows in \code{x} is equal to the number elementes in \code{age}. Then a point will be reconstructed to the age that has the same index in \code{age} as the row of the coordinates in \code{x}. List output is not available in this case. 
-#' @param chunk (\code{numeric}) Argument of the remote reconstruction submodule. Single integer, the number of coordinates that will be queried from the GPlates in a single go. 
+#' @param chunk (\code{numeric}) Deprected argument of the online reconstruction method. Ignored.
 #' @param check (\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE}) 
 #' @rdname reconstruct
 setMethod(
 	"reconstruct", 
 	signature="matrix", 
-	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=200, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons", check=TRUE){
+	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons", check=TRUE){
 
-	if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
+		# provide some feedback for users
+		if(!is.null(chunk)) message("The 'chunk' argument is deprecated and unnecessary.")
 
-	if(is.null(model)){
-		message("No model was specified.")
-		x <- NULL
-		return(x)
-	}
+		if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
+
+		# return null if no model is specified
+		if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
+		}
 	
 		# Check long lat!
 		if(!is.numeric(age)) age <- as.numeric(age)
@@ -121,8 +125,8 @@ setMethod(
 				for(i in 1:length(age)){
                     if(is.character(model)){
 						if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
-						fresh <- IteratedPointReconstruction(coords=x, chunk=chunk,
-							age=age[i], model=model, reverse=reverse, verbose=verbose)
+						fresh <- gwsReconstructPoints(coords=x, 
+							time=age[i], model=model, reverse=reverse, verbose=verbose)
                     }else{
                         fresh <- reconstructGPlates(x=x, age=age[i], model=model,
 							path.gplates=path.gplates, dir=dir, verbose=verbose, 
@@ -166,8 +170,8 @@ setMethod(
 					# do reconstruction and store
                     if(is.character(model)){
 						if(check) CheckGWS("static_polygons", model, age=ageLevs[i], verbose=verbose)
-						container[index,] <- IteratedPointReconstruction(coords=current,
-							chunk=chunk, age=ageLevs[i], model=model, reverse=reverse, 
+						container[index,] <- gwsReconstructPoints(coords=current,
+							time=ageLevs[i], model=model, reverse=reverse, 
 							verbose=verbose)
 				    }else{
                         container[index,] <- reconstructGPlates(x=current,
@@ -181,8 +185,8 @@ setMethod(
 		}else{
             if(is.character(model)){
 				if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
-                container <- IteratedPointReconstruction(coords=x, chunk=chunk,
-					age=age, model=model, reverse=reverse, verbose=verbose)
+                container <- gwsReconstructPoints(coords=x,
+					time=age, model=model, reverse=reverse, verbose=verbose)
             }else{
                 container <- reconstructGPlates(x=x, age=age, model=model,
 					path.gplates=path.gplates, dir=dir, verbose=verbose, 

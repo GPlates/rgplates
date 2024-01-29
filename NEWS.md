@@ -1,5 +1,19 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.4.0 - 2024-01-30
+
+### Added
+- New suggested package 'httr2' to be used with the online method (see changed).
+
+### Changed
+- Online reconstruction method (with GWS) now uses the HTTP POST method for points and send coordinates as form data. Internals were changed accordingly.
+
+### Fixed
+- Online reconstruction was not working when the package was not attached, due to issue of the checking of the valid input.
+
+### Deleted
+- The 'chunk' agrument of `reconstruct()` was deprecacted.
+
 # rgplates 0.3.2 - 2023-09-06
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8321157.svg)](https://doi.org/10.5281/zenodo.8321157)

@@ -88,12 +88,11 @@ expect_true(1e-3>abs(sum(rec100_rev- mat[keep,])))
 expect_equal(colnames(rec100_rev), c("long", "lat"))
 
 ################################################################################
-# Test inaccurate ages! - only rounded ones are allowed
+# Test inaccurate ages! - now rounded ones are also allowed!
 # Reconstructed to 100.4 
-expect_message(
+expect_silent(
 	rec100_4 <- reconstruct(mat, age=100.4, model="PALEOMAP")
 )	
 
-expect_equal(rec100_4, rec100)
 
 

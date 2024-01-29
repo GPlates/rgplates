@@ -1,68 +1,7 @@
 ###########################################################################
 # GPlates Web Service internals:
 
-# correcting the point recontstruction problem, wrapper around the point reconstruction funciton
-IteratedPointReconstruction <- function(coords,age, chunk=200, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
-	# shortcut - will be put in matrix automatically
-	if(is.na(age)) return(NA)
-	if(any(age%%1!=0)){
-		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
-		age <- round(age)
-	}
-	# number of coordinates
-	coordNum <- nrow(coords)
-	
-	# do only when the number of coordinates is large enough
-	if(coordNum>chunk){
-		# batch number
-		moreIndex <- rep(1:ceiling(coordNum/chunk), each=chunk)
-		index<-moreIndex[1:coordNum]
-		
-		# new container
-		newCoords <- matrix(NA, ncol=2, nrow=coordNum)
-		colnames(newCoords) <- colnames(coords)
-		rownames(newCoords) <- rownames(coords)
-
-		# the number of batches 
-		maxIndex <- max(index)
-	 
-		# iterate - for() is easier, performance impact unlikely
-		for(i in 1:maxIndex){
-			# index of batch number
-			bIndex <- index==i
-	
-			# current batch 
-			current <- coords[bIndex,]
-
-			# do the reconstruction
-			tryCatch({
-					iterRes <- gplates_reconstruct_points(current, age=age, model=model, reverse=reverse, verbose=verbose)
-				},
-				error=function(cond){
-					stop("Query URL is too long. Round coordinates or decrease chunk size.")
-				}
-			) 
-
-			
-			# store
-			newCoords[bIndex,] <- iterRes
-		}
-
-	# save some time by skipping this
-	}else{
-		tryCatch({
-			newCoords <- gplates_reconstruct_points(coords, age=age, model=model, reverse=reverse, verbose=verbose)
-		}, error=function(cond){
-					stop("Query URL is too long. Round coordinates or decrease chunk size.")
-			 }
-		)
-
-	}
-
-	return(newCoords)
-
-}
-
+# IteratedPointReconstruction <- function(coords,age, chunk=200, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
 
 
 # Reconstruct points
@@ -87,49 +26,52 @@ IteratedPointReconstruction <- function(coords,age, chunk=200, model="MERDITH202
 # 
 # xy <-cbind(long=c(95,142), lat=c(54, -33))
 # gplates_reconstruct_points(xy, 140)
-gplates_reconstruct_points <- function(coords,age, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
+## gplates_reconstruct_points <- function(coords,age, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
 	
-	url <- 'https://gws.gplates.org/reconstruct/reconstruct_points/'
+## 	url <- 'https://gws.gplates.org/reconstruct/reconstruct_points/'
 	
-	#multiple points, as matrix or dataframe
-	if(is.matrix(coords) | is.data.frame(coords)){
-		coords <- toString(as.vector(t(coords)))
-	}
+## 	#multiple points, as matrix or dataframe
+## 	if(is.matrix(coords) | is.data.frame(coords)){
+## 		coords <- toString(as.vector(t(coords)))
+## 	}
 	
-	#single points as vector
-	if(is.vector(coords)){ 
-		coords <- toString(coords)
-	}
+## 	#single points as vector
+## 	if(is.vector(coords)){ 
+## 		coords <- toString(coords)
+## 	}
 	
-	#fetch data
-	query <- sprintf('?points=%s&time=%d&model=%s',gsub(" ", "", coords),age, model)
+## 	#fetch data
+## 	query <- sprintf('?points=%s&time=%d&model=%s',gsub(" ", "", coords),age, model)
 	
-	# for reconstruction of present day coordinates from paleocoordinates
-	if (reverse == TRUE){
-		query <- paste0(query, "&reverse")
-		cols <- c("long", "lat")
-	} else cols <- c("paleolong", "paleolat")
+## 	# for reconstruction of present day coordinates from paleocoordinates
+## 	if (reverse == TRUE){
+## 		query <- paste0(query, "&reverse")
+## 		cols <- c("long", "lat")
+## 	} else cols <- c("paleolong", "paleolat")
 	
-	fullrequest <- sprintf(paste0(url,query, "&return_null_points"))
+## 	fullrequest <- sprintf(paste0(url,query, "&return_null_points"))
 	
-	if(verbose) cat("Extracting coordinates from:", fullrequest, "\n")
-	rawdata <- readLines(fullrequest, warn="F") 
+## 	if(verbose) cat("Extracting coordinates from:", fullrequest, "\n")
+## 	rawdata <- readLines(fullrequest, warn="F") 
 	
-	#if null
-	rawdata <- gsub("null", "[[-9999, -9999]]", rawdata)
+## 	#if null
+## 	rawdata <- gsub("null", "[[-9999, -9999]]", rawdata)
 	
-	#extract coordinates
-	rcoords <- matrix(as.numeric(unlist(regmatches(rawdata, gregexpr("-?[[:digit:]]+\\.*[[:digit:]]+", rawdata)))), ncol=2, byrow = TRUE)
-	rcoords[rcoords == -9999] <- NA #replace na values
+## 	#extract coordinates
+## 	rcoords <- matrix(as.numeric(unlist(regmatches(rawdata, gregexpr("-?[[:digit:]]+\\.*[[:digit:]]+", rawdata)))), ncol=2, byrow = TRUE)
+## 	rcoords[rcoords == -9999] <- NA #replace na values
 	
-	colnames(rcoords) <- cols
-	return(rcoords)
-}
+## 	colnames(rcoords) <- cols
+## 	return(rcoords)
+## }
 
 
 # New point reconstruction function
 gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
 	
+	# Check whether the suggested package are there
+	checkSuggested(c("geojsonsf", "httr2"))
+
 	# define a request to the GPlates web service
 	re <- httr2::request("https://gws.gplates.org/reconstruct/reconstruct_points/")
 	
@@ -152,7 +94,6 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 	# process request
 	result<- httr2::resp_body_string(done)
 
-
 	# return the geojsonsf
 	newsf <- geojsonsf::geojson_sf(result)
 
@@ -171,6 +112,10 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 	}
 	colnames(rcoords) <- cols
 
+	# replace NA values
+	rcoords[rcoords == 999.99] <- NA
+
+	
 	# return object
 	return(rcoords)
 }
