@@ -126,6 +126,56 @@ gplates_reconstruct_points <- function(coords,age, model="MERDITH2021", reverse=
 	return(rcoords)
 }
 
+
+# New point reconstruction function
+gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
+	
+	# define a request to the GPlates web service
+	re <- httr2::request("https://gws.gplates.org/reconstruct/reconstruct_points/")
+	
+
+	# the form request
+	reForm <- httr2::req_body_form(
+		re, 
+		lats=paste(coords[,2], collapse=","), 
+		lons=paste(coords[,1], collapse=","), 
+		time=time, model=model, reverse=reverse
+	)
+
+	if(verbose) message(paste0("Defined request to reconstruction points to time: ", time, "Ma, reverse=", reverse, "." ))
+
+	# the performed request
+	done <- httr2::req_perform(reForm)
+
+	if(verbose) message("Request performed. ")
+
+	# process request
+	result<- httr2::resp_body_string(done)
+
+
+	# return the geojsonsf
+	newsf <- geojsonsf::geojson_sf(result)
+
+	if(verbose) message("Processed result to GeoJSON. ")
+
+	# the column names 
+	rcoords <- sf::st_coordinates(newsf)[, c("X", "Y")]
+
+	if(verbose) message("Extracted coordinates. ")
+
+	# the column names
+	if (reverse){
+		cols <- c("long", "lat")
+	} else {
+		cols <- c("paleolong", "paleolat")
+	}
+	colnames(rcoords) <- cols
+
+	# return object
+	return(rcoords)
+}
+
+
 # Reconstruct coastlines
 # Retrieve reconstructed coastline polygons for defined ages
 # 
