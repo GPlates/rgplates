@@ -136,3 +136,6 @@ checkSuggested <- function(x){
 		stop(error)
 	}
 }
+
+
+	

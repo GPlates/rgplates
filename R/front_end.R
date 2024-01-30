@@ -49,10 +49,11 @@
 #' a single point or a matrix/dataframe with the first column as longitude and second column as latitude, or a \code{SpatialPolygonsDataFrame} class object. 
 #' For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object.
 #' @param ... arguments passed to class-specific methods.
-#' @param age (\code{numeric}) is the age in Ma at which the points will be reconstructed
+#' @param age (\code{numeric}) is the target age in Ma at which the feature will be reconstructed. Defaults to 0 Ma. 
 #' @param model (\code{character} or \code{\link{platemodel}}) The  reconstruction model. The class of this argument selects the submodule used for reconstruction, a \code{character} value will invoke the remote reconstruction submodule and will submit \code{x} to the GPlates Web Service. A \code{platemodel} class object will call the local-reconstruction submodule. The default is \code{"PALEOMAP"}. See details for available models.
+#' @param from (\code{numeric}) The original age of the features to be reconstructed. A single value, defaults to 0Ma. Only used with the online reconstruction module.
 #' @param reverse (\code{logical}) Argument of the remote reconstruction submodule. The flag to control the direction of reconstruction. If \code{reverse = TRUE}, the function will 
-#' calculate the present-day coordinates of the given paleo-coordinates. 
+#' calculate the present-day coordinates of the given paleo-coordinates, with age setting the target. Not recommended, kept only for compatibility with the GPlates Web Service. Using \code{from} instead of \code{age} will automatically trigger reverse reconstruction. 
 #' @param path.gplates (\code{character}) Argument of the local reconstruction submodule. In case the GPlates executable file is not found at the coded default location, the full path to the executable (gplates-<ver>.exe on Windows) can be entered here. e.g. \code{"C:/gplates_2.3.0_win64/gplates.exe"}.
 #' @param listout (\code{logical})If multiple ages are given, the output can be returned as a \code{list} if \code{listout = TRUE}.
 #' @param verbose (\code{logical}) Should call URLs (remote submodule) or console feedback (local-submodule) be printed?
@@ -84,10 +85,10 @@ setGeneric("reconstruct", function(x,...) standardGeneric("reconstruct"))
 setMethod(
 	"reconstruct", 
 	signature="matrix", 
-	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons", check=TRUE){
+	function(x,age=0, model="MERDITH2021", from=0, listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons", check=TRUE){
 
 		# provide some feedback for users
-		if(!is.null(chunk)) message("The 'chunk' argument is deprecated and unnecessary.")
+		if(!is.null(chunk)) warning("The 'chunk' argument is deprecated and is now unnecessary.")
 
 		if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
 
@@ -100,110 +101,168 @@ setMethod(
 	
 		# Check long lat!
 		if(!is.numeric(age)) age <- as.numeric(age)
+		if(!is.numeric(from)) from <- as.numeric(from)
+		if(length(from)>1) stop("Only one 'from' argument is allowed.")
 
-		# depending on length
-		if(length(age)>1){
-		 
-			# base condition of enumerate=FALSE
-				if(!enumerate & length(age)!=nrow(x)){
-						enumerate <- TRUE
-						warning("Enumerating coordinate-age combinations. \n enumerate = FALSE is possible only if the number of coordinates matches the number of ages.")
-			} 
-
-			# if the function is allowed to enumerate
-			if(enumerate){
-				# depending on output
-				if(listout){
-					container<- list()
-			 
-				# 3d matrix
-				}else{
-					container <- array(NA, dim=c(length(age), dim(x)))
-				}
 	
-				# iterate over ages
-				for(i in 1:length(age)){
-                    if(is.character(model)){
-						if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
+		# forking for recursion
+		# A. past coordinates are given
+		if(from!=0){
+
+			if(reverse) stop("The argument 'reverse=TRUE' is only allowed when the past coordinates are given in 'age'.\n  Using 'from' automatically sets the direction of reconstruction.")
+
+			# how many ages are given
+			ageNumber <- length(age)
+
+			# basic forward reconstruction (one from one age [target])
+			# find present-day positions
+			if(ageNumber==1){
+				if(age==0){
+					if(verbose) message("Calculating present-day coordinates from past ones.")
+					# do the reconstruction
+					if(is.character(model)){
+						if(check) CheckGWS("coastlines", model, age=from, verbose=verbose)
 						fresh <- gwsReconstructPoints(coords=x, 
-							time=age[i], model=model, reverse=reverse, verbose=verbose)
-                    }else{
-                        fresh <- reconstructGPlates(x=x, age=age[i], model=model,
-							path.gplates=path.gplates, dir=dir, verbose=verbose, 
-							cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
-                    }
+							time=from, model=model, reverse=TRUE, verbose=verbose)
+					}else{
+						stop("Calculation of present-day coordinates from past ones\n  is not available with the offline method.")
+					}
+
 					# attribute copy, if there is anything
-					if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
+					# if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
 					rownames(fresh) <- rownames(x)
-					# list
+
+					# return the present-day coordinates
+					return(fresh)
+				}
+			}
+			# if the function did not exit, then there is at least one meaningful target age 
+			# 1. calculate the present-day coordinates from past ones, by recursively calling the previous chunk
+			presentCoords <- reconstruct(x=x, age=0, from=from, model=model, verbose=verbose, check=check)
+
+			# attribute copy should be enforced here!
+			if(!is.null(colnames(x))) {
+				colnames(presentCoords) <- colnames(x)
+			}else{
+				# if automatically assigned column names exist, remove them!
+				colnames(presentCoords) <- NULL
+			}
+
+			if(verbose) message("Calculating past coordinates from present-day ones.")
+			# 2. calculate the different past coordinates by using the present coordinates calculated above
+			pastCoords <- reconstruct(presentCoords, age=age, from=0, model=model, verbose=verbose, enumerate=enumerate, check=check)
+
+			# recursive case ends
+			return(pastCoords)
+
+		# normal backward reconstruction
+		# present coordinates given 
+		}else{
+	
+			# depending on length
+			if(length(age)>1){
+
+				# base condition of enumerate=FALSE
+					if(!enumerate & length(age)!=nrow(x)){
+							enumerate <- TRUE
+							warning("Enumerating coordinate-age combinations. \n enumerate = FALSE is possible only if the number of coordinates matches the number of ages.")
+				} 
+
+				# if the function is allowed to enumerate
+				if(enumerate){
+					# depending on output
 					if(listout){
-						container[[i]] <- fresh
+						container<- list()
+
 					# 3d matrix
 					}else{
-						container[i,,] <- fresh
+						container <- array(NA, dim=c(length(age), dim(x)))
+					}
+
+					# iterate over ages
+					for(i in 1:length(age)){
+						if(is.character(model)){
+							if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
+							fresh <- gwsReconstructPoints(coords=x, 
+								time=age[i], model=model, reverse=reverse, verbose=verbose)
+						}else{
+							fresh <- reconstructGPlates(x=x, age=age[i], model=model,
+								path.gplates=path.gplates, dir=dir, verbose=verbose, 
+								cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+						}
+						# attribute copy, if there is anything
+						if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
+						rownames(fresh) <- rownames(x)
+						# list
+						if(listout){
+							container[[i]] <- fresh
+						# 3d matrix
+						}else{
+							container[i,,] <- fresh
+						}
+					}
+
+					# name the	output
+					# list
+					if(listout){
+						names(container) <- age
+					# matrix
+					}else{
+						dimnames(container) <- c(list(age), dimnames(fresh))
+					}
+
+				# used vectorized age implementation, no enumeration
+				}else{
+					# empty container
+					container <- x
+					container[]<-NA
+
+					# reconstruction is performance-capped, for loop should be enough
+					ageLevs <- unique(age)
+
+					# for all different age values
+					for(i in 1:length(ageLevs)){
+						# which rows apply
+						index <- which(ageLevs[i]==age)
+						current <- x[index, , drop=FALSE]
+						# do reconstruction and store
+						if(is.character(model)){
+							if(check) CheckGWS("static_polygons", model, age=ageLevs[i], verbose=verbose)
+							container[index,] <- gwsReconstructPoints(coords=current,
+								time=ageLevs[i], model=model, reverse=reverse, 
+								verbose=verbose)
+						}else{
+							container[index,] <- reconstructGPlates(x=current,
+								age=ageLevs[i], model=model, path.gplates=path.gplates, 
+								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+						}
 					}
 				}
-	
-				# name the	output
-				# list
-				if(listout){
-					names(container) <- age
-				# matrix
-				}else{
-					dimnames(container) <- c(list(age), dimnames(fresh))
-				}
 
-			# used vectorized age implementation, no enumeration
+			# single target
 			}else{
-				# empty container
-				container <- x
-				container[]<-NA
+				if(is.character(model)){
+					if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
+					container <- gwsReconstructPoints(coords=x,
+						time=age, model=model, reverse=reverse, verbose=verbose)
+				}else{
+					container <- reconstructGPlates(x=x, age=age, model=model,
+						path.gplates=path.gplates, dir=dir, verbose=verbose, 
+						cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+				}
+				# if everything returned i just missing value
+				# return original structure with missing
+				if(all(is.na(container))){
+					container <- x
+					container[] <- NA
 
-				# reconstruction is performance-capped, for loop should be enough
-				ageLevs <- unique(age)
-
-				# for all different age values
-				for(i in 1:length(ageLevs)){
-					# which rows apply
-					index <- which(ageLevs[i]==age)
-					current <- x[index, , drop=FALSE]
-					# do reconstruction and store
-                    if(is.character(model)){
-						if(check) CheckGWS("static_polygons", model, age=ageLevs[i], verbose=verbose)
-						container[index,] <- gwsReconstructPoints(coords=current,
-							time=ageLevs[i], model=model, reverse=reverse, 
-							verbose=verbose)
-				    }else{
-                        container[index,] <- reconstructGPlates(x=current,
-							age=ageLevs[i], model=model, path.gplates=path.gplates, 
-							dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
-                    }
-                }
+				}
 			}
 
-		# single target
-		}else{
-            if(is.character(model)){
-				if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
-                container <- gwsReconstructPoints(coords=x,
-					time=age, model=model, reverse=reverse, verbose=verbose)
-            }else{
-                container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, 
-					cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
-            }
-			# if everything returned i just missing value
-			# return original structure with missing
-			if(all(is.na(container))){
-				container <- x
-				container[] <- NA
-
-			}
-		}
-
-		# and return
-		return(container)
-	} 
+			# and return
+			return(container)
+		} 
+	}
 )
 
 

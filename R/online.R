@@ -107,6 +107,15 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 	# the column names
 	if (reverse){
 		cols <- c("long", "lat")
+
+		# during reverse reconstruction if the past positions are not assigned to plates
+		# then he web service returns IDENTICAL COORDINATES as teh original ones
+		exactMatch <- rcoords==c(coords[,1], coords[,2])
+		if(any(exactMatch)){
+			rcoords[exactMatch] <- NA
+			warning("Identical coordinates returned as present-day positions: \n  - Some points are probably off the partitioning polygons.\n  - Returning NAs for these.")
+		}
+		
 	} else {
 		cols <- c("paleolong", "paleolat")
 	}
