@@ -17,7 +17,7 @@ library(parallel)
 library(chronosphere)
 library(rgplates)
 
-wd <- file.path(Sys.getenv("WorkSpace"), "2021-04-28_rgplates")
+wd <- file.path(Sys.getenv("Dropbox"), "Software/rgplates")
 setwd(wd)
 
 # make a cluster of 8

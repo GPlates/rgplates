@@ -285,13 +285,46 @@ expect_silent(
 	recEnum <- reconstruct(mat, age=ages, model="PALEOMAP", enumerate=FALSE)
 )
 
-una <- unique(ages)
-for(i in 1:length(una)){
-	tempRec <- reconstruct(mat[una[i]==ages,, drop=FALSE], age=una[i], model="PALEOMAP")
-	bitRec <- recEnum[una[i]==ages,, drop=FALSE]
-	expect_equal(tempRec, bitRec)
-}
+# manual iteration
+# 10
+focal <- 10
+expect_silent(
+	tempRec10 <- reconstruct(mat[focal==ages,, drop=FALSE], age=focal, model="PALEOMAP")
+)
+bitRec10 <- recEnum[focal==ages,, drop=FALSE]
+expect_equal(tempRec10, bitRec10)
 
+# 15
+focal <- 15
+expect_silent(
+	tempRec15 <- reconstruct(mat[focal==ages,, drop=FALSE], age=focal, model="PALEOMAP")
+)
+bitRec15 <- recEnum[focal==ages,, drop=FALSE]
+expect_equal(tempRec15, bitRec15)
+
+# 20
+focal <- 20
+expect_silent(
+	tempRec20 <- reconstruct(mat[focal==ages,, drop=FALSE], age=focal, model="PALEOMAP")
+)
+bitRec20 <- recEnum[focal==ages,, drop=FALSE]
+expect_equal(tempRec20, bitRec20)
+
+# 25
+focal <- 25
+expect_silent(
+	tempRec25 <- reconstruct(mat[focal==ages,, drop=FALSE], age=focal, model="PALEOMAP")
+)
+bitRec25 <- recEnum[focal==ages,, drop=FALSE]
+expect_equal(tempRec25, bitRec25)
+
+# 30
+focal <- 30
+expect_silent(
+	tempRec30 <- reconstruct(mat[focal==ages,, drop=FALSE], age=focal, model="PALEOMAP")
+)
+bitRec30 <- recEnum[focal==ages,, drop=FALSE]
+expect_equal(tempRec30, bitRec30)
 
 ########################################----------------------------------------
 # Enumerate - with missing

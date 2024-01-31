@@ -296,22 +296,16 @@ setMethod(
 				}
 				# if everything returned i just missing value
 				# return original structure with missing
-				if(all(is.na(fresh))){
-					container <- x
-					container[] <- NA
+				# create new final container
+				# make it the same as it was
+				container <- x
 
-				}else{
-					# create new final container
-					# make it the same as it was
-					container <- x
+				# replace all values with missing
+				container[] <- NA
 
-					# replace all values with missing
-					container[] <- NA
-
-					# replace the bits
-					container[bPresent, ] <- fresh 
-					colnames(container) <- colnames(fresh)
-				}
+				# replace the bits
+				container[bPresent, ] <- fresh 
+				colnames(container) <- colnames(fresh)
 			}
 
 			# and return
