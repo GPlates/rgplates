@@ -14,12 +14,13 @@ reconstruct(x, ...)
 
 \S4method{reconstruct}{matrix}(
   x,
-  age,
+  age = 0,
   model = "MERDITH2021",
+  from = 0,
   listout = TRUE,
   verbose = FALSE,
   enumerate = TRUE,
-  chunk = 200,
+  chunk = NULL,
   reverse = FALSE,
   path.gplates = NULL,
   cleanup = TRUE,
@@ -83,9 +84,11 @@ For the online subroutine, the character strings \code{"static_polygons"}, \code
 
 \item{...}{arguments passed to class-specific methods.}
 
-\item{age}{(\code{numeric}) is the age in Ma at which the points will be reconstructed}
+\item{age}{(\code{numeric}) is the target age in Ma at which the feature will be reconstructed. Defaults to 0 Ma.}
 
 \item{model}{(\code{character} or \code{\link{platemodel}}) The  reconstruction model. The class of this argument selects the submodule used for reconstruction, a \code{character} value will invoke the remote reconstruction submodule and will submit \code{x} to the GPlates Web Service. A \code{platemodel} class object will call the local-reconstruction submodule. The default is \code{"PALEOMAP"}. See details for available models.}
+
+\item{from}{(\code{numeric}) The original age of the features to be reconstructed. A single value, defaults to 0Ma. Only used with the online reconstruction module.}
 
 \item{listout}{(\code{logical})If multiple ages are given, the output can be returned as a \code{list} if \code{listout = TRUE}.}
 
@@ -93,10 +96,10 @@ For the online subroutine, the character strings \code{"static_polygons"}, \code
 
 \item{enumerate}{(\code{logical}) Should be all coordinate/age combinations be enumerated and reconstructed (set to \code{TRUE} by default)? \code{FALSE} is applicable only if the number of rows in \code{x} is equal to the number elementes in \code{age}. Then a point will be reconstructed to the age that has the same index in \code{age} as the row of the coordinates in \code{x}. List output is not available in this case.}
 
-\item{chunk}{(\code{numeric}) Argument of the remote reconstruction submodule. Single integer, the number of coordinates that will be queried from the GPlates in a single go.}
+\item{chunk}{(\code{numeric}) Deprected argument of the online reconstruction method. Ignored.}
 
 \item{reverse}{(\code{logical}) Argument of the remote reconstruction submodule. The flag to control the direction of reconstruction. If \code{reverse = TRUE}, the function will 
-calculate the present-day coordinates of the given paleo-coordinates.}
+calculate the present-day coordinates of the given paleo-coordinates, with age setting the target. Not recommended, kept only for compatibility with the GPlates Web Service. Using \code{from} instead of \code{age} will automatically trigger reverse reconstruction.}
 
 \item{path.gplates}{(\code{character}) Argument of the local reconstruction submodule. In case the GPlates executable file is not found at the coded default location, the full path to the executable (gplates-<ver>.exe on Windows) can be entered here. e.g. \code{"C:/gplates_2.3.0_win64/gplates.exe"}.}
 

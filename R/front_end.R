@@ -142,7 +142,9 @@ setMethod(
 					}
 
 					# attribute copy, if there is anything
-					# if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
+					# enforce attributes! - present day attributes
+					colnames(fresh) <- c("long", "lat")
+					
 					rownames(fresh) <- rownames(x)
 
 					# return the present-day coordinates
@@ -153,18 +155,9 @@ setMethod(
 			# 1. calculate the present-day coordinates from past ones, by recursively calling the previous chunk
 			presentCoords <- reconstruct(x=x, age=0, from=from, model=model, verbose=verbose, check=check)
 
-			# attribute copy should be enforced here!
-			if(!is.null(colnames(x))) {
-				colnames(presentCoords) <- colnames(x)
-			}else{
-				# if automatically assigned column names exist, remove them!
-				colnames(presentCoords) <- NULL
-			}
-
 			if(verbose) message("Calculating past coordinates from present-day ones.")
 			# 2. calculate the different past coordinates by using the present coordinates calculated above
-			pastCoords <- reconstruct(presentCoords, age=age, from=0, model=model, verbose=verbose, enumerate=enumerate, check=check)
-
+			pastCoords <- reconstruct(presentCoords, age=age, from=0, model=model, verbose=verbose, enumerate=enumerate, check=check, listout=listout)
 			# recursive case ends
 			return(pastCoords)
 
@@ -174,6 +167,8 @@ setMethod(
 	
 			# depending on length
 			if(length(age)>1){
+
+				if(reverse) stop("The argument `reverse=TRUE` is not allowed with multiple ages.")
 
 				# base condition of enumerate=FALSE
 				if(!enumerate & length(age)!=nrow(x)){
@@ -213,10 +208,13 @@ setMethod(
 
 						# replace the bits
 						fresh[bPresent,] <- immediate
-						colnames(fresh) <- colnames(immediate)
+						if(age[i]!=0){
+							colnames(fresh) <- c("paleolong", "paleolat")
+						}else{
+							colnames(fresh) <- c("long", "lat")
+						}
 
 						# attribute copy, if there is anything
-						if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
 						rownames(fresh) <- rownames(x)
 						# list
 						if(listout){
@@ -233,7 +231,7 @@ setMethod(
 						names(container) <- age
 					# matrix
 					}else{
-						dimnames(container) <- c(list(age), dimnames(fresh))
+						dimnames(container) <- c(list(age), list(rownames(fresh), c("paleolong", "paleolat")))
 					}
 
 				# used vectorized age implementation, no enumeration
@@ -280,11 +278,12 @@ setMethod(
 
 					# replace the bits
 					container[bPresent, ] <-fresh 
-					colnames(container) <- colnames(immediate)
+					colnames(container) <- c("paleolong", "paleolat")
 				}
 
 			# single target
 			}else{
+
 				if(is.character(model)){
 					if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
 					fresh <- gwsReconstructPoints(coords=x[bPresent, , drop=FALSE],
@@ -305,7 +304,12 @@ setMethod(
 
 				# replace the bits
 				container[bPresent, ] <- fresh 
-				colnames(container) <- colnames(fresh)
+				# depending on whether this is truly paleo
+				if(age!=0 & !reverse){
+					colnames(container) <- c("paleolong", "paleolat")
+				}else{
+					colnames(container) <- c("long", "lat")
+				}
 			}
 
 			# and return

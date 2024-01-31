@@ -75,7 +75,6 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 	# define a request to the GPlates web service
 	re <- httr2::request("https://gws.gplates.org/reconstruct/reconstruct_points/")
 	
-
 	# the form request
 	reForm <- httr2::req_body_form(
 		re, 
@@ -138,10 +137,7 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 # @param verbose Should the function output urls?
 # @return SpatialPolygonsDataFrame
 gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRUE){
-	if(any(age%%1!=0)){
-		message("Only integer ages are supported by the online method.\nRounding target age(s).")	
-		age <- round(age)
-	}
+	
 	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
 	
 	if (this=="plate_polygons"){
@@ -151,7 +147,7 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 	}
 	#download and save data
 	url <- paste0('http://gws.gplates.org/', this, '/')
-	query <- sprintf('?time=%d&model=%s', age, model)
+	query <- sprintf('?time=%f&model=%s', age, model)
 	
 	fullrequest <- sprintf(paste0(url,query))
 	if(verbose) cat("Getting data from:", fullrequest, "\n")

@@ -5,7 +5,7 @@ source(file.path(wd, "rgplates/tests/aux/old_rec.R"))
 
 # the necessary data
 dat <- chronosphere::fetch("pbdb", ver="20220510", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
-model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE, ver="v3-GPlates")
+model <- "PALEOMAP"
 
 # 1. taxonomic filtering
 	# filter records not identified at least to genus
@@ -297,7 +297,6 @@ collections <- unique(collections)
 # for this reason, rgplates has an offline method for reconstructions, which uses the console interface of GPlates
 # However for that to work we need plate reconstruction model files. These can be acquired from chronosphere.
 # For the PaleoMAP project this is:
-modelOld <- platemodelOLD(rotation=model@rotation, polygons=model@features['static_polygons'])
 
 # to effectively reconstruct the coordinates we need to put the target ages to our tables
 # for every stg id we have a mapage, we just need to copy this from the time scale table to the collections
@@ -318,34 +317,7 @@ collections <- collections[collections$lat<=90, ]
 ################################################################################
 # Actual test starts here
 
-################################################################################
-# the plateperiod = FALSE
-
-# now we can execute the reconstruction, this takes a couple of minutes (3-5). 
-## paleoCoords_old <- reconstruct_old(
-## 	collections[, c("lng", "lat")] 
-## 	, age = collections$stg_map 
-## 	, model=modelOld
-## 	, enumerate=FALSE 
-## 	, plateperiod=FALSE 
-## )
-
-## saveRDS(paleoCoords_old, file="data/OLD_PBDB/20220510_plateperiodFALSE.rds")
-paleoCoords_old <- readRDS(file=file.path(wd, "data/OLD_PBDB/20220510_plateperiodFALSE.rds"))
-colnames(paleoCoords_old) <- c("paleolong", "paleolat")
-
-paleoCoords_new <- reconstruct(
-	collections[, c("lng", "lat")] 
-	, age = collections$stg_map 
-	, model=model 
-	, enumerate=FALSE 
-	, plateperiod=FALSE 
-)
-
 library(tinytest)
-
-expect_equal(colnames(paleoCoords_new), c("paleolong", "paleolat"))
-expect_equal(paleoCoords_old, paleoCoords_new)
 
 
 ################################################################################
@@ -361,15 +333,14 @@ expect_equal(paleoCoords_old, paleoCoords_new)
 ## )
 # saveRDS(paleoCoords_old, file="data/OLD_PBDB/20220510_plateperiodTrue.rds")
 paleoCoords_old <- readRDS(file=file.path(wd, "data/OLD_PBDB/20220510_plateperiodTrue.rds"))
-colnames(paleoCoords_old) <- c("paleolong", "paleolat")
 
 paleoCoords_new <- reconstruct(
 	collections[, c("lng", "lat")] 
 	, age = collections$stg_map 
 	, model=model 
 	, enumerate=FALSE
-	, plateperiod=TRUE
 )
-expect_equal(colnames(paleoCoords_new), c("paleolong", "paleolat"))
 
-expect_equal(paleoCoords_old, paleoCoords_new)
+# compare coordinates offline vs online - won't be exactly the same due to rounding! 
+bBoth <- !is.na(paleoCoords_new[, "paleolong"]) & !is.na(paleoCoords_old[, "lng"])
+expect_true(0.001 > mean(abs(paleoCoords_old[bBoth,]-paleoCoords_new[bBoth,])))

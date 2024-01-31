@@ -2,8 +2,8 @@
 % Please edit documentation in R/zzz.R
 \docType{package}
 \name{rgplates}
-\alias{rgplates}
 \alias{rgplates-package}
+\alias{rgplates}
 \title{R Interface for the GPlates Web Service and Desktop Application}
 \description{
 Query functions to the GPlates <https://www.gplates.org/> Desktop Application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct coordinates, static plates, Simple Features and Spatial objects without leaving the R running environment. This R extension is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
@@ -14,7 +14,7 @@ This is still the Beta version. As is R, this is free software and comes with AB
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://adamkocsis.github.io/rgplates/}
+  \item \url{https://adamtkocsis.com/rgplates/}
   \item Report bugs at \url{https://github.com/adamkocsis/rgplates/issues}
 }
 

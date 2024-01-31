@@ -246,13 +246,6 @@ Although it is easy to set up, the **online method** has several limitations. Fo
 
 If want to stick with the **online method**, you need to be aware of these limiting factors:
 
-#### Rounding and data quantity
-
-The data for the **online method** are passed to the GWS through URLs, which imposes some technical limitations to rotations. The first limitation is that the ages have to be rounded to integers, which might affect the quality of your results. 
-
-The second potential issue is that the amount of data that can be transmitted is somewhat limited. This works fine for several hundred points, but for rotating thousands of coordinates, you definitely need to work with the **offline method** instead. 
-
-The **offline method** can handle ages like `17.24` Ma without problems, and an arbitary amount of data.  
 
 #### External models
 
@@ -263,6 +256,10 @@ Although the **online method** is easy to set up, it uses-pre defined models to 
 Since the calculations are not performed on your computer, but by the servers that host the GWS, you cannot use this method if you have no internet connection. Also, if you think about reproducibility, it is easy to see that you have no control over whether this service remains usable in the future - and neither can we. 
 
 There are docker containers that allow you to instantiate the GWS, which might help with this issue - but if you really want to make sure that your code remains reproducible - you might want to try the **offline method instead**.  
+
+#### Rounding and data quantity
+
+Earlier versions of `rgplates`(prior to `v0.4`) were submitting coordinates for reconstruction via a URL, which imposed technical limitations (limited number of points, precision). These issues have been resolved.
 
 #### Additional options
 

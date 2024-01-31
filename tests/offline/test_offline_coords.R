@@ -15,6 +15,11 @@ mat <- matrix(c(
   -29.29, -28.85
 ), ncol=2, byrow=TRUE) 
 
+# include missing values
+matMiss <- mat
+matMiss[c(1, 3, 8), ] <- NA
+notMiss <- which(!is.na(matMiss[,1]))
+
 ################################################################################
 # Reconstructed to 0
 rec0 <- reconstruct(mat, age=0, model=model)
@@ -25,7 +30,16 @@ expect_equal(nrow(rec0), nrow(mat))
 
 # attributes match
 expect_equal(rownames(mat), rownames(rec0))
-expect_equal(colnames(mat), colnames(rec0))
+expect_equal(c("long", "lat"), colnames(rec0))
+
+################################################################################
+# Reconstructed to 0 with missing
+expect_silent(
+	rec0miss <- reconstruct(matMiss, age=0, model=model)
+)
+
+expect_inherits(rec0miss, "matrix")
+expect_equal(nrow(rec0miss), nrow(matMiss))
 
 ################################################################################
 # Reconstructed to 100 
@@ -37,7 +51,7 @@ expect_equal(nrow(rec100), nrow(mat))
 
 # attributes match
 expect_equal(rownames(mat), rownames(rec100))
-expect_equal(colnames(mat), colnames(rec100))
+expect_equal(c("paleolong", "paleolat"), colnames(rec100))
 
 # the invalid missing values
 expect_equivalent(rec100[1,], as.numeric(c(NA, NA)))
@@ -55,7 +69,7 @@ expect_equal(nrow(rec100_pp), nrow(mat))
 
 # attributes match
 expect_equal(rownames(mat), rownames(rec100_pp))
-expect_equal(colnames(mat), colnames(rec100_pp))
+expect_equal(c("paleolong", "paleolat"), colnames(rec100_pp))
 
 # should be the same on the matching interval
 keep <- which(!is.na(rec100[,1]))
@@ -93,17 +107,6 @@ expect_inherits(rec, "array")
 expect_equal(dim(rec), c(2, 8, 2))
 expect_equivalent(rec[1,,], rec0)
 expect_equivalent(rec[2,,], rec100)
-
-
-################################################################################
-# Missing values
-mat_na <- mat
-mat_na[c(1, 3), ] <-NA
-
-# to be fixed
-expect_error(
-	rec100 <- reconstruct(mat_na, age=100, model=model)
-)
 
 
 ################################################################################

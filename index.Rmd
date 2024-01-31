@@ -19,6 +19,7 @@ library(badger)
 <br>
 
 ## About
+
 * * *
 
 Functions to the [GPlates Web Service](https://gws.gplates.org/) and the [GPlates Desktop Application](https://www.gplates.org/) allow users to reconstruct past positions of geographic entities based on user-selected rotation models without leaving the R running environment. 

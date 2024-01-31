@@ -39,11 +39,12 @@ expect_equal(rec[["140"]], rec140)
 ################################################################################
 # Test inaccurate ages! - only rounded ones are allowed
 # Reconstructed to 140.4 
-expect_message(
+expect_silent(
 	rec140_4 <- reconstruct("coastlines", age=140.4, model="MERDITH2021")
 )	
 
-expect_equal(rec140_4, rec140)
+expect_inherits(rec140_4, "sf")
+expect_equal(sf::st_crs(rec140_4)[[1]], "4326")
 
 ################################################################################
 # Multiple models

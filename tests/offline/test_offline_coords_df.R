@@ -31,7 +31,7 @@ expect_equal(nrow(rec0), nrow(dmat))
 
 # attributes match
 expect_equal(rownames(dmat), rownames(rec0))
-expect_equal(colnames(dmat), colnames(rec0))
+expect_equal(c("long", "lat"), colnames(rec0))
 
 
 ## ################################################################################
@@ -43,7 +43,7 @@ expect_equal(nrow(rec100), nrow(dmat))
 
 # attributes match
 expect_equal(rownames(dmat), rownames(rec100))
-expect_equal(colnames(dmat), colnames(rec100))
+expect_equal(c("paleolong", "paleolat"), colnames(rec100))
 
 # the invalid missing values
 expect_equivalent(rec100[1,], as.numeric(c(NA, NA)))
@@ -64,7 +64,7 @@ expect_equivalent(rec100[keep,], rec100_pp[keep, ])
 
 # attributes match
 expect_equal(rownames(dmat), rownames(rec100_pp))
-expect_equal(colnames(dmat), colnames(rec100_pp))
+expect_equal(c("paleolong", "paleolat"), colnames(rec100_pp))
 
 # the incorrect coordinates are there!
 expect_equivalent(is.na(rec100_pp[1,]), c(FALSE, FALSE))
@@ -93,14 +93,4 @@ expect_equal(dim(rec), c(2, 8, 2))
 expect_equivalent(rec[1,,], rec0)
 expect_equivalent(rec[2,,], rec100)
 
-
-################################################################################
-# Missing values
-mat_na <- dmat
-mat_na[c(1, 3), ] <-NA
-
-# to be fixed
-expect_error(
-	rec100 <- reconstruct(mat_na, age=100, model=model)
-)
 

@@ -54,7 +54,7 @@ recDF<- reconstruct(dmat[, c("lng", "lat")], age=100, model=model, plateperiod=T
 
 
 expect_inherits(rec100, "sf")
-expect_equal(nrow(rec100), sum(!is.na(recDF[, "lng"])))
+expect_equal(nrow(rec100), sum(!is.na(recDF[, "paleolong"])))
 
 # attributes match
 # expect_equal(rownames(dmat), rownames(rec100))
@@ -87,7 +87,7 @@ expect_equal(colnames(sfp), colnames(rec100_pp))
 
 
 # should be the same on the matching interval
-keep <- which(!is.na(recDF[,"lng"]))
+keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect a WGS 84
@@ -154,7 +154,7 @@ recDF<- reconstruct(dmat[, c("lng", "lat")], age=100, model=model, plateperiod=T
 
 
 expect_inherits(rec100, "sf")
-expect_equal(nrow(rec100), sum(!is.na(recDF[, "lng"])))
+expect_equal(nrow(rec100), sum(!is.na(recDF[, "paleolong"])))
 
 # attributes match
 # expect_equal(rownames(dmat), rownames(rec100))
@@ -187,7 +187,7 @@ expect_equal(colnames(sfp), colnames(rec100_pp))
 
 
 # should be the same on the matching interval
-keep <- which(!is.na(recDF[,"lng"]))
+keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect the input CRS
@@ -254,7 +254,7 @@ recDF<- reconstruct(dmat[, c("lng", "lat")], age=100, model=model, plateperiod=T
 
 
 expect_inherits(rec100, "sf")
-expect_equal(nrow(rec100), sum(!is.na(recDF[, "lng"])))
+expect_equal(nrow(rec100), sum(!is.na(recDF[, "paleolong"])))
 
 # attributes match
 # expect_equal(rownames(dmat), rownames(rec100))
@@ -287,7 +287,7 @@ expect_equal(colnames(sfp), colnames(rec100_pp))
 
 
 # should be the same on the matching interval
-keep <- which(!is.na(recDF[,"lng"]))
+keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect the input CRS

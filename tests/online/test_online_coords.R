@@ -24,6 +24,8 @@ expect_silent(
 	rec0 <- reconstruct(mat, age=0, model="PALEOMAP")
 )
 
+expect_equal(colnames(rec0), c("long", "lat"))
+
 expect_inherits(rec0, "matrix")
 expect_equal(nrow(rec0), nrow(mat))
 
@@ -33,6 +35,8 @@ expect_equal(nrow(rec0), nrow(mat))
 expect_silent(
 	rec0miss <- reconstruct(matMiss, age=0, model="PALEOMAP")
 )
+
+expect_equal(colnames(rec0miss), c("long", "lat"))
 
 expect_inherits(rec0miss, "matrix")
 expect_equal(nrow(rec0miss), nrow(matMiss))
@@ -103,6 +107,8 @@ expect_equal(names(rec), c("0", "100"))
 expect_equal(rec[[1]], rec0)
 expect_equal(rec[[2]], rec100)
 
+# maintain internal consistency!
+expect_equal(colnames(rec[[1]]), c("long", "lat"))
 expect_equal(colnames(rec[[2]]), c("paleolong", "paleolat"))
 
 ################################################################################
@@ -127,7 +133,7 @@ expect_silent(
 
 expect_inherits(rec, "array")
 expect_equal(dim(rec), c(2, 8, 2))
-expect_equal(rec[1,,], rec0)
+expect_equivalent(rec[1,,], rec0)
 expect_equal(rec[2,,], rec100)
 
 ################################################################################
@@ -138,7 +144,7 @@ expect_silent(
 
 expect_inherits(rec, "array")
 expect_equal(dim(rec), c(2, 8, 2))
-expect_equal(rec[1,,], rec0miss)
+expect_equivalent(rec[1,,], rec0miss)
 expect_equal(rec[2,,], rec100miss)
 
 
@@ -184,6 +190,12 @@ expect_identical(one, rec100_rev)
 # reverse + from  - NOT ALLOWED!
 expect_error(
 	reconstruct(rec100, from=100, model="PALEOMAP", reverse=TRUE)
+)
+
+########################################----------------------------------------
+# reverse + multiple ages - NOT ALLOWED! 
+expect_error(
+	reconstruct(rec100, age=c(15, 100), model="PALEOMAP", reverse=TRUE)
 )
 
 ########################################----------------------------------------
