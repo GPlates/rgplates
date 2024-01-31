@@ -90,7 +90,10 @@ setMethod(
 		# provide some feedback for users
 		if(!is.null(chunk)) warning("The 'chunk' argument is deprecated and is now unnecessary.")
 
-		if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
+#		if(any(is.na(x))) stop("Missing values (NAs) detected. Remove these before reconstruction.")
+
+		# identify the missing values
+		bPresent <- !( is.na(x[,1]) | is.na(x[,2]))
 
 		# return null if no model is specified
 		if(is.null(model)){
@@ -122,8 +125,18 @@ setMethod(
 					# do the reconstruction
 					if(is.character(model)){
 						if(check) CheckGWS("coastlines", model, age=from, verbose=verbose)
-						fresh <- gwsReconstructPoints(coords=x, 
+						immediate <- gwsReconstructPoints(coords=x[bPresent, , drop=FALSE], 
 							time=from, model=model, reverse=TRUE, verbose=verbose)
+						# make it the same as it was
+						fresh <- x
+
+						# replace all values with missing
+						fresh[] <- NA
+
+						# replace the bits
+						fresh[bPresent, ] <- immediate
+						colnames(fresh) <- colnames(immediate)
+							
 					}else{
 						stop("Calculation of present-day coordinates from past ones\n  is not available with the offline method.")
 					}
@@ -163,9 +176,9 @@ setMethod(
 			if(length(age)>1){
 
 				# base condition of enumerate=FALSE
-					if(!enumerate & length(age)!=nrow(x)){
-							enumerate <- TRUE
-							warning("Enumerating coordinate-age combinations. \n enumerate = FALSE is possible only if the number of coordinates matches the number of ages.")
+				if(!enumerate & length(age)!=nrow(x)){
+						enumerate <- TRUE
+						warning("Enumerating coordinate-age combinations. \n enumerate = FALSE is possible only if the number of coordinates matches the number of ages.")
 				} 
 
 				# if the function is allowed to enumerate
@@ -183,13 +196,25 @@ setMethod(
 					for(i in 1:length(age)){
 						if(is.character(model)){
 							if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
-							fresh <- gwsReconstructPoints(coords=x, 
+							immediate <- gwsReconstructPoints(coords=x[bPresent,, drop=FALSE], 
 								time=age[i], model=model, reverse=reverse, verbose=verbose)
+
 						}else{
-							fresh <- reconstructGPlates(x=x, age=age[i], model=model,
+							immediate <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age[i], model=model,
 								path.gplates=path.gplates, dir=dir, verbose=verbose, 
 								cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
 						}
+
+						# make it the same as it was
+						fresh <- x
+
+						# replace all values with missing
+						fresh[] <- NA
+
+						# replace the bits
+						fresh[bPresent,] <- immediate
+						colnames(fresh) <- colnames(immediate)
+
 						# attribute copy, if there is anything
 						if(!is.null(colnames(x))) colnames(fresh) <- colnames(x)
 						rownames(fresh) <- rownames(x)
@@ -214,8 +239,14 @@ setMethod(
 				# used vectorized age implementation, no enumeration
 				}else{
 					# empty container
-					container <- x
-					container[]<-NA
+					fresh <- x[bPresent, , drop=FALSE]
+					fresh[]<-NA
+
+					# if missing coordinates are there, the given ages need to be remoed too!
+					age <- age[bPresent]
+
+					# filtered
+					screened <- x[bPresent, , drop=FALSE]
 
 					# reconstruction is performance-capped, for loop should be enough
 					ageLevs <- unique(age)
@@ -224,38 +255,62 @@ setMethod(
 					for(i in 1:length(ageLevs)){
 						# which rows apply
 						index <- which(ageLevs[i]==age)
-						current <- x[index, , drop=FALSE]
+						current <- screened[index, , drop=FALSE]
 						# do reconstruction and store
 						if(is.character(model)){
-							if(check) CheckGWS("static_polygons", model, age=ageLevs[i], verbose=verbose)
-							container[index,] <- gwsReconstructPoints(coords=current,
+							if(check) CheckGWS("coastlines", model, age=ageLevs[i], verbose=verbose)
+							immediate <- gwsReconstructPoints(coords=current,
 								time=ageLevs[i], model=model, reverse=reverse, 
 								verbose=verbose)
+							fresh[index,] <- immediate
 						}else{
-							container[index,] <- reconstructGPlates(x=current,
+							immediate <- reconstructGPlates(x=current,
 								age=ageLevs[i], model=model, path.gplates=path.gplates, 
 								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+							fresh[index,] <- immediate
 						}
 					}
+
+					# create new final container
+					# make it the same as it was
+					container <- x
+
+					# replace all values with missing
+					container[] <- NA
+
+					# replace the bits
+					container[bPresent, ] <-fresh 
+					colnames(container) <- colnames(immediate)
 				}
 
 			# single target
 			}else{
 				if(is.character(model)){
 					if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
-					container <- gwsReconstructPoints(coords=x,
+					fresh <- gwsReconstructPoints(coords=x[bPresent, , drop=FALSE],
 						time=age, model=model, reverse=reverse, verbose=verbose)
 				}else{
-					container <- reconstructGPlates(x=x, age=age, model=model,
+					fresh <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
 						cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
 				}
 				# if everything returned i just missing value
 				# return original structure with missing
-				if(all(is.na(container))){
+				if(all(is.na(fresh))){
 					container <- x
 					container[] <- NA
 
+				}else{
+					# create new final container
+					# make it the same as it was
+					container <- x
+
+					# replace all values with missing
+					container[] <- NA
+
+					# replace the bits
+					container[bPresent, ] <- fresh 
+					colnames(container) <- colnames(fresh)
 				}
 			}
 

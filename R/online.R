@@ -100,7 +100,7 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 	if(verbose) message("Processed result to GeoJSON. ")
 
 	# the column names 
-	rcoords <- sf::st_coordinates(newsf)[, c("X", "Y")]
+	rcoords <- sf::st_coordinates(newsf)[, c("X", "Y"), drop=FALSE]
 
 	if(verbose) message("Extracted coordinates. ")
 
