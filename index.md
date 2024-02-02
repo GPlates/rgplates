@@ -1,9 +1,9 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.3.2-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.4.0-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
-[![](https://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
 
@@ -34,7 +34,7 @@ thousands of coordinates, Simple Features
 ([`sp`](https://cran.r-project.org/package=sp)) objects with custom
 reconstruction trees and partitioning polygons. Examples of such plate
 tectonic models are accessible via the
-[chronosphere](http://www.chronosphere.info/).
+[chronosphere](https://www.chronosphere.info/).
 
 ## Example
 

@@ -28,6 +28,7 @@ Functions from some packages that are used by some functions only (optional):
 
 - [knitr](https://cran.r-project.org/package=knitr) and [rmarkdown](https://cran.r-project.org/package=rmarkdown): used for vignette creation.
 - [geojsonsf](https://cran.r-project.org/package=geojsonsf): used by the **online method** of `reconstruct()` to read in the spatial output of the GWS. 
+- [httr2](https://cran.r-project.org/package=httr2): used by the **online method** of `reconstruct()` to perform requests with HTTP POST 
 - [sp](https://cran.r-project.org/package=sp): optional output formats for vector spatial data.
 - [chronosphere](https://cran.r-project.org/package=chronosphere): informal suggestion in help files for downloading `platemodel` instances.
 
@@ -42,7 +43,7 @@ flowchart LR
   classDef extern fill:#CCC
   classDef ui fill:#f96
 
-  reconstruct-matrix-method-->IteratedPointReconstruction
+  reconstruct-matrix-method-->gwsReconstructPoints
   reconstruct-matrix-method-->reconstructGPlates
   reconstruct-matrix-method-->CheckGWS
   reconstruct-sf-method-->reconstructGPlates
@@ -87,16 +88,20 @@ flowchart LR
   end
 
   gplates_reconstruct_this-->geojson_sf
-  gplates_reconstruct_this-->geojson_sf
+  gwsReconstructPoints-->checkSuggested
+  gwsReconstructPoints-->request
+  gwsReconstructPoints-->req_body_from
+  gwsReconstructPoints-->req_perform
+  gwsReconstructPoints-->resp_body_string
+  gwsReconstructPoints-->geojson_sf
+  gwsReconstructPoints-->st_coordinates
 
   subgraph online.R
 
   gplates_reconstruct_this
-  gplates_reconstruct_this
-  IteratedPointReconstruction-->gplates_reconstruct_points
-  gplates_reconstruct_points
+  gwsReconstructPoints
   CheckGWS
-
+  
   end
   
   mapedge:::ui-->SpatialPolygons
@@ -113,6 +118,7 @@ flowchart LR
   fileFromPath
   randomString
   mapedge-->detailedBounds
+  checkSuggested
   
   end
 
@@ -148,6 +154,13 @@ flowchart LR
 
 	subgraph geojsonsf
 	geojson_sf:::extern
+	end
+
+	subgraph httr2 
+	request:::extern
+	req_body_from:::extern
+	req_perform:::extern
+	resp_body_string:::extern
 	end
   end
   

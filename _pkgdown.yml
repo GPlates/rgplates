@@ -23,11 +23,13 @@ navbar:
         - text: "1. Installation"
           href: articles/1_installation.html
         - text: "2. Online Reconstruction with the GWS"
-          href: articles/2_online_reconstruction.html
-        - text: "3. Offline Reconstruction"
-          href: articles/3_offline_reconstruction.html
-        - text: "4. Reconstruction with chronosphere Data"
-          href: articles/4_reconstruction_with_chronosphere.html
+          href: articles/2_online_reconstruction_backwards.html
+        - text: "3. Online Reconstruction using paleocoordinates"
+          href: articles/3_online_reconstrution_forward.html
+        - text: "4. Offline Reconstruction"
+          href: articles/4_offline_reconstruction.html
+        - text: "5. Reconstruction with chronosphere Data"
+          href: articles/5_reconstruction_with_chronosphere.html
     internals:
       text: Internals
       menu: 
@@ -68,8 +70,8 @@ authors:
     href: "https://discover.utas.edu.au/Simon.Williams/about"
   Deutsche Forschungsgemeinschaft:
     href: https://www.dfg.de/en/index.jsp
-    html: <img src='https://risources.dfg.de/img/dfg_logo.gif' alt='dfg' width='80' />
+    html: <img src='https://github.com/adamkocsis/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true' alt='dfg' width='80' />
   FAU GeoZentrum Nordbayern:
     href: https://www.gzn.nat.fau.eu/
-    html: <img src='https://www.gzn.nat.fau.de/files/2017/05/cropped-gzn-logo.jpg' alt='geozentrum' width='80' />
+    html: <img src='https://github.com/adamkocsis/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true' alt='geozentrum' width='80' />
 

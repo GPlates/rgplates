@@ -1,10 +1,10 @@
 ---
-title: "2. Online reconstruction"
+title: "2. Reconstructions using modern coordinates (online)"
 description: >
-  Learn how to rotate paleocoordinates with the GPlates Web Service
+  Learn how to rotate present-day coordinates with the GPlates Web Service
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{2. Online reconstruction}
+  %\VignetteIndexEntry{2. Reconstructions using modern coordinates (online)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,8 +12,16 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 10, 
+  fig.height = 6
 )
+
+plotOrig <- plot
+plot <- function(...){
+	par(mar=c(0.25,0.25,0.25,0.25))
+	plotOrig(...)
+}
 ```
 
 Out of the box, the package relies on the [GPlates Web Service (GWS)](https://gws.gplates.org/), an **online** service that executes paleogeographic rotations using data provided in URLs. `rgplates` **(1)** sends the data to the GWS, which **(2)** calculates paleocoordinates, and then **(3)** `rgplates` reads in the returned result. **For this online method, you have to be connected to the internet**. 
@@ -41,15 +49,15 @@ pl0 <- reconstruct("static_polygons", age=0)
 pl0
 ```
 
-The `rgplates` package relies on [`sf`](https://cran.r-project.org/web/packages/sf/index.html) to handle vector spatial data - like the plates. You can do anything with this that you normally can with and `sf` object: manipulate it, change its map projection, export or use it for calculations. These data are in standard [equirectangular projection](https://en.wikipedia.org/wiki/Equirectangular_projection), registered with longitude and latitude data.  
+The `rgplates` package relies on [`sf`](https://cran.r-project.org/web/packages/sf/index.html) to handle vector spatial data - like the plates. You can do anything with this that you normally can with and `sf` object: manipulate it, change its map projection, export or use it for calculations. These data are in standard [equirectangular projection](https://en.wikipedia.org/wiki/Equirectangular_projection), registered with longitude and latitude data in the `WGS84` Coordinate Reference System.  
 
 You can plot the distribution of plates with the `plot()` function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.
 
-```{r presentdayplot, plot=TRUE, echo=TRUE }
+```{r presentdayplot, plot=TRUE, echo=TRUE}
 plot(pl0$geometry)
 ```
 
-Setting the `age` argument allows you to access the state of the plate tectonic configuration at past points in time. `age` accepts dates in millions of years. To reconstruct the position of the plates at around the Early/Late Cretaceous boundary (approx. 100Ma), you have to set the `age` argument to `100`:
+Setting the `age` argument allows you to access the state of the plate tectonic configuration at past points in time. The `age` argument accepts dates in millions of years. To reconstruct the position of the plates at around the Early/Late Cretaceous boundary (approx. 100Ma), you have to set the `age` argument to `100`:
 
 ```{r tjb, echo=TRUE }
 pl100 <- reconstruct("static_polygons", age=100)
@@ -66,7 +74,7 @@ plot(pl100$geometry)
 
 * * *
 
-Note that the result includes oceanic plates as well, which can be quite distracting when you want to visualize past distribution of the continents. To help with this, the paleogeographic positions of the present-day coastlines (and plate margins) can be quite helpful, which can be accessed, by providing `coastlines` as the first argument of the `reconstruct` function:
+Note that the result includes oceanic plates as well, which can be quite distracting when you want to visualize past distribution of the continents. To help with this, the paleogeographic positions of the present-day coastlines (and plate margins) can be quite helpful, which can be accessed, by providing `"coastlines"` as the first argument of the `reconstruct()` function:
 
 ```{r elccoast, echo=TRUE}
 c0 <- reconstruct("coastlines", age=0)
@@ -110,7 +118,9 @@ This is nice, but plotting the plates on their own has only so much use. The tru
 Let's consider the location of London ([here it is on Google maps](https://www.google.com/maps/place/London,+Egyes%C3%BClt+Kir%C3%A1lys%C3%A1g/@51.528308,-0.3817792,10z/data=!3m1!4b1!4m5!3m4!1s0x47d8a00baf21de75:0x52963a5addd52a99!8m2!3d51.5072178!4d-0.1275862))! Either in the URL, or with the user interface of Google maps, you can find that the coordinates of the city center are around 51.52°N (latitude) and 0.38°W (longitude). To figure out where the city was at the Triassic/Jurassic boundary you need to: **(1)** register these coordinates in R; and **(2)** provide them to the `reconstruct()` function.
 
 
-*Note that we are dealing with global-scale, approximate coordinates here. For more precise results, always make sure that the CRS of the points is matching the CRS of the maps (including ellipses)!*
+<div class="alert alert-primary" role="info"> 
+Note that we are dealing with global-scale, approximate coordinates here. For more precise results, always make sure that the CRS of the points is matching the CRS of the maps (including ellipses)!
+</div>
 
 Because with the usually used equirectangular projection the *x*-axis of plotting become *longitude*, and the *y* axis becomes latitude, we usually register the coordinates in the order of longitude first, and latitude second (with easting longitudes and northing latitudes registered as positive values).
 
@@ -190,32 +200,6 @@ points(cities100, col="red", pch=3)
 
 <br>
 
-## Present-day coastlines
-
-* * *
-
-Some models the (*MERDITH2021* model included) allow you to access reconstructed positions of the present-day coastlines, which might help you orientate yourself better with the reconstructed plates. You can get these data if you pass the string `"coastlines"` as the first argument of the `reconstruct()` function:
-
-```{r coastlines reconstr}
-coast100 <- reconstruct("coastlines", age=100)
-coast100
-```
-
-This returns an `sf`-class object, similar to the plates. You can visualize these with `plot()` and draw them on top of the other maps, but you have to set the `add=TRUE`, otherwise a new plot will be created.
-
-```{r citiesPlotCoast, echo=TRUE, plot=TRUE}
-# the background map
-plot(c100$geometry, col="gray", border=NA)
-
-# the reconstructed cities 
-points(cities100, col="red", pch=3)
-
-# the coastlines
-plot(coast100$geometry, add=TRUE)
-```
-
-<br>
-
 ## Other reconstruction models
 
 * * *
@@ -236,31 +220,3 @@ plot(c100seton$geometry, col="#FF000077", add=TRUE, border=NA)
 
 You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.
 
-<br>
-
-## Disadvantages of the *online method*
-
-* * *
-
-Although it is easy to set up, the **online method** has several limitations. For more complete control over the rotations you might want to try out the **offline method** [(see Tutorial 3 about the Offline Method)](). 
-
-If want to stick with the **online method**, you need to be aware of these limiting factors:
-
-
-#### External models
-
-Although the **online method** is easy to set up, it uses-pre defined models to actually execute the rotations. If you cwant to use customized, or other models, which are not yet implemented in the GWS, you will need to use the **offline** method. 
-
-#### Internet connection
-
-Since the calculations are not performed on your computer, but by the servers that host the GWS, you cannot use this method if you have no internet connection. Also, if you think about reproducibility, it is easy to see that you have no control over whether this service remains usable in the future - and neither can we. 
-
-There are docker containers that allow you to instantiate the GWS, which might help with this issue - but if you really want to make sure that your code remains reproducible - you might want to try the **offline method instead**.  
-
-#### Rounding and data quantity
-
-Earlier versions of `rgplates`(prior to `v0.4`) were submitting coordinates for reconstruction via a URL, which imposed technical limitations (limited number of points, precision). These issues have been resolved.
-
-#### Additional options
-
-There are also some additional options that you can customize, which are not exposed for you to set in the GWS, which might affect your results.

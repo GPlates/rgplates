@@ -4,10 +4,10 @@ bibentry(bibtype = "Misc",
   title        = "rgplates: R interface for the GPlates Web Service and Desktop Application",
   author       = c(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja"), as.person("Simon D. Williams")),
   url          = "",
-  year		= 2023,
+  year		= 2024,
   textVersion  =
 	  paste(
-		"Kocsis, Á.T., Raja, N.B. and Williams, S. (2023).",
+		"Kocsis, Á.T., Raja, N.B. and Williams, S. (2024).",
         "rgplates: R interface for the GPlates Web Service and Desktop Application; "
 	)
 )

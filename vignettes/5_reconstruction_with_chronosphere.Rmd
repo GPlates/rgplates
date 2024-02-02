@@ -1,10 +1,10 @@
 ---
-title: "4. Reconstruction with data from the chronosphere"
+title: "5. Reconstruction with data from the chronosphere"
 description: >
   Learn how to rotate paleocoordinates with data from the chronosphere
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{4. Reconstruction with data from the chronosphere}
+  %\VignetteIndexEntry{5. Reconstruction with data from the chronosphere}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,10 +12,17 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 10, 
+  fig.height = 6
 )
-```
 
+plotOrig <- plot
+plot <- function(...){
+	par(mar=c(0.25,0.25,0.25,0.25))
+	plotOrig(...)
+}
+```
 
 <a href="https://chronosphere.info"><img src="https://chronosphere.info/images/chronosphere/chronosphere_500.png" width=200 align="right"></a>
 
