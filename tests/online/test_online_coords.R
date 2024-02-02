@@ -352,3 +352,84 @@ expect_equal(one, two)
 
 ########################################----------------------------------------
 # Enumerate - with missing : two way reconstruction
+
+
+################################################################################
+# different models
+
+# Present-day
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MULLER2022")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MERDITH2021")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MULLER2019")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MULLER2016")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MATTHEWS2016_mantle_ref")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="MATTHEWS2016_pmag_ref")
+)
+expect_error(
+	rec0 <- reconstruct(mat, age=0, model="RODINIA2013")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="SETON2012")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="GOLONKA")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="PALEOMAP")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="TorsvikCocks2017")
+)
+expect_silent(
+	rec0 <- reconstruct(mat, age=0, model="TorsvikCocks2017", anchor=1)
+)
+
+# Mesozoic 
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MULLER2022")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MERDITH2021")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MULLER2019")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MULLER2016")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MATTHEWS2016_mantle_ref")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="MATTHEWS2016_pmag_ref")
+)
+expect_error(
+	rec100 <- reconstruct(mat, age=100, model="RODINIA2013")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="SETON2012")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="GOLONKA")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="PALEOMAP")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="TorsvikCocks2017")
+)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model="TorsvikCocks2017", anchor=1)
+)
+

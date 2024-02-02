@@ -11,10 +11,10 @@ A \code{data.frame} with 4 variables and 17 observations.
 data(gws)
 }
 \description{
-The object contains valid returns as of 2023-07-13.
+The object contains valid returns as of 2024-02-02.
 }
 \details{
-The valid return combinations for selected models and feature collections are copied from \url{https://gwsdoc.gplates.org/reconstruction-models}. 
+The valid return combinations for selected models and feature collections are copied from \url{https://gwsdoc.gplates.org/models}. 
 
 \describe{
 	\item{\code{model}}{The name of the reconstruction model.}

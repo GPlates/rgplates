@@ -27,7 +27,9 @@ reconstruct(x, ...)
   dir = NULL,
   plateperiod = TRUE,
   partitioning = "static_polygons",
-  check = TRUE
+  check = TRUE,
+  warn = TRUE,
+  anchor = 0
 )
 
 \S4method{reconstruct}{data.frame}(x, ...)
@@ -45,7 +47,8 @@ reconstruct(x, ...)
   dir = NULL,
   plateperiod = FALSE,
   partitioning = "static_polygons",
-  check = TRUE
+  check = TRUE,
+  anchor = 0
 )
 
 \S4method{reconstruct}{Spatial}(
@@ -78,9 +81,9 @@ reconstruct(x, ...)
 )
 }
 \arguments{
-\item{x}{are the features to be reconstructed. Can be a vector with longitude and latitude representing
-a single point or a matrix/dataframe with the first column as longitude and second column as latitude, or a \code{SpatialPolygonsDataFrame} class object. 
-For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object.}
+\item{x}{The features to be reconstructed. Can be a vector with longitude and latitude representing
+a single point or a matrix/dataframe with the first column as longitude and second column as latitude.
+For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object. Some \code{Spatial*} and \code{sf} classes are also accepted, although this input is still experimental.}
 
 \item{...}{arguments passed to class-specific methods.}
 
@@ -113,6 +116,10 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
 
 \item{check}{(\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
 
+\item{warn}{(\code{character}) Argument of the online reconstruction submodule, used in reverse-reconstructions (calculation of present-day coordinates from paleocoordinates). If set to `TRUE` (default), the function will produce a warning when paleocoordinates are not assigned to any of the paritioning polygons (missing values are returned for these). When set to `FALSE`, the warnings will not be displayed.}
+
+\item{anchor}{(\code{character}) Argument of the online reconstruction submodule. The Plate ID of the anchored plate. This is the 'anchored_plate_id' parameter of the GPlates Web Service.}
+
 \item{gmeta}{(\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?}
 }
 \value{
@@ -126,8 +133,9 @@ Each location will be assigned a plate id and moved back in time using the chose
 The function implements two reconstruction submodules, which are selected with the \code{model} argument:
 
 If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gws.gplates.org/}, remote reconstruction submodule).
-The available reconstruction models for this submodule are (as of 2023-06-29):
+The available reconstruction models for this submodule are (as of 2024-02-02):
 \itemize{
+ \item "TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses the a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame which you can toggle by setting the \code{anchor} parameter to \code{1} from the default \code{0}.
  \item "SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).
  \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
  \item "MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).
@@ -159,6 +167,8 @@ Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & M�
 \cr Scotese, C. R. (2016). PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. http://www.earthbyte.org/paleomap‐ paleoatlas‐for‐gplates
 \cr
 \cr Seton, M., Müller, R. D., Zahirovic, S., Gaina, C., Torsvik, T., Shephard, G., … Chandler, M. (2012). Global continental and ocean basin reconstructions since 200Ma. Earth-Science Reviews, 113(3–4), 212–270. https://doi.org/10.1016/j.earscirev.2012.03.002
+\cr
+\cr Torsvik and Cocks (2017). Earth History and Palaeogeography. Cambridge University Press, 317 pp.
 \cr
 \cr Wright, N., Zahirovic, S., Müller, R. D., & Seton, M. (2013). Towards community-driven paleogeographic reconstructions: integrating open-access paleogeographic and paleobiology data with plate tectonics. Biogeosciences, 10(3), 1529–1541. https://doi.org/10.5194/bg-10-1529-2013
 }

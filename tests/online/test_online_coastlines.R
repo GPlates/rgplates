@@ -84,6 +84,23 @@ expect_silent(
 expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")
 
+# Torsvik - mantle reference frame
+expect_error(
+	suppressWarnings(rec <- reconstruct("coastlines", 0, model="TorsvikCocks2017"))
+)
+
+expect_silent(
+	rec <- reconstruct("coastlines", 300, model="TorsvikCocks2017")
+)
+expect_inherits(rec, "sf")
+expect_equal(sf::st_crs(rec)[[1]], "4326")
+
+# Torsvik - paleomag reference frame
+expect_silent(
+	rec <- reconstruct("coastlines", 300, model="TorsvikCocks2017", anchor=1)
+)
+expect_inherits(rec, "sf")
+expect_equal(sf::st_crs(rec)[[1]], "4326")
 # invalid input
 suppressWarnings(
 	expect_error(

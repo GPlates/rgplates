@@ -1,11 +1,15 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.4.0 - 2024-01-31
+# rgplates 0.4.0 - 2024-02-02
+
+"Wondering Continents"
 
 ### Added
 - New suggested package 'httr2' to be used with the online method (see changed), which allows the customized usage of HTTP requests.
 - The `from` argument for `reconstruct()`, providing explicit support for forward reconstruction. The argumentation `from!=0, age=0 (default)`, calculates present-day coordinates of past coordinates. The argumentation `from!=0, age!=0` calculates shifted positions of coordinates at different times (`age`) than their original (`from`).
 - Support for missing values (`NA`) for the point reconstructions, which no longer trigger an error, but are rather propagated through the pipeline as missing values. 
+- The `warn` argument of `reconstruct()`, allowing users to switch off warnings that indicate that paleocoordinates are off the partitioning polygons.
+- The `anchor` argument of `reconstruct()`, allowing users to change the anchor plate for the online submodule. This is necessary for toggling the paleomagnetic reference frame of the `"TorsvikCocks2017"` model in the GWS. 
 
 ### Changed
 - Online reconstruction method (with GWS) now uses the HTTP POST method for points and sends coordinates as form data. Internals were changed accordingly. This allows the processing of theoretically unlimited number of coordinates.
@@ -16,7 +20,7 @@
 - Online reconstruction was not working when the package was not attached due to issue of the checking of the valid input.
 
 ### Deleted
-- The 'chunk' argument of `reconstruct()` was deprecacted.
+- The 'chunk' argument of `reconstruct()` was deprecacted and is scheduled for omission.
 
 # rgplates 0.3.2 - 2023-09-06
 

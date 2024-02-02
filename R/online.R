@@ -1,3 +1,5 @@
+gwsURL <- "https://gws.gplates.org/"
+
 ###########################################################################
 # GPlates Web Service internals:
 
@@ -67,20 +69,22 @@
 
 
 # New point reconstruction function
-gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE){
+gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE, warn=TRUE, anchor=0, ignorevalidtime=FALSE){
+
 	
 	# Check whether the suggested package are there
 	checkSuggested(c("geojsonsf", "httr2"))
 
 	# define a request to the GPlates web service
-	re <- httr2::request("https://gws.gplates.org/reconstruct/reconstruct_points/")
+	re <- httr2::request(paste0(gwsURL, "reconstruct/reconstruct_points/"))
 	
 	# the form request
 	reForm <- httr2::req_body_form(
 		re, 
 		lats=paste(coords[,2], collapse=","), 
 		lons=paste(coords[,1], collapse=","), 
-		time=time, model=model, reverse=reverse
+		time=time, model=model, reverse=reverse, anchor_plate_id=anchor
+		, ignore_valid_time=ignorevalidtime
 	)
 
 	if(verbose) message(paste0("Defined request to reconstruction points to time: ", time, "Ma, reverse=", reverse, "." ))
@@ -108,11 +112,11 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 		cols <- c("long", "lat")
 
 		# during reverse reconstruction if the past positions are not assigned to plates
-		# then he web service returns IDENTICAL COORDINATES as teh original ones
-		exactMatch <- rcoords==c(coords[,1], coords[,2])
+		# then he web service returns IDENTICAL COORDINATES as the original ones to 4 decimal places!!
+		exactMatch <- round(rcoords,4)==round(c(coords[,1], coords[,2]), 4)
 		if(any(exactMatch)){
 			rcoords[exactMatch] <- NA
-			warning("Identical coordinates returned as present-day positions: \n  - Some points are probably off the partitioning polygons.\n  - Returning NAs for these.")
+			if(warn) warning("Identical coordinates returned as present-day positions (4 digits): \n  - Some points are probably off the partitioning polygons.\n  - Returning NAs for these.")
 		}
 		
 	} else {
@@ -136,7 +140,7 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 # @param model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
 # @param verbose Should the function output urls?
 # @return SpatialPolygonsDataFrame
-gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRUE){
+gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRUE, anchor=0){
 	
 	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
 	
@@ -146,8 +150,8 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 		this <- paste0("reconstruct/", this)
 	}
 	#download and save data
-	url <- paste0('http://gws.gplates.org/', this, '/')
-	query <- sprintf('?time=%f&model=%s', age, model)
+	url <- paste0(gwsURL, this, '/')
+	query <- sprintf('?time=%f&model=%s&anchor_plate_id=%d', age, model, anchor)
 	
 	fullrequest <- sprintf(paste0(url,query))
 	if(verbose) cat("Getting data from:", fullrequest, "\n")
