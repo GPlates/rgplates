@@ -319,6 +319,37 @@ collections <- collections[collections$lat<=90, ]
 
 library(tinytest)
 
+################################################################################
+# the plateperiod = FALSE
+
+# now we can execute the reconstruction, this takes a couple of minutes (3-5). 
+## paleoCoords_old <- reconstruct_old(
+## 	collections[, c("lng", "lat")] 
+## 	, age = collections$stg_map 
+## 	, model=modelOld
+## 	, enumerate=FALSE 
+## 	, plateperiod=FALSE 
+## )
+
+## saveRDS(paleoCoords_old, file="data/OLD_PBDB/20220510_plateperiodFALSE.rds")
+paleoCoords_old <- readRDS(file=file.path(wd, "data/OLD_PBDB/20220510_plateperiodFALSE.rds"))
+
+paleoCoords_new <- reconstruct(
+	collections[, c("lng", "lat")] 
+	, age = collections$stg_map 
+	, model=model 
+	, enumerate=FALSE 
+	, validtime=FALSE 
+)
+
+library(tinytest)
+
+bBoth <- !is.na(paleoCoords_new[, "paleolong"]) & !is.na(paleoCoords_old[, "lng"])
+expect_true(0.01 > mean(abs(paleoCoords_old[bBoth,]-paleoCoords_new[bBoth,])))
+
+# apparently there are 3 coordinates that off for some reason!
+di <- abs(paleoCoords_old[, "lng"]-paleoCoords_new[, "paleolong"])
+
 
 ################################################################################
 # the plateperiod = TRUE
@@ -339,6 +370,7 @@ paleoCoords_new <- reconstruct(
 	, age = collections$stg_map 
 	, model=model 
 	, enumerate=FALSE
+	, validtime=TRUE
 )
 
 # compare coordinates offline vs online - won't be exactly the same due to rounding! 

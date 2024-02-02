@@ -10,11 +10,13 @@
 - Support for missing values (`NA`) for the point reconstructions, which no longer trigger an error, but are rather propagated through the pipeline as missing values. 
 - The `warn` argument of `reconstruct()`, allowing users to switch off warnings that indicate that paleocoordinates are off the partitioning polygons.
 - The `anchor` argument of `reconstruct()`, allowing users to change the anchor plate for the online submodule. This is necessary for toggling the paleomagnetic reference frame of the `"TorsvikCocks2017"` model in the GWS. 
+- The former `plateperiod` (now: `validtime`) argument is usable with the GPlates Web Service and the online reconstruction method.
 
 ### Changed
 - Online reconstruction method (with GWS) now uses the HTTP POST method for points and sends coordinates as form data. Internals were changed accordingly. This allows the processing of theoretically unlimited number of coordinates.
 - Online reconstruction method (with GWS) is no longer bound to integer ages.
 - Point reconstruction results (`matrix` and `data.frame` objects) now consistently have the column names `paleolong` and `paleolat` for past coordinates, and `long` and `lat` for present-day coordinates.
+- The `plateperiod` argument was renamed to `validtime` for better semantic compatibility with the GPlates Web Service.
 
 ### Fixed
 - Online reconstruction was not working when the package was not attached due to issue of the checking of the valid input.

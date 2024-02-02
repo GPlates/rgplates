@@ -43,7 +43,9 @@ expect_equal(nrow(rec0miss), nrow(matMiss))
 
 ################################################################################
 # Reconstructed to 100 
-rec100 <- reconstruct(mat, age=100, model=model, plateperiod=TRUE)
+expect_silent(
+	rec100 <- reconstruct(mat, age=100, model=model, validtime=TRUE)
+)
 
 
 expect_inherits(rec100, "matrix")
@@ -59,9 +61,17 @@ expect_equivalent(rec100[5,], as.numeric(c(NA, NA)))
 expect_equivalent(rec100[8,], as.numeric(c(NA, NA)))
 
 
+# same with deprecated plateperiod
+expect_warning(
+	rec100oldpp <- reconstruct(mat, age=100, model=model, plateperiod=TRUE)
+)
+expect_identical(rec100, rec100oldpp)
+
 ################################################################################
-# Reconstructed to 100 with plateperiod=FALSE
-rec100_pp <- reconstruct(mat, age=100, model=model, plateperiod=FALSE)
+# Reconstructed to 100 with validtime=FALSE
+expect_silent(
+	rec100_pp <- reconstruct(mat, age=100, model=model, validtime=FALSE)
+)
 
 
 expect_inherits(rec100_pp, "matrix")
@@ -80,15 +90,24 @@ expect_equivalent(is.na(rec100_pp[1,]), c(FALSE, FALSE))
 expect_equivalent(is.na(rec100_pp[5,]), c(FALSE, FALSE))
 expect_equivalent(is.na(rec100_pp[8,]), c(FALSE, FALSE))
 
+# same with deprecated plateperiod
+expect_warning(
+	rec100_ppOldpp <- reconstruct(mat, age=100, model=model, plateperiod=FALSE)
+)
+
+expect_identical(rec100_pp, rec100_ppOldpp)
+
 ################################################################################
-# Reconstructed to 140 with plateperiod=FALSE, - single coordinates
+# Reconstructed to 140 with validtime=FALSE, - single coordinates
 
 # provides error without exception
-expect_silent(recOne <- reconstruct(mat[1,, drop=FALSE ], age=140, model=model, plateperiod=TRUE))
+expect_silent(recOne <- reconstruct(mat[1,, drop=FALSE ], age=140, model=model, validtime=TRUE))
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
-rec <- reconstruct(mat, age=c(0,100), listout=TRUE,  model=model, plateperiod=TRUE)
+expect_silent(
+	rec <- reconstruct(mat, age=c(0,100), listout=TRUE,  model=model, validtime=TRUE)
+)
 
 
 expect_inherits(rec, "list")
@@ -100,7 +119,9 @@ expect_equal(rec[[2]], rec100)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout=FALSE
-rec <- reconstruct(mat, age=c(0,100), listout=FALSE,  model=model, plateperiod=TRUE)
+expect_silent(
+	rec <- reconstruct(mat, age=c(0,100), listout=FALSE,  model=model, validtime=TRUE)
+)
 
 
 expect_inherits(rec, "array")
@@ -113,31 +134,31 @@ expect_equivalent(rec[2,,], rec100)
 # ENUMERATE=FALSE
 # more target than needed with enumerate
 target <- rep(1:nrow(mat)/2, each=2)*2
-expect_warning(rec <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=TRUE, enumerate=FALSE))
+expect_warning(rec <- reconstruct(mat, age=target, listout=FALSE,  model=model, validtime=TRUE, enumerate=FALSE))
 
-# Enumerate=FALSE, platePeriod=TRUE
+# Enumerate=FALSE, validtime=TRUE
 target <- rep(1:(nrow(mat)/2), each=2)*2
-expect_silent(recEnPP <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=TRUE, enumerate=FALSE))
+expect_silent(recEnPP <- reconstruct(mat, age=target, listout=FALSE,  model=model, validtime=TRUE, enumerate=FALSE))
 expect_equivalent(recEnPP[1,], as.numeric(c(NA, NA)))
 expect_equivalent(recEnPP[5,], as.numeric(c(NA, NA)))
 expect_equivalent(recEnPP[8,], as.numeric(c(NA, NA)))
 
-# Enumerate=FALSE, platePeriod=FALSE
-expect_silent(recEn <- reconstruct(mat, age=target, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+# Enumerate=FALSE, validtime=FALSE
+expect_silent(recEn <- reconstruct(mat, age=target, listout=FALSE,  model=model, validtime=FALSE, enumerate=FALSE))
 keep <- which(!is.na(recEnPP[,1]))
 expect_equivalent(recEn[keep,], recEnPP[keep, ])
 
 # missing ages (beginning)
 targetMiss <- target
 targetMiss[c(1:2)] <- NA
-expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, validtime=FALSE, enumerate=FALSE))
 keep <- which(!is.na(recEnMiss[,1]))
 expect_equivalent(recEn[keep,], recEnMiss[keep, ])
 
 # missing ages (middle)
 targetMiss <- target
 targetMiss[c(3:4)] <- NA
-expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, plateperiod=FALSE, enumerate=FALSE))
+expect_silent(recEnMiss <- reconstruct(mat, age=targetMiss, listout=FALSE,  model=model, validtime=FALSE, enumerate=FALSE))
 keep <- which(!is.na(recEnMiss[,1]))
 expect_equivalent(recEn[keep,], recEnMiss[keep, ])
 

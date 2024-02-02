@@ -61,7 +61,8 @@
 #' @param listout (\code{logical})If multiple ages are given, the output can be returned as a \code{list} if \code{listout = TRUE}.
 #' @param verbose (\code{logical}) Should call URLs (remote submodule) or console feedback (local-submodule) be printed?
 #' @param cleanup (\code{logical}) Argument of the local reconstruction submodule. Should the temporary files be deleted immediately after reconstructions?
-#' @param plateperiod (\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.
+#' @param validtime (\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data. This is the inverse of the \code{ignore.valid.time} argument of the GWS.
+#' @param plateperiod (\code{logical}) Deprecated argument, renamed to \code{validtime} for higher compatibility with the GPlates Web Service. 
 #' @param dir (\code{character}) Argument of the local reconstruction submodule. Directory where the temporary files of the reconstruction are stored (defaults to a temporary directory created by R). Remember to toggle \code{cleanup} if you want to see the files.  
 #' @param gmeta (\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?  
 #' @param partitioning (\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to \code{"static_polygons"}. 
@@ -90,7 +91,12 @@ setGeneric("reconstruct", function(x,...) standardGeneric("reconstruct"))
 setMethod(
 	"reconstruct", 
 	signature="matrix", 
-	function(x,age=0, model="MERDITH2021", from=0, listout=TRUE, verbose=FALSE, enumerate=TRUE, chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=TRUE, partitioning="static_polygons", check=TRUE, warn=TRUE, anchor=0){
+	function(x,age=0, model="MERDITH2021", from=0, listout=TRUE, verbose=FALSE, enumerate=TRUE, 
+		chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=NULL, partitioning="static_polygons", check=TRUE, warn=TRUE, anchor=0, validtime=TRUE){
+		if(!is.null(plateperiod)){
+			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
+			validtime <- plateperiod
+		}
 
 		# provide some feedback for users
 		if(!is.null(chunk)) warning("The 'chunk' argument is deprecated and is now unnecessary.")
@@ -131,7 +137,7 @@ setMethod(
 					if(is.character(model)){
 						if(check) CheckGWS("coastlines", model, age=from, verbose=verbose)
 						immediate <- gwsReconstructPoints(coords=x[bPresent, , drop=FALSE], 
-							time=from, model=model, reverse=TRUE, verbose=verbose, warn=warn, anchor=anchor)
+							time=from, model=model, reverse=TRUE, verbose=verbose, warn=warn, anchor=anchor, validtime=validtime)
 						# make it the same as it was
 						fresh <- x
 
@@ -162,7 +168,7 @@ setMethod(
 
 			if(verbose) message("Calculating past coordinates from present-day ones.")
 			# 2. calculate the different past coordinates by using the present coordinates calculated above
-			pastCoords <- reconstruct(presentCoords, age=age, from=0, model=model, verbose=verbose, enumerate=enumerate, check=check, listout=listout, warn=warn, anchor=anchor)
+			pastCoords <- reconstruct(presentCoords, age=age, from=0, model=model, verbose=verbose, enumerate=enumerate, check=check, listout=listout, warn=warn, anchor=anchor, validtime=validtime)
 			# recursive case ends
 			return(pastCoords)
 
@@ -197,12 +203,12 @@ setMethod(
 						if(is.character(model)){
 							if(check) CheckGWS("coastlines", model, age=age[i], verbose=verbose)
 							immediate <- gwsReconstructPoints(coords=x[bPresent,, drop=FALSE], 
-								time=age[i], model=model, reverse=reverse, verbose=verbose, warn=warn, anchor=anchor)
+								time=age[i], model=model, reverse=reverse, verbose=verbose, warn=warn, anchor=anchor, validtime=validtime)
 
 						}else{
 							immediate <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age[i], model=model,
 								path.gplates=path.gplates, dir=dir, verbose=verbose, 
-								cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+								cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
 						}
 
 						# make it the same as it was
@@ -264,12 +270,12 @@ setMethod(
 							if(check) CheckGWS("coastlines", model, age=ageLevs[i], verbose=verbose)
 							immediate <- gwsReconstructPoints(coords=current,
 								time=ageLevs[i], model=model, reverse=reverse, 
-								verbose=verbose, warn=warn, anchor=anchor)
+								verbose=verbose, warn=warn, anchor=anchor, validtime=validtime)
 							fresh[index,] <- immediate
 						}else{
 							immediate <- reconstructGPlates(x=current,
 								age=ageLevs[i], model=model, path.gplates=path.gplates, 
-								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
 							fresh[index,] <- immediate
 						}
 					}
@@ -292,11 +298,11 @@ setMethod(
 				if(is.character(model)){
 					if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
 					fresh <- gwsReconstructPoints(coords=x[bPresent, , drop=FALSE],
-						time=age, model=model, reverse=reverse, verbose=verbose, warn=warn, anchor=anchor)
+						time=age, model=model, reverse=reverse, verbose=verbose, warn=warn, anchor=anchor, validtime=validtime)
 				}else{
 					fresh <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+						cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
 				}
 				# if everything returned i just missing value
 				# return original structure with missing
@@ -344,7 +350,7 @@ setMethod(
 setMethod(
 	"reconstruct", 
 	signature="character", 
-	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons", check=TRUE, anchor=0){
+	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, partitioning="static_polygons", check=TRUE, anchor=0){
 
 	if(is.null(model)){
 			message("No model was specified.")
@@ -402,7 +408,13 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"Spatial", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, partitioning="static_polygons", check=TRUE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, partitioning="static_polygons", check=TRUE, validtime=TRUE){
+
+		if(!is.null(plateperiod)){
+			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
+			validtime <- plateperiod
+		}
+	
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -427,7 +439,7 @@ setMethod(
 #					container[[i]] <- gplates_reconstruct_polygon(sp=x, age=age[i], model=model, verbose=verbose)
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=plateperiod, partitioning=partitioning, check=check)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
 				}
 			}
 
@@ -443,7 +455,7 @@ setMethod(
 #				container <- gplates_reconstruct_polygon(sp=x, age, model=model, verbose=verbose)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod, partitioning=partitioning, check=check)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
 			}
 			
 		}
@@ -459,7 +471,13 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"sf", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons", check=TRUE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, gmeta=FALSE, partitioning="static_polygons", check=TRUE, validtime=TRUE){
+
+		if(!is.null(plateperiod)){
+			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
+			validtime <- plateperiod
+		}
+	
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -485,7 +503,7 @@ setMethod(
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i],
 						model=model, path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup,plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning, check=check)
+						cleanup=cleanup,plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check)
 				}
 			}
 
@@ -502,7 +520,7 @@ setMethod(
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=plateperiod, gmeta=gmeta, partitioning=partitioning, check=check)
+						cleanup=cleanup, plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check)
 			}
 			
 		}

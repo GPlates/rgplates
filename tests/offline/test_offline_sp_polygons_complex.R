@@ -26,7 +26,7 @@ expect_equal(st_crs(rec0)[1][[1]], proj)
 ## ################################################################################
 # Reconstructed to 100 
 expect_warning(
-	rec100 <- reconstruct(myers, age=100, model=model, plateperiod=TRUE)
+	rec100 <- reconstruct(myers, age=100, model=model, validtime=TRUE)
 )
 
 
@@ -40,9 +40,9 @@ expect_equal(colnames(rec0), colnames(rec100))
 expect_equal(st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
-# Reconstructed to 100 with plateperiod=FALSE
+# Reconstructed to 100 with validtime=FALSE
 expect_warning(
-	rec100_pp <- reconstruct(myers, age=100, model=model, plateperiod=FALSE)
+	rec100_pp <- reconstruct(myers, age=100, model=model, validtime=FALSE)
 )
 
 expect_inherits(rec100_pp, "sf")
@@ -58,7 +58,7 @@ expect_equal(st_crs(rec100_pp)[1][[1]], proj)
 ################################################################################
 # Reconstructed to c(0,100) with listout
 expect_warning(
-	rec <- reconstruct(myers, age=c(0,100), listout=TRUE,  model=model, plateperiod=TRUE)
+	rec <- reconstruct(myers, age=c(0,100), listout=TRUE,  model=model, validtime=TRUE)
 )
 
 # high-level attributes
@@ -72,7 +72,7 @@ expect_equal(rec[[2]], rec100)
 ################################################################################
 # Reconstructed to c(0,100) with listout=FALSE
 expect_error(
-	rec <- reconstruct(myers, age=c(0,100), listout=FALSE,  model=model, plateperiod=TRUE)
+	rec <- reconstruct(myers, age=c(0,100), listout=FALSE,  model=model, validtime=TRUE)
 )
 
 
@@ -98,7 +98,7 @@ expect_equal(st_crs(rec0)[1][[1]], proj)
 ## ################################################################################
 # Reconstructed to 100 
 expect_warning(
-	rec100 <- reconstruct(myers, age=100, model=model, plateperiod=TRUE)
+	rec100 <- reconstruct(myers, age=100, model=model, validtime=TRUE)
 )
 
 
@@ -112,9 +112,9 @@ expect_equal(colnames(rec0), colnames(rec100))
 expect_equal(st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
-# Reconstructed to 100 with plateperiod=FALSE
+# Reconstructed to 100 with validtime=FALSE
 expect_warning(
-	rec100_pp <- reconstruct(myers, age=100, model=model, plateperiod=FALSE)
+	rec100_pp <- reconstruct(myers, age=100, model=model, validtime=FALSE)
 )
 
 expect_inherits(rec100_pp, "sf")
@@ -130,7 +130,7 @@ expect_equal(st_crs(rec100_pp)[1][[1]], proj)
 ################################################################################
 # Reconstructed to c(0,100) with listout
 expect_warning(
-	rec <- reconstruct(myers, age=c(0,100), listout=TRUE,  model=model, plateperiod=TRUE)
+	rec <- reconstruct(myers, age=c(0,100), listout=TRUE,  model=model, validtime=TRUE)
 )
 
 # high-level attributes
@@ -144,5 +144,5 @@ expect_equal(rec[[2]], rec100)
 ################################################################################
 # Reconstructed to c(0,100) with listout=FALSE
 expect_error(
-	rec <- reconstruct(myers, age=c(0,100), listout=FALSE,  model=model, plateperiod=TRUE)
+	rec <- reconstruct(myers, age=c(0,100), listout=FALSE,  model=model, validtime=TRUE)
 )

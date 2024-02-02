@@ -73,6 +73,39 @@ expect_silent(
 # the same as what is returned by the bulk-method
 expect_identical(rec100single, rec100[2, , drop=FALSE])
 
+
+################################################################################
+# Reconstructed to 100 with validtime=FALSE
+expect_silent(
+	rec100_pp <- reconstruct(mat, age=100, validtime=FALSE, model="PALEOMAP")
+)
+
+
+expect_inherits(rec100_pp, "matrix")
+expect_equal(nrow(rec100_pp), nrow(mat))
+
+# attributes match
+expect_equal(rownames(mat), rownames(rec100_pp))
+expect_equal(c("paleolong", "paleolat"), colnames(rec100_pp))
+
+# should be the same on the matching interval
+keep <- which(!is.na(rec100[,1]))
+expect_equivalent(rec100[keep,], rec100_pp[keep, ])
+
+# the incorrect coordinates are there!
+expect_equivalent(is.na(rec100_pp[1,]), c(FALSE, FALSE))
+expect_equivalent(is.na(rec100_pp[5,]), c(FALSE, FALSE))
+expect_equivalent(is.na(rec100_pp[8,]), c(FALSE, FALSE))
+
+# same with deprecated plateperiod
+expect_warning(
+	rec100_ppOldpp <- reconstruct(mat, age=100, plateperiod=FALSE, model="PALEOMAP")
+)
+
+expect_identical(rec100_pp, rec100_ppOldpp)
+
+
+
 ################################################################################
 # Reconstructed to 100 with missing
 expect_silent(

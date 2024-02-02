@@ -25,11 +25,12 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = TRUE,
+  plateperiod = NULL,
   partitioning = "static_polygons",
   check = TRUE,
   warn = TRUE,
-  anchor = 0
+  anchor = 0,
+  validtime = TRUE
 )
 
 \S4method{reconstruct}{data.frame}(x, ...)
@@ -45,7 +46,6 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE,
   partitioning = "static_polygons",
   check = TRUE,
   anchor = 0
@@ -60,9 +60,10 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE,
+  plateperiod = NULL,
   partitioning = "static_polygons",
-  check = TRUE
+  check = TRUE,
+  validtime = TRUE
 )
 
 \S4method{reconstruct}{sf}(
@@ -74,10 +75,11 @@ reconstruct(x, ...)
   path.gplates = NULL,
   cleanup = TRUE,
   dir = NULL,
-  plateperiod = FALSE,
+  plateperiod = NULL,
   gmeta = FALSE,
   partitioning = "static_polygons",
-  check = TRUE
+  check = TRUE,
+  validtime = TRUE
 )
 }
 \arguments{
@@ -110,7 +112,7 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
 
 \item{dir}{(\code{character}) Argument of the local reconstruction submodule. Directory where the temporary files of the reconstruction are stored (defaults to a temporary directory created by R). Remember to toggle \code{cleanup} if you want to see the files.}
 
-\item{plateperiod}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data.}
+\item{plateperiod}{(\code{logical}) Deprecated argument, renamed to \code{validtime} for higher compatibility with the GPlates Web Service.}
 
 \item{partitioning}{(\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to \code{"static_polygons"}.}
 
@@ -119,6 +121,8 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
 \item{warn}{(\code{character}) Argument of the online reconstruction submodule, used in reverse-reconstructions (calculation of present-day coordinates from paleocoordinates). If set to `TRUE` (default), the function will produce a warning when paleocoordinates are not assigned to any of the paritioning polygons (missing values are returned for these). When set to `FALSE`, the warnings will not be displayed.}
 
 \item{anchor}{(\code{character}) Argument of the online reconstruction submodule. The Plate ID of the anchored plate. This is the 'anchored_plate_id' parameter of the GPlates Web Service.}
+
+\item{validtime}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data. This is the inverse of the \code{ignore.valid.time} argument of the GWS.}
 
 \item{gmeta}{(\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?}
 }
@@ -132,10 +136,10 @@ Each location will be assigned a plate id and moved back in time using the chose
 \details{
 The function implements two reconstruction submodules, which are selected with the \code{model} argument:
 
-If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gws.gplates.org/}, remote reconstruction submodule).
+If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gwsdoc.gplates.org/}, remote reconstruction submodule).
 The available reconstruction models for this submodule are (as of 2024-02-02):
 \itemize{
- \item "TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses the a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame which you can toggle by setting the \code{anchor} parameter to \code{1} from the default \code{0}.
+ \item "TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame, which you can toggle by setting the \code{anchor} parameter to \code{1} from the default \code{0}.
  \item "SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).
  \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
  \item "MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).

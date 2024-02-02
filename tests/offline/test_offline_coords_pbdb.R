@@ -339,7 +339,7 @@ paleoCoords_new <- reconstruct(
 	, age = collections$stg_map 
 	, model=model 
 	, enumerate=FALSE 
-	, plateperiod=FALSE 
+	, validtime=FALSE 
 )
 
 library(tinytest)
@@ -368,7 +368,7 @@ paleoCoords_new <- reconstruct(
 	, age = collections$stg_map 
 	, model=model 
 	, enumerate=FALSE
-	, plateperiod=TRUE
+	, validtime=TRUE
 )
 expect_equal(colnames(paleoCoords_new), c("paleolong", "paleolat"))
 

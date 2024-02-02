@@ -69,7 +69,7 @@ gwsURL <- "https://gws.gplates.org/"
 
 
 # New point reconstruction function
-gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE, warn=TRUE, anchor=0, ignorevalidtime=FALSE){
+gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE, verbose=TRUE, warn=TRUE, anchor=0, validtime=TRUE){
 
 	
 	# Check whether the suggested package are there
@@ -84,7 +84,7 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 		lats=paste(coords[,2], collapse=","), 
 		lons=paste(coords[,1], collapse=","), 
 		time=time, model=model, reverse=reverse, anchor_plate_id=anchor
-		, ignore_valid_time=ignorevalidtime
+		, ignore_valid_time=!validtime
 	)
 
 	if(verbose) message(paste0("Defined request to reconstruction points to time: ", time, "Ma, reverse=", reverse, "." ))

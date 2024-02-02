@@ -36,7 +36,7 @@ expect_equal(c("long", "lat"), colnames(rec0))
 
 ## ################################################################################
 # Reconstructed to 100 
-rec100 <- reconstruct(dmat, age=100, model=model, plateperiod=TRUE)
+rec100 <- reconstruct(dmat, age=100, model=model, validtime=TRUE)
 
 expect_inherits(rec100, "matrix")
 expect_equal(nrow(rec100), nrow(dmat))
@@ -52,8 +52,8 @@ expect_equivalent(rec100[8,], as.numeric(c(NA, NA)))
 
 
 ################################################################################
-# Reconstructed to 100 with plateperiod=FALSE
-rec100_pp <- reconstruct(dmat, age=100, model=model, plateperiod=FALSE)
+# Reconstructed to 100 with validtime=FALSE
+rec100_pp <- reconstruct(dmat, age=100, model=model, validtime=FALSE)
 
 expect_inherits(rec100_pp, "matrix")
 expect_equal(nrow(rec100_pp), nrow(dmat))
@@ -73,7 +73,7 @@ expect_equivalent(is.na(rec100_pp[8,]), c(FALSE, FALSE))
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
-rec <- reconstruct(dmat, age=c(0,100), listout=TRUE,  model=model, plateperiod=TRUE)
+rec <- reconstruct(dmat, age=c(0,100), listout=TRUE,  model=model, validtime=TRUE)
 
 # high-level attributes
 expect_inherits(rec, "list")
@@ -86,7 +86,7 @@ expect_equal(rec[[2]], rec100)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout=FALSE
-rec <- reconstruct(dmat, age=c(0,100), listout=FALSE,  model=model, plateperiod=TRUE)
+rec <- reconstruct(dmat, age=c(0,100), listout=FALSE,  model=model, validtime=TRUE)
 
 expect_inherits(rec, "array")
 expect_equal(dim(rec), c(2, 8, 2))
