@@ -113,7 +113,7 @@ The point in question indeed does not fall on any of the plates.
 
 Keeping these missing value points is highly beneficial - it helps us organize our data more efficiently. However, if you regularly work with coordinates that are off the plates, the warnings that you saw above might be somewhat disruptive. For example, if you want to find the present-day coordiantes of a bunch of points, such as these coming from the tropics of 220Ma:
 
-```{r tropointsdef, plot=TRUE, echo=FALSE }
+```{r tropointsdef, plot=TRUE, echo=TRUE }
 # random points from the tropics, set seed to make them reproducible
 set.seed(0)
 
