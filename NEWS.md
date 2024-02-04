@@ -2,7 +2,7 @@
 
 # rgplates 0.4.0 - 2024-02-02
 
-"Wondering Continents"
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10614722.svg)](https://doi.org/10.5281/zenodo.10614722) - "Wondering Continents"  
 
 ### Added
 - New suggested package 'httr2' to be used with the online method (see changed), which allows the customized usage of HTTP requests.

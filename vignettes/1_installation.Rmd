@@ -46,7 +46,7 @@ For the sake of completeness and simplicity, the sources of the stable version i
 
 ```{r stable, eval=FALSE}
 install.packages(
-	"https://zenodo.org/record/8321157/files/rgplates_0.3.2.tar.gz?download=1", 
+	"https://zenodo.org/record/10614722/files/rgplates_0.4.0.tar.gz?download=1", 
 	repos=NULL, type="source")
 ```
 
