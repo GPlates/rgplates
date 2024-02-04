@@ -105,14 +105,12 @@
     
     
 <p>The <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service (GWS)</a> (<strong>online</strong>) implements reverse reconstruction: rather than calculating the paleocoordinates of present-day positions given an <em>age</em> and a <em>model</em>, you can calculate the present-day positions of paleocoordinates.</p>
-<pre><code><span><span class="co">#&gt; Loading required package: sf</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code></pre>
 <div class="section level2">
 <h2 id="present-day-positions-of-paleocoordinates">Present-day positions of paleocoordinates<a class="anchor" aria-label="anchor" href="#present-day-positions-of-paleocoordinates"></a>
 </h2>
 <hr>
 <p>Let’s work with the Triassic (at 220Ma) using the default <code>"MERDITH2021"</code> model! We can reconstruct the positions of present-day coastlines as we saw earlier</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coast220</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">220</span><span class="op">)</span></span>
 <span><span class="va">coast220</span></span>
 <span><span class="co">#&gt; Simple feature collection with 2219 features and 0 fields</span></span>
@@ -133,12 +131,12 @@
 <span><span class="co">#&gt; 9  POLYGON ((158.8934 55.3449,...</span></span>
 <span><span class="co">#&gt; 10 POLYGON ((158.0967 55.2248,...</span></span></code></pre></div>
 <p>We can also plot this the same way:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/background-1.png" width="960"></p>
 <p>Working with this reconstruction often involves defining points in this paleocoordinate system: either because they represent notable geographic positions, or they are results of geometric transformations.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the coordinates</span></span>
 <span><span class="va">one</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">15</span>, <span class="op">-</span><span class="fl">25</span><span class="op">)</span></span>
 <span><span class="va">two</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="op">-</span><span class="fl">45</span><span class="op">)</span></span>
@@ -155,27 +153,27 @@
 <span><span class="co">#&gt; two         100      -45</span></span>
 <span><span class="co">#&gt; three       -60       30</span></span></code></pre></div>
 <p>Since the map above is using the <code>WGS84</code> Coordinate Reference System (CRS), we can visualize the positions with <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points()</a></code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">posMat</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/plotPoints-1.png" width="960"></p>
 <p>You can calculate the present-day positions of these points with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function - you only have to indicate that the coordinates are <strong>from</strong> a given age, in our case <strong>220Ma</strong>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">presentPoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">posMat</span>, from<span class="op">=</span><span class="fl">220</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in gwsReconstructPoints(coords = x[bPresent, , drop = FALSE], time = from, : Identical coordinates returned as present-day positions (4 digits): </span></span>
 <span><span class="co">#&gt;   - Some points are probably off the partitioning polygons.</span></span>
 <span><span class="co">#&gt;   - Returning NAs for these.</span></span></code></pre></div>
 <p>Note the warning message! This reads a bit technical, but the key bit here is the first bullet point: <strong>Some points are probably off the partitioning polygons.</strong> This simply means that calculating the present-day positions is simply not possible because the paleocoordinates cannot be assigned to any of the plates that are present in the model at the time indicated by the <strong>from</strong> argument. These points are indicated with missing values (<code>NA</code>s`) in the returned object of present-day coordinates.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">presentPoints</span></span>
 <span><span class="co">#&gt;           long      lat</span></span>
 <span><span class="co">#&gt; one   -57.5362 -12.9236</span></span>
 <span><span class="co">#&gt; two   132.5350 -25.1888</span></span>
 <span><span class="co">#&gt; three       NA       NA</span></span></code></pre></div>
 <p>This result indicates that the point named <code>"three"</code> (with coordinates <code>-60</code> <code>30</code>) is probably off the plates. We can confirm this by looking at plates themselves (<code>static_polygons</code> for the <code>"MERDITH2021"</code> model). These can be queried with:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl220</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">220</span><span class="op">)</span></span></code></pre></div>
 <p>… and plotted on top of the existing map with:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#00555522"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, border<span class="op">=</span><span class="st">"#00555533"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/staticsActual-1.png" width="960"></p>
 <p>The point in question indeed does not fall on any of the plates.</p>
@@ -183,6 +181,15 @@
 <h4 id="off-plate-points">Off-plate points<a class="anchor" aria-label="anchor" href="#off-plate-points"></a>
 </h4>
 <p>Keeping these missing value points is highly beneficial - it helps us organize our data more efficiently. However, if you regularly work with coordinates that are off the plates, the warnings that you saw above might be somewhat disruptive. For example, if you want to find the present-day coordiantes of a bunch of points, such as these coming from the tropics of 220Ma:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># random points from the tropics, set seed to make them reproducible</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># note that these are not uniformly distributed in space!</span></span>
+<span><span class="va">tropoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
+<span>    paleolong<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">200</span>, <span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span><span class="op">)</span>,</span>
+<span>    paleolat<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">200</span>, <span class="op">-</span><span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Which you can visualize with</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># static polygons from 220Ma </span></span>
@@ -192,13 +199,15 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">tropoints</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/tropointsvis-1.png" width="960"></p>
 <p>Then you can turn of the warnings for the no plate assignment with the <code>warn</code> argument of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>:</p>
-<p>The missing values in this <code>matrix</code> indicate the presence of points that are off the static polygons:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tropoints0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">tropoints</span>, from<span class="op">=</span><span class="fl">220</span>, warn<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>The missing values in this <code>matrix</code> indicate the presence of points that are off the static polygons:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># which present-day longitude values are missing? </span></span>
 <span><span class="co"># Prvodide row indices</span></span>
 <span><span class="va">indMissing</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tropoints0</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can use these to visualize that the points are on or off the polygons - for example we ca circle them on our previously plotted map:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># circle off-polygon points</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">tropoints</span><span class="op">[</span><span class="va">indMissing</span>,<span class="op">]</span>, pch<span class="op">=</span><span class="fl">1</span>, cex<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/tropMissVisActual-1.png" width="960"></p>
@@ -207,14 +216,14 @@
 <h4 id="present-day-positions-of-the-coordinates">Present-day positions of the coordinates<a class="anchor" aria-label="anchor" href="#present-day-positions-of-the-coordinates"></a>
 </h4>
 <p>Going back to the three points that we were inspecting earlier (<code>posMat</code>): the present-day coordinates are given as longitude (<code>long</code>) and latitude (<code>lat</code>) values in the <code>presentPoints</code> matrix object. We can visualize them on any map that has a <code>WGS84</code> CRS. For instance we can grab the coaslines of the <code>"MERDITH2021"</code> model, and plot them the usual way</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Present-day coastlines today</span></span>
 <span><span class="va">coast0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co"># Plot outlines</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast0</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="st">"darkgray"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/presentCoast-1.png" width="960"></p>
 <p>… and use points to put the positions on the map:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot present-day positions of the points </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">presentPoints</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_online_reconstrution_forward_files/figure-html/plotPresentPointsActual-1.png" width="960"></p>
@@ -231,15 +240,15 @@
 <h4 id="paleocoordinates-at-other-times">Paleocoordinates at other times<a class="anchor" aria-label="anchor" href="#paleocoordinates-at-other-times"></a>
 </h4>
 <p>If we want to calculate the positions of the three points above (or at least those two that are on actual plates), for <strong>10 million years earlier</strong> (i.e. to 230Ma), all we need to do is to change the target <code>age</code> of the reconstruction. This argument of <code>recontruct()</code> defaults to <code>0</code>: the date that represents the present. This is the same target <code>age</code> that we normally use for calculating the paleocoordinates of present-day locations, but by providing a <code>from</code> argument as well, we can indicate that the given coordinates actually represent paleocoordinates.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># paleocoordinates of 220Ma rotated to 230Ma</span></span>
 <span><span class="va">pm230</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">posMat</span>, from<span class="op">=</span><span class="fl">220</span>, age<span class="op">=</span><span class="fl">230</span>, warn<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>You can visualize the offset of these points by calculating the positions of the coastlines (as earlier):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># paleocoordinates of 220Ma rotated to 230Ma</span></span>
 <span><span class="va">coast230</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">230</span><span class="op">)</span></span></code></pre></div>
 <p>… and plotting the information from both the 220Ma and 230Ma time interval on the same figure, using different colors:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 220Ma (gray and black)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">posMat</span>, col<span class="op">=</span><span class="st">"black"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
@@ -255,7 +264,7 @@
 </h4>
 <hr>
 <p>If you can reconstruct the positions of paleocoordinates for single times, or you can do it for multiple target <code>age</code>s by iterating the call to <code><a href="../reference/reconstruct.html">reconstruct()</a></code>. To make this easier, you can provide a set of dates in the <code>age</code> argument, which will calculate all the paleo- (if <code>from</code> is not <code>0</code>) or recent (<code>from=0</code>) coordinates for every given age. For instance, if you want to trace the positions of these points until the present day (say in steps of 10Ma), all you need to do is provide a vector with multiple target <code>age</code>s:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># vector of target ages (steps of 10Ma)</span></span>
 <span><span class="va">allAges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">220</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">10</span><span class="op">)</span></span>
 <span></span>
@@ -263,7 +272,7 @@
 <span><span class="co"># will take a couple seconds</span></span>
 <span><span class="va">pmHistoryList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">posMat</span>, from<span class="op">=</span><span class="fl">220</span>, age<span class="op">=</span><span class="va">allAges</span>, warn<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The default behavior of the function is to return a <code>list</code> of results: one for every target <code>age</code> - as if you were running the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> separately for these target <code>age</code>s:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># first 6 elements of the list</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pmHistoryList</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`220`</span></span>
@@ -303,11 +312,11 @@
 <span><span class="co">#&gt; three        NA       NA</span></span></code></pre></div>
 <p>The individual elements of the list are the same objects as the results of the previous calls of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>. The <code>names</code> of the list include the <code>target</code> ages that the coordinates represent.</p>
 <p>This might be the structure that is the most efficient for you - but there might also be cases when you would need to access the coordinates of the same point at different times quickly. For this purpose, an <code>array</code> representation of the results might be better suited, which you can toggle by setting the <code>listout</code> argument to <code>FALSE</code> from the default (<code>listout=TRUE</code>):</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pmHistory</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">posMat</span>, from<span class="op">=</span><span class="fl">220</span>,</span>
 <span>  age<span class="op">=</span><span class="va">allAges</span>, warn<span class="op">=</span><span class="cn">FALSE</span>, listout<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Accessing the structure of this object is a simple way to inform yourself about how to access the desired subsets:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pmHistory</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  num [1:23, 1:3, 1:2] -15 -13.8 -13.2 -13.1 -13.6 ...</span></span>
 <span><span class="co">#&gt;  - attr(*, "dimnames")=List of 3</span></span>
@@ -316,12 +325,12 @@
 <span><span class="co">#&gt;   ..$ : chr [1:2] "paleolong" "paleolat"</span></span></code></pre></div>
 <p>This object is a three-dimensional <code>array</code> of coordinates, with the target <code>age</code>s given as the first dimension (rows), the points as the second (columns) and the coordinate type (<code>paleolong</code> or <code>paleolat</code>) as the third (planes).</p>
 <p>For instance, if we want to access the history of point <code>one</code> we can use character subscripts to have the coordinates and and the ages in a simple 2D <code>matrix</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># history of point 'one' </span></span>
 <span><span class="va">oneHistory</span> <span class="op">&lt;-</span> <span class="va">pmHistory</span><span class="op">[</span>, <span class="st">"one"</span>, <span class="op">]</span></span>
 <span><span class="va">twoHistory</span> <span class="op">&lt;-</span> <span class="va">pmHistory</span><span class="op">[</span>, <span class="st">"two"</span>, <span class="op">]</span></span></code></pre></div>
 <p>You can use these matrices to display the rotation history of these points from 220Ma to the present day:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># redraw 220ma map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
