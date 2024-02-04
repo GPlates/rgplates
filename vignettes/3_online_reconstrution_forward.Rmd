@@ -22,13 +22,11 @@ plot <- function(...){
 	par(mar=c(0.25,0.25,0.25,0.25))
 	plotOrig(...)
 }
+
+library(rgplates)
 ```
 
 The [GPlates Web Service (GWS)](https://gws.gplates.org/) (**online**) implements reverse reconstruction: rather than calculating the paleocoordinates of present-day positions given an *age* and a *model*, you can calculate the present-day positions of paleocoordinates.
-
-```{r attach, echo=FALSE}
-library(rgplates)
-```
 
 ## Present-day positions of paleocoordinates 
 
@@ -136,7 +134,7 @@ points(tropoints, pch=3)
 
 Then you can turn of the warnings for the no plate assignment with the `warn` argument of `reconstruct()`:
 
-```{r tropointsrec, plot=TRUE, echo=FALSE }
+```{r tropointsrec, plot=TRUE, echo=TRUE }
 tropoints0 <- reconstruct(tropoints, from=220, warn=FALSE)
 ```
 
