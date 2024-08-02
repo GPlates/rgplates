@@ -1,6 +1,6 @@
 #' Valid reconstructable feature collections of the GPlates Web Service
 #'
-#' The object contains valid returns as of 2024-02-02.
+#' The object contains valid returns as of 2024-07-22.
 #'
 #' The valid return combinations for selected models and feature collections are copied from \url{https://gwsdoc.gplates.org/models}. 
 #'

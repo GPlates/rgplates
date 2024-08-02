@@ -1,5 +1,11 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.5.0 - 2024-07-22
+
+### Added
+- The `checkgws()`, `getgws()` and `setgws()` functions that allow the customization of the remote location of the GPlates Web Service.
+
+
 # rgplates 0.4.0 - 2024-02-02
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10614722.svg)](https://doi.org/10.5281/zenodo.10614722) - "Wondering Continents"  

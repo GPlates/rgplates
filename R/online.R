@@ -1,4 +1,5 @@
 gwsURL <- "https://gws.gplates.org/"
+defaultGwsURL <- gwsURL 
 
 ###########################################################################
 # GPlates Web Service internals:
@@ -221,4 +222,76 @@ CheckGWS <- function(x, model, age, verbose=TRUE){
 	# check whether it is the right range
 	if(!(age <= feat$from & age >= feat$to)) stop(paste0("The model '", model, "' has a valid age range of ", feat$from, " Ma to ", feat$to, " Ma. "))
 
+}
+
+#' Return and set the remote URL for the GPlates Web Service
+#'
+#' This set of functions allows the configuration of the remote URL, so the R client package can be used with a different instance of the GPlates web service, including a local implementation (served on localhost).
+#'
+#' The \code{getws} function returns the current url of the GPLates Web Service (defaults to: \code{https://gws.gplates.org/}).
+#' The \code{setws} function allows the setting of GPLates Web Service URL.
+#' @param url (\code{character}) A single string specifying the URL of the GPlates Web Service (with trailing slash).
+#' @param check (\code{logical}) Flag to specify whether the immediate querying of the GWS is to be performed? If this fails the url won't be set!
+#' @param reset (\code{logical}) Flag to specify whether the factory default should be reset. 
+#' @rdname gwstools 
+#' @return \code{getws} returns a single character string with the URL of the GWS. 
+#' @examples
+#' # Access currenvt remote URL.
+#' getgws()
+#' # In case you have the GWS running on localhost (default port 18000):
+#' # At time of writing this, the local instance does not return version, checking
+#' # does not work!
+#' setgws("http://localhost:18000/", check=FALSE)
+#' # To reset factory defaults
+#' setgws(reset=TRUE, check=FALSE)
+#' @export 
+getgws<- function(){
+	return(getFromNamespace("gwsURL", ns="rgplates"))
+}
+
+#' @rdname gwstools
+#' @export 
+setgws <- function(url="", check=TRUE, reset=FALSE, silent=FALSE){
+	# the original setting
+	current <- getgws()
+	if(!reset){
+		# set therplags
+		assignInNamespace("gwsURL", url, ns="rgplates")
+	}else{
+		assignInNamespace("gwsURL", defaultGwsURL, ns="rgplates")
+	}
+
+	if(check){
+		ver <- checkgws(silent=silent)
+		# set it back if there was an error!
+		if(is.na(ver)) assignInNamespace("gwsURL", current, ns="rgplates")
+	}
+}
+
+#' Ping the linked instance of the GPlates Web Service
+#'
+#' The function will use the http get method to access the version number of the GPlates Web Service.
+#' 
+#' @return Invisible return, either FALSE, or a character string with the version number. 
+#' @param silent Logical flag indicating wheth the output should be silent?
+#' @rdname gwstools 
+#' @export
+checkgws <- function(silent=FALSE){
+
+	# construct version access URL
+	url <- paste0(gwsURL, "version")
+
+	# default success
+	version <- NA 
+	try({
+		# try to acces the URL with the version
+		suppressWarnings(version <- readLines(url, warn=FALSE))
+		if(!silent) message(paste0("Successfully connected to GPlates Web Service ", version, " at\n'", gwsURL, "'."))
+	}, silent=TRUE)
+	if(is.na(version) & !silent){
+		warning(paste0("The GPlates Web Service could not be reached at\n'", gwsURL, "'."))
+	}
+
+	# return success state 
+	invisible(version)
 }
