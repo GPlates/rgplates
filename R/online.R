@@ -236,7 +236,7 @@ CheckGWS <- function(x, model, age, verbose=TRUE){
 #' @rdname gwstools 
 #' @return \code{getws} returns a single character string with the URL of the GWS. 
 #' @examples
-#' # Access currenvt remote URL.
+#' # Access currently set remote URL.
 #' getgws()
 #' # In case you have the GWS running on localhost (default port 18000):
 #' # At time of writing this, the local instance does not return version, checking

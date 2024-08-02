@@ -36,7 +36,7 @@ The \code{getws} function returns the current url of the GPLates Web Service (de
 The \code{setws} function allows the setting of GPLates Web Service URL.
 }
 \examples{
-# Access currenvt remote URL.
+# Access currently set remote URL.
 getgws()
 # In case you have the GWS running on localhost (default port 18000):
 # At time of writing this, the local instance does not return version, checking
