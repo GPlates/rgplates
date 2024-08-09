@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://adamtkocsis.com/rgplates/404.html</loc>
+    <loc>https://gplates.github.io/rgplates/404.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/LICENSE-text.html</loc>
+    <loc>https://gplates.github.io/rgplates/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/1_installation.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/1_installation.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/2_online_reconstruction_backwards.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/2_online_reconstruction_backwards.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/3_online_reconstrution_forward.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/3_online_reconstrution_forward.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/4_offline_reconstruction.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/4_offline_reconstruction.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/5_reconstruction_with_chronosphere.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/5_reconstruction_with_chronosphere.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/index.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/articles/internals.html</loc>
+    <loc>https://gplates.github.io/rgplates/articles/internals.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/authors.html</loc>
+    <loc>https://gplates.github.io/rgplates/authors.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/index.html</loc>
+    <loc>https://gplates.github.io/rgplates/index.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/news/index.html</loc>
+    <loc>https://gplates.github.io/rgplates/news/index.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/gws.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/gws.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/index.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/gwstools.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/mapedge.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/platemodel.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/mapedge.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/reconstruct.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/platemodel.html</loc>
   </url>
   <url>
-    <loc>https://adamtkocsis.com/rgplates/reference/rgplates.html</loc>
+    <loc>https://gplates.github.io/rgplates/reference/reconstruct.html</loc>
+  </url>
+  <url>
+    <loc>https://gplates.github.io/rgplates/reference/rgplates.html</loc>
   </url>
 </urlset>

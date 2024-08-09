@@ -20,7 +20,7 @@
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Internals">
 <meta property="og:description" content="Technial details of the package interals.">
-<meta property="og:image" content="https://adamtkocsis.com/rgplates/reference/figures/logo.png">
+<meta property="og:image" content="https://gplates.github.io/rgplates/reference/figures/logo.png">
 <meta property="og:image:alt" content="The rgplates sticker.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@atkocsis">
@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/adamkocsis/rgplates/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/gplates/rgplates/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -91,12 +91,13 @@
 
 
 
-<script src="internals_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Internals</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/adamkocsis/rgplates/blob/HEAD/vignettes/internals.Rmd" class="external-link"><code>vignettes/internals.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/gplates/rgplates/blob/HEAD/vignettes/internals.Rmd" class="external-link"><code>vignettes/internals.Rmd</code></a></small>
       <div class="d-none name"><code>internals.Rmd</code></div>
     </div>
 
@@ -112,7 +113,11 @@
 </h3>
 <ul>
 <li>
-<a href="https://cran.r-project.org/package=sf" class="external-link">sf</a> <em>(Simple features)</em>: <code>rgplates</code> depends on the <code>sf</code> package to handle vector spatial data, such as plates, present-day coastlines, and spatial data that have explict Coordinate Reference System information.</li>
+<a href="https://cran.r-project.org/package=sf" class="external-link">sf</a> <em>(Simple
+features)</em>: <code>rgplates</code> depends on the <code>sf</code>
+package to handle vector spatial data, such as plates, present-day
+coastlines, and spatial data that have explict Coordinate Reference
+System information.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -121,28 +126,39 @@
 <p>Functions reused from other packages (necessary in all cases):</p>
 <ul>
 <li>
-<code><a href="https://rdrr.io/r/methods/new.html" class="external-link">methods::new()</a></code>: Used to create <code>platemodel</code> instances.</li>
+<code><a href="https://rdrr.io/r/methods/new.html" class="external-link">methods::new()</a></code>: Used to create <code>platemodel</code>
+instances.</li>
 <li>
 <code><a href="https://rdrr.io/r/utils/flush.console.html" class="external-link">utils::flush.console()</a></code>: Used for console-feedback.</li>
 <li>
-<code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code>: Used for accessing the <code>gws</code> object internally.</li>
+<code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code>: Used for accessing the <code>gws</code>
+object internally.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="suggests">Suggests<a class="anchor" aria-label="anchor" href="#suggests"></a>
 </h3>
-<p>Functions from some packages that are used by some functions only (optional):</p>
+<p>Functions from some packages that are used by some functions only
+(optional):</p>
 <ul>
 <li>
-<a href="https://cran.r-project.org/package=knitr" class="external-link">knitr</a> and <a href="https://cran.r-project.org/package=rmarkdown" class="external-link">rmarkdown</a>: used for vignette creation.</li>
+<a href="https://cran.r-project.org/package=knitr" class="external-link">knitr</a> and <a href="https://cran.r-project.org/package=rmarkdown" class="external-link">rmarkdown</a>: used
+for vignette creation.</li>
 <li>
-<a href="https://cran.r-project.org/package=geojsonsf" class="external-link">geojsonsf</a>: used by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to read in the spatial output of the GWS.</li>
+<a href="https://cran.r-project.org/package=geojsonsf" class="external-link">geojsonsf</a>: used
+by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to
+read in the spatial output of the GWS.</li>
 <li>
-<a href="https://cran.r-project.org/package=httr2" class="external-link">httr2</a>: used by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to perform requests with HTTP POST</li>
+<a href="https://cran.r-project.org/package=httr2" class="external-link">httr2</a>: used
+by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to
+perform requests with HTTP POST</li>
 <li>
-<a href="https://cran.r-project.org/package=sp" class="external-link">sp</a>: optional output formats for vector spatial data.</li>
+<a href="https://cran.r-project.org/package=sp" class="external-link">sp</a>: optional
+output formats for vector spatial data.</li>
 <li>
-<a href="https://cran.r-project.org/package=chronosphere" class="external-link">chronosphere</a>: informal suggestion in help files for downloading <code>platemodel</code> instances.</li>
+<a href="https://cran.r-project.org/package=chronosphere" class="external-link">chronosphere</a>:
+informal suggestion in help files for downloading
+<code>platemodel</code> instances.</li>
 </ul>
 <hr>
 </div>
@@ -214,6 +230,12 @@ flowchart LR
   gplates_reconstruct_this
   gwsReconstructPoints
   CheckGWS
+    getgws
+    setgws
+    setgws--&gt;getgws
+    setgws--&gt;checkgws
+    checkgws
+    
   
   end
   

@@ -22,7 +22,7 @@
 <meta property="og:title" content="2. Reconstructions using modern coordinates (online)">
 <meta property="og:description" content="Learn how to rotate present-day coordinates with the GPlates Web Service
 ">
-<meta property="og:image" content="https://adamtkocsis.com/rgplates/reference/figures/logo.png">
+<meta property="og:image" content="https://gplates.github.io/rgplates/reference/figures/logo.png">
 <meta property="og:image:alt" content="The rgplates sticker.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@atkocsis">
@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/adamkocsis/rgplates/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/gplates/rgplates/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -93,31 +93,51 @@
 
 
 
-<script src="2_online_reconstruction_backwards_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>2. Reconstructions using modern coordinates (online)</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/adamkocsis/rgplates/blob/HEAD/vignettes/2_online_reconstruction_backwards.Rmd" class="external-link"><code>vignettes/2_online_reconstruction_backwards.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/gplates/rgplates/blob/HEAD/vignettes/2_online_reconstruction_backwards.Rmd" class="external-link"><code>vignettes/2_online_reconstruction_backwards.Rmd</code></a></small>
       <div class="d-none name"><code>2_online_reconstruction_backwards.Rmd</code></div>
     </div>
 
     
     
-<p>Out of the box, the package relies on the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service (GWS)</a>, an <strong>online</strong> service that executes paleogeographic rotations using data provided in URLs. <code>rgplates</code> <strong>(1)</strong> sends the data to the GWS, which <strong>(2)</strong> calculates paleocoordinates, and then <strong>(3)</strong> <code>rgplates</code> reads in the returned result. <strong>For this online method, you have to be connected to the internet</strong>.</p>
+<p>Out of the box, the package relies on the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service (GWS)</a>, an
+<strong>online</strong> service that executes paleogeographic rotations
+using data provided in URLs. <code>rgplates</code> <strong>(1)</strong>
+sends the data to the GWS, which <strong>(2)</strong> calculates
+paleocoordinates, and then <strong>(3)</strong> <code>rgplates</code>
+reads in the returned result. <strong>For this online method, you have
+to be connected to the internet</strong>.</p>
 <p>To start, you have to attach the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamtkocsis.com/rgplates/">rgplates</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gplates.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
 <span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code></pre></div>
-<p>When attached, <code>rgplates</code> automatically loads the <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><em>Simple Features for R</em> (<code>sf</code>) package</a>, a standard R package used for processing vector spatial data.</p>
+<p>When attached, <code>rgplates</code> automatically loads the <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><em>Simple
+Features for R</em> (<code>sf</code>) package</a>, a standard R package
+used for processing vector spatial data.</p>
 <p><br></p>
 <div class="section level2">
 <h2 id="reconstructing-plates">Reconstructing plates<a class="anchor" aria-label="anchor" href="#reconstructing-plates"></a>
 </h2>
 <hr>
-<p>All paleocoordinate rotations are executed with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function. The default model used by this is the <a href="https://www.earthbyte.org/webdav/ftp/Data_Collections/Merdith_etal_2021_ESR/" class="external-link">Merdith et al. 2021</a>, described <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301926807001635" class="external-link">here</a>. <em>(If you look at the reference of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>, you can see that by default <code>model="MERDITH2021"</code>).</em></p>
-<p>Every tectonic model relies on plates, which are rotated on the surface of Earth. Plate positions) can be reconstructed to any age that the model covers. The present-day positions of the plates can be queried with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function, with a string passed (<code>static_plates</code> or <code>plate_polygons</code>, depending on the model) as the first argument, and the target <code>age</code> set to <code>0</code> (in Ma).</p>
+<p>All paleocoordinate rotations are executed with the
+<code><a href="../reference/reconstruct.html">reconstruct()</a></code> function. The default model used by this is
+the <a href="https://www.earthbyte.org/webdav/ftp/Data_Collections/Merdith_etal_2021_ESR/" class="external-link">Merdith
+et al. 2021</a>, described <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301926807001635" class="external-link">here</a>.
+<em>(If you look at the reference of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>, you can
+see that by default <code>model="MERDITH2021"</code>).</em></p>
+<p>Every tectonic model relies on plates, which are rotated on the
+surface of Earth. Plate positions) can be reconstructed to any age that
+the model covers. The present-day positions of the plates can be queried
+with the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function, with a string passed
+(<code>static_plates</code> or <code>plate_polygons</code>, depending on
+the model) as the first argument, and the target <code>age</code> set to
+<code>0</code> (in Ma).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">pl0</span></span>
@@ -138,12 +158,26 @@
 <span><span class="co">#&gt; 8  POLYGON ((122.0576 66.9608,...</span></span>
 <span><span class="co">#&gt; 9  POLYGON ((119.9099 61.8243,...</span></span>
 <span><span class="co">#&gt; 10 POLYGON ((105.7441 72.3461,...</span></span></code></pre></div>
-<p>The <code>rgplates</code> package relies on <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><code>sf</code></a> to handle vector spatial data - like the plates. You can do anything with this that you normally can with and <code>sf</code> object: manipulate it, change its map projection, export or use it for calculations. These data are in standard <a href="https://en.wikipedia.org/wiki/Equirectangular_projection" class="external-link">equirectangular projection</a>, registered with longitude and latitude data in the <code>WGS84</code> Coordinate Reference System.</p>
-<p>You can plot the distribution of plates with the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.</p>
+<p>The <code>rgplates</code> package relies on <a href="https://cran.r-project.org/web/packages/sf/index.html" class="external-link"><code>sf</code></a>
+to handle vector spatial data - like the plates. You can do anything
+with this that you normally can with and <code>sf</code> object:
+manipulate it, change its map projection, export or use it for
+calculations. These data are in standard <a href="https://en.wikipedia.org/wiki/Equirectangular_projection" class="external-link">equirectangular
+projection</a>, registered with longitude and latitude data in the
+<code>WGS84</code> Coordinate Reference System.</p>
+<p>You can plot the distribution of plates with the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>
+function. To focus on the spatial data and not the attributes of the
+features (which are technical in nature), you can plot the geometries of
+this object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_backwards_files/figure-html/presentdayplot-1.png" width="960"></p>
-<p>Setting the <code>age</code> argument allows you to access the state of the plate tectonic configuration at past points in time. The <code>age</code> argument accepts dates in millions of years. To reconstruct the position of the plates at around the Early/Late Cretaceous boundary (approx. 100Ma), you have to set the <code>age</code> argument to <code>100</code>:</p>
+<p>Setting the <code>age</code> argument allows you to access the state
+of the plate tectonic configuration at past points in time. The
+<code>age</code> argument accepts dates in millions of years. To
+reconstruct the position of the plates at around the Early/Late
+Cretaceous boundary (approx. 100Ma), you have to set the
+<code>age</code> argument to <code>100</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pl100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">pl100</span></span>
@@ -173,7 +207,12 @@
 <h2 id="reconstructing-modern-coastlines">Reconstructing modern <code>coastlines</code><a class="anchor" aria-label="anchor" href="#reconstructing-modern-coastlines"></a>
 </h2>
 <hr>
-<p>Note that the result includes oceanic plates as well, which can be quite distracting when you want to visualize past distribution of the continents. To help with this, the paleogeographic positions of the present-day coastlines (and plate margins) can be quite helpful, which can be accessed, by providing <code>"coastlines"</code> as the first argument of the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function:</p>
+<p>Note that the result includes oceanic plates as well, which can be
+quite distracting when you want to visualize past distribution of the
+continents. To help with this, the paleogeographic positions of the
+present-day coastlines (and plate margins) can be quite helpful, which
+can be accessed, by providing <code>"coastlines"</code> as the first
+argument of the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">c100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
@@ -199,7 +238,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c100</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_backwards_files/figure-html/tjbcoastplot-1.png" width="960"></p>
-<p>Again, the <code>pl0</code> and <code>pl100</code> and <code>c100</code> objects are <code>sf</code>-class objects. You can customize their plotting as you would for any other <code>sf</code> object - for instance setting a fill color for the polygons and not plotting their boundaries.</p>
+<p>Again, the <code>pl0</code> and <code>pl100</code> and
+<code>c100</code> objects are <code>sf</code>-class objects. You can
+customize their plotting as you would for any other <code>sf</code>
+object - for instance setting a fill color for the polygons and not
+plotting their boundaries.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_backwards_files/figure-html/tjbplot2-1.png" width="960"></p>
@@ -214,16 +257,34 @@
 <h2 id="individual-locations">Individual locations<a class="anchor" aria-label="anchor" href="#individual-locations"></a>
 </h2>
 <hr>
-<p>This is nice, but plotting the plates on their own has only so much use. The true use of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> is the ability to calculate the paleocoordinates of present-day locations for a given <code>age</code>.</p>
+<p>This is nice, but plotting the plates on their own has only so much
+use. The true use of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> is the ability to
+calculate the paleocoordinates of present-day locations for a given
+<code>age</code>.</p>
 <div class="section level4">
 <h4 id="single-present-day-point">Single present-day point<a class="anchor" aria-label="anchor" href="#single-present-day-point"></a>
 </h4>
-<p>Let’s consider the location of London (<a href="https://www.google.com/maps/place/London,+Egyes%C3%BClt+Kir%C3%A1lys%C3%A1g/@51.528308,-0.3817792,10z/data=!3m1!4b1!4m5!3m4!1s0x47d8a00baf21de75:0x52963a5addd52a99!8m2!3d51.5072178!4d-0.1275862" class="external-link">here it is on Google maps</a>)! Either in the URL, or with the user interface of Google maps, you can find that the coordinates of the city center are around 51.52°N (latitude) and 0.38°W (longitude). To figure out where the city was at the Triassic/Jurassic boundary you need to: <strong>(1)</strong> register these coordinates in R; and <strong>(2)</strong> provide them to the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function.</p>
+<p>Let’s consider the location of London (<a href="https://www.google.com/maps/place/London,+Egyes%C3%BClt+Kir%C3%A1lys%C3%A1g/@51.528308,-0.3817792,10z/data=!3m1!4b1!4m5!3m4!1s0x47d8a00baf21de75:0x52963a5addd52a99!8m2!3d51.5072178!4d-0.1275862" class="external-link">here
+it is on Google maps</a>)! Either in the URL, or with the user interface
+of Google maps, you can find that the coordinates of the city center are
+around 51.52°N (latitude) and 0.38°W (longitude). To figure out where
+the city was at the Triassic/Jurassic boundary you need to:
+<strong>(1)</strong> register these coordinates in R; and
+<strong>(2)</strong> provide them to the <code><a href="../reference/reconstruct.html">reconstruct()</a></code>
+function.</p>
 <div class="alert alert-primary" role="info">
-<p>Note that we are dealing with global-scale, approximate coordinates here. For more precise results, always make sure that the CRS of the points is matching the CRS of the maps (including ellipses)!</p>
+<p>Note that we are dealing with global-scale, approximate coordinates
+here. For more precise results, always make sure that the CRS of the
+points is matching the CRS of the maps (including ellipses)!</p>
 </div>
-<p>Because with the usually used equirectangular projection the <em>x</em>-axis of plotting become <em>longitude</em>, and the <em>y</em> axis becomes latitude, we usually register the coordinates in the order of longitude first, and latitude second (with easting longitudes and northing latitudes registered as positive values).</p>
-<p>To make this structure absolutely clear, it is best to register coordinates as 2-column matrices, with <em>longitude</em> being the <em>first</em>, and <em>latitude</em> the <em>second</em> column:</p>
+<p>Because with the usually used equirectangular projection the
+<em>x</em>-axis of plotting become <em>longitude</em>, and the
+<em>y</em> axis becomes latitude, we usually register the coordinates in
+the order of longitude first, and latitude second (with easting
+longitudes and northing latitudes registered as positive values).</p>
+<p>To make this structure absolutely clear, it is best to register
+coordinates as 2-column matrices, with <em>longitude</em> being the
+<em>first</em>, and <em>latitude</em> the <em>second</em> column:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the coordinates</span></span>
 <span><span class="va">london</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.38</span>, <span class="fl">51.52</span><span class="op">)</span></span>
@@ -236,7 +297,10 @@
 <span><span class="va">londonMat</span></span>
 <span><span class="co">#&gt;       long   lat</span></span>
 <span><span class="co">#&gt; [1,] -0.38 51.52</span></span></code></pre></div>
-<p>Since the coordinate reference system (CRS) of the maps is longitude-latitude, you can use these coordinates directly to indicate the positionx of the city on the present-day map using <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points()</a></code> - in this case with red plus signs:</p>
+<p>Since the coordinate reference system (CRS) of the maps is
+longitude-latitude, you can use these coordinates directly to indicate
+the positionx of the city on the present-day map using
+<code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points()</a></code> - in this case with red plus signs:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c0</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">londonMat</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
@@ -245,14 +309,23 @@
 <div class="section level4">
 <h4 id="paleocoordinates-of-a-single-locality">Paleocoordinates of a single locality<a class="anchor" aria-label="anchor" href="#paleocoordinates-of-a-single-locality"></a>
 </h4>
-<p>Finding the paleocoordinates of such localities is as easy as calculating those of the plates. You have to use the matrix that you defined earlier (<code>londonMat</code>) as the first argument, of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> (where <code>"static_polygons"</code> and <code>"coastlines"</code> were given earlier), and provide a target age in million years:</p>
+<p>Finding the paleocoordinates of such localities is as easy as
+calculating those of the plates. You have to use the matrix that you
+defined earlier (<code>londonMat</code>) as the first argument, of
+<code><a href="../reference/reconstruct.html">reconstruct()</a></code> (where <code>"static_polygons"</code> and
+<code>"coastlines"</code> were given earlier), and provide a target age
+in million years:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">londonMat100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">londonMat</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">londonMat100</span></span>
 <span><span class="co">#&gt;      paleolong paleolat</span></span>
 <span><span class="co">#&gt; [1,]    16.501  43.4247</span></span></code></pre></div>
-<p>The result of this calculation is a similar <code>matrix</code>: now including the paleolongitude and paleolatitude columns. If you provide coordinates as a plain <code>matrix</code>, coordinates are inferred to be longitude and latitude.</p>
-<p>You can visualize this the same way, as you visualized the present-day position of the location:</p>
+<p>The result of this calculation is a similar <code>matrix</code>: now
+including the paleolongitude and paleolatitude columns. If you provide
+coordinates as a plain <code>matrix</code>, coordinates are inferred to
+be longitude and latitude.</p>
+<p>You can visualize this the same way, as you visualized the
+present-day position of the location:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">londonMat100</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
@@ -261,7 +334,12 @@
 <div class="section level4">
 <h4 id="paleocoordinates-of-a-multiple-localities">Paleocoordinates of a multiple localities<a class="anchor" aria-label="anchor" href="#paleocoordinates-of-a-multiple-localities"></a>
 </h4>
-<p>If you want to reconstruct multiple locations, all you need to provide is more rows in the matrix. For instance, if you also want to calculate the positions of <a href="https://www.google.com/maps/place/Sydney+%C3%9Aj-D%C3%A9l-Wales,+Ausztr%C3%A1lia/@-33.8469759,150.3715249,9z/data=!3m1!4b1!4m5!3m4!1s0x6b129838f39a743f:0x3017d681632a850!8m2!3d-33.8688197!4d151.2092955" class="external-link">Sydney, AU</a> (33.85°S, 151.11°E) and <a href="https://www.google.com/maps/place/Montr%C3%A9al,+Qu%C3%A9bec,+Kanada/@45.5578125,-74.2723072,9z/data=!3m1!4b1!4m5!3m4!1s0x4cc91a541c64b70d:0x654e3138211fefef!8m2!3d45.5018869!4d-73.5673919" class="external-link">Montréal (CA)</a> (45.52°N, 73.61°W), you need to add these in a similar fashion.</p>
+<p>If you want to reconstruct multiple locations, all you need to
+provide is more rows in the matrix. For instance, if you also want to
+calculate the positions of <a href="https://www.google.com/maps/place/Sydney+%C3%9Aj-D%C3%A9l-Wales,+Ausztr%C3%A1lia/@-33.8469759,150.3715249,9z/data=!3m1!4b1!4m5!3m4!1s0x6b129838f39a743f:0x3017d681632a850!8m2!3d-33.8688197!4d151.2092955" class="external-link">Sydney,
+AU</a> (33.85°S, 151.11°E) and <a href="https://www.google.com/maps/place/Montr%C3%A9al,+Qu%C3%A9bec,+Kanada/@45.5578125,-74.2723072,9z/data=!3m1!4b1!4m5!3m4!1s0x4cc91a541c64b70d:0x654e3138211fefef!8m2!3d45.5018869!4d-73.5673919" class="external-link">Montréal
+(CA)</a> (45.52°N, 73.61°W), you need to add these in a similar
+fashion.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># coordinates of the two other cities</span></span>
 <span><span class="va">sydney</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">151.17</span>, <span class="op">-</span><span class="fl">33.85</span><span class="op">)</span></span>
@@ -277,7 +355,9 @@
 <span><span class="co">#&gt; london    -0.38  51.52</span></span>
 <span><span class="co">#&gt; sydney   151.17 -33.85</span></span>
 <span><span class="co">#&gt; montreal -73.61  45.52</span></span></code></pre></div>
-<p>Now that we have a matrix of longitudes and latitudes, all we need to do is use this as the first argument of the <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function:</p>
+<p>Now that we have a matrix of longitudes and latitudes, all we need to
+do is use this as the first argument of the <code><a href="../reference/reconstruct.html">reconstruct()</a></code>
+function:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities100</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="va">cities</span>, age<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">cities100</span></span>
@@ -285,7 +365,8 @@
 <span><span class="co">#&gt; london     16.5010  43.4247</span></span>
 <span><span class="co">#&gt; sydney    168.1989 -64.7057</span></span>
 <span><span class="co">#&gt; montreal  -24.3468  43.0799</span></span></code></pre></div>
-<p>Note that the order of entities remains the same. We can plot these the same way similar to a single city.</p>
+<p>Note that the order of entities remains the same. We can plot these
+the same way similar to a single city.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
@@ -300,7 +381,14 @@
 <h2 id="other-reconstruction-models">Other reconstruction models<a class="anchor" aria-label="anchor" href="#other-reconstruction-models"></a>
 </h2>
 <hr>
-<p>If you look into the <a href="../reference/reconstruct.html#details"><em>Details</em> of the reference of <code>reconstruct()</code></a>, you will see that the <code>model</code> argument can be set to other character strings besides <code>"MERDITH2021".</code> These indicate other models that are accessible via the GPLates Web Service. For instance, if you want to execute the same calculations to <a href="#reconstructing-plates">reconstruct the position position of the plates at 100Ma</a>, with the Seton et al. 2012 model, all you have to do is set <code>model="SETON2012"</code>:</p>
+<p>If you look into the <a href="../reference/reconstruct.html#details"><em>Details</em> of the
+reference of <code>reconstruct()</code></a>, you will see that the
+<code>model</code> argument can be set to other character strings
+besides <code>"MERDITH2021".</code> These indicate other models that are
+accessible via the GPLates Web Service. For instance, if you want to
+execute the same calculations to <a href="#reconstructing-plates">reconstruct the position position of the
+plates at 100Ma</a>, with the Seton et al. 2012 model, all you have to
+do is set <code>model="SETON2012"</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c100seton</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="st">"SETON2012"</span><span class="op">)</span></span>
 <span><span class="va">c100seton</span></span>
@@ -321,12 +409,18 @@
 <span><span class="co">#&gt; 8  POLYGON ((-36.3418 16.5887,...</span></span>
 <span><span class="co">#&gt; 9  POLYGON ((-12.5495 22.9016,...</span></span>
 <span><span class="co">#&gt; 10 POLYGON ((-10.4138 22.3064,...</span></span></code></pre></div>
-<p>You can compare this with the Merdith et al. model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in <a href="https://www.w3schools.com/css/css_colors_rgb.asp" class="external-link">HTML RGBA</a>: <code>"#FF000077"</code>):</p>
+<p>You can compare this with the Merdith et al. model, by plotting this
+result on top of that with some transparency (e.g. a semi-transparent
+red, in <a href="https://www.w3schools.com/css/css_colors_rgb.asp" class="external-link">HTML
+RGBA</a>: <code>"#FF000077"</code>):</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c100</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c100seton</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#FF000077"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_online_reconstruction_backwards_files/figure-html/platescompare-1.png" width="960"></p>
-<p>You can see that the the two reconstructions differ quite a bit, which becomes more apparent as we go back in time. Also, with the transparency, you can see how the plates overlap in convergent zones.</p>
+<p>You can see that the the two reconstructions differ quite a bit,
+which becomes more apparent as we go back in time. Also, with the
+transparency, you can see how the plates overlap in convergent
+zones.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
