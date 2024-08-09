@@ -14,8 +14,8 @@ This is still the Beta version. As is R, this is free software and comes with AB
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://adamtkocsis.com/rgplates/}
-  \item Report bugs at \url{https://github.com/adamkocsis/rgplates/issues}
+  \item \url{https://gplates.github.io/rgplates/}
+  \item Report bugs at \url{https://github.com/gplates/rgplates/issues}
 }
 
 }

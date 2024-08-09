@@ -37,7 +37,7 @@ If for some reason, the installlation from CRAN fails, you might need to look in
 You can install the package from source directly from GitHub using the `[devtools](https://cran.r-project.org/package=devtools)` package. All you need is install `devtools` and then run the this line of code:
 
 ```{r gitStab, eval=FALSE}
-devtools::install_github("adamkocsis/rgplates")
+devtools::install_github("gplates/rgplates")
 ```
 
 #### From Zenodo 
@@ -55,7 +55,7 @@ install.packages(
 ## Development version
 * * * 
 
-If you encounter technical problems with the package that are not described anywhere, you might want to take a look at the [development version](https://github.com/adamkocsis/rgplates/tree/devel).
+If you encounter technical problems with the package that are not described anywhere, you might want to take a look at the [development version](https://github.com/gplates/rgplates/tree/devel).
 
 
 #### Development version from GitHub
@@ -63,7 +63,7 @@ If you encounter technical problems with the package that are not described anyw
 The simples way to install the in-development version is via the `devtools` package. You just have to indicate that you want to install from the in-development `devel` branch.
 
 ```{r gitDev, eval=FALSE}
-devtools::install_github("adamkocsis/rgplates@devel")
+devtools::install_github("gplates/rgplates@devel")
 ```
 
 #### Manual installation

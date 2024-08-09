@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.4.0-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.4.1-green.svg)](https://github.com/gplates/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -13,14 +13,14 @@ checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-pro
 
 ## About
 
------
+------------------------------------------------------------------------
 
 Functions to the [GPlates Web Service](https://gws.gplates.org/) and the
 [GPlates Desktop Application](https://www.gplates.org/) allow users to
 reconstruct past positions of geographic entities based on user-selected
 rotation models without leaving the R running environment.
 
-<a href="https://www.gplates.org/"><img src="https://github.com/adamkocsis/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right"></a>
+<a href="https://www.gplates.org/"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right"></a>
 
 The **online reconstruction** (with the [GPlates Web
 Service](https://gws.gplates.org/)) makes the rotation of static plates,
@@ -38,7 +38,7 @@ tectonic models are accessible via the
 
 ## Example
 
------
+------------------------------------------------------------------------
 
 You can reconstruct the positions of the plates at 65 Ma using the
 [Merdith et al. 2021
@@ -71,7 +71,7 @@ plot(coastsMoll, border=NA, col="gray90", add=TRUE)
 
 ## Notes
 
------
+------------------------------------------------------------------------
 
 #### History
 
@@ -82,12 +82,12 @@ philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) and more
 efficient distribution/development, the original chronosphere has been
 broken up to three R packages:
 
-  - [`chronosphere`](https://chronosphere.info/r_client/):
-    version-controlled data distribution.
-  - [`rgplates`](https://adamkocsis.github.io/rgplates/): functions
-    related to tectonic reconstructions.
-  - [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
-    efficient organisation of high-dimensional data.
+- [`chronosphere`](https://chronosphere.info/r_client/):
+  version-controlled data distribution.
+- [`rgplates`](https://gplates.github.io/rgplates/): functions related
+  to tectonic reconstructions.
+- [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
+  efficient organisation of high-dimensional data.
 
 This is a beta version, and like R, comes with absolutely no warranty.
 

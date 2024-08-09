@@ -1,4 +1,4 @@
-url: https://adamtkocsis.com/rgplates
+url: https://gplates.github.io/rgplates
 template:
   opengraph:
     image:
@@ -52,6 +52,9 @@ reference:
   contents:
   - reconstruct
   - gws
+  - setgws
+  - getgws
+  - checkgws
 - title: Tectonic model representation
   desc: Representation of tectonic models for offline reconstruction
   contents:

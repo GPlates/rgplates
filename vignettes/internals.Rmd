@@ -101,6 +101,12 @@ flowchart LR
   gplates_reconstruct_this
   gwsReconstructPoints
   CheckGWS
+	getgws
+	setgws
+	setgws-->getgws
+	setgws-->checkgws
+	checkgws
+	
   
   end
   

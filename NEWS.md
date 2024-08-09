@@ -1,10 +1,12 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.5.0 - 2024-07-22
+# rgplates 0.4.1 - 2024-08-09
 
 ### Added
 - The `checkgws()`, `getgws()` and `setgws()` functions that allow the customization of the remote location of the GPlates Web Service.
 
+### Changed
+- Docs updated to reflect repo transfer to https://github.com/gplates
 
 # rgplates 0.4.0 - 2024-02-02
 
