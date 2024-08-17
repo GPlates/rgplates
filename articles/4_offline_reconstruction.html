@@ -184,7 +184,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpOkFl1j"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmpji3d6F"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be surprised if yours don’t match the result above - actually, this will likely be different in every session when you run the function above.</em></p>
 </div>
 <div class="section level4">
@@ -207,20 +207,20 @@
 <p>You can confirm that the extraction has indeed happened by looking into the temporary directory:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "file20e37148a4e5"                  "file20e371b1dda9a"                </span></span>
-<span><span class="co">#&gt;  [3] "file20e3729f1e688"                 "file20e3734f22df7"                </span></span>
-<span><span class="co">#&gt;  [5] "file20e3755a5ee8c"                 "file20e3766b4889a"                </span></span>
+<span><span class="co">#&gt;  [1] "file23b291b9bfa78"                 "file23b292f02f0ca"                </span></span>
+<span><span class="co">#&gt;  [3] "file23b2953970cf8"                 "file23b2977631f63"                </span></span>
+<span><span class="co">#&gt;  [5] "file23b29776a1e35"                 "file23b298549006"                 </span></span>
 <span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str20e3724dd2b86.html"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str23b292c801659.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with <code>.gpml</code> (the <strong>static plate polygons</strong> in GPlates Markup Language format) and the one that ends with <code>.rot</code> (the <strong>reconstruction tree/rotation file</strong>). We know the absolute paths to these files, they can be found at:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpOkFl1j/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmpji3d6F/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpOkFl1j/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmpji3d6F/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
