@@ -10,7 +10,9 @@
 "_PACKAGE"
 
 #' @import sf
-#' @importFrom methods new 
+#' @importFrom methods new
+#' @importFrom utils assignInNamespace
+#' @importFrom utils getFromNamespace
 #' @importFrom utils data 
 NULL
 

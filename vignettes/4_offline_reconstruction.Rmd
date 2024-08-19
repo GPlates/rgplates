@@ -268,7 +268,7 @@ You can use these, or any similar files to create `platemodel` objects, as long 
 
 * * *
 
-As you can see, handling these files are quite tedious, and we, the developers of `rgplates`, barely ever use these in such a way. For practical applications we recommend using the offline method of `rgplates` with the `chronosphere`, which you can learn more about in the next tutorial: [4. Reconstructions with the chronosphere](4_reconstruction_with_chronosphere.html).
+As you can see, handling these files are quite tedious, and we, the developers of `rgplates`, barely ever use these in such a way. For practical applications we recommend using the offline method of `rgplates` with the `chronosphere`, which you can learn more about in the next tutorial: [5. Reconstructions with the chronosphere](5_reconstruction_with_chronosphere.html).
 
 
 
