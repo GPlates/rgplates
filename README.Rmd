@@ -8,12 +8,13 @@ knitr::opts_chunk$set(echo = TRUE)
 library(badger)
 ```
 
-# rgplates 
+# rgplates <img src="man/figures/logo.png" align="right" width="120"/>
 
 `r badge_devel("adamkocsis/rgplates", "green")`
 `r badge_cran_release("rgplates", "orange")`
 `r badge_cran_download("rgplates", "grand-total", "yellow")`
 `r badge_cran_checks("rgplates")`
+`r badger::badge_doi(doi = "10.5281/zenodo.8093990", color = "blue")` 
 
 R interface for the GPlates Web Service and Desktop Application 
 
