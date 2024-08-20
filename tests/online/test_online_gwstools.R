@@ -1,4 +1,4 @@
-library(rgplates)
+232  Switch to buffer: library(rgplates)
 
 # this should return the factory default
 expect_equal(default <- getgws(), rgplates:::gwsURL)
@@ -35,3 +35,14 @@ expect_silent(setgws(reset=TRUE, silent=TRUE))
 expect_equal(default, getgws())
 
 
+# check if local instance is there
+something <- NULL
+try(something <- scan("http://localhost:18000/reconstruct/reconstruct_points/?lons=95,142&lats=54,-33&time=140&model=MULLER2019", what=character(), quiet=TRUE), silent=TRUE)
+
+if(is.null(something[1])){
+	warning("Local GWS not functional.")
+}else{
+	expect_silent(setgws("http://localhost:18000/", check=FALSE))
+	expect_silent(rec <- reconstruct("static_polygons", age=3, model="MERDITH2021"))
+	expect_silent(setgws(reset=TRUE, check=FALSE))
+}
