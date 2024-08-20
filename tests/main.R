@@ -1,7 +1,7 @@
 # ERGYAPLÉCC/Erzsiplétsz
 
 # Needed
-## install.packages(NULL
+## install.packages(c(NULL
 ## 	, "ncdf4"
 ## 	, "rgdal"
 ## 	, "divDyn"
@@ -9,7 +9,10 @@
 ## 	, "tinytest"
 ## 	, "terra"
 ## 	, "via"
-## )
+##  , "httr2"
+##  , "geojsonsf"
+##  , "sf"
+## ))
 
 
 library(tinytest)
