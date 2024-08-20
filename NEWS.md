@@ -2,11 +2,15 @@
 
 # rgplates 0.4.1 - 2024-08-19
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13348606.svg)](https://doi.org/10.5281/zenodo.13348606) - "The Plates Be Driftin'"  
+
 ### Added
 - The `checkgws()`, `getgws()` and `setgws()` functions that allow the customization of the remote location of the GPlates Web Service.
 
 ### Changed
 - Docs updated to reflect repo transfer to https://github.com/gplates
+
+* * *
 
 # rgplates 0.4.0 - 2024-02-02
 

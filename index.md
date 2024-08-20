@@ -6,6 +6,7 @@
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
+[![](https://img.shields.io/badge/doi-10.5281/zenodo.8093990-blue.svg)](https://doi.org/10.5281/zenodo.8093990)
 
 #### R interface for the *GPlates Web Service* and the *GPlates Application*
 
@@ -13,7 +14,7 @@ checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-pro
 
 ## About
 
------
+------------------------------------------------------------------------
 
 Functions to the [GPlates Web Service](https://gws.gplates.org/) and the
 [GPlates Desktop Application](https://www.gplates.org/) allow users to
@@ -38,7 +39,7 @@ tectonic models are accessible via the
 
 ## Examples
 
------
+------------------------------------------------------------------------
 
 You can reconstruct the positions of the plates at 65 Ma using the
 [Merdith et al. 2021
@@ -71,14 +72,14 @@ plot(coastsMoll, border=NA, col="gray90", add=TRUE)
 
 ### Others
 
-  - Maastrichtian dinosaurs from the Paleobiology Database ([R code
-    file](https://gplates.github.io/rgplates/snippets/pbdb_merdith_2021.R))
+- Maastrichtian dinosaurs from the Paleobiology Database ([R code
+  file](https://gplates.github.io/rgplates/snippets/pbdb_merdith_2021.R))
 
 See items in the **Tutorials** menu point for detailed explanations.
 
 ## Notes
 
------
+------------------------------------------------------------------------
 
 #### History
 
@@ -89,12 +90,12 @@ philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) and more
 efficient distribution/development, the original chronosphere has been
 broken up to three R packages:
 
-  - [`chronosphere`](https://chronosphere.info/r_client/):
-    version-controlled data distribution.
-  - [`rgplates`](https://gplates.github.io/rgplates/): functions related
-    to tectonic reconstructions.
-  - [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
-    efficient organisation of high-dimensional data.
+- [`chronosphere`](https://chronosphere.info/r_client/):
+  version-controlled data distribution.
+- [`rgplates`](https://gplates.github.io/rgplates/): functions related
+  to tectonic reconstructions.
+- [`via`](https://adamkocsis.github.io/via/): Virtual Arrays for
+  efficient organisation of high-dimensional data.
 
 This is a beta version, and like R, comes with absolutely no warranty.
 
