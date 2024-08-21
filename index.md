@@ -39,6 +39,8 @@ tectonic models are accessible via the
 
 ## News
 
+------------------------------------------------------------------------
+
 <div class="alert alert-primary" role="info">
 
 If you are on Windows, please install the [development version (which
