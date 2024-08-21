@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Learn how to rotate paleocoordinates with the GPlates Desktop Application
 ">
-<title>3. Offline reconstruction • rgplates</title>
+<title>4. Offline reconstruction • rgplates</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="3. Offline reconstruction">
+<meta property="og:title" content="4. Offline reconstruction">
 <meta property="og:description" content="Learn how to rotate paleocoordinates with the GPlates Desktop Application
 ">
 <meta property="og:image" content="https://gplates.github.io/rgplates/reference/figures/logo.png">
@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>3. Offline reconstruction</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>4. Offline reconstruction</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/gplates/rgplates/blob/HEAD/vignettes/4_offline_reconstruction.Rmd" class="external-link"><code>vignettes/4_offline_reconstruction.Rmd</code></a></small>
@@ -151,12 +151,17 @@ page, select which file you wish to download and follow the
 instructions.</p>
 <p>This has been tested on all major operating systems (Windows, Mac,
 and GNU/Linux), and has been working reliably with GPlates versions
-<code>v2.2</code> and <code>v2.3</code>. <code>rgplates</code> will be
-able to find the GPlates installation on <em>Mac</em> and
-<em>GNU/Linux</em> out of the box. There also should not be any issues
-on <em>Windows</em>, as long as you install GPlates to the default
-installation directory (do not change what is suggested during
-installation - unless you are asking for trouble!).</p>
+<code>v2.2</code>- <code>v2.5</code>. <code>rgplates</code> will be able
+to find the GPlates installation on <em>Mac</em> and <em>GNU/Linux</em>
+out of the box. There also should not be any issues on <em>Windows</em>,
+as long as you install GPlates to the default installation directory (do
+not change what is suggested during installation - unless you are asking
+for trouble!).</p>
+<div class="alert alert-primary" role="info">
+<p>If you are on Windows, please install the <a href="https://gplates.github.io/rgplates/articles/1_installation.html#development-version">development
+version (which will be v0.4.2)</a> of the package if you see an error
+mentioning a <code>gplates.exe.local</code> file!</p>
+</div>
 <p><br></p>
 </div>
 </div>
@@ -240,7 +245,7 @@ you, and also tell you where to find it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp0ubIqk"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be
 surprised if yours don’t match the result above - actually, this will
 likely be different in every session when you run the function
@@ -275,11 +280,11 @@ argument)</p>
 into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "file2edea71d218c4"                 "file2edea72ff010a1"               </span></span>
-<span><span class="co">#&gt;  [3] "file2edea74363ae71"                "file2edea7448a8f3d"               </span></span>
-<span><span class="co">#&gt;  [5] "file2edea765bc5c7b"                "file2edea7774d702d"               </span></span>
+<span><span class="co">#&gt;  [1] "file31c1ea1d1d38bb"                "file31c1ea20d016d7"               </span></span>
+<span><span class="co">#&gt;  [3] "file31c1ea4314d229"                "file31c1ea6ce3dd97"               </span></span>
+<span><span class="co">#&gt;  [5] "file31c1ea7bd5bfc"                 "file31c1ea7ea80add"               </span></span>
 <span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str2edea766f52d0b.html"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str31c1ea190dea93.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with
 <code>.gpml</code> (the <strong>static plate polygons</strong> in
 GPlates Markup Language format) and the one that ends with
@@ -289,11 +294,11 @@ found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp0ubIqk/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp0ubIqk/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>

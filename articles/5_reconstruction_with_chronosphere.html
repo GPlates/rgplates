@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -210,6 +210,11 @@ you would have to use:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># reconstruct the plates and plot them</span></span>
 <span><span class="va">pl100</span><span class="op">&lt;-</span> <span class="fu">rgplates</span><span class="fu">::</span><span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"static_polygons"</span>, age<span class="op">=</span><span class="fl">100</span>, model<span class="op">=</span><span class="va">pm</span><span class="op">)</span></span></code></pre></div>
+<div class="alert alert-primary" role="info">
+<p>If you are on Windows, please install the <a href="https://gplates.github.io/rgplates/articles/1_installation.html#development-version">development
+version (which will be v0.4.2)</a> of the package if you see an error
+mentioning a <code>gplates.exe.local</code> file!</p>
+</div>
 <p>which includes all static plate polygons that existed at 100Ma. This
 can be plotted with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
