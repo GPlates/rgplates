@@ -409,7 +409,7 @@ winDefaultGPlates<-function(){
 	inWhich <- NULL
 
 	# search both possible folders 
-	for(i in 1:2){
+	for(i in 1:length(basic)){
 		# enter program files
 		gpver <- list.files(basic[i])
 	
@@ -432,7 +432,7 @@ winDefaultGPlates<-function(){
 	# grab gplates executable file
 	gplat <- grep("gplat",gpfiles)
 	potExe <- gpfiles[gplat]
-	exe <- potExe[grep("exe",potExe)]
+	exe <- potExe[grep("exe$",potExe)]
 
 	return(c(dir=dir, exe=exe))
 }

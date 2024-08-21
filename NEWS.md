@@ -1,5 +1,11 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.4.2 (pre) - 2024-08-21
+
+### Fixed
+
+- Bug with the offline method: GPlates 2.5.0 under Windows could not be reached because the default path resolved in the `gplates.exe.local` file.
+
 # rgplates 0.4.1 - 2024-08-19
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13348606.svg)](https://doi.org/10.5281/zenodo.13348606) - "The Plates Be Driftin'"  
