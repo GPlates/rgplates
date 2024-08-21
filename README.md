@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" width="120"/>
 
-[![](https://img.shields.io/badge/devel%20version-0.4.1-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.4.2-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=orange)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
