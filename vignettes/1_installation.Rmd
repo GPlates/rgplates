@@ -60,7 +60,7 @@ If you encounter technical problems with the package that are not described anyw
 
 #### Development version from GitHub
 
-The simples way to install the in-development version is via the `devtools` package. You just have to indicate that you want to install from the in-development `devel` branch.
+The simplest way to install the in-development version is via the `devtools` package. You just have to indicate that you want to install from the in-development `devel` branch.
 
 ```{r gitDev, eval=FALSE}
 devtools::install_github("gplates/rgplates@devel")

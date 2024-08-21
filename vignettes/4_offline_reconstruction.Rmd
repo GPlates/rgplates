@@ -1,10 +1,10 @@
 ---
-title: "3. Offline reconstruction"
+title: "4. Offline reconstruction"
 description: >
   Learn how to rotate paleocoordinates with the GPlates Desktop Application
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{3. Offline reconstruction}
+  %\VignetteIndexEntry{4. Offline reconstruction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -55,7 +55,12 @@ You will not have to leave the R environment or use the GUI of GPlates in order 
 
 Besides [installing the `rgplates` package](1_installation.html), you will have to install the [GPlates Desktop Application]((https://www.earthbyte.org/download-gplates-2-3/)) on your computer. After seeing which file you need on your operating system, you will have to scroll down to the bottom of the page, select which file you wish to download and follow the instructions. 
 
-This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions `v2.2` and `v2.3`. `rgplates` will be able to find the GPlates installation on *Mac* and *GNU/Linux* out of the box. There also should not be any issues on *Windows*, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).
+This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions `v2.2`- `v2.5`. `rgplates` will be able to find the GPlates installation on *Mac* and *GNU/Linux* out of the box. There also should not be any issues on *Windows*, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).
+
+
+<div class="alert alert-primary" role="info"> 
+If you are on Windows, please install the [development version (which will be v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version) of the package if you see an error mentioning a `gplates.exe.local` file!
+</div>
 
 <br>
 
