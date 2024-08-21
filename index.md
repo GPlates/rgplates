@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.4.1-green.svg)](https://github.com/gplates/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.4.2-green.svg)](https://github.com/gplates/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -36,6 +36,18 @@ thousands of coordinates, Simple Features
 reconstruction trees and partitioning polygons. Examples of such plate
 tectonic models are accessible via the
 [chronosphere](https://www.chronosphere.info/).
+
+## News
+
+<div class="alert alert-primary" role="info">
+
+If you are on Windows, please install the [development version (which
+will be
+v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version)
+of `rgplates` if you see an error mentioning a `gplates.exe.local` file
+while trying to use the offline method!
+
+</div>
 
 ## Examples
 

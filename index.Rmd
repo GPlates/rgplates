@@ -32,6 +32,13 @@ The **online reconstruction** (with the [GPlates Web Service](https://gws.gplate
 
 The **offline reconstruction** requires an external installation of the GPlates Desktop Application, but allows the efficient batch rotation of thousands of coordinates, Simple Features ([`sf`](https://cran.r-project.org/package=sf)) and Spatial ([`sp`](https://cran.r-project.org/package=sp)) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the [chronosphere](https://www.chronosphere.info/). 
 
+## News 
+
+<div class="alert alert-primary" role="info"> 
+
+If you are on Windows, please install the [development version (which will be v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version) of `rgplates` if you see an error mentioning a `gplates.exe.local` file while trying to use the offline method!
+
+</div>
 
 ## Examples
 * * *
