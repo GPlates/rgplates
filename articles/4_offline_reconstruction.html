@@ -245,7 +245,7 @@ you, and also tell you where to find it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpDFNUsS"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be
 surprised if yours don’t match the result above - actually, this will
 likely be different in every session when you run the function
@@ -280,11 +280,11 @@ argument)</p>
 into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "file31c1ea1d1d38bb"                "file31c1ea20d016d7"               </span></span>
-<span><span class="co">#&gt;  [3] "file31c1ea4314d229"                "file31c1ea6ce3dd97"               </span></span>
-<span><span class="co">#&gt;  [5] "file31c1ea7bd5bfc"                 "file31c1ea7ea80add"               </span></span>
+<span><span class="co">#&gt;  [1] "file31ca5735e4a0e3"                "file31ca5745731a66"               </span></span>
+<span><span class="co">#&gt;  [3] "file31ca574f08247b"                "file31ca575be68fcf"               </span></span>
+<span><span class="co">#&gt;  [5] "file31ca5777e571d0"                "file31ca57eba4db9"                </span></span>
 <span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str31c1ea190dea93.html"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str31ca575aed40e2.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with
 <code>.gpml</code> (the <strong>static plate polygons</strong> in
 GPlates Markup Language format) and the one that ends with
@@ -294,11 +294,11 @@ found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpDFNUsS/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4ukFJr/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpDFNUsS/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
