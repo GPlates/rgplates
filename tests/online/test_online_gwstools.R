@@ -1,4 +1,4 @@
-232  Switch to buffer: library(rgplates)
+library(rgplates)
 
 # this should return the factory default
 expect_equal(default <- getgws(), rgplates:::gwsURL)
