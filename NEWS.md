@@ -1,6 +1,9 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.4.2 (pre) - 2024-08-21
+# rgplates 0.4.2 (pre) - 2024-08-30
+
+### Added
+- Support for `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
 
 ### Fixed
 

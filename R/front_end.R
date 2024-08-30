@@ -1,5 +1,5 @@
 ###########################################################################
-# Front-end wrapper function
+# Front-end wrapper functions
 
 #' Reconstruct geographic features
 #' 
@@ -50,7 +50,7 @@
 #' 
 #' @param x The features to be reconstructed. Can be a vector with longitude and latitude representing
 #' a single point or a matrix/dataframe with the first column as longitude and second column as latitude.
-#' For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object. Some \code{Spatial*} and \code{sf} classes are also accepted, although this input is still experimental. 
+#' For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object. Some \code{Spatial*}, \code{sf} and \code{SpatRaster} classes are also accepted, although this input is still experimental.
 #' @param ... arguments passed to class-specific methods.
 #' @param age (\code{numeric}) is the target age in Ma at which the feature will be reconstructed. Defaults to 0 Ma. 
 #' @param model (\code{character} or \code{\link{platemodel}}) The  reconstruction model. The class of this argument selects the submodule used for reconstruction, a \code{character} value will invoke the remote reconstruction submodule and will submit \code{x} to the GPlates Web Service. A \code{platemodel} class object will call the local-reconstruction submodule. The default is \code{"PALEOMAP"}. See details for available models.
@@ -531,3 +531,80 @@ setMethod(
 )
 	
 
+
+#' @rdname reconstruct
+setMethod(
+	"reconstruct",
+	"SpatRaster",
+	function(x, age, model, from=0, listout=TRUE, verbose=FALSE, plateperiod=NULL, check=TRUE, validtime=TRUE){
+		if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
+
+		if(!is.null(plateperiod)){
+			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
+			validtime <- plateperiod
+		}
+
+		if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
+		}
+
+		# vectorized implementation
+		if(length(age)>1){
+			# list output
+			if(listout){
+				container <- list()
+			# SpArray
+			}else{
+				stop("This will return a RasterArray. Not yet!")
+			}
+
+			# iterate (recursive!)
+			for(i in 1:length(age)){
+				if(!is.character(model)){
+					stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Use the online method (GWS) instead!")
+				}else{
+					container[[i]] <- reconstruct(x, from=from, age=age[i],  model=model, validtime=validtime)
+				}
+			}
+
+			# list output
+			if(listout){
+				names(container) <- age
+			}
+
+		# single entry
+		}else{
+			if(!is.character(model)){
+				stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Use the online method (GWS) instead!")
+			}else{
+				if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
+				# extract the cells from the SpatRaster
+				xy <- terra::xyFromCell(x, 1:terra::ncell(x))
+
+				# reverse reconstruct with the matrix-method. It is easier to sample (extract) from an existing raster
+				# then to create a new raster from points - likely contiaining missing values
+				newPresent <- reconstruct(xy, from=age,age=from, model=model, warn=FALSE, validtime=validtime)
+
+				# now the magic: extract with the reverse reconstructed coordinates
+				vals <- terra::extract(x, newPresent, method="bilinear")
+
+				# if there are multiple layers
+				layers <- dim(x)[3]
+
+				# copy over the original
+				container <- x
+
+				# repeat for every
+				for(i in 1:layers){
+					# replace values
+					terra::values(container[[i]]) <- vals[[i]]
+				}
+			}
+
+		}
+		return(container)
+
+	}
+)

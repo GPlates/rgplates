@@ -31,4 +31,5 @@ Suggests:
 	chronosphere,
 	httr2,
 	geojsonsf,
-	sp
+	sp,
+	terra

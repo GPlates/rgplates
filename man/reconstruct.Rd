@@ -8,6 +8,7 @@
 \alias{reconstruct,character-method}
 \alias{reconstruct,Spatial-method}
 \alias{reconstruct,sf-method}
+\alias{reconstruct,SpatRaster-method}
 \title{Reconstruct geographic features}
 \usage{
 reconstruct(x, ...)
@@ -81,11 +82,23 @@ reconstruct(x, ...)
   check = TRUE,
   validtime = TRUE
 )
+
+\S4method{reconstruct}{SpatRaster}(
+  x,
+  age,
+  model,
+  from = 0,
+  listout = TRUE,
+  verbose = FALSE,
+  plateperiod = NULL,
+  check = TRUE,
+  validtime = TRUE
+)
 }
 \arguments{
 \item{x}{The features to be reconstructed. Can be a vector with longitude and latitude representing
 a single point or a matrix/dataframe with the first column as longitude and second column as latitude.
-For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object. Some \code{Spatial*} and \code{sf} classes are also accepted, although this input is still experimental.}
+For the online subroutine, the character strings \code{"static_polygons"}, \code{"coastlines"}  and \code{"plate_polygons"} return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the \code{model} object. Some \code{Spatial*}, \code{sf} and \code{SpatRaster} classes are also accepted, although this input is still experimental.}
 
 \item{...}{arguments passed to class-specific methods.}
 

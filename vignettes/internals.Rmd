@@ -62,8 +62,11 @@ flowchart LR
   reconstruct-->reconstruct-character-method
   reconstruct-->reconstruct-Spatial-method
   reconstruct-->reconstruct-sf-method
+  reconstruct-->reconstruct-SpatRaster-method
   reconstruct-data.frame-method-->reconstruct-matrix-method
   reconstruct-numeric-method-->reconstruct-matrix-method
+	reconstruct-->reconstruct-SpatRaster-method-->reconstruct-matrix-method
+	reconstruct-->reconstruct-SpatRaster-method-->CheckGWS
 
   end
 
