@@ -139,3 +139,97 @@ checkSuggested <- function(x){
 
 
 	
+
+
+
+# Parse the JSON velocity-download returned by the GWS 
+#
+# The function takes the raw character string, removes the end bits, and
+# calls to the NumpyArrayParser to get a raw matrix from the output,
+# then it renames the column names, and translates everything to a data.frame.
+# @param x The output of GWS.
+# @param type The type of velocities used.
+# @return A data.frame containing the data.
+ParseVeloJSON<- function(x, type){
+	if(!type%in%c("MagAzim", "east_north")) stop("Wrong velocity type. Choose either 'MagAzim' or 'east_north'.")
+
+	# remove the json-endpoints
+	noBegin<- gsub("\\{\"coordinates\"\\:", "", x)
+	noEnd <- gsub("\\}", "", noBegin)
+
+	# get the raw matrix
+	rawVelocityMatrix <- ParseNumpyArrayString(noEnd)
+
+	# name the colunsn
+	if(type=="MagAzim") colnames(rawVelocityMatrix) <- c("long", "lat", "magnitude", "azimuth", "plateid")
+	if(type=="east_north") colnames(rawVelocityMatrix) <- c("long", "lat", "east", "north", "plateid")
+
+	return(as.data.frame(rawVelocityMatrix))
+
+}
+
+# Function to parse a string containing a Numpy array (matrix).
+# @param string
+# @return A matrix 
+ParseNumpyArrayString <- function(x){
+	# remove the braces and bracket from the end
+	endRemoved <- gsub("\\[\\[", "", x)
+	endRemoved <- gsub("\\]\\]", "", endRemoved)
+
+	# break up dimension 1
+	broken<- strsplit(endRemoved, "\\],\\[")[[1]]
+
+	# get rid of the spaces
+	noWhiteSpace <- gsub(" ", "", broken)
+
+	# split properly
+	splitList <- strsplit(noWhiteSpace, ",")
+
+	# the final matrix form
+	mat <- matrix(NA, ncol=length(splitList[[1]]), nrow=length(splitList))
+
+	# still the fastest, get rid of the list bullshit
+	for(i in 1:length(splitList)){
+		mat[i, ] <- as.numeric(splitList[[i]])
+	}
+
+	return(mat)
+}
+
+# Translate a longitude-latitude and variables dataframe into a SpatRaster
+#
+# Based on the default rast(type="xyz") method. Will have as many layers as many columns
+# there are besides the coordinate columns.
+#
+# @param x A data.frame
+# @param coords The two coordinate column names
+# @param crs the new CRS for he raster
+# @return a SpatRaster object.
+SpatRastFromDF <- function(x, coords=c("long", "lat"), crs="WGS84"){
+
+	# coords have to be part of x 
+	if(any(!coords%in%colnames(x))) stop("'coords' have to be columns of 'x'.")
+
+	# deduce the resolution and range
+
+	# everything will be a variable if it is not a coord
+	vars <- colnames(x)[!colnames(x)%in%coords]
+
+	# loop through all variables and create a stack from it
+	for(i in 1:length(vars)){
+		# separate  - assuming byrow!
+		oneRast <- terra::rast(x[c(coords, vars[i])])
+
+		if(i==1){
+			stack <- oneRast
+		}else{
+			stack <- c(stack, oneRast)
+		}
+	}
+
+
+	# assign a CRS - default to longitude-latitude
+	terra::crs(stack) <- crs
+
+	return(stack)
+}

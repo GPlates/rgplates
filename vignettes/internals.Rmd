@@ -67,6 +67,8 @@ flowchart LR
   reconstruct-numeric-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->CheckGWS
+	velocities-->gwsVelocities
+	velocities-->SpatRastFromDF
 
   end
 
@@ -109,6 +111,7 @@ flowchart LR
 	setgws-->getgws
 	setgws-->checkgws
 	checkgws
+	gwsVelocities-->ParseVeloJSON
 	
   
   end
@@ -128,7 +131,9 @@ flowchart LR
   randomString
   mapedge-->detailedBounds
   checkSuggested
-  
+  ParseVeloJSON-->ParseNumpyArrayString
+  SpatRastFromDF
+
   end
 
   platemodel-show-->fileFromPath

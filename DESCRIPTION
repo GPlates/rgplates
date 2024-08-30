@@ -1,11 +1,11 @@
 Package: rgplates
 Type: Package
 Title: R Interface for the GPlates Web Service and Desktop Application 
-Version: 0.4.2
+Version: 0.5.0
 Authors@R: c(
 	person(given="Adam T.", family="Kocsis", role=c("cre", "aut"),
 		   email="adam.t.kocsis@gmail.com", comment=c(ORCID="0000-0002-9028-665X")),
- 	person(given="Nussaibah B.", family="Raja", role=c("aut"), comment=c(ORCID="0000-0002-0000-3944")),
+ 	person(given="Nussaibah B.", family="Raja", role=c("ctb"), comment=c(ORCID="0000-0002-0000-3944")),
  	person(given="Simon", family="Williams", role=c("ctb"), comment=c(ORCID="0000-0003-4670-8883")),
 	person(given="Deutsche Forschungsgemeinschaft", role="fnd"),
 	person(given="FAU GeoZentrum Nordbayern", role="fnd"))

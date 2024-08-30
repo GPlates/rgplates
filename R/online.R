@@ -295,3 +295,48 @@ checkgws <- function(silent=FALSE){
 	# return success state 
 	invisible(version)
 }
+
+# Workhorse function to get the online reconstruction method's velocity data
+#
+# @param age The target age
+# @param model The model name string
+# @param domain The domain argument, structure of velocity field
+# @param type format of the velocities
+# @param A data.frame containng the velocity information
+gwsVelocities <- function(age, model="MERDITH2021", domain="longLatGrid", type="MagAzim", verbose=FALSE){
+
+	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
+
+	# we need this to check what kind of plates are there
+	data(gws, envir=environment(), package="rgplates")
+
+	# what plates are available?
+	currentModel <- gws[which(gws$model==model), ]
+
+	# if there are plate_polygons, that has to be used, otherwise it has to static_polygons
+	topological <- as.logical(sum(grepl("plate_polygons", currentModel$feature)))
+
+	#check domain, type and output
+
+	# depending on the type
+	if (topological){
+		this <- "velocity/plate_polygons"
+	}else{
+		this <- "velocity/static_polygons"
+	}
+	#download and save data
+	url <- paste0(gwsURL, this, '/')
+	query <- sprintf('?time=%f&model=%s&velocity_type=%s&domain_type=%s', age, model, type, domain)
+
+	fullrequest <- sprintf(paste0(url,query))
+	if(verbose) cat("Getting data from:", fullrequest, "\n")
+
+	# read in the json-like Numpy Array
+	r <- readLines(fullrequest, warn=FALSE)
+
+	#read data
+	dat<- ParseVeloJSON(r, type=type)
+	
+	return(dat)
+
+}

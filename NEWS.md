@@ -1,9 +1,10 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.4.2 (pre) - 2024-08-30
+# rgplates 0.5.0 (pre) - 2024-08-30
 
 ### Added
-- Support for `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
+- Support for the reconstruction of `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
+- The `velocities()` function to calculate plate tectonic velocities from the GWS. Currently only the online method is supported
 
 ### Fixed
 

@@ -563,7 +563,7 @@ setMethod(
 			# iterate (recursive!)
 			for(i in 1:length(age)){
 				if(!is.character(model)){
-					stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Use the online method (GWS) instead!")
+					stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Please use the online method (GWS) instead.")
 				}else{
 					container[[i]] <- reconstruct(x, from=from, age=age[i],  model=model, validtime=validtime)
 				}
@@ -577,7 +577,7 @@ setMethod(
 		# single entry
 		}else{
 			if(!is.character(model)){
-				stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Use the online method (GWS) instead!")
+				stop("'SpatRaster' objects, are not yet supported by the offline method.\n  Please use the online method (GWS) instead.")
 			}else{
 				if(check) CheckGWS("coastlines", model, age=age, verbose=verbose)
 				# extract the cells from the SpatRaster
@@ -608,3 +608,63 @@ setMethod(
 
 	}
 )
+
+#' Calculate velocities of plate tectonic movements 
+#' @export
+velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output="data.frame", resampRast=TRUE, verbose=FALSE){
+
+	if(is.null(model)){
+		message("No model was specified.")
+		x <- NULL
+		return(x)
+	}
+
+	# if output is SpatRaster, then terra needs to be there
+	if(output=="SpatRaster"){
+		if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
+		if(domain!="longLatGrid") stop("You need longitude-latitude domain to have 'SpatRaster' output!")
+	}
+	if(!is.numeric(age)) age <- as.numeric(age)
+
+	# recursive call
+	if(length(age)>1){
+		stop("Not yet!")
+
+	# base case: one Age
+	}else{
+		# online method
+		if(inherits(model,"character")){
+			# extract the data
+			velo <- gwsVelocities(age=age, model=model, domain=domain, type=type, verbose=verbose)
+
+			if(output=="SpatRaster"){
+				# translate the standard output to a terra-raster
+				rasts <- SpatRastFromDF(velo, coord=c("long", "lat"), crs="WGS84")
+
+				# if the rasters are to be resampled - wrong extent
+				if(resampRast){
+
+					# create the standard-extent raster
+					template <- terra::rast(res=terra::res(rasts))
+					rasts <- terra::resample(rasts, template)
+
+					# exclude the plateid - that has no meaning resampled
+					rasts <- rasts[[names(rasts)!="plateid"]]
+				}
+
+				# the returned object
+				velo <- rasts
+
+			}
+
+		# offline methods
+		}else{
+			stop("Velocity calculations are not yet supported by the offline method.\n  Please use the online method (GWS) instead.")
+		}
+
+
+	}
+	
+	return(velo)
+
+}
