@@ -613,10 +613,11 @@ setMethod(
 #'
 #' Queries to return meshes of tectonic plate velocities.
 #'
-#' The function returns a mesh of velocities (two variables, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+#' The function returns a mesh of velocities: two variables, either magnitude (mm/year) and azimuth (rad): \code{type="MagAzim"} or easting and northing velocity vectors (mm/year): \code{type="east_north"}.
 #' Currently only the online method is supported using the GPlates Web Service (internet connection is required).
 #' Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
 #'
+#' @param x \code{MISSING}, \code{NULL}: If nothing is given (\code{MISSING} or \code{NULL}) then the the entire domain will be returned.
 #' @param age \code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.
 #' @param model \code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.
 #' @param domain \code{character}: Either \code{"longLatGrid"} or \code{"healpix"}. \code{"longLatGrid"} returns the velocites with the domain of a regular, one-by-one degree longitude-latitude grid.
@@ -636,65 +637,75 @@ setMethod(
 #' # dummy example,
 #' # set model to the desired model string, e.g. model="MERDITH2021"
 #' velocities(age=45, model=NULL)
-#' @export
-velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output="data.frame", cellraster=TRUE, verbose=FALSE, listout=TRUE){
+#' @rdname velocities
+#' @exportMethod velocities
+setGeneric("velocities", function(x,...) standardGeneric("velocities"))
 
-	if(is.null(model)){
-		message("No model was specified.")
-		x <- NULL
-		return(x)
-	}
+setClassUnion("missingOrNULL", c("missing", "NULL"))
 
-	# if output is SpatRaster, then terra needs to be there
-	if(output=="SpatRaster"){
-		if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
-		if(domain!="longLatGrid") stop("You need longitude-latitude domain to have 'SpatRaster' output!")
-	}else{
-		if(cellraster) warning('Cell-registration is only available with output="SpatRaster"')
-	}
+#' @rdname velocities
+setMethod(
+	"velocities",
+	signature(x="missingOrNULL"),
+	function(x=NULL, age, model, domain="longLatGrid", type="MagAzim", output="data.frame", cellraster=TRUE, verbose=FALSE, listout=TRUE){
 
-	if(!is.numeric(age)) age <- as.numeric(age)
-
-	# recursive call
-	if(length(age)>1){
-		stop("Not yet!")
-		if(!listout) stop("Only list output is available at this point.")
-
-	# base case: one Age
-	}else{
-		# online method
-		if(inherits(model,"character")){
-			# extract the data
-			velo <- gwsVelocities(age=age, model=model, domain=domain, type=type, verbose=verbose)
-
-			if(output=="SpatRaster"){
-				# translate the standard output to a terra-raster
-				rasts <- SpatRastFromDF(velo, coord=c("long", "lat"), crs="WGS84")
-
-				# if the rasters are to be resampled - wrong extent
-				if(cellraster){
-
-					# create the standard-extent raster
-					template <- terra::rast(res=terra::res(rasts))
-					rasts <- terra::resample(rasts, template)
-
-					# exclude the plateid - that has no meaning resampled
-					rasts <- rasts[[names(rasts)!="plateid"]]
-				}
-
-				# the returned object
-				velo <- rasts
-
-			}
-
-		# offline methods
-		}else{
-			stop("Velocity calculations are not yet supported by the offline method.\n  Please use the online method (GWS) instead.")
+		if(is.null(model)){
+			message("No model was specified.")
+			x <- NULL
+			return(x)
 		}
 
+		# if output is SpatRaster, then terra needs to be there
+		if(output=="SpatRaster"){
+			if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
+			if(domain!="longLatGrid") stop("You need longitude-latitude domain to have 'SpatRaster' output!")
+		}else{
+			if(cellraster) warning('Cell-registration is only available with output="SpatRaster"')
+		}
+
+		if(!is.numeric(age)) age <- as.numeric(age)
+
+		# recursive call
+		if(length(age)>1){
+			stop("Not yet!")
+			if(!listout) stop("Only list output is available at this point.")
+
+		# base case: one Age
+		}else{
+			# online method
+			if(inherits(model,"character")){
+				# extract the data
+				velo <- gwsVelocities(age=age, model=model, domain=domain, type=type, verbose=verbose)
+
+				if(output=="SpatRaster"){
+					# translate the standard output to a terra-raster
+					rasts <- SpatRastFromDF(velo, coord=c("long", "lat"), crs="WGS84")
+
+					# if the rasters are to be resampled - wrong extent
+					if(cellraster){
+
+						# create the standard-extent raster
+						template <- terra::rast(res=terra::res(rasts))
+						rasts <- terra::resample(rasts, template)
+
+						# exclude the plateid - that has no meaning resampled
+						rasts <- rasts[[names(rasts)!="plateid"]]
+					}
+
+					# the returned object
+					velo <- rasts
+
+				}
+
+			# offline methods
+			}else{
+				stop("Velocity calculations are not yet supported by the offline method.\n  Please use the online method (GWS) instead.")
+			}
+
+
+		}
+
+		return(velo)
 
 	}
-	
-	return(velo)
-
-}
+)

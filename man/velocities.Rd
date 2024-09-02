@@ -2,9 +2,13 @@
 % Please edit documentation in R/front_end.R
 \name{velocities}
 \alias{velocities}
+\alias{velocities,missingOrNULL-method}
 \title{Calculate velocities of plate tectonic movements}
 \usage{
-velocities(
+velocities(x, ...)
+
+\S4method{velocities}{missingOrNULL}(
+  x = NULL,
   age,
   model,
   domain = "longLatGrid",
