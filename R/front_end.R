@@ -609,9 +609,35 @@ setMethod(
 	}
 )
 
-#' Calculate velocities of plate tectonic movements 
+#' Calculate velocities of plate tectonic movements
+#'
+#' Queries to return meshes of tectonic plate velocities.
+#'
+#' The function returns a mesh of velocities (two variables, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+#' Currently only the online method is supported using the GPlates Web Service (internet connection is required).
+#' Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
+#'
+#' @param age \code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.
+#' @param model \code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.
+#' @param domain \code{character}: Either \code{"longLatGrid"} or \code{"healpix"}. \code{"longLatGrid"} returns the velocites with the domain of a regular, one-by-one degree longitude-latitude grid.
+#' \code{"healpix"} will return velocities with the domain of an icosahedral, nearly equidistant grid.
+#' @param type \code{character}: The type of velocity format that is to be returned, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+#' Both result in two variables.
+#' @param output \code{character}: The class name of the output to be returned. Either \code{data.frame} or \code{SpatRaster}. The latter requires the \code{terra} extension (suggested) and is only available with \code{domain="longLatGrid"}.
+#' @param cellraster \code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
+#' which forces the extent of the raster to be beyond the regular \code{[-180, 180]} longitude and \code{[-90, 90]} domain, producing warnings when the \code{SpatRaster} is used.
+#' The default \code{cellraster=TRUE} resamples this raster to a native, cell-registered grid.
+#' Setting this argument to \code{FALSE} will skip the resampling.
+#' @param verbose \code{logical}: Are you interested in more messages?
+#' @param listout \code{logical}: If multiple ages are queried, then should the results be organized in a list? (only option currently)
+#' @return Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
+#' If \code{output="SpatRaster"} then the output will be a multilayered \code{SpatRaster} object.
+#' @examples
+#' # dummy example,
+#' # set model to the desired model string, e.g. model="MERDITH2021"
+#' velocities(age=45, model=NULL)
 #' @export
-velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output="data.frame", resampRast=TRUE, verbose=FALSE){
+velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output="data.frame", cellraster=TRUE, verbose=FALSE, listout=TRUE){
 
 	if(is.null(model)){
 		message("No model was specified.")
@@ -623,12 +649,16 @@ velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output=
 	if(output=="SpatRaster"){
 		if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
 		if(domain!="longLatGrid") stop("You need longitude-latitude domain to have 'SpatRaster' output!")
+	}else{
+		if(cellraster) warning('Cell-registration is only available with output="SpatRaster"')
 	}
+
 	if(!is.numeric(age)) age <- as.numeric(age)
 
 	# recursive call
 	if(length(age)>1){
 		stop("Not yet!")
+		if(!listout) stop("Only list output is available at this point.")
 
 	# base case: one Age
 	}else{
@@ -642,7 +672,7 @@ velocities <- function(age, model, domain="longLatGrid", type="MagAzim", output=
 				rasts <- SpatRastFromDF(velo, coord=c("long", "lat"), crs="WGS84")
 
 				# if the rasters are to be resampled - wrong extent
-				if(resampRast){
+				if(cellraster){
 
 					# create the standard-extent raster
 					template <- terra::rast(res=terra::res(rasts))

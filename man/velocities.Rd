@@ -10,10 +10,47 @@ velocities(
   domain = "longLatGrid",
   type = "MagAzim",
   output = "data.frame",
-  resampRast = TRUE,
-  verbose = FALSE
+  cellraster = TRUE,
+  verbose = FALSE,
+  listout = TRUE
 )
 }
+\arguments{
+\item{age}{\code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.}
+
+\item{model}{\code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.}
+
+\item{domain}{\code{character}: Either \code{"longLatGrid"} or \code{"healpix"}. \code{"longLatGrid"} returns the velocites with the domain of a regular, one-by-one degree longitude-latitude grid.
+\code{"healpix"} will return velocities with the domain of an icosahedral, nearly equidistant grid.}
+
+\item{type}{\code{character}: The type of velocity format that is to be returned, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+Both result in two variables.}
+
+\item{output}{\code{character}: The class name of the output to be returned. Either \code{data.frame} or \code{SpatRaster}. The latter requires the \code{terra} extension (suggested) and is only available with \code{domain="longLatGrid"}.}
+
+\item{cellraster}{\code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
+which forces the extent of the raster to be beyond the regular \code{[-180, 180]} longitude and \code{[-90, 90]} domain, producing warnings when the \code{SpatRaster} is used.
+The default \code{cellraster=TRUE} resamples this raster to a native, cell-registered grid.
+Setting this argument to \code{FALSE} will skip the resampling.}
+
+\item{verbose}{\code{logical}: Are you interested in more messages?}
+
+\item{listout}{\code{logical}: If multiple ages are queried, then should the results be organized in a list? (only option currently)}
+}
+\value{
+Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
+If \code{output="SpatRaster"} then the output will be a multilayered \code{SpatRaster} object.
+}
 \description{
-Calculate velocities of plate tectonic movements
+Queries to return meshes of tectonic plate velocities.
+}
+\details{
+The function returns a mesh of velocities (two variables, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+Currently only the online method is supported using the GPlates Web Service (internet connection is required).
+Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
+}
+\examples{
+# dummy example,
+# set model to the desired model string, e.g. model="MERDITH2021"
+velocities(age=45, model=NULL)
 }
