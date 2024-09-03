@@ -67,8 +67,10 @@ flowchart LR
   reconstruct-numeric-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->CheckGWS
-	velocities-->gwsVelocities
-	velocities-->SpatRastFromDF
+	velocities:::ui-->velocities-NULL-method
+	velocities-NULL-method-->gwsVelocities
+	velocities-NULL-method-->SpatRastFromDF
+	velocities-NULL-method-->veloDefend
 
   end
 
@@ -133,6 +135,7 @@ flowchart LR
   checkSuggested
   ParseVeloJSON-->ParseNumpyArrayString
   SpatRastFromDF
+	veloDefend
 
   end
 

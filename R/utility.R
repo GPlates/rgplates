@@ -233,3 +233,30 @@ SpatRastFromDF <- function(x, coords=c("long", "lat"), crs="WGS84"){
 
 	return(stack)
 }
+
+# Function to defend the velocities
+# @param type The type argument
+# @param domain  The domain argument
+veloDefend <- function(type=type, domain=domain){
+
+	# Nonsense
+	if(is.null(type)) stop("The 'type' argument is necessary.")
+	if(is.null(domain)) stop("The 'domain' argument is necessary.")
+
+	if(is.na(type)) stop("The 'type' argument is necessary.")
+	if(is.na(domain)) stop("The 'domain' argument is necessary.")
+
+	# check type
+	if(!inherits(type, "character")) stop("The 'type' argument has to a character string.")
+	if(!inherits(domain, "character")) stop("The 'domain' argument has to a character string.")
+
+
+	# check length
+	if(length(type)>1) stop("The 'type' argument must be a single character string.")
+	if(length(domain)>1) stop("The 'domain' argument must be a single character string.")
+
+	# check entries
+	if(!type%in%c("MagAzim", "east_north")) stop("The 'type' argument can only be \"MagAzim\" or \"east_north\".")
+	if(!domain%in%c("longLatGrid", "healpix")) stop("The 'domain' argument can only be \"longLatGrid\" or \"healpix\".")
+
+}

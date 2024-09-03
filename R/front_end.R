@@ -649,6 +649,9 @@ setMethod(
 	signature(x="missingOrNULL"),
 	function(x=NULL, age, model, domain="longLatGrid", type="MagAzim", output="data.frame", cellraster=TRUE, verbose=FALSE, listout=TRUE){
 
+		# basic argumentation check
+		veloDefend(type=type, domain=domain)
+
 		if(is.null(model)){
 			message("No model was specified.")
 			x <- NULL
@@ -659,8 +662,6 @@ setMethod(
 		if(output=="SpatRaster"){
 			if(!requireNamespace("terra", quietly=TRUE)) stop("This method requires the 'terra' package!")
 			if(domain!="longLatGrid") stop("You need longitude-latitude domain to have 'SpatRaster' output!")
-		}else{
-			if(cellraster) warning('Cell-registration is only available with output="SpatRaster"')
 		}
 
 		if(!is.numeric(age)) age <- as.numeric(age)
@@ -683,6 +684,7 @@ setMethod(
 
 					# if the rasters are to be resampled - wrong extent
 					if(cellraster){
+						if(verbose) message("Resampling grid to cell-registration.\n  Use 'cellraster=FALSE' to skip")
 
 						# create the standard-extent raster
 						template <- terra::rast(res=terra::res(rasts))

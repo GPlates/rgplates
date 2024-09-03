@@ -314,16 +314,16 @@ gwsVelocities <- function(age, model="MERDITH2021", domain="longLatGrid", type="
 	currentModel <- gws[which(gws$model==model), ]
 
 	# if there are plate_polygons, that has to be used, otherwise it has to static_polygons
-	topological <- as.logical(sum(grepl("plate_polygons", currentModel$feature)))
+#	topological <- as.logical(sum(grepl("plate_polygons", currentModel$feature)))
 
 	#check domain, type and output
 
 	# depending on the type
-	if (topological){
-		this <- "velocity/plate_polygons"
-	}else{
+#	if (topological){
+#		this <- "velocity/plate_polygons"
+#	}else{
 		this <- "velocity/static_polygons"
-	}
+#	}
 	#download and save data
 	url <- paste0(gwsURL, this, '/')
 	query <- sprintf('?time=%f&model=%s&velocity_type=%s&domain_type=%s', age, model, type, domain)
