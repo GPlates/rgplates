@@ -4,10 +4,13 @@
 
 ### Added
 - Support for the reconstruction of `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
-- The `velocities()` function to calculate plate tectonic velocities from the GWS. Currently only the online method is supported
+- The `velocities()` function to calculate plate tectonic velocities from the GWS. Currently only the online method is supported. The interface is similar to `reconstruct()`, the character-method e.g. `velocities("static_polygons")` returns velocities on a given feature set. 
 
 ### Changed
 - Updated the `gws` object to version v1.1
+
+### Known issues
+- Velocities on topological plates are not yet available.
 
 * * *
 

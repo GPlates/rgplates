@@ -617,7 +617,7 @@ setMethod(
 #' Currently only the online method is supported using the GPlates Web Service (internet connection is required).
 #' Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
 #'
-#' @param x \code{MISSING}, \code{NULL}: If nothing is given (\code{MISSING} or \code{NULL}) then the the entire domain will be returned.
+#' @param x \code{character}: What should the velocities be reconstructed for? If nothing is given (i.e. \code{signature(x="missing")} the argument defaults to the only currently working feature collection, the \code{"static_polygons"}\ - expected to be expanded in the future.
 #' @param age \code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.
 #' @param model \code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.
 #' @param domain \code{character}: Either \code{"longLatGrid"} or \code{"healpix"}. \code{"longLatGrid"} returns the velocites with the domain of a regular, one-by-one degree longitude-latitude grid.
@@ -625,29 +625,40 @@ setMethod(
 #' @param type \code{character}: The type of velocity format that is to be returned, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
 #' Both result in two variables.
 #' @param output \code{character}: The class name of the output to be returned. Either \code{data.frame} or \code{SpatRaster}. The latter requires the \code{terra} extension (suggested) and is only available with \code{domain="longLatGrid"}.
-#' @param cellraster \code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
+#' @param polecrop \code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
 #' which forces the extent of the raster to be beyond the regular \code{[-180, 180]} longitude and \code{[-90, 90]} domain, producing warnings when the \code{SpatRaster} is used.
 #' The default \code{cellraster=TRUE} resamples this raster to a native, cell-registered grid.
-#' Setting this argument to \code{FALSE} will skip the resampling.
+#' This is an issue only with latitudes, so they get cropped by default. Setting this argument to \code{FALSE} will skip cropping.
 #' @param verbose \code{logical}: Are you interested in more messages?
 #' @param listout \code{logical}: If multiple ages are queried, then should the results be organized in a list? (only option currently)
+#' @param check (\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})
 #' @return Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
 #' If \code{output="SpatRaster"} then the output will be a multilayered \code{SpatRaster} object.
 #' @examples
 #' # dummy example,
 #' # set model to the desired model string, e.g. model="MERDITH2021"
-#' velocities(age=45, model=NULL)
+#' velocities("static_polygons", age=45, model=NULL)
 #' @rdname velocities
 #' @exportMethod velocities
 setGeneric("velocities", function(x,...) standardGeneric("velocities"))
 
-setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 #' @rdname velocities
 setMethod(
 	"velocities",
-	signature(x="missingOrNULL"),
-	function(x=NULL, age, model, domain="longLatGrid", type="MagAzim", output="data.frame", cellraster=TRUE, verbose=FALSE, listout=TRUE){
+	signature(x="missing"),
+	function(x, ...){
+		# fall back to the static polygons
+		velocities(x="static_polygons", ...)
+	}
+
+)
+
+#' @rdname velocities
+setMethod(
+	"velocities",
+	signature(x="character"),
+	function(x, age, model, domain="longLatGrid", type="MagAzim", output="data.frame", polecrop=TRUE, verbose=FALSE, listout=TRUE, check=TRUE){
 
 		# basic argumentation check
 		veloDefend(type=type, domain=domain)
@@ -675,23 +686,24 @@ setMethod(
 		}else{
 			# online method
 			if(inherits(model,"character")){
+
+				if(check) if(x=="plate_polygons") stop("Velocities on the topological plates are not yet supported. ")
+				if(check) if(x!="static_polygons") stop("Only 'static_polygons' are supported at this point. ")
+
 				# extract the data
-				velo <- gwsVelocities(age=age, model=model, domain=domain, type=type, verbose=verbose)
+				velo <- gwsVelocitiesThis(x, age=age, model=model, domain=domain, type=type, verbose=verbose, check=check)
 
 				if(output=="SpatRaster"){
 					# translate the standard output to a terra-raster
 					rasts <- SpatRastFromDF(velo, coord=c("long", "lat"), crs="WGS84")
 
 					# if the rasters are to be resampled - wrong extent
-					if(cellraster){
-						if(verbose) message("Resampling grid to cell-registration.\n  Use 'cellraster=FALSE' to skip")
+					if(polecrop){
+						if(verbose) message("Cropping the grid to valid latitudes.\n  Use 'polecrop=FALSE' to skip")
 
 						# create the standard-extent raster
-						template <- terra::rast(res=terra::res(rasts))
-						rasts <- terra::resample(rasts, template)
-
-						# exclude the plateid - that has no meaning resampled
-						rasts <- rasts[[names(rasts)!="plateid"]]
+						extent <- terra::ext(-180, 180, -89.5,89.5)
+						rasts <- terra::crop(rasts, extent)
 					}
 
 					# the returned object

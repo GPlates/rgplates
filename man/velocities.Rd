@@ -2,13 +2,16 @@
 % Please edit documentation in R/front_end.R
 \name{velocities}
 \alias{velocities}
-\alias{velocities,missingOrNULL-method}
+\alias{velocities,missing-method}
+\alias{velocities,character-method}
 \title{Calculate velocities of plate tectonic movements}
 \usage{
 velocities(x, ...)
 
-\S4method{velocities}{missingOrNULL}(
-  x = NULL,
+\S4method{velocities}{missing}(x, ...)
+
+\S4method{velocities}{character}(
+  x,
   age,
   model,
   domain = "longLatGrid",
@@ -16,11 +19,12 @@ velocities(x, ...)
   output = "data.frame",
   cellraster = TRUE,
   verbose = FALSE,
-  listout = TRUE
+  listout = TRUE,
+  check = TRUE
 )
 }
 \arguments{
-\item{x}{\code{MISSING}, \code{NULL}: If nothing is given (\code{MISSING} or \code{NULL}) then the the entire domain will be returned.}
+\item{x}{\code{character}: What should the velocities be reconstructed for? If nothing is given (i.e. \code{signature(x="missing")} the argument defaults to the only currently working feature collection, the \code{"static_polygons"}\ - expected to be expanded in the future.}
 
 \item{age}{\code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.}
 
@@ -42,6 +46,8 @@ Setting this argument to \code{FALSE} will skip the resampling.}
 \item{verbose}{\code{logical}: Are you interested in more messages?}
 
 \item{listout}{\code{logical}: If multiple ages are queried, then should the results be organized in a list? (only option currently)}
+
+\item{check}{(\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
 }
 \value{
 Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
@@ -58,5 +64,5 @@ Available models are in the \code{\link{gws}} object, and can be provided with a
 \examples{
 # dummy example,
 # set model to the desired model string, e.g. model="MERDITH2021"
-velocities(age=45, model=NULL)
+velocities("static_polygons", age=45, model=NULL)
 }

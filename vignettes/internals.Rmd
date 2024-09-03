@@ -67,10 +67,10 @@ flowchart LR
   reconstruct-numeric-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->reconstruct-matrix-method
 	reconstruct-->reconstruct-SpatRaster-method-->CheckGWS
-	velocities:::ui-->velocities-NULL-method
-	velocities-NULL-method-->gwsVelocities
-	velocities-NULL-method-->SpatRastFromDF
-	velocities-NULL-method-->veloDefend
+	velocities:::ui-->velocities-character-method
+	velocities-character-method-->gwsVelocitiesThis
+	velocities-character-method-->SpatRastFromDF
+	velocities-character-method-->veloDefend
 
   end
 
@@ -113,7 +113,8 @@ flowchart LR
 	setgws-->getgws
 	setgws-->checkgws
 	checkgws
-	gwsVelocities-->ParseVeloJSON
+	gwsVelocitiesThis-->ParseVeloJSON
+	gwsVelocitiesThis-->CheckGWS
 	
   
   end

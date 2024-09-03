@@ -33,10 +33,11 @@ cl <- parallel::makeCluster(4, outfile="")
 parallel::clusterCall(cl, source, "rgplates/tests/source.R")
 
 # the online 
-online <- run_test_dir("rgplates/tests/online")
-offline <- run_test_dir("rgplates/tests/offline")
+online_reconstruct <- run_test_dir("rgplates/tests/online_reconstruct")
+offline_reconstruct <- run_test_dir("rgplates/tests/offline_reconstruct")
 utilty <- run_test_dir("rgplates/tests/utility")
 platemodel <- run_test_dir("rgplates/tests/platemodels")
+online_velocities <- run_test_dir("rgplates/tests/online_velocities")
 
 # Finish
 stopCluster(cl)
