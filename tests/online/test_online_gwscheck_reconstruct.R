@@ -1,4 +1,5 @@
 # Unit tests to check that gws entries can be reconstrcuted propoerliy
+# and whether the checking flags them to inappropriate
 library(rgplates)
 data(gws)
 
