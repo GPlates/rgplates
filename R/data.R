@@ -1,6 +1,6 @@
 #' Valid reconstructable feature collections of the GPlates Web Service
 #'
-#' The object contains valid returns as of 2024-07-22.
+#' This is version 1.1. The object contains valid returns of GWS v0.2.1, as of 2024-09-03.
 #'
 #' The valid return combinations for selected models and feature collections are copied from \url{https://gwsdoc.gplates.org/models}. 
 #'
@@ -10,6 +10,6 @@
 #' 	\item{\code{from}}{The oldest reconstruction age accepted by the model to return the feature collection.}
 #' 	\item{\code{to}}{The youngest reconstruction age accepted by the model to return the feature collection.}
 #' }
-#' @format A \code{data.frame} with 4 variables and 17 observations. 
+#' @format A \code{data.frame} with 4 variables and 20 observations.
 #' @usage data(gws)
 "gws"

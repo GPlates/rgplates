@@ -20,6 +20,8 @@ velocities(x, ...)
 )
 }
 \arguments{
+\item{x}{\code{MISSING}, \code{NULL}: If nothing is given (\code{MISSING} or \code{NULL}) then the the entire domain will be returned.}
+
 \item{age}{\code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.}
 
 \item{model}{\code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.}
@@ -49,7 +51,7 @@ If \code{output="SpatRaster"} then the output will be a multilayered \code{SpatR
 Queries to return meshes of tectonic plate velocities.
 }
 \details{
-The function returns a mesh of velocities (two variables, either magnitude and azimuth (\code{type="MagAzim"}) or easting and northing velocity vectors (\code{type="east_north"}).
+The function returns a mesh of velocities: two variables, either magnitude (mm/year) and azimuth (rad): \code{type="MagAzim"} or easting and northing velocity vectors (mm/year): \code{type="east_north"}.
 Currently only the online method is supported using the GPlates Web Service (internet connection is required).
 Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
 }

@@ -6,9 +6,20 @@
 - Support for the reconstruction of `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
 - The `velocities()` function to calculate plate tectonic velocities from the GWS. Currently only the online method is supported
 
+### Changed
+- Updated the `gws` object to version v1.1
+
+* * *
+
+# rgplates 0.4.2 - 2024-08-21
+
+Interim release.
+
 ### Fixed
 
 - Bug with the offline method: GPlates 2.5.0 under Windows could not be reached because the default path resolved in the `gplates.exe.local` file.
+
+* * *
 
 # rgplates 0.4.1 - 2024-08-19
 
