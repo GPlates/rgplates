@@ -14,18 +14,18 @@ target <- rast(res=4)
 
 # testing objects
 # present-day things
-smalltopo <- resample(dems["0"], target)
-smallgmst <- resample(gmst["0"], target)
+smalltopo <- terra::resample(dems["0"], target)
+smallgmst <- terra::resample(gmst["0"], target)
 smallDouble <- c(smalltopo, smallgmst)
 
 # old things
-pasttopo <- resample(dems["60"], target)
-pastgmst <- resample(gmst["60"], target)
+pasttopo <- terra::resample(dems["60"], target)
+pastgmst <- terra::resample(gmst["60"], target)
 pastDouble <- c(pasttopo, pastgmst)
 
 # additional things to compare with
-pasttopo30 <- resample(dems["30"], target)
-pasttopo120 <- resample(dems["120"], target)
+pasttopo30 <- terra::resample(dems["30"], target)
+pasttopo120 <- terra::resample(dems["120"], target)
 
 #' Check the general match between topographies
 #'
