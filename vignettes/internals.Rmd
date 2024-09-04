@@ -7,35 +7,36 @@ description: >
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>
 
+## R code requirements
 
-# Requirements
-
-## Dependencies
+### Dependencies
 
 - [sf](https://cran.r-project.org/package=sf) *(Simple features)*: `rgplates` depends on the `sf` package to handle vector spatial data, such as plates, present-day coastlines, and spatial data that have explict Coordinate Reference System information. 
 
-## Imports
+### Imports
 
 Functions reused from other packages (necessary in all cases):
 
 - `methods::new()`: Used to create `platemodel` instances.
-- `utils::flush.console()`: Used for console-feedback.
+- `utils::assignInNamespace()`: Used for configuring the GPlates Web Service URL.
+- `utils::getFromNamespace()`: Used for accessing the GPlates Web Service URL.
 - `utils::data()`: Used for accessing the `gws` object internally.
 
-## Suggests
+### Suggests
 
 Functions from some packages that are used by some functions only (optional):
 
 - [knitr](https://cran.r-project.org/package=knitr) and [rmarkdown](https://cran.r-project.org/package=rmarkdown): used for vignette creation.
 - [geojsonsf](https://cran.r-project.org/package=geojsonsf): used by the **online method** of `reconstruct()` to read in the spatial output of the GWS. 
 - [httr2](https://cran.r-project.org/package=httr2): used by the **online method** of `reconstruct()` to perform requests with HTTP POST 
+- [terra](https://cran.r-project.org/package=terra): optional input and output classes for raster spatial data.
 - [sp](https://cran.r-project.org/package=sp): optional output formats for vector spatial data.
 - [chronosphere](https://cran.r-project.org/package=chronosphere): informal suggestion in help files for downloading `platemodel` instances.
 
 * * *
 
 
-# Function call graph
+## Function call graph
 
 <pre class="mermaid">
 flowchart LR
@@ -52,6 +53,16 @@ flowchart LR
   reconstruct-character-method-->CheckGWS
   reconstruct-Spatial-method-->reconstructGPlates
   reconstruct-sf-method-->reconstructGPlates
+  velocities-character-method-->gwsVelocitiesThis
+  velocities-character-method-->SpatRastFromDF
+  velocities-character-method-->veloDefend
+  velocities-character-method-->ext
+  velocities-character-method-->crop
+  reconstruct-SpatRaster-method-->values
+  reconstruct-SpatRaster-method-->CheckGWS
+  reconstruct-SpatRaster-method-->ncell
+  reconstruct-SpatRaster-method-->xyFromCell
+  reconstruct-SpatRaster-method-->extract
 
   subgraph front_end.R
 
@@ -62,15 +73,14 @@ flowchart LR
   reconstruct-->reconstruct-character-method
   reconstruct-->reconstruct-Spatial-method
   reconstruct-->reconstruct-sf-method
-  reconstruct-->reconstruct-SpatRaster-method
   reconstruct-data.frame-method-->reconstruct-matrix-method
   reconstruct-numeric-method-->reconstruct-matrix-method
-	reconstruct-->reconstruct-SpatRaster-method-->reconstruct-matrix-method
-	reconstruct-->reconstruct-SpatRaster-method-->CheckGWS
-	velocities:::ui-->velocities-character-method
-	velocities-character-method-->gwsVelocitiesThis
-	velocities-character-method-->SpatRastFromDF
-	velocities-character-method-->veloDefend
+  velocities:::ui-->velocities-character-method
+  velocities:::ui-->velocities-missing-method
+  click velocities "../reference/velocities.html"
+  velocities-missing-method-->velocities-character-method
+  reconstruct-->reconstruct-SpatRaster-method
+  reconstruct-SpatRaster-method-->reconstruct-matrix-method
 
   end
 
@@ -102,19 +112,23 @@ flowchart LR
   gwsReconstructPoints-->resp_body_string
   gwsReconstructPoints-->geojson_sf
   gwsReconstructPoints-->st_coordinates
+	gwsVelocitiesThis-->ParseVeloJSON
+	gwsVelocitiesThis-->CheckGWS
 
   subgraph online.R
 
   gplates_reconstruct_this
   gwsReconstructPoints
   CheckGWS
-	getgws
-	setgws
+	getgws:::ui
+  click getgws "../reference/gwstools.html"
+	setgws:::ui
+  click setgws "../reference/gwstools.html"
 	setgws-->getgws
 	setgws-->checkgws
-	checkgws
-	gwsVelocitiesThis-->ParseVeloJSON
-	gwsVelocitiesThis-->CheckGWS
+	checkgws:::ui
+  click checkgws "../reference/gwstools.html"
+	gwsVelocitiesThis
 	
   
   end
@@ -137,7 +151,7 @@ flowchart LR
   ParseVeloJSON-->ParseNumpyArrayString
   SpatRastFromDF
 	veloDefend
-
+  
   end
 
   platemodel-show-->fileFromPath
@@ -162,6 +176,15 @@ flowchart LR
 	st_geometry:::extern
 	st_polygon:::extern
 
+	end
+
+	subgraph terra
+	ncell:::extern
+	xyFromCell:::extern        	
+	extract:::extern           	
+	values:::extern          	
+	ext:::extern          	
+	crop:::extern          	
 	end
 
 	subgraph sp

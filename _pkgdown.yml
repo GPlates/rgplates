@@ -55,6 +55,7 @@ reference:
   - setgws
   - getgws
   - checkgws
+  - velocities
 - title: Tectonic model representation
   desc: Representation of tectonic models for offline reconstruction
   contents:
