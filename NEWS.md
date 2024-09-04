@@ -1,6 +1,6 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.5.0 (pre) - 2024-08-30
+# rgplates 0.5.0 - 2024-09-04
 
 ### Added
 - Support for the reconstruction of `SpatRaster` class objects (package `terra`). The `terra` extension is now added as a suggested package.
@@ -12,11 +12,14 @@
 ### Known issues
 - Velocities on topological plates are not yet available.
 
+### Missing
+- Vectorization for multiple ages in `velocities()`
+
 * * *
 
 # rgplates 0.4.2 - 2024-08-21
 
-Interim release.
+*Interim release (not archived/published on the CRAN).*
 
 ### Fixed
 

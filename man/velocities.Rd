@@ -17,16 +17,17 @@ velocities(x, ...)
   domain = "longLatGrid",
   type = "MagAzim",
   output = "data.frame",
-  cellraster = TRUE,
+  polecrop = TRUE,
   verbose = FALSE,
-  listout = TRUE,
   check = TRUE
 )
 }
 \arguments{
 \item{x}{\code{character}: What should the velocities be reconstructed for? If nothing is given (i.e. \code{signature(x="missing")} the argument defaults to the only currently working feature collection, the \code{"static_polygons"}\ - expected to be expanded in the future.}
 
-\item{age}{\code{numeric}: The age in millions of years at which the velocities are to be returned. Can be a vector of ages for multiple target ages.}
+\item{...}{Arguments of class-specific methods.}
+
+\item{age}{\code{numeric}: The age in millions of years at which the velocities are to be returned.}
 
 \item{model}{\code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.}
 
@@ -38,14 +39,12 @@ Both result in two variables.}
 
 \item{output}{\code{character}: The class name of the output to be returned. Either \code{data.frame} or \code{SpatRaster}. The latter requires the \code{terra} extension (suggested) and is only available with \code{domain="longLatGrid"}.}
 
-\item{cellraster}{\code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
+\item{polecrop}{\code{logical}: Only applicable if \code{output="SpatRaster"}. The original velocity values are provided as a grid-registered raster,
 which forces the extent of the raster to be beyond the regular \code{[-180, 180]} longitude and \code{[-90, 90]} domain, producing warnings when the \code{SpatRaster} is used.
 The default \code{cellraster=TRUE} resamples this raster to a native, cell-registered grid.
-Setting this argument to \code{FALSE} will skip the resampling.}
+This is an issue only with latitudes, so they get cropped by default. Setting this argument to \code{FALSE} will skip cropping.}
 
 \item{verbose}{\code{logical}: Are you interested in more messages?}
-
-\item{listout}{\code{logical}: If multiple ages are queried, then should the results be organized in a list? (only option currently)}
 
 \item{check}{(\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
 }

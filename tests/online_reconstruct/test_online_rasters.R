@@ -1,9 +1,9 @@
 ################################################################################
 # Method defintions
 library(rgplates)
-library(terra)
+suppressPackageStartupMessages(library(terra))
 library(via)
-library(chronosphere)
+suppressPackageStartupMessages(library(chronosphere))
 
 options(timeout = 5*60)
 

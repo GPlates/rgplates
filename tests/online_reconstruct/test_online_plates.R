@@ -63,7 +63,7 @@ expect_inherits(rec, "sf")
 expect_equal(sf::st_crs(rec)[[1]], "4326")
 
 # the GOLONKA model
-expect_error(
+expect_silent(
 	rec <- reconstruct("static_polygons", 0, model="GOLONKA")
 )
 ## expect_inherits(rec, "sf")

@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.4.2-green.svg)](https://github.com/gplates/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.5.0-green.svg)](https://github.com/gplates/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -43,11 +43,9 @@ tectonic models are accessible via the
 
 <div class="alert alert-primary" role="info">
 
-If you are on Windows, please install the [development version (which
-will be
-v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version)
-of `rgplates` if you see an error mentioning a `gplates.exe.local` file
-while trying to use the offline method!
+- The package was incorporated into the GPlates suite.
+- Major version update to **v0.5** introduces rasters as reconstructable
+  features and velocities
 
 </div>
 
@@ -90,6 +88,26 @@ plot(coastsMoll, border=NA, col="gray90", add=TRUE)
   file](https://gplates.github.io/rgplates/snippets/pbdb_merdith_2021.R))
 
 See items in the **Tutorials** menu point for detailed explanations.
+
+## Feature set
+
+------------------------------------------------------------------------
+
+Due to the assymmetry of the underlying the dependecies the two main
+modules of the package (**online**, with GWS - d **offline**, with the
+GPlates desktop application), have mismatching feature coverage. The
+long-term developmental goal is to make these two as symmetric in
+capabilities and comparable in performance as possible.
+
+| Feature                          | Online (GWS) | Offline (Desktop App.) |
+|----------------------------------|--------------|------------------------|
+| Built-in feature colls.          | ✅           | ❌                     |
+| Custom feature collections       | ❌           | ✅                     |
+| Point reconstruction             | ✅ Slower    | ✅ Faster              |
+| Vector line/polygon input (`sf`) | ❌           | ✅                     |
+| Raster input (`terra`)           | ✅           | ❌                     |
+| Paleocoordintate input           | ✅           | ❌                     |
+| Velocity rasters                 | ✅           | ❌                     |
 
 ## Notes
 
