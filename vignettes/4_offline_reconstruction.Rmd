@@ -57,11 +57,6 @@ Besides [installing the `rgplates` package](1_installation.html), you will have 
 
 This has been tested on all major operating systems (Windows, Mac, and GNU/Linux), and has been working reliably with GPlates versions `v2.2`- `v2.5`. `rgplates` will be able to find the GPlates installation on *Mac* and *GNU/Linux* out of the box. There also should not be any issues on *Windows*, as long as you install GPlates to the default installation directory (do not change what is suggested during installation - unless you are asking for trouble!).
 
-
-<div class="alert alert-primary" role="info"> 
-If you are on Windows, please install the [development version (which will be v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version) of the package if you see an error mentioning a `gplates.exe.local` file!
-</div>
-
 <br>
 
 ## The tectonic models

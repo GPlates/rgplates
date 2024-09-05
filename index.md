@@ -29,35 +29,54 @@ coastlines, and a low number of geographic coordinates available using
 nothing but an internet connection.
 
 The **offline reconstruction** requires an external installation of the
-GPlates Desktop Application, but allows the efficient batch rotation of
-thousands of coordinates, Simple Features
+[GPlates Desktop Application](https://www.gplates.org/), but allows the
+efficient batch rotation of thousands of coordinates, Simple Features
 ([`sf`](https://cran.r-project.org/package=sf)) and Spatial
 ([`sp`](https://cran.r-project.org/package=sp)) objects with custom
 reconstruction trees and partitioning polygons. Examples of such plate
 tectonic models are accessible via the
 [chronosphere](https://www.chronosphere.info/).
 
+### Requirements
+
+|  | **Online (GWS)** | **Offline (Desktop App.)** |
+|----|----|----|
+| Internet connection | ✅ | ❌ |
+| [GPlates](https://gws.gplates.org/) installed | ❌ | ✅ |
+
+### Aim
+
+The package was developed to make R-based analyses that require
+paloecoordinate rotations easier to implement, i.e. for applying a
+rotation model - but not as a replacement of tools dedidacted to complex
+paleogeographic reconstruction and model development. For more complex
+analyses you are more than welcome to check out
+[gplately](https://gplates.github.io/gplately/) and
+[pyGPlates](https://www.gplates.org/docs/pygplates/).
+
 ## News
 
 ------------------------------------------------------------------------
 
-<div class="alert alert-primary" role="info">
-
 - The package was incorporated into the GPlates suite.
-- Major version update to **v0.5** introduces rasters as reconstructable
-  features and velocities
-
-</div>
+- Major update to **v0.5** introduces rasters as reconstructable
+  features and velocities. If you encounter any issues, make sure that
+  you with the most recent version of the package.
 
 ## Examples
 
 ------------------------------------------------------------------------
 
+Here are some quick examples using `rgplates`. See items in the
+**Tutorials** menu point for detailed explanations of functions.
+
+##### *Paleogeographic maps*
+
 You can reconstruct the positions of the plates at 65 Ma using the
 [Merdith et al. 2021
 model](https://www.sciencedirect.com/science/article/pii/S0012825220305237)
-and transform them to [Mollweide](https://epsg.io/54009) projection
-using with this chunk of code:
+and transform them to [Robinson](https://epsg.io/54030) projection using
+with this chunk of code:
 
 ``` r
 library(rgplates)
@@ -68,46 +87,66 @@ coastlines <- reconstruct("coastlines", age=65, model="MERDITH2021")
 # the edge of the map (for mollweide)
 edge <- mapedge()
 
-# transform to Mollweide
-epsg <- "ESRI:54009"
-coastsMoll <- sf::st_transform(coastlines, crs=epsg)
-edgeMoll <- sf::st_transform(edge, crs=epsg)
+# transform to Robinson 
+epsg <- "ESRI:54030"
+coastsRob <- sf::st_transform(coastlines, crs=epsg)
+edgeRob <- sf::st_transform(edge, crs=epsg)
 
 # plot
-plot(edgeMoll, col="#1A6BB0", border="gray30")
-plot(coastsMoll, border=NA, col="gray90", add=TRUE)
+plot(edgeRob, col="#1A6BB0", border="gray30")
+plot(coastsRob, border=NA, col="gray90", add=TRUE)
 ```
 
 ![](man/figures/rgplates_example.png)
 
 <br>
 
-### Others
+##### *Using reconstructions*
 
-- Maastrichtian dinosaurs from the Paleobiology Database ([R code
-  file](https://gplates.github.io/rgplates/snippets/pbdb_merdith_2021.R))
+The example below demonstrates the contextualization of fossil
+occurrence records using paleogeographic data products. Here the
+geographic positions of Kimmeridgian (Late Jurassic) dinosaur fossil
+collections from the [Paleobiology Database](https://paleobiodb.org/#/)
+were reconstructed with `rgplates` to match the proxy-corrected HadCM3L
+climate model results (mean annual air surface temperatures, [Scotese et
+al. 2021](https://doi.org/10.1016/j.earscirev.2021.103503) after [Valdes
+et al. 2021](https://doi.org/10.5194/cp-17-1483-2021)), based on the
+[PALEOMAP
+model](https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/) (150
+Ma). Shading indicates a reconstruction of [possible
+landmasses](https://doi.org/10.1016/j.earscirev.2020.103463), outlines
+indicate static plate polygons (also via `rgplates`). Raster and vector
+data were processed with
+[`terra`](https://doi.org/10.32614/CRAN.package.terra) and
+[`sf`](https://doi.org/10.32614/CRAN.package.sf) extensions, dinosaur
+outlines are from [PhyloPic](https://www.phylopic.org/) via the
+extension
+[`rphylopic`](https://doi.org/10.32614/CRAN.package.rphylopic). The code
+to reproduce the figure is available
+[here](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R).
 
-See items in the **Tutorials** menu point for detailed explanations.
+![](images/temperature.png)
+
+<br>
 
 ## Feature set
 
 ------------------------------------------------------------------------
 
 Due to the assymmetry of the underlying the dependecies the two main
-modules of the package (**online**, with GWS - d **offline**, with the
-GPlates desktop application), have mismatching feature coverage. The
-long-term developmental goal is to make these two as symmetric in
+modules of the package (**online**, with GWS - **offline**, with the
+GPlates Desktop Application), have mismatching feature coverage. The
+long-term development goal is to make these two as symmetric in
 capabilities and comparable in performance as possible.
 
-| Feature                          | Online (GWS) | Offline (Desktop App.) |
-|----------------------------------|--------------|------------------------|
-| Built-in feature colls.          | ✅           | ❌                     |
-| Custom feature collections       | ❌           | ✅                     |
-| Point reconstruction             | ✅ Slower    | ✅ Faster              |
-| Vector line/polygon input (`sf`) | ❌           | ✅                     |
-| Raster input (`terra`)           | ✅           | ❌                     |
-| Paleocoordintate input           | ✅           | ❌                     |
-| Velocity rasters                 | ✅           | ❌                     |
+| Feature | **Online (GWS)** | **Offline (Desktop App.)** |
+|----|----|----|
+| Built-in feature collections | ✅ | ❌ |
+| Point reconstruction | ✅ (slow) | ✅ (fast) |
+| Vector line/polygon input (`sf`) | ❌ | ✅ |
+| Raster input (`terra`) | ✅ | ❌ |
+| Paleocoordintate input | ✅ | ❌ |
+| Velocity rasters | ✅ | ❌ |
 
 ## Notes
 
@@ -130,14 +169,3 @@ broken up to three R packages:
   efficient organisation of high-dimensional data.
 
 This is a beta version, and like R, comes with absolutely no warranty.
-
-#### Aim
-
-The package was developed to make R-based analyses that require
-paloecoordinate rotations easier to implement, i.e. for applying a
-rotation model - but not as a replacement of tools dedidacted to complex
-paleogeographic reconstruction and model development. For more complex
-analyses you are more than welcome to check out
-[gplately](https://gplates.github.io/gplately/) and
-[pyGPlates](https://www.gplates.org/docs/pygplates/), the awesome python
-packages developed by the GPlates team.

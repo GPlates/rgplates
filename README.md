@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" width="120"/>
 
-[![](https://img.shields.io/badge/devel%20version-0.4.2-green.svg)](https://github.com/adamkocsis/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.5.0-green.svg)](https://github.com/adamkocsis/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=orange)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -12,6 +12,8 @@ R interface for the GPlates Web Service and Desktop Application
 
 See the webpage of the package for more info and tutorials:
 <https://gplates.github.io/rgplates/>
+
+![](https://github.com/GPlates/rgplates/raw/devel/man/figures/rgplates_example.png)
 
 (Ádám T. Kocsis, Nussaïbah B. Raja, and Simon Williams) Query functions
 to the GPlates <https://www.gplates.org/> Desktop Application and the

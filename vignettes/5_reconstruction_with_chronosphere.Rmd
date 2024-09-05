@@ -80,11 +80,6 @@ The model can be used with the [offline reconstruction method](articles/3_offlin
 pl100<- rgplates::reconstruct("static_polygons", age=100, model=pm)
 ```
 
-<div class="alert alert-primary" role="info"> 
-If you are on Windows, please install the [development version (which will be v0.4.2)](https://gplates.github.io/rgplates/articles/1_installation.html#development-version) of the package if you see an error mentioning a `gplates.exe.local` file!
-</div>
-
-
 which includes all static plate polygons that existed at 100Ma. This can be plotted with:
 
 ```{r statPol, echo=TRUE, plot=TRUE}

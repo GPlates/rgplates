@@ -9,7 +9,9 @@ description: >
 
 ## R code requirements
 
-### Dependencies
+This section describes what the hard and soft dependencies of `rgplates` are and what they are used for.
+
+### Depends
 
 - [sf](https://cran.r-project.org/package=sf) *(Simple features)*: `rgplates` depends on the `sf` package to handle vector spatial data, such as plates, present-day coastlines, and spatial data that have explict Coordinate Reference System information. 
 
