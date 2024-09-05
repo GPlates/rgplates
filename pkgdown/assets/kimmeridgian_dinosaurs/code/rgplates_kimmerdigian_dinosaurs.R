@@ -1,5 +1,6 @@
 # Kimmerigian dinosaurs on the PALEOMAP temperature reconstructions
 # Example use of rgplates that serves illustrative purposes.
+# This example was written for rgplates v0.5.0.
 # The script requires the GPlates Desktop Application
 # to be installed on the system.
 #
@@ -30,7 +31,7 @@ message(paste0("The result image will be written as:\n", filepath))
 # Required packages (originally used version in parens)
 
 # All available from the CRAN: install.packages(c("rgplates" ,"terra"))
-library(rgplates) # will attach sf (1.0-16)
+library(rgplates) # (0.5.0) - will attach sf (1.0-16)
 library(terra) # for raster processing (1.7-78)
 library(ncdf4) # raster input (1.22)
 library(via) # raster and sf organization (0.2.0)
