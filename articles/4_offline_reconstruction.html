@@ -240,7 +240,7 @@ you, and also tell you where to find it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4t9Uwp"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpsXYAHd"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be
 surprised if yours don’t match the result above - actually, this will
 likely be different in every session when you run the function
@@ -275,11 +275,11 @@ argument)</p>
 into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "filec554d246cd4a9"                 "filec554d45587397"                </span></span>
-<span><span class="co">#&gt;  [3] "filec554d5639acb6"                 "filec554d75cf603b"                </span></span>
-<span><span class="co">#&gt;  [5] "filec554d79d2d69c"                 "filec554d9556f01"                 </span></span>
+<span><span class="co">#&gt;  [1] "filec5e831423bf17"                 "filec5e832adf49e8"                </span></span>
+<span><span class="co">#&gt;  [3] "filec5e832e281261"                 "filec5e832ea69a49"                </span></span>
+<span><span class="co">#&gt;  [5] "filec5e8352d95936"                 "filec5e83cac30a9"                 </span></span>
 <span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-strc554d6525b1ec.html"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-strc5e8365a4e52.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with
 <code>.gpml</code> (the <strong>static plate polygons</strong> in
 GPlates Markup Language format) and the one that ends with
@@ -289,11 +289,11 @@ found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4t9Uwp/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpsXYAHd/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp4t9Uwp/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/RtmpsXYAHd/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
