@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,11 +62,33 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.4.2" id="rgplates-042-pre---2024-08-21">rgplates 0.4.2 (pre) - 2024-08-21<a class="anchor" aria-label="anchor" href="#rgplates-042-pre---2024-08-21"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="rgplates-050---2024-09-04">rgplates 0.5.0 - 2024-09-04<a class="anchor" aria-label="anchor" href="#rgplates-050---2024-09-04"></a></h2>
+<div class="section level4">
+<h4 id="added-0-5-0">Added<a class="anchor" aria-label="anchor" href="#added-0-5-0"></a></h4>
+<ul><li>Support for the reconstruction of <code>SpatRaster</code> class objects (package <code>terra</code>). The <code>terra</code> extension is now added as a suggested package.</li>
+<li>The <code><a href="../reference/velocities.html">velocities()</a></code> function to calculate plate tectonic velocities from the GWS. Currently only the online method is supported. The interface is similar to <code><a href="../reference/reconstruct.html">reconstruct()</a></code>, the character-method e.g. <code>velocities("static_polygons")</code> returns velocities on a given feature set.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="changed-0-5-0">Changed<a class="anchor" aria-label="anchor" href="#changed-0-5-0"></a></h4>
+<ul><li>Updated the <code>gws</code> object to version v1.1</li>
+</ul></div>
+<div class="section level4">
+<h4 id="known-issues-0-5-0">Known issues<a class="anchor" aria-label="anchor" href="#known-issues-0-5-0"></a></h4>
+<ul><li>Velocities on topological plates are not yet available.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="missing-0-5-0">Missing<a class="anchor" aria-label="anchor" href="#missing-0-5-0"></a></h4>
+<ul><li>Vectorization for multiple ages in <code><a href="../reference/velocities.html">velocities()</a></code>
+</li>
+</ul><hr></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.2" id="rgplates-042---2024-08-21">rgplates 0.4.2 - 2024-08-21<a class="anchor" aria-label="anchor" href="#rgplates-042---2024-08-21"></a></h2>
+<p><em>Interim release (not archived/published on the CRAN).</em></p>
 <div class="section level4">
 <h4 id="fixed-0-4-2">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-4-2"></a></h4>
 <ul><li>Bug with the offline method: GPlates 2.5.0 under Windows could not be reached because the default path resolved in the <code>gplates.exe.local</code> file.</li>
-</ul></div>
+</ul><hr></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.1" id="rgplates-041---2024-08-19">rgplates 0.4.1 - 2024-08-19<a class="anchor" aria-label="anchor" href="#rgplates-041---2024-08-19"></a></h2><p class="text-muted">CRAN release: 2024-08-20</p>
@@ -224,7 +246,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/" class="external-link">Nussaibah B. Raja</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
+  <p></p><p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

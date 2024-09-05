@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,10 +106,12 @@
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script><div class="section level2">
-<h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+<h2 id="r-code-requirements">R code requirements<a class="anchor" aria-label="anchor" href="#r-code-requirements"></a>
 </h2>
+<p>This section describes what the hard and soft dependencies of
+<code>rgplates</code> are and what they are used for.</p>
 <div class="section level3">
-<h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+<h3 id="depends">Depends<a class="anchor" aria-label="anchor" href="#depends"></a>
 </h3>
 <ul>
 <li>
@@ -129,7 +131,11 @@ System information.</li>
 <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">methods::new()</a></code>: Used to create <code>platemodel</code>
 instances.</li>
 <li>
-<code><a href="https://rdrr.io/r/utils/flush.console.html" class="external-link">utils::flush.console()</a></code>: Used for console-feedback.</li>
+<code><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">utils::assignInNamespace()</a></code>: Used for configuring the
+GPlates Web Service URL.</li>
+<li>
+<code><a href="https://rdrr.io/r/utils/getFromNamespace.html" class="external-link">utils::getFromNamespace()</a></code>: Used for accessing the
+GPlates Web Service URL.</li>
 <li>
 <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code>: Used for accessing the <code>gws</code>
 object internally.</li>
@@ -152,6 +158,9 @@ read in the spatial output of the GWS.</li>
 <a href="https://cran.r-project.org/package=httr2" class="external-link">httr2</a>: used
 by the <strong>online method</strong> of <code><a href="../reference/reconstruct.html">reconstruct()</a></code> to
 perform requests with HTTP POST</li>
+<li>
+<a href="https://cran.r-project.org/package=terra" class="external-link">terra</a>:
+optional input and output classes for raster spatial data.</li>
 <li>
 <a href="https://cran.r-project.org/package=sp" class="external-link">sp</a>: optional
 output formats for vector spatial data.</li>
@@ -181,6 +190,16 @@ flowchart LR
   reconstruct-character-method--&gt;CheckGWS
   reconstruct-Spatial-method--&gt;reconstructGPlates
   reconstruct-sf-method--&gt;reconstructGPlates
+  velocities-character-method--&gt;gwsVelocitiesThis
+  velocities-character-method--&gt;SpatRastFromDF
+  velocities-character-method--&gt;veloDefend
+  velocities-character-method--&gt;ext
+  velocities-character-method--&gt;crop
+  reconstruct-SpatRaster-method--&gt;values
+  reconstruct-SpatRaster-method--&gt;CheckGWS
+  reconstruct-SpatRaster-method--&gt;ncell
+  reconstruct-SpatRaster-method--&gt;xyFromCell
+  reconstruct-SpatRaster-method--&gt;extract
 
   subgraph front_end.R
 
@@ -193,6 +212,12 @@ flowchart LR
   reconstruct--&gt;reconstruct-sf-method
   reconstruct-data.frame-method--&gt;reconstruct-matrix-method
   reconstruct-numeric-method--&gt;reconstruct-matrix-method
+  velocities:::ui--&gt;velocities-character-method
+  velocities:::ui--&gt;velocities-missing-method
+  click velocities "../reference/velocities.html"
+  velocities-missing-method--&gt;velocities-character-method
+  reconstruct--&gt;reconstruct-SpatRaster-method
+  reconstruct-SpatRaster-method--&gt;reconstruct-matrix-method
 
   end
 
@@ -224,17 +249,23 @@ flowchart LR
   gwsReconstructPoints--&gt;resp_body_string
   gwsReconstructPoints--&gt;geojson_sf
   gwsReconstructPoints--&gt;st_coordinates
+    gwsVelocitiesThis--&gt;ParseVeloJSON
+    gwsVelocitiesThis--&gt;CheckGWS
 
   subgraph online.R
 
   gplates_reconstruct_this
   gwsReconstructPoints
   CheckGWS
-    getgws
-    setgws
+    getgws:::ui
+  click getgws "../reference/gwstools.html"
+    setgws:::ui
+  click setgws "../reference/gwstools.html"
     setgws--&gt;getgws
     setgws--&gt;checkgws
-    checkgws
+    checkgws:::ui
+  click checkgws "../reference/gwstools.html"
+    gwsVelocitiesThis
     
   
   end
@@ -254,6 +285,9 @@ flowchart LR
   randomString
   mapedge--&gt;detailedBounds
   checkSuggested
+  ParseVeloJSON--&gt;ParseNumpyArrayString
+  SpatRastFromDF
+    veloDefend
   
   end
 
@@ -279,6 +313,15 @@ flowchart LR
     st_geometry:::extern
     st_polygon:::extern
 
+    end
+
+    subgraph terra
+    ncell:::extern
+    xyFromCell:::extern         
+    extract:::extern            
+    values:::extern             
+    ext:::extern            
+    crop:::extern           
     end
 
     subgraph sp
@@ -311,7 +354,7 @@ flowchart LR
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/" class="external-link">Nussaibah B. Raja</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
+<p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

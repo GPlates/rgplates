@@ -12,7 +12,7 @@ Each location will be assigned a plate id and moved back in time using the chose
     
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,6 +147,19 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  validtime <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for SpatRaster</span></span>
+<span><span class="fu">reconstruct</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">age</span>,</span>
+<span>  <span class="va">model</span>,</span>
+<span>  from <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  listout <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plateperiod <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  validtime <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -155,7 +168,7 @@ Each location will be assigned a plate id and moved back in time using the chose
     <dl><dt>x</dt>
 <dd><p>The features to be reconstructed. Can be a vector with longitude and latitude representing
 a single point or a matrix/dataframe with the first column as longitude and second column as latitude.
-For the online subroutine, the character strings <code>"static_polygons"</code>, <code>"coastlines"</code>  and <code>"plate_polygons"</code> return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the <code>model</code> object. Some <code>Spatial*</code> and <code>sf</code> classes are also accepted, although this input is still experimental.</p></dd>
+For the online subroutine, the character strings <code>"static_polygons"</code>, <code>"coastlines"</code>  and <code>"plate_polygons"</code> return static plate polygons, rotated present-day coastlines and topological plates, respectively. For the offline subroutine, it can be a name of the feature set defined in the <code>model</code> object. Some <code>Spatial*</code>, <code>sf</code> and <code>SpatRaster</code> classes are also accepted, although this input is still experimental.</p></dd>
 
 
 <dt>...</dt>
@@ -297,7 +310,7 @@ The function will try to find the main GPlates executable in its default install
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/" class="external-link">Nussaibah B. Raja</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
+  <p></p><p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@
 <img src="logo.png" class="logo" alt=""><h1 id="rgplates-">rgplates <a class="anchor" aria-label="anchor" href="#rgplates-"></a>
 </h1>
 </div>
-<p><a href="https://github.com/gplates/rgplates" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.4.2-green.svg"></a> <a href="https://cran.r-project.org/package=rgplates" class="external-link"><img src="https://www.r-pkg.org/badges/version/rgplates?color=blue"></a> <a href="https://cran.r-project.org/package=rgplates" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow"></a> <a href="https://cran.r-project.org/web/checks/check_results_rgplates.html" class="external-link"><img src="https://badges.cranchecks.info/summary/rgplates.svg" alt="CRAN checks"></a> <a href="https://doi.org/10.5281/zenodo.8093990" class="external-link"><img src="https://img.shields.io/badge/doi-10.5281/zenodo.8093990-blue.svg"></a></p>
+<p><a href="https://github.com/gplates/rgplates" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.5.0-green.svg"></a> <a href="https://cran.r-project.org/package=rgplates" class="external-link"><img src="https://www.r-pkg.org/badges/version/rgplates?color=blue"></a> <a href="https://cran.r-project.org/package=rgplates" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow"></a> <a href="https://cran.r-project.org/web/checks/check_results_rgplates.html" class="external-link"><img src="https://badges.cranchecks.info/summary/rgplates.svg" alt="CRAN checks"></a> <a href="https://doi.org/10.5281/zenodo.8093990" class="external-link"><img src="https://img.shields.io/badge/doi-10.5281/zenodo.8093990-blue.svg"></a></p>
 <div class="section level4">
 <h4 id="r-interface-for-the-gplates-web-service-and-the-gplates-application">R interface for the <em>GPlates Web Service</em> and the <em>GPlates Application</em>
 <a class="anchor" aria-label="anchor" href="#r-interface-for-the-gplates-web-service-and-the-gplates-application"></a>
@@ -108,23 +108,58 @@
 <p>Functions to the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service</a> and the <a href="https://www.gplates.org/" class="external-link">GPlates Desktop Application</a> allow users to reconstruct past positions of geographic entities based on user-selected rotation models without leaving the R running environment.</p>
 <p><a href="https://www.gplates.org/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width="250" align="right"></a></p>
 <p>The <strong>online reconstruction</strong> (with the <a href="https://gws.gplates.org/" class="external-link">GPlates Web Service</a>) makes the rotation of static plates, coastlines, and a low number of geographic coordinates available using nothing but an internet connection.</p>
-<p>The <strong>offline reconstruction</strong> requires an external installation of the GPlates Desktop Application, but allows the efficient batch rotation of thousands of coordinates, Simple Features (<a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code></a>) and Spatial (<a href="https://cran.r-project.org/package=sp" class="external-link"><code>sp</code></a>) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the <a href="https://www.chronosphere.info/" class="external-link">chronosphere</a>.</p>
+<p>The <strong>offline reconstruction</strong> requires an external installation of the <a href="https://www.gplates.org/" class="external-link">GPlates Desktop Application</a>, but allows the efficient batch rotation of thousands of coordinates, Simple Features (<a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code></a>) and Spatial (<a href="https://cran.r-project.org/package=sp" class="external-link"><code>sp</code></a>) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the <a href="https://www.chronosphere.info/" class="external-link">chronosphere</a>.</p>
+<div class="section level3">
+<h3 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h3>
+<table class="table">
+<thead><tr>
+<th></th>
+<th><strong>Online (GWS)</strong></th>
+<th><strong>Offline (Desktop App.)</strong></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Internet connection</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>
+<a href="https://gws.gplates.org/" class="external-link">GPlates</a> installed</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="aim">Aim<a class="anchor" aria-label="anchor" href="#aim"></a>
+</h3>
+<p>The package was developed to make R-based analyses that require paloecoordinate rotations easier to implement, i.e. for applying a rotation model - but not as a replacement of tools dedidacted to complex paleogeographic reconstruction and model development. For more complex analyses you are more than welcome to check out <a href="https://gplates.github.io/gplately/" class="external-link">gplately</a> and <a href="https://www.gplates.org/docs/pygplates/" class="external-link">pyGPlates</a>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
 </h2>
 <hr>
-<div class="alert alert-primary" role="info">
-<p>If you are on Windows, please install the <a href="https://gplates.github.io/rgplates/articles/1_installation.html#development-version">development version (which will be v0.4.2)</a> of <code>rgplates</code> if you see an error mentioning a <code>gplates.exe.local</code> file while trying to use the offline method!</p>
-</div>
+<ul>
+<li>The package was incorporated into the GPlates suite.</li>
+<li>Major update to <strong>v0.5</strong> introduces rasters as reconstructable features and velocities. If you encounter any issues, make sure that you with the most recent version of the package.</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <hr>
-<p>You can reconstruct the positions of the plates at 65 Ma using the <a href="https://www.sciencedirect.com/science/article/pii/S0012825220305237" class="external-link">Merdith et al. 2021 model</a> and transform them to <a href="https://epsg.io/54009" class="external-link">Mollweide</a> projection using with this chunk of code:</p>
+<p>Here are some quick examples using <code>rgplates</code>. See items in the <strong>Tutorials</strong> menu point for detailed explanations of functions.</p>
+<div class="section level5">
+<h5 id="paleogeographic-maps">
+<em>Paleogeographic maps</em><a class="anchor" aria-label="anchor" href="#paleogeographic-maps"></a>
+</h5>
+<p>You can reconstruct the positions of the plates at 65 Ma using the <a href="https://www.sciencedirect.com/science/article/pii/S0012825220305237" class="external-link">Merdith et al. 2021 model</a> and transform them to <a href="https://epsg.io/54030" class="external-link">Robinson</a> projection using with this chunk of code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://adamtkocsis.com/rgplates/" class="external-link">rgplates</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gplates.github.io/rgplates/">rgplates</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Rotation of plates using the GPlates Web Service</span></span>
 <span><span class="va">coastlines</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">65</span>, model<span class="op">=</span><span class="st">"MERDITH2021"</span><span class="op">)</span></span>
@@ -132,24 +167,70 @@
 <span><span class="co"># the edge of the map (for mollweide)</span></span>
 <span><span class="va">edge</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mapedge.html">mapedge</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># transform to Mollweide</span></span>
-<span><span class="va">epsg</span> <span class="op">&lt;-</span> <span class="st">"ESRI:54009"</span></span>
-<span><span class="va">coastsMoll</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">coastlines</span>, crs<span class="op">=</span><span class="va">epsg</span><span class="op">)</span></span>
-<span><span class="va">edgeMoll</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">edge</span>, crs<span class="op">=</span><span class="va">epsg</span><span class="op">)</span></span>
+<span><span class="co"># transform to Robinson </span></span>
+<span><span class="va">epsg</span> <span class="op">&lt;-</span> <span class="st">"ESRI:54030"</span></span>
+<span><span class="va">coastsRob</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">coastlines</span>, crs<span class="op">=</span><span class="va">epsg</span><span class="op">)</span></span>
+<span><span class="va">edgeRob</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">edge</span>, crs<span class="op">=</span><span class="va">epsg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">edgeMoll</span>, col<span class="op">=</span><span class="st">"#1A6BB0"</span>, border<span class="op">=</span><span class="st">"gray30"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coastsMoll</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray90"</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">edgeRob</span>, col<span class="op">=</span><span class="st">"#1A6BB0"</span>, border<span class="op">=</span><span class="st">"gray30"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coastsRob</span>, border<span class="op">=</span><span class="cn">NA</span>, col<span class="op">=</span><span class="st">"gray90"</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/rgplates_example.png"></p>
 <p><br></p>
-<div class="section level3">
-<h3 id="others">Others<a class="anchor" aria-label="anchor" href="#others"></a>
-</h3>
-<ul>
-<li>Maastrichtian dinosaurs from the Paleobiology Database (<a href="https://gplates.github.io/rgplates/snippets/pbdb_merdith_2021.R">R code file</a>)</li>
-</ul>
-<p>See items in the <strong>Tutorials</strong> menu point for detailed explanations.</p>
 </div>
+<div class="section level5">
+<h5 id="using-reconstructions">
+<em>Using reconstructions</em><a class="anchor" aria-label="anchor" href="#using-reconstructions"></a>
+</h5>
+<p>The example below demonstrates the contextualization of fossil occurrence records using paleogeographic data products. Here the geographic positions of Kimmeridgian (Late Jurassic) dinosaur fossil collections from the <a href="https://paleobiodb.org/#/" class="external-link">Paleobiology Database</a> were reconstructed with <code>rgplates</code> to match the proxy-corrected HadCM3L climate model results (mean annual air surface temperatures, <a href="https://doi.org/10.1016/j.earscirev.2021.103503" class="external-link">Scotese et al. 2021</a> after <a href="https://doi.org/10.5194/cp-17-1483-2021" class="external-link">Valdes et al. 2021</a>), based on the <a href="https://www.earthbyte.org/paleomap-paleoatlas-for-gplates/" class="external-link">PALEOMAP model</a> (150 Ma). Shading indicates a reconstruction of <a href="https://doi.org/10.1016/j.earscirev.2020.103463" class="external-link">possible landmasses</a>, outlines indicate static plate polygons (also via <code>rgplates</code>). Raster and vector data were processed with <a href="https://doi.org/10.32614/CRAN.package.terra" class="external-link"><code>terra</code></a> and <a href="https://doi.org/10.32614/CRAN.package.sf" class="external-link"><code>sf</code></a> extensions, dinosaur outlines are from <a href="https://www.phylopic.org/" class="external-link">PhyloPic</a> via the extension <a href="https://doi.org/10.32614/CRAN.package.rphylopic" class="external-link"><code>rphylopic</code></a>. The code to reproduce the figure is available <a href="https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R" class="external-link">here</a>.</p>
+<p><img src="images/temperature.png"></p>
+<p><br></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="feature-set">Feature set<a class="anchor" aria-label="anchor" href="#feature-set"></a>
+</h2>
+<hr>
+<p>Due to the assymmetry of the underlying the dependecies the two main modules of the package (<strong>online</strong>, with GWS - <strong>offline</strong>, with the GPlates Desktop Application), have mismatching feature coverage. The long-term development goal is to make these two as symmetric in capabilities and comparable in performance as possible.</p>
+<table class="table">
+<thead><tr>
+<th>Feature</th>
+<th><strong>Online (GWS)</strong></th>
+<th><strong>Offline (Desktop App.)</strong></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Built-in feature collections</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Point reconstruction</td>
+<td>✅ (slow)</td>
+<td>✅ (fast)</td>
+</tr>
+<tr>
+<td>Vector line/polygon input (<code>sf</code>)</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Raster input (<code>terra</code>)</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Paleocoordintate input</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Velocity rasters</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
@@ -168,11 +249,6 @@
 <a href="https://adamkocsis.github.io/via/" class="external-link"><code>via</code></a>: Virtual Arrays for efficient organisation of high-dimensional data.</li>
 </ul>
 <p>This is a beta version, and like R, comes with absolutely no warranty.</p>
-</div>
-<div class="section level4">
-<h4 id="aim">Aim<a class="anchor" aria-label="anchor" href="#aim"></a>
-</h4>
-<p>The package was developed to make R-based analyses that require paloecoordinate rotations easier to implement, i.e. for applying a rotation model - but not as a replacement of tools dedidacted to complex paleogeographic reconstruction and model development. For more complex analyses you are more than welcome to check out <a href="https://gplates.github.io/gplately/" class="external-link">gplately</a> and <a href="https://www.gplates.org/docs/pygplates/" class="external-link">pyGPlates</a>, the awesome python packages developed by the GPlates team.</p>
 </div>
 </div>
 </div>
@@ -206,8 +282,6 @@
 <li>
 <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-9028-665X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
-<a href="https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/" class="external-link">Nussaibah B. Raja</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-0000-3944" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>
 <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a> <br><small class="roles"> Funder </small>  </li>
 <li>
 <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a> <br><small class="roles"> Funder </small>  </li>
@@ -223,7 +297,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/" class="external-link">Nussaibah B. Raja</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
+<p>Developed by <a href="https://palaeobiology.nat.fau.de/people/instructors/kocsis/" class="external-link">Adam T. Kocsis</a>, <a href="https://www.dfg.de/en/index.jsp" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true" alt="dfg" width="80"></a>, <a href="https://www.gzn.nat.fau.eu/" class="external-link"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/GeoZentrum.svg?raw=true" alt="geozentrum" width="80"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
