@@ -125,7 +125,7 @@ extension
 to reproduce the figure is available
 [here](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R).
 
-![](images/temperature.png)
+![](https://github.com/GPlates/rgplates/blob/raw/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png)
 
 <br>
 

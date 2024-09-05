@@ -120,7 +120,7 @@ The example below demonstrates the contextualization of fossil occurrence record
 ) extensions, dinosaur outlines are from [PhyloPic](https://www.phylopic.org/) via the extension [`rphylopic`](https://doi.org/10.32614/CRAN.package.rphylopic). The code to reproduce the figure is available [here](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R). 
 
 
-![](images/temperature.png)
+![](https://github.com/GPlates/rgplates/blob/raw/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png)
 
 <br>
 
