@@ -617,7 +617,7 @@ setMethod(
 #' Currently only the online method is supported using the GPlates Web Service (internet connection is required).
 #' Available models are in the \code{\link{gws}} object, and can be provided with arguments similar to \code{\link{reconstruct}}.
 #'
-#' @param x \code{character}: What should the velocities be reconstructed for? If nothing is given (i.e. \code{signature(x="missing")} the argument defaults to the only currently working feature collection, the \code{"static_polygons"}\ - expected to be expanded in the future.
+#' @param x \code{character}: What should the velocities be calculated for? If nothing is given (i.e. \code{signature(x="missing")}) the argument defaults to the only currently working feature collection, the \code{"static_polygons"}. This is expected to be expanded in the future.
 #' @param age \code{numeric}: The age in millions of years at which the velocities are to be returned.
 #' @param model \code{character}: The name of the tectonic model. Similar to that of \code{\link{reconstruct}}.
 #' @param domain \code{character}: Either \code{"longLatGrid"} or \code{"healpix"}. \code{"longLatGrid"} returns the velocites with the domain of a regular, one-by-one degree longitude-latitude grid.
@@ -630,7 +630,7 @@ setMethod(
 #' The default \code{cellraster=TRUE} resamples this raster to a native, cell-registered grid.
 #' This is an issue only with latitudes, so they get cropped by default. Setting this argument to \code{FALSE} will skip cropping.
 #' @param verbose \code{logical}: Are you interested in more messages?
-#' @param check (\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})
+#' @param check \code{logical} Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})
 #' @param ... Arguments of class-specific methods.
 #' @return Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
 #' If \code{output="SpatRaster"} then the output will be a multilayered \code{SpatRaster} object.

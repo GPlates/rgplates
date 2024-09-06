@@ -23,7 +23,7 @@ velocities(x, ...)
 )
 }
 \arguments{
-\item{x}{\code{character}: What should the velocities be reconstructed for? If nothing is given (i.e. \code{signature(x="missing")} the argument defaults to the only currently working feature collection, the \code{"static_polygons"}\ - expected to be expanded in the future.}
+\item{x}{\code{character}: What should the velocities be calculated for? If nothing is given (i.e. \code{signature(x="missing")}) the argument defaults to the only currently working feature collection, the \code{"static_polygons"}. This is expected to be expanded in the future.}
 
 \item{...}{Arguments of class-specific methods.}
 
@@ -46,7 +46,7 @@ This is an issue only with latitudes, so they get cropped by default. Setting th
 
 \item{verbose}{\code{logical}: Are you interested in more messages?}
 
-\item{check}{(\code{logical}) Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
+\item{check}{\code{logical} Should the validity of the entries for the GWS checked with the information stored in \code{\link{gws}}? (default: \code{TRUE})}
 }
 \value{
 Velocities of tectonic movements. If \code{output="data.frame"} then the function returns a \code{data.frame} with the longitude, latitude, the two velocity variables and the plate ids they belong to.
