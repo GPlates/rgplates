@@ -72,6 +72,8 @@ authors:
     href: "https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/nussaibah-raja-schoob/"
   Simon Williams:
     href: "https://discover.utas.edu.au/Simon.Williams/about"
+  Elizabeth M. Dowding:
+    href: "https://www.gzn.nat.fau.eu/palaeontologie/team/wissenschaftler/elizabeth-dowding/"
   Deutsche Forschungsgemeinschaft:
     href: https://www.dfg.de/en/index.jsp
     html: <img src='https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/dfg.png?raw=true' alt='dfg' width='80' />

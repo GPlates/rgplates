@@ -2,13 +2,14 @@ citHeader("To cite rgplates in publications, use the following citation:")
 
 bibentry(bibtype = "Misc",
   title        = "rgplates: R interface for the GPlates Web Service and Desktop Application",
-  author       = c(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja"), as.person("Simon D. Williams")),
-  url          = "",
+  author       = c(as.person("Ádám T. Kocsis"),as.person("Nussaibah B. Raja"), as.person("Simon D. Williams"), as.person("Elizabeth M. Dowding")),
+  url          = "https://zenodo.org/doi/10.5281/zenodo.8093990",
   year		= 2024,
   textVersion  =
 	  paste(
-		"Kocsis, Á.T., Raja, N.B. and Williams, S. (2024).",
-        "rgplates: R interface for the GPlates Web Service and Desktop Application; "
+		"Kocsis, Á.T., Raja, N.B., Williams, S., Dowding E.M. (2024).",
+        "rgplates: R interface for the GPlates Web Service and Desktop Application.",
+				"https://zenodo.org/doi/10.5281/zenodo.8093990"
 	)
 )
 

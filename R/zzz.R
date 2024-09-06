@@ -4,7 +4,7 @@
 #' 
 #' This is still the Beta version. As is R, this is free software and comes with ABSOLUTELY NO WARRANTY. Nevertheless, notes about found bugs and suggestions are more than welcome. 
 #'
-#' @author Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja and Simon Williams
+#' @author Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja, Simon Williams and Elizabeth M. Dowding
 #' @docType package
 #' @name rgplates
 "_PACKAGE"

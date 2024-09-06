@@ -20,5 +20,5 @@ Useful links:
 
 }
 \author{
-Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja and Simon Williams
+Adam T. Kocsis (adam.t.kocsis@gmail.com), Nussaibah B. Raja, Simon Williams and Elizabeth M. Dowding
 }

@@ -7,9 +7,9 @@ Authors@R: c(
 		   email="adam.t.kocsis@gmail.com", comment=c(ORCID="0000-0002-9028-665X")),
  	person(given="Nussaibah B.", family="Raja", role=c("ctb"), comment=c(ORCID="0000-0002-0000-3944")),
  	person(given="Simon", family="Williams", role=c("ctb"), comment=c(ORCID="0000-0003-4670-8883")),
+ 	person(given="Elizabeth M.", family="Dowding", role=c("ctb"), comment=c(ORCID="0000-0002-2423-8254")),
 	person(given="Deutsche Forschungsgemeinschaft", role="fnd"),
 	person(given="FAU GeoZentrum Nordbayern", role="fnd"))
-Maintainer: Adam T. Kocsis <adam.t.kocsis@gmail.com>
 Description: Query functions to the GPlates <https://www.gplates.org/> Desktop Application and the GPlates Web Service <https://gws.gplates.org/> allow users to reconstruct past positions of geographic entities based on user-selected rotation models without leaving the R running environment. The online method (GPlates Web Service) makes the rotation of static plates, coastlines, and a low number of geographic coordinates available using nothing but an internet connection. The offline method requires an external installation of the GPlates Desktop Application, but allows the efficient batch rotation of thousands of coordinates, Simple Features (sf) and Spatial (sp) objects with custom reconstruction trees and partitioning polygons. Examples of such plate tectonic models are accessible via the chronosphere <https://cran.r-project.org/package=chronosphere>. This R extension is developed under the umbrella of the DFG (Deutsche Forschungsgemeinschaft) Research Unit TERSANE2 (For 2332, TEmperature Related Stressors in ANcient Extinctions).
 License: CC BY 4.0
 Date: 2024-09-04
