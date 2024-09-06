@@ -1,4 +1,4 @@
-# Kimmerigian dinosaurs on the PALEOMAP temperature reconstructions
+# Kimmeridgian dinosaurs on the PALEOMAP temperature reconstructions
 # Example use of rgplates that serves illustrative purposes.
 # This example was written for rgplates v0.5.0.
 # The script requires the GPlates Desktop Application
@@ -19,7 +19,7 @@ cached <- TRUE
 # By default the image file will be written into the TEMPORARY DIRECTORY.
 # If you want to write the image somewhere else, please set its path here:
 filepath <- NULL
-# filepath <- "temperature_example.png" # into the current directoy
+# filepath <- "temperature_example.png" # into the current directory
 if(is.null(filepath)){
 	td <- tempdir()
 	filepath <- file.path(td, "temperature_example.png")
@@ -28,7 +28,7 @@ if(is.null(filepath)){
 message(paste0("The result image will be written as:\n", filepath))
 
 ################################################################################
-# Required packages (originally used version in parens)
+# Required packages (originally used version in parentheses)
 
 # All available from the CRAN: install.packages(c("rgplates" ,"terra"))
 library(rgplates) # (0.5.0) - will attach sf (1.0-16)
@@ -58,7 +58,7 @@ age <- 150
 # reconstruction of the static_polygons
 polys <- rgplates::reconstruct("static_polygons", age=age, model=mod)
 
-# select the appropirate time (also resample raster to avoid warnings
+# select the appropriate time (also resample raster to avoid warnings
 # because of the grid registration)
 ctemp<- terra::resample(gmst[as.character(age)], terra::rast())
 ccoast<- pc[as.character(age), "coast"]
@@ -75,12 +75,12 @@ if(cached){
 	load(url("https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/data/cache_2024-08-24.RData"))
 
 }else{
-	# Dowload occurrences from PBDB
+	# Download occurrences from PBDB
 	ornithischia <- read.csv(paste0(
 		"https://paleobiodb.org/data1.2/occs/list.csv?",
 		"base_name=Ornithischia&interval=Kimmeridgian&show=coords"))
 
-	# Dowload occurrences from PBDB
+	# Download occurrences from PBDB
 	saurischia <- read.csv(paste0(
 		"https://paleobiodb.org/data1.2/occs/list.csv?",
 		"base_name=Saurischia&interval=Kimmeridgian&show=coords"))
@@ -91,8 +91,8 @@ if(cached){
 	ornithImage<- rphylopic::get_phylopic(get_uuid(name = "Ornithischia", n = 1))
 
 	# Logos
-	# read in the logos, and their proprtions in pixels
-	# these are on github
+	# read in the logos, and their proportions in pixels
+	# these are on GitHub
 	# Inspect these before downloading!
 	location <- "https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/data/images/"
 
@@ -122,7 +122,7 @@ if(cached){
 	pbdbLogo <- png::readPNG(targets['pbdb'])
 	pbdbProp <-900/759
 
-	# BRDIGE
+	# BRIDGE
 	bridgeLogo <- png::readPNG(targets['bridge'])
 	bridgeProp <-732/400
 
