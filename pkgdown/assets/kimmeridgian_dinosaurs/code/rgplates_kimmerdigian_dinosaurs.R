@@ -111,7 +111,8 @@ if(cached){
 	for(i in 1:length(files)){
 		download.file(
 			paste0(location, files[i]), # what is downloaded
-			targets[i]) # where? In the temporary directory
+			targets[i], # where? In the temporary directory
+			mode="wb") # enforce binary (for win, otherwise it makes a mess...)
 	}
 
 	# read in the rgplates logo file
