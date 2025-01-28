@@ -29,7 +29,12 @@ The stable version of the package is available on [CRAN servers](https://cran.r-
 install.packages("rgplates")
 ```
 
-If for some reason, the installlation from CRAN fails, you might need to look into alternative methods.
+If for some reason, the installlation from CRAN fails, you might need to look into alternative methods (see below). Note that the package also needs some other ("suggested") packages that are not downloaded from the CRAN automatically when the package is installed. For a feature-complete installation, you also need to install the `geojson`, `httr2` and `terra` packages (and their dependencies):
+
+```{r cran_suggest, eval=FALSE}
+install.packages(c("geojson", "httr2", "terra"))
+```
+
 
 
 #### From GitHub
