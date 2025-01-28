@@ -119,7 +119,14 @@ which means that you can install it with the regular
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rgplates"</span><span class="op">)</span></span></code></pre></div>
 <p>If for some reason, the installlation from CRAN fails, you might need
-to look into alternative methods.</p>
+to look into alternative methods (see below). Note that the package also
+needs some other (“suggested”) packages that are not downloaded from the
+CRAN automatically when the package is installed. For a feature-complete
+installation, you also need to install the <code>geojson</code>,
+<code>httr2</code> and <code>terra</code> packages (and their
+dependencies):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"geojson"</span>, <span class="st">"httr2"</span>, <span class="st">"terra"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="from-github">From GitHub<a class="anchor" aria-label="anchor" href="#from-github"></a>
@@ -128,7 +135,7 @@ to look into alternative methods.</p>
 the <code>[devtools](https://cran.r-project.org/package=devtools)</code>
 package. All you need is install <code>devtools</code> and then run the
 this line of code:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gplates/rgplates"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -139,7 +146,7 @@ stable version is also deposited on Zenodo. The
 <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> function can be used to install this
 from source (although you might have install dependencies of the
 package. )</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>    <span class="st">"https://zenodo.org/records/13711982/files/rgplates_0.5.0.tar.gz?download=1"</span>, </span>
 <span>    repos<span class="op">=</span><span class="cn">NULL</span>, type<span class="op">=</span><span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
@@ -159,7 +166,7 @@ version</a>.</p>
 <p>The simplest way to install the in-development version is via the
 <code>devtools</code> package. You just have to indicate that you want
 to install from the in-development <code>devel</code> branch.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gplates/rgplates@devel"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
