@@ -138,18 +138,34 @@ gwsReconstructPoints <- function(coords,time, model="MERDITH2021", reverse=FALSE
 # Retrieve reconstructed coastline polygons for defined ages
 # 
 # @param age is the age in Ma at which the points will be reconstructed
-# @param model is the reconstruction model. The default is "PALEOMAP". Add more details about additional models here
+# @param model is the reconstruction model. The default is "MERDITH2021". Add more details about additional models here
 # @param verbose Should the function output urls?
 # @return SpatialPolygonsDataFrame
 gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRUE, anchor=0){
 	
 	if(! requireNamespace("geojsonsf", quietly=TRUE)) stop("This method requires the 'geojsonsf' package to run.")
-	
-	if (this=="plate_polygons"){
+
+	# keep this
+	input <- this
+
+	# default case
+	this <- paste0("reconstruct/", this)
+
+	# plate polygons
+	if (input=="plate_polygons"){
 		this <- "topology/plate_polygons"
-	}else{
-		this <- paste0("reconstruct/", this)
 	}
+
+	# subduction_zones
+	if (input=="subduction_zones"){
+		this <- "topology/get_subduction_zones"
+	}
+
+	# subduction_zones
+	if (input=="plate_boundaries"){
+		this <- "topology/plate_boundaries"
+	}
+
 	#download and save data
 	url <- paste0(gwsURL, this, '/')
 	query <- sprintf('?time=%f&model=%s&anchor_plate_id=%d', age, model, anchor)
@@ -161,6 +177,26 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 	
 	#read data
 	dat <- geojsonsf::geojson_sf(r)
+
+
+	# assign some additional classes
+	if (input=="static_polygons"){
+		class(dat) <- c("static_polygons", class(dat))
+	}
+	if (input=="coastlines"){
+		class(dat) <- c("coastlines", class(dat))
+	}
+	if (input=="subduction_zones"){
+		class(dat) <- c("subduction.zones", class(dat))
+	}
+	if (input=="plate_boundaries"){
+		class(dat) <- c("plate.boundaries", class(dat))
+	}
+	if (input=="plate_polygons"){
+		class(dat) <- c("plate.polygons", class(dat))
+	}
+
+
 	
 	return(dat)
 }

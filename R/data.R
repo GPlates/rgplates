@@ -1,6 +1,6 @@
 #' Valid reconstructable feature collections of the GPlates Web Service
 #'
-#' This is version 1.1. The object contains valid returns of GWS v0.2.1, as of 2024-09-03.
+#' This is version 1.2. The object contains valid returns of GWS v1.0.0, as of 2025-03-14.
 #'
 #' The valid return combinations for selected models and feature collections are copied from \url{https://gwsdoc.gplates.org/models}. 
 #'
