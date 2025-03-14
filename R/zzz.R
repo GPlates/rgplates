@@ -13,6 +13,8 @@
 #' @importFrom methods new
 #' @importFrom utils assignInNamespace
 #' @importFrom utils getFromNamespace
-#' @importFrom utils data 
+#' @importFrom utils data
+#' @importFrom graphics polygon
+#' @importFrom graphics lines
+#' @importFrom graphics xspline
 NULL
-

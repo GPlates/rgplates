@@ -1,5 +1,20 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.6.0 - 2025-03-14
+
+"Hosh-posh volcanism"
+
+### Added 
+
+- Support for topological boundaries for the GPlates Web Service. The feature collections `"subduction_zones"`, `"plate_boundaries"` are now available for access, these `sf` objects also gained the `subduction.zones` and `plate.boundaries` S3 classes for efficient plotting.
+- The feature collections `"static_polygons"`, `"coastlines"`, `"plate_polygons"` now return S3 classes `static.polygons`, `coastlines`, `plate.polygons` besides the standard `sf` classes
+- The `sawteeth` function as the engine for visualizing subduction lines.
+- Plot method for the `subduction.zones` S3 class (`plot.subduction. zones`)
+
+### Changed
+
+- The `gws` `data.frame` object is updated to work with GWS 1.0.0.
+
 # rgplates 0.5.0 - 2024-09-04
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13711982.svg)](https://doi.org/10.5281/zenodo.13711982) - "Spread That Seafloor"
