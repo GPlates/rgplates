@@ -217,8 +217,17 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			# look for x in the feature set
 			validFeature <- any(x==names(plateFeatures))
 			if(validFeature){
+
+				# which file version is used? .gmpl or .gpmlz?
+				withZ <- grepl(".gpmlz", plateFeatures[x])
+				if(withZ){
+					gpmlExt <- "gpmlz"
+				}else{
+					gpmlExt <- "gpml"
+				}
+
 				# use original one - even for windows.
-				pathToFileNoEXT <- gsub(".gpml", "",plateFeatures[x])
+				pathToFileNoEXT <- gsub(paste0(".", gpmlExt), "",plateFeatures[x])
 				if (win) pathToFileNoEXT <- gsub("/","\\\\", pathToFileNoEXT)
 			}else{
 				stop("The requested feature collection is not part of the model. ")
@@ -248,7 +257,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# do reconstruction
 		if(!is.character(x)) if(verbose) message("Reconstructing coordinates.")
 		if(is.character(x)) if(validFeature) if(verbose) message(paste0("Reconstructing '",  x, "'."))
-			reconstruction <- paste(gplatesExecutable, " reconstruct -l \"",pathToFileNoEXT,".gpml\" -r \"", 
+			reconstruction <- paste(gplatesExecutable, " reconstruct -l \"",pathToFileNoEXT,".",gpmlExt,"\" -r \"",
 					rotation, "\" -e shapefile -t ", age, " -o \"", pathToFileNoEXT,"_reconstructed\" -w 1", sep="") 
 			system(reconstruction, ignore.stdout=!verbose,ignore.stderr=!verbose)
 

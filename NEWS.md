@@ -10,6 +10,7 @@
 - The feature collections `"static_polygons"`, `"coastlines"`, `"plate_polygons"` now return S3 classes `static.polygons`, `coastlines`, `plate.polygons` besides the standard `sf` classes
 - The `sawteeth` function as the engine for visualizing subduction lines.
 - Plot method for the `subduction.zones` S3 class (`plot.subduction. zones`)
+- Support for `.gpmlz` feature collection files. 
 
 ### Changed
 
