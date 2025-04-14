@@ -23,7 +23,6 @@ expect_silent(model <- platemodel(rotation=rotPath, polygons=polPath))
 # new style
 expect_silent(model <- platemodel(rotation=rotPath, features=c("static_polygons"=polPath, "admin"=adminPath)))
 
-
 rotPath <- "/mnt/sky/Dropbox/WorkSpace/2021-04-28_rgplates/data/SM2_X/1000_0_rotfile_Merdith_et_al.rot"
 polPath <- "/mnt/sky/Dropbox/WorkSpace/2021-04-28_rgplates/data/SM2_X/shapes_static_polygons_Merdith_et_al.gpml"
 contPath <- "/mnt/sky/Dropbox/WorkSpace/2021-04-28_rgplates/data/SM2_X/shapes_continents_Merdith_et_al.gpml"
@@ -190,4 +189,3 @@ plot(trans_500$geometry, col="orange", add=TRUE)
 plot(topb_500$geometry, col="green", add=TRUE)
 plot(poles_500$geometry, col="cyan", add=TRUE)
 # plot(top_500$geometry, col="yellow", add=TRUE)
-

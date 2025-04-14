@@ -9,8 +9,9 @@
 - Support for topological boundaries for the GPlates Web Service. The feature collections `"subduction_zones"`, `"plate_boundaries"` are now available for access, these `sf` objects also gained the `subduction.zones` and `plate.boundaries` S3 classes for efficient plotting.
 - The feature collections `"static_polygons"`, `"coastlines"`, `"plate_polygons"` now return S3 classes `static.polygons`, `coastlines`, `plate.polygons` besides the standard `sf` classes
 - The `sawteeth` function as the engine for visualizing subduction lines.
-- Plot method for the `subduction.zones` S3 class (`plot.subduction. zones`)
+- Plot method for the `subduction.zones` S3 class (`plot.subduction.zones`)
 - Support for `.gpmlz` feature collection files. 
+- Support for multiple rotation files per tectonic model. Muliple files will be concatenated at recontruction time. 
 
 ### Changed
 

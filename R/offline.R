@@ -37,7 +37,11 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		model@features <- model@features[, "feature_collection"]
 		names(model@features) <- nam
 	}	
-	
+
+	# if there are multiple rotation files, make sure to merge them first
+	if(length(model@rotation)>1) model@rotation <- mergeRotations(model@rotation)
+
+
     # 1. FIND GPlates
 		# A. get operating system
 		os <- getOS()
@@ -490,4 +494,29 @@ testGPlates<- function(gplatesExecutable, verbose){
 	
 	# if gplates is not present
 	return(!is.null(ver))
+}
+
+
+# if the model is made up of multiple rotation files, they need to be merged
+# will create a new, temporary rotation file in the temp directory
+mergeRotations <- function(x){
+
+	# store everything in here
+	allLines <- NULL
+	for(i in 1:length(x)){
+		allLines <- c(allLines, readLines(x[i]))
+	}
+
+	# write them into the temporary directory
+	tempor <- tempdir()
+
+	# where to write the file
+	newFile <- file.path(tempor, "jointRotation.rot")
+
+	# write it
+	cat(allLines, file=newFile, sep="\n")
+
+	# return the name of the new rotation file
+	return(newFile)
+
 }
