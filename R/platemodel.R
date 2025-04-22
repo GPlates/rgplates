@@ -58,6 +58,19 @@ setMethod("initialize",signature="platemodel",
 			
 				.Object@name <- ""
 			}
+			# co a comprehensive check of all files
+			# rotation
+			if(!file.exists(.Object@rotation)) stop("The provided rotation file could not be found.")
+
+			if(is.data.frame(.Object@features)){
+				checkthis <- .Object@features[,1]
+				names(checkthis) <- rownames(.Object@features)
+			}else{
+				checkthis <- .Object@features
+			}
+			for(i in checkthis){
+				if(!file.exists(i)) stop("The feature collection file\n  '",i,"'\n  could not be found.")
+			}
 
 		return(.Object)
 	}
