@@ -200,6 +200,9 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		}
 
 
+		# default is to use this
+		gpmlExt <- "gpml"
+
 		# in case stat
 		if(!is.character(x)){
 		# write 'x' as a shapefile
@@ -212,6 +215,10 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			sf::st_write(xTransform, dsn=paste(pathToFileNoEXT, ".shp", sep=""),
 				layer=layer, driver="ESRI Shapefile", quiet=!verbose)
 			# select partitioning feature
+			# test whether the partitioning feature collection is there
+			if(all(partitioning!=names(plateFeatures)))
+				stop(paste0("The partitioning feature collection '", partitioning, "'\n  is not part of the platemodel object."))
+			# if there: select the partitioning feature collection
 			platePolygons <- plateFeatures[partitioning]
 
 
@@ -226,8 +233,6 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 				withZ <- grepl(".gpmlz", plateFeatures[x])
 				if(withZ){
 					gpmlExt <- "gpmlz"
-				}else{
-					gpmlExt <- "gpml"
 				}
 
 				# use original one - even for windows.

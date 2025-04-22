@@ -17,6 +17,10 @@
 
 - The `gws` `data.frame` object is updated to work with GWS 1.0.0.
 
+### Fixed
+
+- In the offline `reconstruct` method, if the `partitioning` feature collection is not present, the function will indicate it with a correct error message. 
+
 # rgplates 0.5.0 - 2024-09-04
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13711982.svg)](https://doi.org/10.5281/zenodo.13711982) - "Spread That Seafloor"
