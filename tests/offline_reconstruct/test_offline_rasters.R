@@ -12,7 +12,7 @@ model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/ch
 target <- terra::rast(res=4)
 
 # present-day things
-smalltopo <- terra:resample(dems["0"], target)
+smalltopo <- terra::resample(dems["0"], target)
 
 # old things
 pasttopo <- terra::resample(dems["60"], target)
@@ -21,5 +21,4 @@ pasttopo <- terra::resample(dems["60"], target)
 pasttopo30 <- terra::resample(dems["30"], target)
 pasttopo120 <- terra::resample(dems["120"], target)
 # This will not yet work
-
 expect_error(reconstruct(smalltopo, age=60, model=model))

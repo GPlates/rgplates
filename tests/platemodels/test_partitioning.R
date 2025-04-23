@@ -13,7 +13,7 @@ rotPath <- file.path(tempdir(), "PALEOMAP_PlateModel.rot")
 polPath <- file.path(tempdir(), "PALEOMAP_PlatePolygons.gpml")
 
 # load files
-adminPath <- "/mnt/sky/Dropbox/WorkSpace/2021-04-28_rgplates/data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
+adminPath <- "/mnt/sky/Dropbox/Software/rgplates/data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
 
 ######################################################
 # Default partitioning polygons (static_polygons)

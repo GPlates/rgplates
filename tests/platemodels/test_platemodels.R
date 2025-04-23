@@ -110,12 +110,12 @@ expect_silent(
 
 # age =30
 age <- 30
-static_30 <- reconstruct("static_polygons", age=age, model=mod)
-cratons_30 <- reconstruct("cratons", age=age, model=mod)
-continents_30 <- reconstruct("continents", age=age, model=mod)
-coastlines_30 <- reconstruct("coastlines", age=age, model=mod)
-pb_30 <- reconstruct("plate_boundaries_250", age=age, model=mod)
-topb_30 <- reconstruct("topology-building-blocks", age=age, model=mod)
+expect_silent(static_30 <- reconstruct("static_polygons", age=age, model=mod))
+expect_silent(cratons_30 <- reconstruct("cratons", age=age, model=mod))
+expect_silent(continents_30 <- reconstruct("continents", age=age, model=mod))
+expect_silent(coastlines_30 <- reconstruct("coastlines", age=age, model=mod))
+expect_silent(pb_30 <- reconstruct("plate_boundaries_250", age=age, model=mod))
+expect_silent(topb_30 <- reconstruct("topology-building-blocks", age=age, model=mod))
 
 plot(static_30$geometry, col="gray80")
 plot(continents_30$geometry, col="gray70", add=TRUE)
@@ -128,12 +128,12 @@ plot(topb_30$geometry, col="green", add=TRUE)
 # age 300
 age <- 300
 
-static_300 <- reconstruct("static_polygons", age=age, model=mod)
-cratons_300 <- reconstruct("cratons", age=age, model=mod)
-continents_300 <- reconstruct("continents", age=age, model=mod)
-coastlines_300 <- reconstruct("coastlines", age=age, model=mod)
-pb_300 <- reconstruct("plate_boundaries_410", age=age, model=mod)
-topb_300 <- reconstruct("topology-building-blocks", age=age, model=mod)
+expect_silent(static_300 <- reconstruct("static_polygons", age=age, model=mod))
+expect_silent(cratons_300 <- reconstruct("cratons", age=age, model=mod))
+expect_silent(continents_300 <- reconstruct("continents", age=age, model=mod))
+expect_silent(coastlines_300 <- reconstruct("coastlines", age=age, model=mod))
+expect_silent(pb_300 <- reconstruct("plate_boundaries_410", age=age, model=mod))
+expect_silent(topb_300 <- reconstruct("topology-building-blocks", age=age, model=mod))
 
 plot(static_300$geometry, col="gray80")
 plot(continents_300$geometry, col="gray70", add=TRUE)
@@ -168,16 +168,16 @@ plot(topb_300$geometry, col="green", add=TRUE)
 
 # age 500
 age <- 500
-static_500 <- reconstruct("static_polygons", age=age, model=mod)
-cratons_500 <- reconstruct("cratons", age=age, model=mod)
-continents_500 <- reconstruct("continents", age=age, model=mod)
+expect_silent(static_500 <- reconstruct("static_polygons", age=age, model=mod))
+expect_silent(cratons_500 <- reconstruct("cratons", age=age, model=mod))
+expect_silent(continents_500 <- reconstruct("continents", age=age, model=mod))
 # coastlines_500 <- reconstruct("coastlines_400-0", age=age, model=mod)
-conv_500 <- reconstruct("convergence", age=age, model=mod)
-div_500 <- reconstruct("divergence", age=age, model=mod)
+expect_silent(conv_500 <- reconstruct("convergence", age=age, model=mod))
+expect_silent(div_500 <- reconstruct("divergence", age=age, model=mod))
 # top_500 <- reconstruct("topologies", age=age, model=mod)
-trans_500 <- reconstruct("transforms", age=age, model=mod)
-poles_500 <- reconstruct("poles", age=age, model=mod)
-topb_500 <- reconstruct("topology-building-blocks", age=age, model=mod)
+expect_silent(trans_500 <- reconstruct("transforms", age=age, model=mod))
+expect_silent(poles_500 <- reconstruct("poles", age=age, model=mod))
+expect_silent(topb_500 <- reconstruct("topology-building-blocks", age=age, model=mod))
 
 plot(static_500$geometry, col="gray80")
 plot(continents_500$geometry, col="gray70", add=TRUE)
