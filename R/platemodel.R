@@ -60,7 +60,9 @@ setMethod("initialize",signature="platemodel",
 			}
 			# co a comprehensive check of all files
 			# rotation
-			if(!file.exists(.Object@rotation)) stop("The provided rotation file could not be found.")
+			for( i in .Object@rotation){
+				if(!file.exists(i)) stop("The provided rotation file\n  ",i,"\n  could not be found.")
+			}
 
 			if(is.data.frame(.Object@features)){
 				checkthis <- .Object@features[,1]
