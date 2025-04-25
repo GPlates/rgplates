@@ -4,12 +4,12 @@ library(rgplates)
 model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
 
 # example 
-admin <- st_read(file.path(wd,"data/Paleomap/paleomap_adminlines_19o/admin.shx"), quiet=TRUE)
+admin <- sf::st_read(file.path(wd,"data/Paleomap/paleomap_adminlines_19o/admin.shx"), quiet=TRUE)
 admin <- as(admin, "Spatial")
 
 ################################################################################
 # 2. Explicit WGS 84 CRS
-proj <- st_crs(admin)[1][[1]]
+proj <- sf::st_crs(admin)[1][[1]]
 
 ################################################################################
 # Reconstructed to 0
@@ -20,7 +20,7 @@ rec0 <- reconstruct(admin, age=0, model=model)
 expect_inherits(rec0, "Spatial")
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -35,7 +35,7 @@ expect_inherits(rec100, "Spatial")
 expect_equal(colnames(rec0), colnames(rec100))
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -50,7 +50,7 @@ expect_equal(colnames(rec0), colnames(rec100_pp))
 
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
@@ -76,7 +76,7 @@ expect_error(
 ################################################################################
 # 3. Repeat with a different CRS
 proj <- "ESRI:54009"
-admin <- as(st_transform(st_as_sf(admin), proj), "Spatial")
+admin <- as(sf::st_transform(sf::st_as_sf(admin), proj), "Spatial")
 
 # equivalent
 proj <- "World_Mollweide"
@@ -90,7 +90,7 @@ rec0 <- reconstruct(admin, age=0, model=model)
 expect_inherits(rec0, "Spatial")
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -105,7 +105,7 @@ expect_inherits(rec100, "Spatial")
 expect_equal(colnames(rec0), colnames(rec100))
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -120,7 +120,7 @@ expect_equal(colnames(rec0), colnames(rec100_pp))
 
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout

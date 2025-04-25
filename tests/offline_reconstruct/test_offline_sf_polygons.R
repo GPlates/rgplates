@@ -5,11 +5,11 @@ model <- chronosphere::fetch("paleomap", "model", datadir=file.path(wd, "data/ch
 
 # example 
 myers <- chronosphere::fetch("myers-hotspots", datadir=file.path(wd, "data/chronosphere"), verbose=FALSE)
-myers <-  st_as_sf(myers)
+myers <-  sf::st_as_sf(myers)
 
 ################################################################################
 # 2. Explicit WGS 84 CRS
-proj <- st_crs(myers)[1][[1]]
+proj <- sf::st_crs(myers)[1][[1]]
 
 ################################################################################
 # Reconstructed to 0
@@ -20,7 +20,7 @@ rec0 <- reconstruct(myers, age=0, model=model)
 expect_inherits(rec0, "sf")
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -35,7 +35,7 @@ expect_inherits(rec100, "sf")
 expect_equal(colnames(rec0), colnames(rec100))
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -50,7 +50,7 @@ expect_equal(colnames(rec0), colnames(rec100_pp))
 
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
@@ -75,7 +75,7 @@ expect_error(
 ################################################################################
 # 2. Repeat with a different CRS
 proj <- "ESRI:54009"
-myers <- st_transform(myers, proj)
+myers <- sf::st_transform(myers, proj)
 
 
 ################################################################################
@@ -87,7 +87,7 @@ rec0 <- reconstruct(myers, age=0, model=model)
 expect_inherits(rec0, "sf")
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -102,7 +102,7 @@ expect_inherits(rec100, "sf")
 expect_equal(colnames(rec0), colnames(rec100))
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -117,7 +117,7 @@ expect_equal(colnames(rec0), colnames(rec100_pp))
 
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout

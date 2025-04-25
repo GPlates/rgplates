@@ -1,5 +1,5 @@
 library(tinytest)
-wd <- file.path(Sys.getenv("Dropbox"), "Software/rgplates")
+#wd <- file.path(Sys.getenv("Dropbox"), "Software/rgplates")
 setwd(wd)
 
 archive <- file.path(
@@ -13,7 +13,7 @@ rotPath <- file.path(tempdir(), "PALEOMAP_PlateModel.rot")
 polPath <- file.path(tempdir(), "PALEOMAP_PlatePolygons.gpml")
 
 # load files
-adminPath <- "/mnt/sky/Dropbox/Software/rgplates/data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
+adminPath <- "data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
 
 ######################################################
 # Default partitioning polygons (static_polygons)

@@ -42,7 +42,7 @@ expect_equal(nrow(rec0), nrow(sfp))
 expect_equal(colnames(sfp), colnames(rec0))
 
 # expect a WGS 84
-expect_equal(st_crs(rec0)[1][[1]], "WGS 84")
+expect_equal(sf::st_crs(rec0)[1][[1]], "WGS 84")
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -71,7 +71,7 @@ names(full) <- sfp$id
 expect_equal(part, full[names(part)])
 
 # expect a WGS 84
-expect_equal(st_crs(rec100)[1][[1]], "WGS 84")
+expect_equal(sf::st_crs(rec100)[1][[1]], "WGS 84")
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -91,7 +91,7 @@ keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect a WGS 84
-expect_equal(st_crs(rec100_pp)[1][[1]], "WGS 84")
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], "WGS 84")
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
@@ -125,7 +125,7 @@ expect_error(
 ################################################################################
 # 2. Explicit WGS 84 CRS
 proj <- "EPSG:4326"
-st_crs(sfp) <-proj 
+sf::st_crs(sfp) <-proj
 
 ################################################################################
 # Reconstructed to 0
@@ -142,7 +142,7 @@ expect_equal(nrow(rec0), nrow(sfp))
 expect_equal(colnames(sfp), colnames(rec0))
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -171,7 +171,7 @@ names(full) <- sfp$id
 expect_equal(part, full[names(part)])
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -191,7 +191,7 @@ keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout
@@ -225,7 +225,7 @@ expect_error(
 ################################################################################
 # 3. Repeat with a different CRS
 proj <- "ESRI:54009"
-sfp <- st_transform(sfp, proj)
+sfp <- sf::st_transform(sfp, proj)
 
 ################################################################################
 # Reconstructed to 0
@@ -242,7 +242,7 @@ expect_equal(nrow(rec0), nrow(sfp))
 expect_equal(colnames(sfp), colnames(rec0))
 
 # expect the input CRS
-expect_equal(st_crs(rec0)[1][[1]], proj)
+expect_equal(sf::st_crs(rec0)[1][[1]], proj)
 
 ## ################################################################################
 # Reconstructed to 100 
@@ -271,7 +271,7 @@ names(full) <- sfp$id
 expect_equal(part, full[names(part)])
 
 # expect the input CRS
-expect_equal(st_crs(rec100)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to 100 with validtime=FALSE
@@ -291,7 +291,7 @@ keep <- which(!is.na(recDF[,"paleolong"]))
 expect_equivalent(rec100, rec100_pp[keep, ]) # rownames differ!
 
 # expect the input CRS
-expect_equal(st_crs(rec100_pp)[1][[1]], proj)
+expect_equal(sf::st_crs(rec100_pp)[1][[1]], proj)
 
 ################################################################################
 # Reconstructed to c(0,100) with listout

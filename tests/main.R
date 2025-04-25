@@ -3,15 +3,18 @@
 # Needed
 ## install.packages(c(NULL
 ## 	, "ncdf4"
-## 	, "rgdal"
 ## 	, "divDyn"
 ## 	, "chronosphere"
 ## 	, "tinytest"
+## 	, "Rcpp"
 ## 	, "terra"
 ## 	, "via"
 ##  , "httr2"
 ##  , "geojsonsf"
 ##  , "sf"
+##  , "knitr"
+##  , "rmarkdown"
+##  , "sp"
 ## ))
 
 
@@ -23,23 +26,24 @@ library(chronosphere)
 library(rgplates)
 
 if(rgplates:::getOS()=="linux") wd <- file.path(Sys.getenv("Dropbox"), "Software/rgplates")
-if(rgplates:::getOS()=="windows") wd <- file.path("D:/rgplates")
+if(rgplates:::getOS()=="windows") wd <- file.path("Z:/rgplates")
 if(rgplates:::getOS()=="osx") wd <- file.path("~/Desktop/rgplates")
 
 setwd(wd)
 
 # make a cluster of 8
-cl <- parallel::makeCluster(4, outfile="")
-parallel::clusterCall(cl, source, "rgplates/tests/source.R")
+## cl <- parallel::makeCluster(4, outfile="")
+## parallel::clusterCall(cl, source, "rgplates/tests/source.R")
 
-# the online 
-online_reconstruct <- run_test_dir("rgplates/tests/online_reconstruct")
-offline_reconstruct <- run_test_dir("rgplates/tests/offline_reconstruct")
-utilty <- run_test_dir("rgplates/tests/utility")
-platemodel <- run_test_dir("rgplates/tests/platemodels")
-online_velocities <- run_test_dir("rgplates/tests/online_velocities")
+# the offline bit
+offline_reconstruct <- run_test_dir("rgplates/tests/offline_reconstruct") # L
+utilty <- run_test_dir("rgplates/tests/utility") # L
+platemodel <- run_test_dir("rgplates/tests/platemodels") #L
+plotting <- run_test_dir("rgplates/tests/plotting") #L
+
+# the online bits
+online_velocities <- run_test_dir("rgplates/tests/online_velocities") # L
+online_reconstruct <- run_test_dir("rgplates/tests/online_reconstruct") # L
 
 # Finish
-stopCluster(cl)
-
-
+#stopCluster(cl)

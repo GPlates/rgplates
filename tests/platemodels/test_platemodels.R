@@ -13,7 +13,7 @@ rotPath <- file.path(tempdir(), "PALEOMAP_PlateModel.rot")
 polPath <- file.path(tempdir(), "PALEOMAP_PlatePolygons.gpml")
 
 # load files
-adminPath <- "/mnt/sky/Dropbox/Software/rgplates/data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
+adminPath <- "data/Paleomap/Scotese PaleoAtlas_v3/PALEOMAP Global Plate Model/PALEOMAP_PoliticalBoundaries.gpml"
 
 ######################################################
 
@@ -23,10 +23,10 @@ expect_silent(model <- platemodel(rotation=rotPath, polygons=polPath))
 # new style
 expect_silent(model <- platemodel(rotation=rotPath, features=c("static_polygons"=polPath, "admin"=adminPath)))
 
-rotPath <- "/mnt/sky/Dropbox/Software/rgplates/data/SM2_X/1000_0_rotfile_Merdith_et_al.rot"
-polPath <- "/mnt/sky/Dropbox/Software/rgplates/data/SM2_X/shapes_static_polygons_Merdith_et_al.gpml"
-contPath <- "/mnt/sky/Dropbox/Software/rgplates/data/SM2_X/shapes_continents_Merdith_et_al.gpml"
-coastPath <- "/mnt/sky/Dropbox/Software/rgplates/data/SM2_X/shapes_coastlines_Merdith_et_al.gpml"
+rotPath <- "data/SM2_X/1000_0_rotfile_Merdith_et_al.rot"
+polPath <- "data/SM2_X/shapes_static_polygons_Merdith_et_al.gpml"
+contPath <- "data/SM2_X/shapes_continents_Merdith_et_al.gpml"
+coastPath <- "data/SM2_X/shapes_coastlines_Merdith_et_al.gpml"
 
 
 # old style

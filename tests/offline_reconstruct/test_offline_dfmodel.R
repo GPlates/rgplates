@@ -1,6 +1,11 @@
 library(rgplates)
 
-dir <- paste0(wd, "/data")
+if(rgplates:::getOS()=="osx"){
+	dir <- "data"
+}else{
+	dir <- paste0(wd, "/data")
+
+}
 
 features<-data.frame(
 	feature_collection=c(

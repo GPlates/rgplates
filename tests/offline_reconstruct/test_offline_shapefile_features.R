@@ -1,6 +1,6 @@
 # working directory of test
 setwd(wd)
-setwd("/mnt/sky/Dropbox/Software/rgplates/")
+#setwd("/mnt/sky/Dropbox/Software/rgplates/")
 
 # ensure presence
 library(rgplates)
@@ -63,10 +63,15 @@ rownames(dmat) <-paste0("row", 1:nrow(dmat))
 
 
 # for unix-like
-if(os%in%c("linux", "osx")){
+if(os=="linux"){
 	# conversion
 	expect_silent(newpath <- rgplates:::shp_to_gpml(x,  dir=theDir, gplatesExecutable="gplates",
 		winin=FALSE, winout=FALSE, verbose=FALSE))
+
+	# the file was actually created
+	# newfile:
+	newfile <- unlist(lapply(strsplit(gsub("\\.shp$", ".gpml",x), "/"), function(x) x[length(x)]))
+	expect_true(newfile%in%list.files(theDir))
 
 	# create platemodel from this
 	expect_silent(
@@ -75,11 +80,6 @@ if(os%in%c("linux", "osx")){
 			rotation=rot
 		)
 	)
-
-	# the file was actually created
-	# newfile:
-	newfile <- unlist(lapply(strsplit(gsub("\\.shp$", ".gpml",x), "/"), function(x) x[length(x)]))
-	expect_true(newfile%in%list.files(theDir))
 
 	# works
 	expect_silent(res <- reconstruct("static_polygons", age=40, model=mod))
@@ -92,13 +92,60 @@ if(os%in%c("linux", "osx")){
 		winin=FALSE, winout=FALSE, verbose=FALSE))
 
 
+}
+
+# for unix-like
+if(os=="osx"){
+	mac <- paste(rgplates:::macDefaultGplates(), collapse="/")
+	# conversion
+	expect_silent(newpath <- rgplates:::shp_to_gpml(x,  dir=theDir, gplatesExecutable=mac,
+		winin=FALSE, winout=FALSE, verbose=FALSE))
+
+	# the file was actually created
+	# newfile:
+	newfile <- unlist(lapply(strsplit(gsub("\\.shp$", ".gpml",x), "/"), function(x) x[length(x)]))
+	expect_true(newfile%in%list.files(theDir))
+
+	# create platemodel from this
+	expect_silent(
+		mod <- platemodel(
+			features=c("static_polygons"=newpath),
+			rotation=rot
+		)
+	)
+
+	# works
+	expect_silent(res <- reconstruct("static_polygons", age=40, model=mod))
+
+	# point reconstruction
+	expect_silent(respoints <- reconstruct(dmat, age=40, model=mod))
+
+	# admin
+	expect_silent(newpath2 <- rgplates:::shp_to_gpml(y,  dir=theDir, gplatesExecutable=mac,
+		winin=FALSE, winout=FALSE, verbose=FALSE))
+
+
+}
+
+
 # windows
-}else{
+if(os=="windows"){
 	x <- gsub("/","\\\\", x)
 
+	# executable
+	win <- rgplates:::winDefaultGPlates()
+
+	# the gplates executable in unix form
+	gplates <- paste(win, collapse="/")
+	gplatesWin <- gsub("/","\\\\", gplates)
+
 	# conversion
-	newpathWin <- shp_to_gpml(x,  dir=file.path(tempdir(), "newgpml2"), gplatesExecutable="gplates",
+	newpathWin <- rgplates:::shp_to_gpml(x,  dir=theDir, gplatesExecutable=paste0('\"',gplatesWin,'\"'),
 		winin=TRUE, winout=FALSE, verbose=FALSE)
+
+	# the new file's position
+	newfile <- unlist(lapply(strsplit(gsub("\\.shp$", ".gpml",x), "\\\\"), function(x) x[length(x)]))
+	expect_true(newfile%in%list.files(theDir))
 
 	# create platemodel from this
 	expect_silent(
@@ -108,12 +155,11 @@ if(os%in%c("linux", "osx")){
 		)
 	)
 
-	# the new file's position
-	newfile <- unlist(lapply(strsplit(gsub("\\.shp$", ".gpml",x), "/"), function(x) x[length(x)]))
-	expect_true(newfile%in%list.files(theDir))
-
 	# works
 	expect_silent(res <- reconstruct("static_polygons", age=40, model=mod))
+
+	# point reconstruction
+	expect_silent(respoints <- reconstruct(dmat, age=40, model=mod))
 
 }
 
@@ -122,7 +168,7 @@ if(os%in%c("linux", "osx")){
 ################################################################################
 # clean the temporary directory
 unlink(tempdir(), recursive=TRUE, force=TRUE)
-dir.create(tempdir())
+dir.create(tempdir(), showWarnings=FALSE)
 
 
 # using the original model
@@ -133,15 +179,13 @@ expect_equal(static, res)
 # second case
 expect_silent(coast <- reconstruct("coastlines", age=40, model=original, verbose=FALSE))
 
-x <- original@features["coastlines"]
-
 ################################################################################
 # 3. As paritioning polygons
 ################################################################################
 
 # clean the temporary directory
 unlink(tempdir(), recursive=TRUE, force=TRUE)
-dir.create(tempdir())
+dir.create(tempdir(), showWarnings=FALSE)
 
 # seems to work ok
 expect_silent(poin <- reconstruct(dmat, age=40, model=original))
