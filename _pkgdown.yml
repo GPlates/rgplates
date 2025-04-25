@@ -64,6 +64,11 @@ reference:
   desc: Useful auxilliary function(s)
   contents:
   - mapedge
+- title: Plotting
+  desc: Functions related to visualization
+  contents:
+  - sawteeth
+  - subductionlines
 
 authors:
   Adam T. Kocsis:

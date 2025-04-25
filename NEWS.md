@@ -1,6 +1,6 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.6.0 - 2025-03-14
+# rgplates 0.6.0 - 2025-04-26
 
 "Hosh-posh volcanism"
 
@@ -23,6 +23,7 @@
 
 - In the offline `reconstruct` method, if the `partitioning` feature collection is not present, the function will indicate it with a correct error message. 
 
+* * *
 
 # rgplates 0.5.0 - 2024-09-04
 

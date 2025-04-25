@@ -1,7 +1,7 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.5.0-green.svg)](https://github.com/gplates/rgplates)
+[![](https://img.shields.io/badge/devel%20version-0.6.0-green.svg)](https://github.com/gplates/rgplates)
 [![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
@@ -100,6 +100,34 @@ plot(coastsRob, border=NA, col="gray90", add=TRUE)
 ![](man/figures/rgplates_example.png)
 
 <br>
+
+From version 0.6.0, the package supports topological plate boundary
+export from the [GWS](https://gws.gplates.org/), demonstrated here with
+the [`CAO2024`](https://doi.org/10.1016/j.gsf.2024.101922) model:
+
+``` r
+library(rgplates)
+
+# modern coastlines and topological plate boundaries
+coasts <- reconstruct("coastlines", age=250, model="CAO2024")
+boundaries <- reconstruct("plate_boundaries", age=250, model="CAO2024")
+
+# plot (background wih legend key)
+plot(boundaries[, "type"], lwd=2, reset=FALSE,
+    main="", key.pos=4)
+
+# coastlines
+plot(coasts$geometry, col="#DDDDDD", border=NA, add=TRUE)
+
+# boundaries again 
+plot(boundaries[, "type"], add=TRUE, lwd=2)
+
+# subduction zones (color from sf)
+subcolor <- sf.colors(9, categorical=TRUE)[3]
+subductionlines(boundaries, col=subcolor, cex=1.3)
+```
+
+![](man/figures/subduction_example.png)
 
 ##### *Using reconstructions*
 

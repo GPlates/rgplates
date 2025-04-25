@@ -576,7 +576,7 @@ shp_to_gpml <- function(x, dir=file.path(tempdir(), "newgpml"), gplatesExecutabl
 	if(winin) x <- gsub("\\\\", "/", x)
 
 	# copy over all relevant files
-	filename <- rgplates:::fileFromPath(x)
+	filename <- fileFromPath(x)
 
 	# the filename stem
 	fileStem <- unlist(lapply(strsplit(filename, "\\."), function(x) paste(x[-length(x)], collapse="")))
@@ -610,6 +610,14 @@ shp_to_gpml <- function(x, dir=file.path(tempdir(), "newgpml"), gplatesExecutabl
 	system(conversion, ignore.stdout=!verbose,ignore.stderr=!verbose)
 
 	# return path to gpml file
-	return(paste0(dir, "/", fileStem, ".gpml"))
+	result <- paste0(dir, "/", fileStem, ".gpml")
 
+	# ensure homogeneous path output
+	if(winout){
+		result <- gsub("/","\\\\", result)
+	}else{
+		result <- gsub("\\\\","/", result)
+	}
+
+	return(result)
 }
