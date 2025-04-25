@@ -1,22 +1,30 @@
 ################################################################################
 # Class-methods
 
-#' Plotting method for subduction.zones
+#' Plot subduction lines
 #'
-#' @param x An \code{sf}-class object with additional class label of \code{subduction.zones},
+#' @param x An \code{sf}-class object with additional class label of \code{subduction.zones}, or \code{plate.boundaries}.
 #' returned by the online \code{\link[rgplates]{reconstruct}} method.
 #' @param add (\code{logical}) By default the plot will be plotting on existing plots. Use \code{add=FALSE} to plot from scratch.
+#' @param ... Arguments passed to the \code{\link{sawteeth}} function.
 #' @return The function has no return value.
-#' @rdname plots
-#' @exportS3Method base::plot
-#' @export plot.subduction.zones
-plot.subduction.zones <- function(x, add=TRUE,  ... ){
-	# break down object to individual lines
-	elements <- nrow(x)
+#' @name subductionlines
+#' @export
+subductionlines <- function(x, add=TRUE,  ... ){
+	# method S3 method dispatch does not work properly currently...
+	if(inherits(x, "plate.boundaries")){
+		# subset to subductions
+		x <- x[x$type=="SubductionZone",]
+		class(x)[class(x)=="plate.boundaries"] <- "subduction.zones"
+	}
 
+	if(!inherits(x, "subduction.zones")) stop("The function requires a 'subduction.lines'-class object.")
 	if(!add) {
 		plot(x$geometry, col=NA, border=NA)
 	}
+
+	# break down object to individual lines
+	elements <- nrow(x)
 
 	# repeat for every segments
 	for(i in 1:elements){

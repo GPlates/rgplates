@@ -20,7 +20,7 @@ sawteeth(
 
 \item{left}{(\code{logical}) Switch indicating whether to put the teeth on the left- or right-hand side.}
 
-\item{cex}{(\code{numeric}) Standard scaling argument, controls the size and number of sawteeth. Defaults are based on plot parameters (\code{cxy}).}
+\item{cex}{(\code{numeric}) Standard scaling argument, controls the size and number of sawteeth. Defaults are based on plot parameters (\code{cxy}), different device dimensions will lead to differently sized triangles.}
 
 \item{shape}{(\code{numeric}) Proportion of tooth height to its base.}
 
@@ -46,9 +46,13 @@ x <- c(0.42, 1.90, 2.06, 1.28, 1.01, 1.05, 1.34, 2.14,
 y <- c(1.06, 0.86, 1.91, 2.90, 4.25, 5.52, 6.81, 8.03,
 	9.03, 9.25, 9.30, 8.88, 8.36, 7.00, 6.50)
 
-# visualize points
+# visualize the line with a sawteeth
 plot(x, y, xlim=c(0,10), ylim=c(0, 10))
 
-sawteeth(cbind(x,y), left=TRUE, col="red")
-sawteeth(cbind(x,y), left=TRUE, col="red", shape=0.5)
+sawteeth(cbind(x,y), left=TRUE, col="#99000077")
+sawteeth(cbind(x,y), left=TRUE, col="black", shape=0.5)
+
+# use combination of cex and shape to control the size triangles
+plot(x, y, xlim=c(0,10), ylim=c(0, 10))
+sawteeth(cbind(x,y), left=TRUE, col="#99000077", cex=0.5, shape=3)
 }

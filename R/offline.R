@@ -560,7 +560,7 @@ mergeRotations <- function(x){
 
 isShapefile <- function(x){
 	# get filename
-	filename <- rgplates:::fileFromPath(x)
+	filename <- fileFromPath(x)
 	grepl("\\.shx$",filename) | grepl("\\.shp$",filename)
 }
 

@@ -97,12 +97,16 @@ flowchart LR
   reconstructGPlates-->st_as_Spatial
   reconstructGPlates-->st_coordinates
   reconstructGPlates-->fileFromPath
+  isShapefile-->fileFromPath
+  shp_to_gpml-->fileFromPath
 
   subgraph offline.R
 
   reconstructGPlates-->testGPlates
   reconstructGPlates-->winDefaultGPlates
   reconstructGPlates-->macDefaultGPlates
+  reconstructGPlates-->isShapefile
+  reconstructGPlates-->shp_to_gpml
   
   end
 
@@ -156,6 +160,31 @@ flowchart LR
   
   end
 
+	plot.subduction.zones-->sawteeth
+	sawteeth-->trianglePoints
+	sawteeth-->trianglePolygons
+	sawteeth-->polygon
+	sawteeth-->lines
+
+
+  subgraph plots.R
+
+	plot.subduction.zones:::ui
+	sawteeth:::ui
+
+	end 
+	
+	trianglePoints-->xspline
+
+  subgraph plot_utils.R
+
+	trianglePolygons-->pathDists
+	trianglePoints-->regularize
+	regularize-->pathDists
+	regularize-->getEquidistant
+	
+	end
+
   platemodel-show-->fileFromPath
 
   subgraph platemodel.R
@@ -205,6 +234,14 @@ flowchart LR
 	req_perform:::extern
 	resp_body_string:::extern
 	end
+	
+	subgraph graphics 
+	polygon:::extern
+	xspline:::extern        	
+	lines:::extern           	
+	end
+	
+	
   end
   
   style EXT fill:#eee,border:#bbb

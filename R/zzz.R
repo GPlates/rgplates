@@ -17,4 +17,5 @@
 #' @importFrom graphics polygon
 #' @importFrom graphics lines
 #' @importFrom graphics xspline
+#' @importFrom graphics par
 NULL
