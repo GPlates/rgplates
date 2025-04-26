@@ -52,8 +52,9 @@ The package was developed to make R-based analyses that require paloecoordinate 
 
 * * *
 
-- The package was incorporated into the GPlates suite. 
-- Major update to **v0.5** introduces rasters as reconstructable features and velocities. If you encounter any issues, make sure that you with the most recent version of the package.
+- Major update to v0.6 to accommodate changes to the GPlates Web Service (v1.0) 
+- New plotting functions to make more comprehensive paleogeographic maps (subduction zones, see below) 
+- Better compatibility of offline methods
 
 
 ## Examples

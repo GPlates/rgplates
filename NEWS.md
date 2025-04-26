@@ -2,7 +2,7 @@
 
 # rgplates 0.6.0 - 2025-04-26
 
-"Hosh-posh volcanism"
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15286150.svg)](https://doi.org/10.5281/zenodo.15286150) - "Hosh-posh volcanism"
 
 ### Added 
 

@@ -39,10 +39,10 @@ tectonic models are accessible via the
 
 ### Requirements
 
-|  | **Online (GWS)** | **Offline (Desktop App.)** |
-|----|----|----|
-| Internet connection | ✅ | ❌ |
-| [GPlates](https://gws.gplates.org/) installed | ❌ | ✅ |
+|                                               | **Online (GWS)** | **Offline (Desktop App.)** |
+|-----------------------------------------------|------------------|----------------------------|
+| Internet connection                           | ✅               | ❌                         |
+| [GPlates](https://gws.gplates.org/) installed | ❌               | ✅                         |
 
 ### Aim
 
@@ -58,10 +58,11 @@ analyses you are more than welcome to check out
 
 ------------------------------------------------------------------------
 
-- The package was incorporated into the GPlates suite.
-- Major update to **v0.5** introduces rasters as reconstructable
-  features and velocities. If you encounter any issues, make sure that
-  you with the most recent version of the package.
+- Major update to v0.6 to accommodate changes to the GPlates Web Service
+  (v1.0)
+- New plotting functions to make more comprehensive paleogeographic maps
+  (subduction zones, see below)
+- Better compatibility of offline methods
 
 ## Examples
 
@@ -167,14 +168,14 @@ GPlates Desktop Application), have mismatching feature coverage. The
 long-term development goal is to make these two as symmetric in
 capabilities and comparable in performance as possible.
 
-| Feature | **Online (GWS)** | **Offline (Desktop App.)** |
-|----|----|----|
-| Built-in feature collections | ✅ | ❌ |
-| Point reconstruction | ✅ (slow) | ✅ (fast) |
-| Vector line/polygon input (`sf`) | ❌ | ✅ |
-| Raster input (`terra`) | ✅ | ❌ |
-| Paleocoordintate input | ✅ | ❌ |
-| Velocity rasters | ✅ | ❌ |
+| Feature                          | **Online (GWS)** | **Offline (Desktop App.)** |
+|----------------------------------|------------------|----------------------------|
+| Built-in feature collections     | ✅               | ❌                         |
+| Point reconstruction             | ✅ (slow)        | ✅ (fast)                  |
+| Vector line/polygon input (`sf`) | ❌               | ✅                         |
+| Raster input (`terra`)           | ✅               | ❌                         |
+| Paleocoordintate input           | ✅               | ❌                         |
+| Velocity rasters                 | ✅               | ❌                         |
 
 ## Notes
 
