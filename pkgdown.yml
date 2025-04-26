@@ -1,5 +1,5 @@
-pandoc: 3.2.1
-pkgdown: 2.0.7
+pandoc: 3.1.3
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   1_installation: 1_installation.html
@@ -8,8 +8,7 @@ articles:
   4_offline_reconstruction: 4_offline_reconstruction.html
   5_reconstruction_with_chronosphere: 5_reconstruction_with_chronosphere.html
   internals: internals.html
-last_built: 2025-01-28T10:17Z
+last_built: 2025-04-26T07:46Z
 urls:
   reference: https://gplates.github.io/rgplates/reference
   article: https://gplates.github.io/rgplates/articles
-
