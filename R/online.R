@@ -181,7 +181,7 @@ gplates_reconstruct_this <- function(age, this, model="MERDITH2021", verbose=TRU
 
 	# assign some additional classes
 	if (input=="static_polygons"){
-		class(dat) <- c("static_polygons", class(dat))
+		class(dat) <- c("static.polygons", class(dat))
 	}
 	if (input=="coastlines"){
 		class(dat) <- c("coastlines", class(dat))
