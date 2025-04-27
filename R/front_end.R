@@ -92,7 +92,8 @@ setMethod(
 	"reconstruct", 
 	signature="matrix", 
 	function(x,age=0, model="MERDITH2021", from=0, listout=TRUE, verbose=FALSE, enumerate=TRUE, 
-		chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=NULL, partitioning="static_polygons", check=TRUE, warn=TRUE, anchor=0, validtime=TRUE){
+		chunk=NULL, reverse=FALSE, path.gplates=NULL, cleanup=TRUE, dir=NULL,plateperiod=NULL,
+		partitioning="static_polygons", check=TRUE, warn=TRUE, anchor=0, validtime=TRUE){
 		if(!is.null(plateperiod)){
 			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
 			validtime <- plateperiod
@@ -350,7 +351,8 @@ setMethod(
 setMethod(
 	"reconstruct", 
 	signature="character", 
-	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, partitioning="static_polygons", check=TRUE, anchor=0){
+	function(x,age, model="MERDITH2021", listout=TRUE, verbose=FALSE,path.gplates=NULL,
+		cleanup=TRUE, dir=NULL, partitioning="static_polygons", check=TRUE, anchor=0){
 
 	if(is.null(model)){
 			message("No model was specified.")
