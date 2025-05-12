@@ -73,6 +73,7 @@ detailedBounds <- function(x,y, xmin=-180, xmax=180, ymin=-90, ymax=90){
 #' @param ymin (\code{numeric}) Maximum value of y (latitude).
 #' @param ymax (\code{numeric}) Maximum value of y (latitude).
 #' @param out (\code{character}) Output format, either \code{"sf"} or \code{"sp"}. The default \code{"sf"} returns simple feature geometries, \code{"sp"} returns \code{SpatialPolygons} from the \code{sp} package.
+#' @param crs (\code{character}) Coordinate Reference System of the returned spatial object given as a character string, defaults to \code{"EPSG:4326"} (WGS 84). Can be used to project the map edge immedately after creating it. Takes effect only if \code{sf=TRUE} or \code{sp=TRUE}.
 #' 
 #' @return An \code{sfc}-, or \code{SpatialPolygons}-class object.
 #' @examples
@@ -82,31 +83,35 @@ detailedBounds <- function(x,y, xmin=-180, xmax=180, ymin=-90, ymax=90){
 #' plot(molledge) 
 #'
 #' @export
-mapedge <- function(x=360, y=180, xmin=-180, xmax=180, ymin=-90, ymax=90, out="sf"){
+mapedge <- function(x=360, y=180, xmin=-180, xmax=180, ymin=-90, ymax=90, out="sf", crs="EPSG:4326"){
 	# return a rectangle
   	rectangle <- detailedBounds(x, y, xmin, xmax, ymin, ymax)
 
 	# outdefense
 	if(!out%in%c("sf", "sp")) stop("Invalid 'out' argument!.")
 
-	# old spatials
-	if(out=="sp"){
-		# check for the presense of spatials
-		if(!requireNamespace("sp", quietly=TRUE)){
-			stop("This output requires the sp package!")	
-		}else{
-			final <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(rectangle)), ID="0")), proj4string=sp::CRS("+proj=longlat"))
-		}
-	}
 
 	# default method
-	if(out=="sf"){
+	if(out=="sf" | out=="sp"){
 		# sf is a hard dependency in any case
 		final<- st_geometry(st_polygon(list(rectangle)))
 		# set appropriate CRS
 		st_crs(final) <- "EPSG:4326"
+
+		if(crs!="EPSG:4326"){
+			final <- st_transform(final, crs)
+		}
 	}
 
+	# old spatials
+	if(out=="sp"){
+		# check for the presense of spatials
+		if(!requireNamespace("sp", quietly=TRUE)){
+			stop("This output requires the sp package!")
+		}else{
+			final <- as(final, "Spatial")
+		}
+	}
 
   	# return object
   	return(final)

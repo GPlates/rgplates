@@ -11,7 +11,8 @@ mapedge(
   xmax = 180,
   ymin = -90,
   ymax = 90,
-  out = "sf"
+  out = "sf",
+  crs = "EPSG:4326"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ mapedge(
 \item{ymax}{(\code{numeric}) Maximum value of y (latitude).}
 
 \item{out}{(\code{character}) Output format, either \code{"sf"} or \code{"sp"}. The default \code{"sf"} returns simple feature geometries, \code{"sp"} returns \code{SpatialPolygons} from the \code{sp} package.}
+
+\item{crs}{(\code{character}) Coordinate Reference System of the returned spatial object given as a character string, defaults to \code{"EPSG:4326"} (WGS 84). Can be used to project the map edge immedately after creating it. Takes effect only if \code{sf=TRUE} or \code{sp=TRUE}.}
 }
 \value{
 An \code{sfc}-, or \code{SpatialPolygons}-class object.

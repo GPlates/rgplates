@@ -1,6 +1,10 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.6.1a - 2025-05-12
+# rgplates 0.6.1b - 2025-05-12
+
+### Added
+
+- The `crs` argument of `mapedge` to project the created map edge immediately after creating it.
 
 ### Fixed
 
