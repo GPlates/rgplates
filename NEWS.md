@@ -1,5 +1,11 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.6.1a - 2025-05-12
+
+### Fixed
+
+- Documentation of missing GWS models in the help of `reconstruct`.
+
 # rgplates 0.6.0 - 2025-04-26
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15286150.svg)](https://doi.org/10.5281/zenodo.15286150) - "Hosh-posh volcanism"

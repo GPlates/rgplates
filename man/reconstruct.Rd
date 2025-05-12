@@ -152,17 +152,21 @@ The function implements two reconstruction submodules, which are selected with t
 If \code{model} is a \code{character} entry, then the \code{reconstruct()} function uses the GPlates Web Service (\url{https://gwsdoc.gplates.org/}, remote reconstruction submodule).
 The available reconstruction models for this submodule are (as of 2024-02-02):
 \itemize{
- \item "TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame, which you can toggle by setting the \code{anchor} parameter to \code{1} from the default \code{0}.
- \item "SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).
- \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
- \item "MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).
- \item "GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma). 
- \item "PALEOMAP" (Scotese, 2016) for coastlines only (0-1100 Ma). 
- \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma). 
- \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).
+ \item "CAO2024" (Cao et al., 2024) for static polygons, coastlines, and topologies (0-1800 Ma).
+ \item "ALFONSO2024" (Alfonso et al., 2024) for static polygons, coastlines, and topologies (0-170 Ma).
+ \item "MULLER2022" (Müller et al., 2022) for coastlines and static plate polygons (0-1000 Ma).
+ \item "ZAHIROVIC2022" (Zahirovic et al., 2022) for static polygons, coastlines, and topologies (0-410 Ma).
+ \item "MERDITH2021" (Merdith et al., 2021, default) for coastlines and static plate polygons (0-1000 Ma).
+ \item "CLENNET2020" (Clennet et al., 2022) for static polygons, coastlines, and topologies (0-170 Ma).
  \item "MULLER2019" (Müller et al., 2019) for coastlines and static plate polygons. (0-250 Ma).
- \item "MERDITH2021" (Merdith et al., 2021, default) for coastlines and static plate polygons (0-1000 Ma). 
- \item "MULLER2022" (Müller et al., 2022) for coastlines and static plate polygons (0-1000 Ma). 
+ \item "MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).
+ \item "MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).
+ \item "MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).
+ \item "SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).
+ \item "GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma).
+ \item "PALEOMAP" (Scotese, 2016) for coastlines only (0-1100 Ma).
+ \item "TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame, which you can toggle by setting the \code{anchor} parameter to \code{1} from the default \code{0}.
+ \item "RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).
 }
 
 If \code{model} is a \code{\link{platemodel}} class object, then the function will try to use the GPLates desktop application (\url{https://www.gplates.org/}) to reconstruct the coordinates (local reconstruction submodule).
@@ -171,13 +175,21 @@ The function will try to find the main GPlates executable in its default install
 }
 \section{References}{
 
-Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
+\cr Alfonso, C. P., Müller, R. D., Mather, B., & Anthony, M. (2025). Spatio-temporal copper prospectivity in the American Cordillera predicted by positive-unlabeled machine learning. Geological Society of America Bulletin, 137(1-2), 702–711.
 \cr
-\cr Andrew S. Merdith, Simon E. Williams, Alan S. Collins, Michael G. Tetley, Jacob A. Mulder, Morgan L. Blades, Alexander Young, Sheree E. Armistead, John Cannon, Sabin Zahirovic, R. Dietmar Müller, (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic, Earth-Science Reviews, Volume 214, 2021, 103477, ISSN 0012-8252, https://doi.org/10.1016/j.earscirev.2020.103477.
+\cr Cao, X., Collins, A. S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D., & Müller, R. D. (2024). Earth’s tectonic and plate boundary evolution over 1.8 billion years. Geoscience Frontiers, 15(6), 101922.
+\cr
+\cr Clennett, E. J., Sigloch, K., Mihalynuk, M. G., Seton, M., Henderson, M. A., Hosseini, K., Mohammadzaheri, A., Johnston, S. T., & Müller, R. D. (2020). A quantitative tomotectonic plate reconstruction of western North America and the eastern Pacific basin. Geochemistry, Geophysics, Geosystems, 21(8), e2020GC009117.
+\cr
+\cr Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
+\cr
+\cr Merdith, A. S., Williams, S. E., Collins, A. S., Tetley, M. G., Mulder, J. A., Blades, M. L., Young, A., Armistead, S. E., Cannon, J., Zahirovic, S., & Müller, R. D. (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic. Earth-Science Reviews, 214, 103477. https://doi.org/10.1016/j.earscirev.2020.103477
+\cr
+\cr Li, Z.-X., Evans, D. A., & Halverson, G. P. (2013). Neoproterozoic glaciations in a revised global palaeogeography from the breakup of Rodinia to the assembly of Gondwanaland. Sedimentary Geology, 294, 219–232.
 \cr
 \cr Müller, R. D., Seton, M., Zahirovic, S., Williams, S. E., Matthews, K. J., Wright, N. M., … Cannon, J. (2016). Ocean Basin Evolution and Global-Scale Plate Reorganization Events Since Pangea Breakup. Annual Review of Earth and Planetary Sciences, 44(1), 107–138. https://doi.org/10.1146/annurev-earth-060115-012211
 \cr
-\cr  Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
+\cr Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
 \cr
 \cr Müller, R. D., Flament, N., Cannon, J., Tetley, M. G., Williams, S. E., Cao, X., Bodur, Ö. F., Zahirovic, S., and Merdith, A.: A tectonic-rules-based mantle reference frame since 1 billion years ago – implications for supercontinent cycles and plate–mantle system evolution, Solid Earth, 13, 1127–1159, https://doi.org/10.5194/se-13-1127-2022, 2022.
 \cr
@@ -188,6 +200,8 @@ Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., & M�
 \cr Torsvik and Cocks (2017). Earth History and Palaeogeography. Cambridge University Press, 317 pp.
 \cr
 \cr Wright, N., Zahirovic, S., Müller, R. D., & Seton, M. (2013). Towards community-driven paleogeographic reconstructions: integrating open-access paleogeographic and paleobiology data with plate tectonics. Biogeosciences, 10(3), 1529–1541. https://doi.org/10.5194/bg-10-1529-2013
+\cr
+\cr Zahirovic, S., Eleish, A., Doss, S., Pall, J., Cannon, J., Pistone, M., Tetley, M. G., Young, A., & Fox, P. (2022). Subduction and carbonate platform interactions. Geoscience Data Journal, 9(2), 371–383.
 }
 
 \examples{
