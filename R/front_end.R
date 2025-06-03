@@ -81,7 +81,7 @@
 #' @param gmeta (\code{logical}) Argument of the local reconstruction submodule, in the case, when \code{sf} objects are supplied. Should the metadata produced by GPlates be included in the output object?  
 #' @param partitioning (\code{character}) Argument of the local reconstruction submodule, which feature collection of the tectonic model should be used to assing plate IDs to the features? It defaults to \code{"static_polygons"}. 
 #' @param warn (\code{character}) Argument of the online reconstruction submodule, used in reverse-reconstructions (calculation of present-day coordinates from paleocoordinates). If set to `TRUE` (default), the function will produce a warning when paleocoordinates are not assigned to any of the paritioning polygons (missing values are returned for these). When set to `FALSE`, the warnings will not be displayed.
-#' @param anchor (\code{character}) Argument of the online reconstruction submodule. The Plate ID of the anchored plate. This is the 'anchored_plate_id' parameter of the GPlates Web Service.
+#' @param anchor (\code{character}) The Plate ID of the anchored plate (defaults to 0). This is the 'anchored_plate_id' parameter of the GPlates Web Service.
 #' @return A \code{numeric} matrix if \code{x} is a \code{numeric}, \code{matrix} or \code{data.frame}, or \code{Spatial*} class objects, depending on input. \code{NULL} in case no model is specified.
 #' @examples
 #' # With the web service 
@@ -223,7 +223,7 @@ setMethod(
 						}else{
 							immediate <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age[i], model=model,
 								path.gplates=path.gplates, dir=dir, verbose=verbose, 
-								cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
+								cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check, anchor=anchor)
 						}
 
 						# make it the same as it was
@@ -290,7 +290,7 @@ setMethod(
 						}else{
 							immediate <- reconstructGPlates(x=current,
 								age=ageLevs[i], model=model, path.gplates=path.gplates, 
-								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
+								dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check, anchor=anchor)
 							fresh[index,] <- immediate
 						}
 					}
@@ -317,7 +317,7 @@ setMethod(
 				}else{
 					fresh <- reconstructGPlates(x=x[bPresent, , drop=FALSE], age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
+						cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check, anchor=anchor)
 				}
 				# if everything returned i just missing value
 				# return original structure with missing
@@ -392,7 +392,7 @@ setMethod(
 					feature <- gplates_reconstruct_this(age=age[i], this=x, model=model, verbose=verbose, anchor=anchor)
 				}else{
 					feature <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check, anchor=anchor)
 				}
 
 				# save it
@@ -411,7 +411,7 @@ setMethod(
 				container <- gplates_reconstruct_this(age=age, this=x, model=model, verbose=verbose, anchor=anchor)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, partitioning=partitioning, check=check, anchor=anchor)
 			}
 		}
 		# return container
@@ -424,7 +424,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"Spatial", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, partitioning="static_polygons", check=TRUE, validtime=TRUE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, partitioning="static_polygons", check=TRUE, validtime=TRUE, anchor=0){
 
 		if(!is.null(plateperiod)){
 			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
@@ -455,7 +455,8 @@ setMethod(
 #					container[[i]] <- gplates_reconstruct_polygon(sp=x, age=age[i], model=model, verbose=verbose)
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i], model=model,
-						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
+						path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime,
+						partitioning=partitioning, check=check, anchor=anchor)
 				}
 			}
 
@@ -471,7 +472,8 @@ setMethod(
 #				container <- gplates_reconstruct_polygon(sp=x, age, model=model, verbose=verbose)
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
-					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime, partitioning=partitioning, check=check)
+					path.gplates=path.gplates, dir=dir, verbose=verbose, cleanup=cleanup, plateperiod=validtime,
+					partitioning=partitioning, check=check, anchor=anchor)
 			}
 			
 		}
@@ -487,7 +489,7 @@ setMethod(
 setMethod(
 	"reconstruct",
 	"sf", 
-	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, gmeta=FALSE, partitioning="static_polygons", check=TRUE, validtime=TRUE){
+	function(x, age, model, listout=TRUE, verbose=FALSE,path.gplates=NULL, cleanup=TRUE, dir=NULL, plateperiod=NULL, gmeta=FALSE, partitioning="static_polygons", check=TRUE, validtime=TRUE, anchor=0){
 
 		if(!is.null(plateperiod)){
 			warning("This argument was renamed to 'validtime'. Use that instead, 'plateperiod' is deprecated.")
@@ -519,7 +521,7 @@ setMethod(
 				}else{
 					container[[i]] <- reconstructGPlates(x=x, age=age[i],
 						model=model, path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup,plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check)
+						cleanup=cleanup,plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check, anchor=anchor)
 				}
 			}
 
@@ -536,7 +538,7 @@ setMethod(
 			}else{
 				container <- reconstructGPlates(x=x, age=age, model=model,
 						path.gplates=path.gplates, dir=dir, verbose=verbose, 
-						cleanup=cleanup, plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check)
+						cleanup=cleanup, plateperiod=validtime, gmeta=gmeta, partitioning=partitioning, check=check, anchor=anchor)
 			}
 			
 		}

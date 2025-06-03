@@ -8,7 +8,7 @@
 #	reconstruct(x, age=10, model=mo, verbose=TRUE)
 #reconstruct(x, age=10, model=mo, verbose=TRUE, path.gplates="/Users/Nick/Downloads/GPlates-2.2.0/gplates.app/Contents/MacOS/gplates")
 
-reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons", check=TRUE){
+reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbose=FALSE, cleanup=TRUE, plateperiod=FALSE, gmeta=FALSE, partitioning="static_polygons", check=TRUE, anchor=0){
 	# shortcut - will be put in a matrix automatically
 	if(is.na(age)) return(NA)
 	if(!inherits(model, "platemodel")) stop("You need a GPlates tectonic object for this method.")
@@ -295,7 +295,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		if(!is.character(x)) if(verbose) message("Reconstructing coordinates.")
 		if(is.character(x)) if(validFeature) if(verbose) message(paste0("Reconstructing '",  x, "'."))
 			reconstruction <- paste(gplatesExecutable, " reconstruct -l \"",pathToFileNoEXT,".",gpmlExt,"\" -r \"",
-					rotation, "\" -e shapefile -t ", age, " -o \"", pathToFileNoEXT,"_reconstructed\" -w 1", sep="") 
+					rotation, "\" -e shapefile -t ", age," -a ", anchor," -o \"", pathToFileNoEXT,"_reconstructed\" -w 1", sep="")
 			system(reconstruction, ignore.stdout=!verbose,ignore.stderr=!verbose)
 
 	# 4. Processing output

@@ -133,7 +133,7 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
 
 \item{warn}{(\code{character}) Argument of the online reconstruction submodule, used in reverse-reconstructions (calculation of present-day coordinates from paleocoordinates). If set to `TRUE` (default), the function will produce a warning when paleocoordinates are not assigned to any of the paritioning polygons (missing values are returned for these). When set to `FALSE`, the warnings will not be displayed.}
 
-\item{anchor}{(\code{character}) Argument of the online reconstruction submodule. The Plate ID of the anchored plate. This is the 'anchored_plate_id' parameter of the GPlates Web Service.}
+\item{anchor}{(\code{character}) The Plate ID of the anchored plate (defaults to 0). This is the 'anchored_plate_id' parameter of the GPlates Web Service.}
 
 \item{validtime}{(\code{logical}) Argument of the local reconstuction submodule. Should the durations of the plates be forced on the partitioned feature? If these are set to \code{TRUE} and the plate duration estimates are long, then you might lose some data. This is the inverse of the \code{ignore.valid.time} argument of the GWS.}
 
