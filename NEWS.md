@@ -1,15 +1,16 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.6.1-3 - 2025-06-03
+# rgplates 0.6.1-4 - 2025-09-09
 
 ### Added
 
 - The `crs` argument of `mapedge` to project the created map edge immediately after creating it.
-- The `anchor` parameter is now available for the offline module of `reconstruct`.
+- The `anchor` parameter is now available for the offline module of `reconstruct()`.
 
 ### Fixed
 
-- Documentation of missing GWS models in the help of `reconstruct`.
+- Documentation of missing GWS models in the help of `reconstruct()`.
+- Suppressed OGR warning messages of the offline `reconstruct()` on Windows that are output by `sf::st_read()` because of GPlates output
 
 # rgplates 0.6.0 - 2025-04-26
 

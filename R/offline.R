@@ -325,7 +325,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 		# is the target single file created?
 		if(any(allFiles==targetSingleNoPath)){
 			if(verbose) message("Found single output geometry files.")
-			rotated <- sf::st_read(targetSingle, quiet=!verbose)
+			suppressWarnings(rotated <- sf::st_read(targetSingle, quiet=!verbose))
 		}
 
 		# did GPlates produce a whole directory? 
@@ -344,7 +344,7 @@ reconstructGPlates <- function(x, age, model, path.gplates=NULL,dir=NULL, verbos
 			rotatedList <- NULL
 			for(i in 1:length(toRead)){
 				# read in one bit
-				rotatedList[[i]] <- sf::st_read(file.path(targetDir, toRead[i]), quiet=!verbose)
+				suppressWarnings(rotatedList[[i]] <- sf::st_read(file.path(targetDir, toRead[i]), quiet=!verbose))
 			}
 
 			# make this just one object
