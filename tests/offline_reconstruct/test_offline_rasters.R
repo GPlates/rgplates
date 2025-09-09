@@ -1,5 +1,5 @@
 library(rgplates)
-library(terra)
+suppressPackageStartupMessages(library(terra))
 library(via)
 library(chronosphere)
 

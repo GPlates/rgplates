@@ -3,7 +3,7 @@
 
 # if something changes, these will flag them!
 library(rgplates)
-options(timeout = 5*60)
+options(timeout = 10*60)
 
 ################################################################################
 # 1. Static Polygons

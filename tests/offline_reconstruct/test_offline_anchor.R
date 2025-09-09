@@ -19,7 +19,7 @@ expect_silent(def300offline <- reconstruct("static_polygons", age=300, model=mod
 
 # explicit 0 anchor
 expect_silent(def300offline0 <- reconstruct("static_polygons", age=300, model=model, anchor=0))
-expect_identical(def100offline, def100offline0)
+expect_identical(def300offline, def300offline0)
 
 # explicit 1 anchor - PMAG ref frame
 expect_silent(def300offline1 <- reconstruct("static_polygons", age=300, model=model, anchor=1))
