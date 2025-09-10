@@ -24,7 +24,7 @@ plot <- function(...){
 }
 ```
 
-<a href="https://chronosphere.info"><img src="https://chronosphere.info/images/chronosphere/chronosphere_500.png" width=200 align="right"></a>
+<a href="https://chronosphere.info"><img src="https://chronosphere.info/images/chronosphere/chronosphere_500.png" width=200 align="right" alt="The logo of the chronosphere project."></a>
 
 Originally, all functions in `rgplates` were developed in the envelope of the `chronosphere` project. However, since the project's inception the functionality of these modules diverged: `rgplates` contains functions to execute plate tectonic reconstructions with R, and the `chronosphere` is a data distribution and versioning system. The two are connected with the tectonic model data: we will download and import these with the `chronosphere` and use them with `rgplates`. 
 
@@ -54,7 +54,7 @@ Detailed tutorials will be made available later about how to use the chronospher
 Downloading data iwth the `chronosphere` is easy: all you need is a single line of code, with the appropriate IDs of your data of choice. The following expression will download a more detailed tectonic model (feature collections and reconstruction tree) which were used by [Merdith et al. 2021](https://www.sciencedirect.com/science/article/abs/pii/S0012825220305237):
 
 ```{r dlModel1, echo=TRUE}
-pm <- chronosphere::fetch(src="GPlates", ser="MERDITH2021")
+mer <- chronosphere::fetch(src="GPlates", ser="MERDITH2021")
 ```
 
 The arguments of `chronosphere::fetch()` are the the source (`src`), series (`ser`) and version (`ver`) ID of the item that you want to download.
@@ -62,7 +62,7 @@ The arguments of `chronosphere::fetch()` are the the source (`src`), series (`se
 <br>
 
 ```{r dlModel2, echo=TRUE}
-pm
+mer
 ```
 
 This tectonic model has some additional feature collections that can be reconstructed on demand. To make the use of this `platemodel` class more straightforward, it also includes information on the feature collections' time frame of validity.
@@ -77,12 +77,14 @@ The model can be used with the [offline reconstruction method](articles/3_offlin
 
 ```{r offRec, echo=TRUE, plot=TRUE}
 # reconstruct the plates and plot them
-pl100<- rgplates::reconstruct("static_polygons", age=100, model=pm)
+pl100<- rgplates::reconstruct("static_polygons", age=100, model=mer)
 ```
 
 which includes all static plate polygons that existed at 100Ma. This can be plotted with:
 
 ```{r statPol, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|  Static polygons of the Merdith et al 2021 model, shown with gray polygons (100 Ma).
 plot(pl100$geometry, col="gray70", border=NA)
 ```
 
@@ -90,8 +92,8 @@ Additional feature collections can be reconstructed just as easily. For instance
 
 
 ```{r other, echo=TRUE, plot=TRUE}
-continents100 <- rgplates::reconstruct("continents", age=100, model=pm)
-coastlines100 <- rgplates::reconstruct("coastlines", age=100, model=pm)
+continents100 <- rgplates::reconstruct("continents", age=100, model=mer)
+coastlines100 <- rgplates::reconstruct("coastlines", age=100, model=mer)
 ```
 
 
@@ -103,6 +105,8 @@ plot(coastlines100$geometry, col="#63351c", border=NA, add=TRUE)
 ```
 
 ```{r plotOther, echo=FALSE, plot=TRUE}
+#| fig.alt: >
+#|  Overlay of the static polygons (gray), continental polygons (red) and modern coastlines (darkred) of the Merdith et al. 2021 model (100 Ma).
 plot(pl100$geometry, col="gray70", border=NA)
 plot(continents100$geometry, col="#bc683a", border=NA, add=TRUE)
 plot(coastlines100$geometry, col="#63351c", border=NA, add=TRUE)

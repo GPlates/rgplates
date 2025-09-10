@@ -1,12 +1,12 @@
 
 # rgplates <img src="man/figures/logo.png" align="right" />
 
-[![](https://img.shields.io/badge/devel%20version-0.6.0-green.svg)](https://github.com/gplates/rgplates)
-[![](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
+[![Badge showing the current devel version of rgplates](https://img.shields.io/badge/devel%20version-0.6.1-green.svg)](https://github.com/gplates/rgplates)
+[![Badge showing the current version of rgplates on CRAN.](https://www.r-pkg.org/badges/version/rgplates?color=blue)](https://cran.r-project.org/package=rgplates)
+[![Badge showing the total number of downloads of rgplates from the CRAN.](http://cranlogs.r-pkg.org/badges/grand-total/rgplates?color=yellow)](https://cran.r-project.org/package=rgplates)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/rgplates.svg)](https://cran.r-project.org/web/checks/check_results_rgplates.html)
-[![](https://img.shields.io/badge/doi-10.5281/zenodo.8093990-blue.svg)](https://doi.org/10.5281/zenodo.8093990)
+[![Badge showing the doi of the current release of rgplates.](https://img.shields.io/badge/doi-10.5281/zenodo.8093990-blue.svg)](https://doi.org/10.5281/zenodo.8093990)
 
 #### R interface for the *GPlates Web Service* and the *GPlates Application*
 
@@ -21,7 +21,7 @@ Functions to the [GPlates Web Service](https://gws.gplates.org/) and the
 reconstruct past positions of geographic entities based on user-selected
 rotation models without leaving the R running environment.
 
-<a href="https://www.gplates.org/"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right"></a>
+<a href="https://www.gplates.org/"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right" alt="The logo of GPlates."></a>
 
 The **online reconstruction** (with the [GPlates Web
 Service](https://gws.gplates.org/)) makes the rotation of static plates,
@@ -39,10 +39,10 @@ tectonic models are accessible via the
 
 ### Requirements
 
-|                                               | **Online (GWS)** | **Offline (Desktop App.)** |
-|-----------------------------------------------|------------------|----------------------------|
-| Internet connection                           | ✅               | ❌                         |
-| [GPlates](https://gws.gplates.org/) installed | ❌               | ✅                         |
+|  | **Online (GWS)** | **Offline (Desktop App.)** |
+|----|----|----|
+| Internet connection | ✅ | ❌ |
+| [GPlates](https://gws.gplates.org/) installed | ❌ | ✅ |
 
 ### Aim
 
@@ -98,7 +98,7 @@ plot(edgeRob, col="#1A6BB0", border="gray30")
 plot(coastsRob, border=NA, col="gray90", add=TRUE)
 ```
 
-![](man/figures/rgplates_example.png)
+<img src="man/figures/rgplates_example.png" alt="Robinson projection of the globe, showing blue oceans and the reconstructed positions of the modern coastlines.">
 
 <br>
 
@@ -128,7 +128,7 @@ subcolor <- sf.colors(9, categorical=TRUE)[3]
 subductionlines(boundaries, col=subcolor, cex=1.3)
 ```
 
-![](man/figures/subduction_example.png)
+<img src="man/figures/subduction_example.png" alt="Equirectangular projection of the globe, showing subduction zoes, transform faults, orogenic belts and mid ocean ridges on a reconstruction of the modern coastlines (250ma).">
 
 ##### *Using reconstructions*
 
@@ -154,7 +154,7 @@ extension
 to reproduce the figure is available
 [here](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R).
 
-![](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png)
+<img src="https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png" alt="Mollweide projection of the globe, showing near surface air temperature as a background, with a reconstruction of past landmasses and occurrences of two dinosaur clades: ornitischia and saurischia in the Kimmeridgian stage (150 Ma).">
 
 <br>
 
@@ -168,14 +168,14 @@ GPlates Desktop Application), have mismatching feature coverage. The
 long-term development goal is to make these two as symmetric in
 capabilities and comparable in performance as possible.
 
-| Feature                          | **Online (GWS)** | **Offline (Desktop App.)** |
-|----------------------------------|------------------|----------------------------|
-| Built-in feature collections     | ✅               | ❌                         |
-| Point reconstruction             | ✅ (slow)        | ✅ (fast)                  |
-| Vector line/polygon input (`sf`) | ❌               | ✅                         |
-| Raster input (`terra`)           | ✅               | ❌                         |
-| Paleocoordintate input           | ✅               | ❌                         |
-| Velocity rasters                 | ✅               | ❌                         |
+| Feature | **Online (GWS)** | **Offline (Desktop App.)** |
+|----|----|----|
+| Built-in feature collections | ✅ | ❌ |
+| Point reconstruction | ✅ (slow) | ✅ (fast) |
+| Vector line/polygon input (`sf`) | ❌ | ✅ |
+| Raster input (`terra`) | ✅ | ❌ |
+| Paleocoordintate input | ✅ | ❌ |
+| Velocity rasters | ✅ | ❌ |
 
 ## Notes
 

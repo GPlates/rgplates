@@ -16,6 +16,7 @@ library(badger)
 `r badge_cran_checks("rgplates")`
 `r badger::badge_doi(doi = "10.5281/zenodo.8093990", color = "blue")` 
 
+
 #### R interface for the *GPlates Web Service* and the *GPlates Application*
 <br>
 
@@ -27,7 +28,7 @@ library(badger)
 Functions to the [GPlates Web Service](https://gws.gplates.org/) and the [GPlates Desktop Application](https://www.gplates.org/) allow users to reconstruct past positions of geographic entities based on user-selected rotation models without leaving the R running environment. 
 
 
-<a href="https://www.gplates.org/"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right"></a>
+<a href="https://www.gplates.org/"><img src="https://github.com/gplates/rgplates/blob/devel/pkgdown/assets/New_GPlates_Logo.png?raw=true" width=250 align="right" alt="The logo of GPlates."></a>
 
 The **online reconstruction** (with the [GPlates Web Service](https://gws.gplates.org/)) makes the rotation of static plates, coastlines, and a low number of geographic coordinates available using nothing but an internet connection. 
 
@@ -109,8 +110,7 @@ plot(edgeRob, col="#1A6BB0", border="gray30")
 plot(coastsRob, border=NA, col="gray90", add=TRUE)
 ```
 
-
-![](man/figures/rgplates_example.png)
+<img src="man/figures/rgplates_example.png" alt="Robinson projection of the globe, showing blue oceans and the reconstructed positions of the modern coastlines.">
 
 <br>
 
@@ -158,7 +158,7 @@ subcolor <- sf.colors(9, categorical=TRUE)[3]
 subductionlines(boundaries, col=subcolor, cex=1.3)
 ```
 
-![](man/figures/subduction_example.png)
+<img src="man/figures/subduction_example.png" alt="Equirectangular projection of the globe, showing subduction zoes, transform faults, orogenic belts and mid ocean ridges on a reconstruction of the modern coastlines (250ma).">
 
 ##### *Using reconstructions*
 
@@ -166,7 +166,7 @@ The example below demonstrates the contextualization of fossil occurrence record
 ) extensions, dinosaur outlines are from [PhyloPic](https://www.phylopic.org/) via the extension [`rphylopic`](https://doi.org/10.32614/CRAN.package.rphylopic). The code to reproduce the figure is available [here](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/code/rgplates_kimmerdigian_dinosaurs.R). 
 
 
-![](https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png)
+<img src="https://github.com/GPlates/rgplates/raw/devel/pkgdown/assets/kimmeridgian_dinosaurs/export/temperature.png" alt="Mollweide projection of the globe, showing near surface air temperature as a background, with a reconstruction of past landmasses and occurrences of two dinosaur clades: ornitischia and saurischia in the Kimmeridgian stage (150 Ma).">
 
 <br>
 

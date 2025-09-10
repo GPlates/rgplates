@@ -42,6 +42,8 @@ coast220
 We can also plot this the same way:
 
 ```{r background, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|  Reconstruction of the coastlines features for 220 Ma with gray filling and no borders.
 # the background map
 plot(coast220$geometry, col="gray", border=NA)
 ```
@@ -69,6 +71,8 @@ points(posMat, col="red", pch=3)
 ```
 
 ```{r plotPoints, plot=TRUE, echo=FALSE }
+#| fig.alt: >
+#|  Reconstruction of the coastlines features for 220 Ma, with 3 points, one of them in Panthalassa.
 plot(coast220$geometry, col="gray", border=NA)
 points(posMat, col="red", pch=3)
 ```
@@ -100,6 +104,8 @@ plot(pl220$geometry, col="#00555522", add=TRUE, border="#00555533")
 ```
 
 ```{r staticsActual, eval=TRUE, echo=FALSE}
+#| fig.alt: >
+#|  Reconstruction of the static polygons and coastlines features for 220 Ma, with 3 points, one of them in Panthalassa.
 plot(coast220$geometry, col="gray", border=NA)
 points(posMat, col="red", pch=3)
 plot(pl220$geometry, col="#00555522", add=TRUE, border="#00555533")
@@ -125,6 +131,8 @@ tropoints <- cbind(
 Which you can visualize with 
 
 ```{r tropointsvis, plot=TRUE, echo=TRUE }
+#| fig.alt: >
+#|  Reconstruction of the static polygons for 220Ma with random points from the tropics (both over land and the ocean).
 # static polygons from 220Ma 
 plot(pl220$geometry, col="#00555522", border="#00555533")
 
@@ -154,6 +162,8 @@ points(tropoints[indMissing,], pch=1, cex=2, col="red")
 ```
 
 ```{r tropMissVisActual, plot=TRUE, echo=FALSE}
+#| fig.alt: >
+#|  Reconstruction of the static polygons for 220Ma with random points from the tropics. Points over the oceans are circled.
 # static polygons from 220Ma 
 plot(pl220$geometry, col="#00555522", border="#00555533")
 points(tropoints, pch=3)
@@ -167,6 +177,8 @@ points(tropoints[indMissing,], pch=1, cex=2, col="red")
 Going back to the three points that we were inspecting earlier (`posMat`): the present-day coordinates are given as longitude (`long`) and latitude (`lat`) values in the `presentPoints` matrix object. We can visualize them on any map that has a `WGS84` CRS. For instance we can grab the coaslines of the `"MERDITH2021"` model, and plot them the usual way
 
 ```{r presentCoast, eval=TRUE, echo=TRUE }
+#| fig.alt: >
+#|   Present day landmasses shown with gray colors.
 # Present-day coastlines today
 coast0 <- reconstruct("coastlines", age=0)
 # Plot outlines
@@ -182,6 +194,8 @@ points(presentPoints, col="red", pch=3)
 ```
 
 ```{r plotPresentPointsActual, plot=TRUE, echo=FALSE }
+#| fig.alt: >
+#|   Present day landmasses shown with gray color. Present-day positions of the two points that were plotted over land in the past space are visible.
 plot(coast0$geometry, col="gray", border="darkgray")
 points(presentPoints, col="red", pch=3)
 ```
@@ -216,6 +230,8 @@ coast230 <- reconstruct("coastlines", age=230)
 ... and plotting the information from both the 220Ma and 230Ma time interval on the same figure, using different colors:
 
 ```{r fullMaps,eval=TRUE, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   Overlay of reconstructions of the coastlines for 230Ma and 220Ma. Out of the three points that are given and visualized for 220Ma only the two on land are visible for the 230Ma reconstruction. 
 # 220Ma (gray and black)
 plot(coast220$geometry, col="gray", border=NA)
 points(posMat, col="black", pch=3)
@@ -278,6 +294,8 @@ twoHistory <- pmHistory[, "two", ]
 You can use these matrices to display the rotation history of these points from 220Ma to the present day:
 
 ```{r ultimate,eval=TRUE, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   Overlay of present-day coastlines and the reconstruction of the coastlines and 220Ma. The motion of the two points over land at 220Ma are visualized with lines that connect their past positions with their present-day positions.
 # redraw 220ma map
 plot(coast220$geometry, col="gray", border=NA)
 

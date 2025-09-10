@@ -54,6 +54,8 @@ The `rgplates` package relies on [`sf`](https://cran.r-project.org/web/packages/
 You can plot the distribution of plates with the `plot()` function. To focus on the spatial data and not the attributes of the features (which are technical in nature), you can plot the geometries of this object.
 
 ```{r presentdayplot, plot=TRUE, echo=TRUE}
+#| fig.alt: >
+#|   Static polygons of the MERDITH2021 model in the present day.
 plot(pl0$geometry)
 ```
 
@@ -67,6 +69,8 @@ pl100
 You can plot the results in a similar way:
 
 ```{r elcplot, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   Static polygons of the MERDITH2021 model reconstructed for 100ma.
 plot(pl100$geometry)
 ```
 
@@ -85,6 +89,8 @@ c100
 You can visalize these in the same way:
 
 ```{r tjbcoastplot, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   The coastlines feature collection reconstructed for 100ma.
 plot(c100$geometry)
 ```
 
@@ -94,12 +100,16 @@ Again, the `pl0` and `pl100` and `c100` objects are `sf`-class objects. You can 
 
 
 ```{r tjbplot2, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   The coastlines feature collection reconstructed for 100ma, with gray filling and no borders..
 plot(pl100$geometry, col="gray", border=NA)
 ```
 
 You can easily plot them on top of each other:
 
 ```{r tjbplot3, echo=TRUE , plot=TRUE}
+#| fig.alt: >
+#|   The static polygons and the coastlines feature collection reconstructed for 100ma, with gray filling and no borders..
 plot(pl100$geometry, col="gray", border=NA)
 plot(c100$geometry, col="darkgray", border=NA, add=TRUE)
 ```
@@ -141,6 +151,8 @@ londonMat
 Since the coordinate reference system (CRS) of the maps is longitude-latitude, you can use these coordinates directly to indicate the positionx of the city on the present-day map using `points()` - in this case with red plus signs:
 
 ```{r presentdayplotlondon, plot=TRUE, echo=TRUE }
+#| fig.alt: >
+#|   The position of London on a plot of the modern coastlines.
 plot(c0$geometry)
 points(londonMat, col="red", pch=3)
 ```
@@ -160,6 +172,8 @@ The result of this calculation is a similar `matrix`: now including the paleolon
 You can visualize this the same way, as you visualized the present-day position of the location:
 
 ```{r londonPast, plot=TRUE, echo=TRUE }
+#| fig.alt: >
+#|  The position of London on static polygon reconstruction for 100ma (gray filling). 
 plot(pl100$geometry, col="gray", border=NA)
 points(londonMat100, col="red", pch=3)
 ```
@@ -191,6 +205,8 @@ cities100
 Note that the order of entities remains the same. We can plot these the same way similar to a single city. 
 
 ```{r citiesPlot, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|  The positions of multiple cities on the coastline reconstruction for 100ma (gray filling). 
 # the background map
 plot(c100$geometry, col="gray", border=NA)
 
@@ -214,6 +230,8 @@ c100seton
 You can compare this with the Merdith et al. model, by plotting this result on top of that with some transparency (e.g. a semi-transparent red, in [HTML RGBA](https://www.w3schools.com/css/css_colors_rgb.asp): `"#FF000077"`):
 
 ```{r platescompare, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|  Comparision of the reconstructions of the coastlines feature collection with two tectonic models: MERDITH2021 (gray) and SETON2012 (red).
 plot(c100$geometry, col="gray", border=NA)
 plot(c100seton$geometry, col="#FF000077", add=TRUE, border=NA)
 ```

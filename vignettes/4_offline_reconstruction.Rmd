@@ -44,7 +44,7 @@ Instead of relying on connections to the [GPlates Web Service](https://gws.gplat
 * * *
 
 
-<img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;">
+<img align="right" width="300" src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/New_GPlates_Logo.png" style="padding:10px;" alt="The GPlates logo.">
 
 GPlates is the current standard program that we used to build, manipulate and employ plate tectonic reconstructions. GPlates has a very well developed Graphical User Interface (GUI), that you can use indepenently from anything in this tutorial. If you wish to learn more about GPlates itself, you can find a lot of material [here](https://www.gplates.org/education).  
 
@@ -74,6 +74,8 @@ The **online method** relies on files that are on the servers of the GPlates Web
 
 
 ```{r example, plot=TRUE, echo=TRUE}
+#| fig.alt: >
+#|   Wireframe plot of the static polygons in the present day.
 # attaching the package is necesary for both methods
 library(rgplates)
 
@@ -202,6 +204,8 @@ plOff100
 Note that this is a similar `sf` class object that we saw earlier with the **online method**, although it has somewhat more attributes. Nevertheless, you can visualize it the same way, using `plot()`.
 
 ```{r platevisualize, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|   Reconstruction of the static polygons of the paleomap model for 100Ma, shown with gray polygons.
 plot(plOff100$geometry, border=NA, col="gray")
 ```
 
@@ -238,6 +242,8 @@ cities100
 And then we plot:
 
 ```{r citiesPlot, echo=TRUE, plot=TRUE}
+#| fig.alt: >
+#|   Reconstruction of the static polygons of the paleomap model for 100Ma, shown with gray polygons. Past positions of the three cities are shown with red points.
 # the background map
 plot(plOff100$geometry, col="gray", border=NA)
 
@@ -258,7 +264,9 @@ The model files are available from the EarthByte Resources page. For instance, t
 
 On the bottom of the page, you will find a single link : *Link to rasters, reconstruction files and tutorial* which will allow you to download the `Scotese_Paleoatlas_v3.zip` file. In this zip file, in the directory `PALEOMAP Global Plate Model`, you can see the same files that we had earlier:
 
-![The contents of the archive](https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png)
+
+<img src="https://raw.githubusercontent.com/adamkocsis/rgplates/main/pkgdown/assets/paleomap_archive.png" alt="Image showing the contents of the archive.">
+<div class="figcaption">The contents of the archive</div>
 
 You can use these, or any similar files to create `platemodel` objects, as long as you provide the **absolute** paths to the files.
 
