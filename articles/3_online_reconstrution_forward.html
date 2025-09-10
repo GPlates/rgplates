@@ -36,7 +36,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,7 +127,7 @@ present-day coastlines as we saw earlier</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the background map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/background-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/background-1.png" alt="Reconstruction of the coastlines features for 220 Ma with gray filling and no borders." width="960"></p>
 <p>Working with this reconstruction often involves defining points in
 this paleocoordinate system: either because they represent notable
 geographic positions, or they are results of geometric
@@ -153,7 +153,7 @@ Reference System (CRS), we can visualize the positions with
 <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">posMat</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/plotPoints-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/plotPoints-1.png" alt="Reconstruction of the coastlines features for 220 Ma, with 3 points, one of them in Panthalassa." width="960"></p>
 <p>You can calculate the present-day positions of these points with the
 <code><a href="../reference/reconstruct.html">reconstruct()</a></code> function - you only have to indicate that the
 coordinates are <strong>from</strong> a given age, in our case
@@ -188,7 +188,7 @@ These can be queried with:</p>
 <p>… and plotted on top of the existing map with:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pl220</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#00555522"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, border<span class="op">=</span><span class="st">"#00555533"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/staticsActual-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/staticsActual-1.png" alt="Reconstruction of the static polygons and coastlines features for 220 Ma, with 3 points, one of them in Panthalassa." width="960"></p>
 <p>The point in question indeed does not fall on any of the plates.</p>
 <div class="section level4">
 <h4 id="off-plate-points">Off-plate points<a class="anchor" aria-label="anchor" href="#off-plate-points"></a>
@@ -215,7 +215,7 @@ the tropics of 220Ma:</p>
 <span></span>
 <span><span class="co"># points</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">tropoints</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/tropointsvis-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/tropointsvis-1.png" alt="Reconstruction of the static polygons for 220Ma with random points from the tropics (both over land and the ocean)." width="960"></p>
 <p>Then you can turn of the warnings for the no plate assignment with
 the <code>warn</code> argument of <code><a href="../reference/reconstruct.html">reconstruct()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -232,7 +232,7 @@ map:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># circle off-polygon points</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">tropoints</span><span class="op">[</span><span class="va">indMissing</span>,<span class="op">]</span>, pch<span class="op">=</span><span class="fl">1</span>, cex<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/tropMissVisActual-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/tropMissVisActual-1.png" alt="Reconstruction of the static polygons for 220Ma with random points from the tropics. Points over the oceans are circled." width="960"></p>
 </div>
 <div class="section level4">
 <h4 id="present-day-positions-of-the-coordinates">Present-day positions of the coordinates<a class="anchor" aria-label="anchor" href="#present-day-positions-of-the-coordinates"></a>
@@ -249,12 +249,12 @@ usual way</p>
 <span><span class="va">coast0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reconstruct.html">reconstruct</a></span><span class="op">(</span><span class="st">"coastlines"</span>, age<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co"># Plot outlines</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast0</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"gray"</span>, border<span class="op">=</span><span class="st">"darkgray"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/presentCoast-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/presentCoast-1.png" alt="Present day landmasses shown with gray colors." width="960"></p>
 <p>… and use points to put the positions on the map:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot present-day positions of the points </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">presentPoints</span>, col<span class="op">=</span><span class="st">"red"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/plotPresentPointsActual-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/plotPresentPointsActual-1.png" alt="Present day landmasses shown with gray color. Present-day positions of the two points that were plotted over land in the past space are visible." width="960"></p>
 <p>Note that the missing values will not be rendered.</p>
 <p><br></p>
 </div>
@@ -297,7 +297,7 @@ interval on the same figure, using different colors:</p>
 <span><span class="co"># 230Ma (red) - use add to overlplot!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coast230</span><span class="op">$</span><span class="va">geometry</span>, col<span class="op">=</span><span class="st">"#BB000022"</span>, border<span class="op">=</span><span class="cn">NA</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">pm230</span>, col<span class="op">=</span><span class="st">"#BB0000"</span>, pch<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/fullMaps-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/fullMaps-1.png" alt="Overlay of reconstructions of the coastlines for 230Ma and 220Ma. Out of the three points that are given and visualized for 220Ma only the two on land are visible for the 230Ma reconstruction. " width="960"></p>
 <p>You can visually evaluate the offset between these two time intervals
 or you can use the coordinates in other calculations.</p>
 </div>
@@ -415,7 +415,7 @@ points from 220Ma to the present day:</p>
 <span><span class="co"># tracing lines</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">oneHistory</span>, col<span class="op">=</span><span class="st">"#0000DD99"</span>, type<span class="op">=</span><span class="st">"o"</span>, cex<span class="op">=</span><span class="fl">0.3</span>, pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">twoHistory</span>, col<span class="op">=</span><span class="st">"#0000DD99"</span>, type<span class="op">=</span><span class="st">"o"</span>, cex<span class="op">=</span><span class="fl">0.3</span>, pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_online_reconstrution_forward_files/figure-html/ultimate-1.png" width="960"></p>
+<p><img src="3_online_reconstrution_forward_files/figure-html/ultimate-1.png" alt="Overlay of present-day coastlines and the reconstruction of the coastlines and 220Ma. The motion of the two points over land at 220Ma are visualized with lines that connect their past positions with their present-day positions." width="960"></p>
 <p>This constitutes the overview of the <strong>online method</strong>
 of reconstruction.</p>
 <p><br></p>

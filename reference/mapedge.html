@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,8 @@
 <span>  xmax <span class="op">=</span> <span class="fl">180</span>,</span>
 <span>  ymin <span class="op">=</span> <span class="op">-</span><span class="fl">90</span>,</span>
 <span>  ymax <span class="op">=</span> <span class="fl">90</span>,</span>
-<span>  out <span class="op">=</span> <span class="st">"sf"</span></span>
+<span>  out <span class="op">=</span> <span class="st">"sf"</span>,</span>
+<span>  crs <span class="op">=</span> <span class="st">"EPSG:4326"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -92,6 +93,10 @@
 
 <dt id="arg-out">out<a class="anchor" aria-label="anchor" href="#arg-out"></a></dt>
 <dd><p>(<code>character</code>) Output format, either <code>"sf"</code> or <code>"sp"</code>. The default <code>"sf"</code> returns simple feature geometries, <code>"sp"</code> returns <code>SpatialPolygons</code> from the <code>sp</code> package.</p></dd>
+
+
+<dt id="arg-crs">crs<a class="anchor" aria-label="anchor" href="#arg-crs"></a></dt>
+<dd><p>(<code>character</code>) Coordinate Reference System of the returned spatial object given as a character string, defaults to <code>"EPSG:4326"</code> (WGS 84). Can be used to project the map edge immedately after creating it. Takes effect only if <code>sf=TRUE</code> or <code>sp=TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

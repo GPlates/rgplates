@@ -9,7 +9,7 @@ Each location will be assigned a plate id and moved back in time using the chose
 
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +112,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  plateperiod <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  validtime <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  validtime <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  anchor <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf'</span></span>
@@ -129,7 +130,8 @@ Each location will be assigned a plate id and moved back in time using the chose
 <span>  gmeta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  partitioning <span class="op">=</span> <span class="st">"static_polygons"</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  validtime <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  validtime <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  anchor <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'SpatRaster'</span></span>
@@ -222,7 +224,7 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
 
 
 <dt id="arg-anchor">anchor<a class="anchor" aria-label="anchor" href="#arg-anchor"></a></dt>
-<dd><p>(<code>character</code>) Argument of the online reconstruction submodule. The Plate ID of the anchored plate. This is the 'anchored_plate_id' parameter of the GPlates Web Service.</p></dd>
+<dd><p>(<code>character</code>) The Plate ID of the anchored plate (defaults to 0). This is the 'anchored_plate_id' parameter of the GPlates Web Service.</p></dd>
 
 
 <dt id="arg-validtime">validtime<a class="anchor" aria-label="anchor" href="#arg-validtime"></a></dt>
@@ -241,17 +243,21 @@ calculate the present-day coordinates of the given paleo-coordinates, with age s
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function implements two reconstruction submodules, which are selected with the <code>model</code> argument:</p>
 <p>If <code>model</code> is a <code>character</code> entry, then the <code>reconstruct()</code> function uses the GPlates Web Service (<a href="https://gwsdoc.gplates.org/" class="external-link">https://gwsdoc.gplates.org/</a>, remote reconstruction submodule).
-The available reconstruction models for this submodule are (as of 2024-02-02):</p><ul><li><p>"TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame, which you can toggle by setting the <code>anchor</code> parameter to <code>1</code> from the default <code>0</code>.</p></li>
-<li><p>"SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).</p></li>
-<li><p>"RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).</p></li>
+The available reconstruction models for this submodule are (as of 2024-02-02):</p><ul><li><p>"CAO2024" (Cao et al., 2024) for static polygons, coastlines, and topologies (0-1800 Ma).</p></li>
+<li><p>"ALFONSO2024" (Alfonso et al., 2024) for static polygons, coastlines, and topologies (0-170 Ma).</p></li>
+<li><p>"MULLER2022" (Müller et al., 2022) for coastlines and static plate polygons (0-1000 Ma).</p></li>
+<li><p>"ZAHIROVIC2022" (Zahirovic et al., 2022) for static polygons, coastlines, and topologies (0-410 Ma).</p></li>
+<li><p>"MERDITH2021" (Merdith et al., 2021, default) for coastlines and static plate polygons (0-1000 Ma).</p></li>
+<li><p>"CLENNET2020" (Clennet et al., 2022) for static polygons, coastlines, and topologies (0-170 Ma).</p></li>
+<li><p>"MULLER2019" (Müller et al., 2019) for coastlines and static plate polygons. (0-250 Ma).</p></li>
 <li><p>"MULLER2016" (Muller et al., 2016) for coastlines and topological plate polygons (0-230 Ma).</p></li>
-<li><p>"GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma).</p></li>
-<li><p>"PALEOMAP" (Scotese, 2016) for coastlines only (0-1100 Ma).</p></li>
 <li><p>"MATTHEWS2016_mantle_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).</p></li>
 <li><p>"MATTHEWS2016_pmag_ref" (Matthews et al., 2016) for coastlines and topological plate polygons (0-410 Ma).</p></li>
-<li><p>"MULLER2019" (Müller et al., 2019) for coastlines and static plate polygons. (0-250 Ma).</p></li>
-<li><p>"MERDITH2021" (Merdith et al., 2021, default) for coastlines and static plate polygons (0-1000 Ma).</p></li>
-<li><p>"MULLER2022" (Müller et al., 2022) for coastlines and static plate polygons (0-1000 Ma).</p></li>
+<li><p>"SETON2012" (Seton et al., 2012) for coastlines and topological plate polygons (0-200 Ma).</p></li>
+<li><p>"GOLONKA" (Wright et al. 2013) for coastlines only (0-550 Ma).</p></li>
+<li><p>"PALEOMAP" (Scotese, 2016) for coastlines only (0-1100 Ma).</p></li>
+<li><p>"TorsvikCocks2017" (Torsvik and Cocks, 2017) for coastlines (0-540 Ma). Uses a mantle reference frame by default. For climatically sensitive analyses use a paleomagnetic reference frame, which you can toggle by setting the <code>anchor</code> parameter to <code>1</code> from the default <code>0</code>.</p></li>
+<li><p>"RODINIA2013" (Li et al., 2012) for coastlines (530-1100 Ma).</p></li>
 </ul><p>If <code>model</code> is a <code><a href="platemodel.html">platemodel</a></code> class object, then the function will try to use the GPLates desktop application (<a href="https://www.gplates.org/" class="external-link">https://www.gplates.org/</a>) to reconstruct the coordinates (local reconstruction submodule).
 Plate models are available in chronosphere with the <code><a href="https://rdrr.io/pkg/chronosphere/man/fetch.html" class="external-link">fetch</a></code> function. See <code><a href="https://rdrr.io/pkg/chronosphere/man/datasets.html" class="external-link">datasets</a></code> for the available models.
 The function will try to find the main GPlates executable in its default installation directory. If this does not succeed, use <code>path.gplates</code> to enter the full path to the GPlates executable as a <code>character</code> string.</p>
@@ -260,15 +266,20 @@ The function will try to find the main GPlates executable in its default install
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
 
-<p>Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., &amp; Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
-<br><br> Andrew S. Merdith, Simon E. Williams, Alan S. Collins, Michael G. Tetley, Jacob A. Mulder, Morgan L. Blades, Alexander Young, Sheree E. Armistead, John Cannon, Sabin Zahirovic, R. Dietmar Müller, (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic, Earth-Science Reviews, Volume 214, 2021, 103477, ISSN 0012-8252, https://doi.org/10.1016/j.earscirev.2020.103477.
+<p><br> Alfonso, C. P., Müller, R. D., Mather, B., &amp; Anthony, M. (2025). Spatio-temporal copper prospectivity in the American Cordillera predicted by positive-unlabeled machine learning. Geological Society of America Bulletin, 137(1-2), 702–711.
+<br><br> Cao, X., Collins, A. S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D., &amp; Müller, R. D. (2024). Earth’s tectonic and plate boundary evolution over 1.8 billion years. Geoscience Frontiers, 15(6), 101922.
+<br><br> Clennett, E. J., Sigloch, K., Mihalynuk, M. G., Seton, M., Henderson, M. A., Hosseini, K., Mohammadzaheri, A., Johnston, S. T., &amp; Müller, R. D. (2020). A quantitative tomotectonic plate reconstruction of western North America and the eastern Pacific basin. Geochemistry, Geophysics, Geosystems, 21(8), e2020GC009117.
+<br><br> Matthews, K. J., Maloney, K. T., Zahirovic, S., Williams, S. E., Seton, M., &amp; Müller, R. D. (2016). Global plate boundary evolution and kinematics since the late Paleozoic. Global and Planetary Change, 146, 226–250. https://doi.org/10.1016/j.gloplacha.2016.10.002
+<br><br> Merdith, A. S., Williams, S. E., Collins, A. S., Tetley, M. G., Mulder, J. A., Blades, M. L., Young, A., Armistead, S. E., Cannon, J., Zahirovic, S., &amp; Müller, R. D. (2021). Extending full-plate tectonic models into deep time: Linking the Neoproterozoic and the Phanerozoic. Earth-Science Reviews, 214, 103477. https://doi.org/10.1016/j.earscirev.2020.103477
+<br><br> Li, Z.-X., Evans, D. A., &amp; Halverson, G. P. (2013). Neoproterozoic glaciations in a revised global palaeogeography from the breakup of Rodinia to the assembly of Gondwanaland. Sedimentary Geology, 294, 219–232.
 <br><br> Müller, R. D., Seton, M., Zahirovic, S., Williams, S. E., Matthews, K. J., Wright, N. M., … Cannon, J. (2016). Ocean Basin Evolution and Global-Scale Plate Reorganization Events Since Pangea Breakup. Annual Review of Earth and Planetary Sciences, 44(1), 107–138. https://doi.org/10.1146/annurev-earth-060115-012211
-<br><br>  Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
+<br><br> Müller, R. D., Zahirovic, S., Williams, S. E., Cannon, J., Seton, M., Bower, D. J., Tetley, M. G., Heine, C., Le Breton, E., Liu, S., Russell, S. H. J., Yang, T., Leonard, J., and Gurnis, M. (2019), A global plate model including lithospheric deformation along major rifts and orogens since the Triassic. Tectonics, vol. 38, https://doi.org/10.1029/2018TC005462.
 <br><br> Müller, R. D., Flament, N., Cannon, J., Tetley, M. G., Williams, S. E., Cao, X., Bodur, Ö. F., Zahirovic, S., and Merdith, A.: A tectonic-rules-based mantle reference frame since 1 billion years ago – implications for supercontinent cycles and plate–mantle system evolution, Solid Earth, 13, 1127–1159, https://doi.org/10.5194/se-13-1127-2022, 2022.
 <br><br> Scotese, C. R. (2016). PALEOMAP PaleoAtlas for GPlates and the PaleoData Plotter Program. http://www.earthbyte.org/paleomap‐ paleoatlas‐for‐gplates
 <br><br> Seton, M., Müller, R. D., Zahirovic, S., Gaina, C., Torsvik, T., Shephard, G., … Chandler, M. (2012). Global continental and ocean basin reconstructions since 200Ma. Earth-Science Reviews, 113(3–4), 212–270. https://doi.org/10.1016/j.earscirev.2012.03.002
 <br><br> Torsvik and Cocks (2017). Earth History and Palaeogeography. Cambridge University Press, 317 pp.
-<br><br> Wright, N., Zahirovic, S., Müller, R. D., &amp; Seton, M. (2013). Towards community-driven paleogeographic reconstructions: integrating open-access paleogeographic and paleobiology data with plate tectonics. Biogeosciences, 10(3), 1529–1541. https://doi.org/10.5194/bg-10-1529-2013</p>
+<br><br> Wright, N., Zahirovic, S., Müller, R. D., &amp; Seton, M. (2013). Towards community-driven paleogeographic reconstructions: integrating open-access paleogeographic and paleobiology data with plate tectonics. Biogeosciences, 10(3), 1529–1541. https://doi.org/10.5194/bg-10-1529-2013
+<br><br> Zahirovic, S., Eleish, A., Doss, S., Pall, J., Cannon, J., Pistone, M., Tetley, M. G., Young, A., &amp; Fox, P. (2022). Subduction and carbonate platform interactions. Geoscience Data Journal, 9(2), 371–383.</p>
     </div>
 
     <div class="section level2">
