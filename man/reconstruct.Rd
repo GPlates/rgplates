@@ -64,7 +64,8 @@ reconstruct(x, ...)
   plateperiod = NULL,
   partitioning = "static_polygons",
   check = TRUE,
-  validtime = TRUE
+  validtime = TRUE,
+  anchor = 0
 )
 
 \S4method{reconstruct}{sf}(
@@ -80,7 +81,8 @@ reconstruct(x, ...)
   gmeta = FALSE,
   partitioning = "static_polygons",
   check = TRUE,
-  validtime = TRUE
+  validtime = TRUE,
+  anchor = 0
 )
 
 \S4method{reconstruct}{SpatRaster}(

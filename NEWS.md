@@ -1,6 +1,6 @@
 # Change log of the R package 'rgplates'
 
-# rgplates 0.6.1-4 - 2025-09-09
+# rgplates 0.6.1 - 2025-09-10
 
 ### Added
 
