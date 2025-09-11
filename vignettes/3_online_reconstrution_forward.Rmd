@@ -314,8 +314,6 @@ lines(twoHistory, col="#0000DD99", type="o", cex=0.3, pch=16)
 
 ```
 
-This constitutes the overview of the **online method** of reconstruction.
-
 <br>
 
 
