@@ -34,7 +34,8 @@
 #' 
 #' 
 #' @section References:
-#' \cr Alfonso, C. P., Müller, R. D., Mather, B., & Anthony, M. (2025). Spatio-temporal copper prospectivity in the American Cordillera predicted by positive-unlabeled machine learning. Geological Society of America Bulletin, 137(1-2), 702–711.
+#'
+#' Alfonso, C. P., Müller, R. D., Mather, B., & Anthony, M. (2025). Spatio-temporal copper prospectivity in the American Cordillera predicted by positive-unlabeled machine learning. Geological Society of America Bulletin, 137(1-2), 702–711.
 #' \cr
 #' \cr Cao, X., Collins, A. S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D., & Müller, R. D. (2024). Earth’s tectonic and plate boundary evolution over 1.8 billion years. Geoscience Frontiers, 15(6), 101922.
 #' \cr

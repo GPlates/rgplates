@@ -11,6 +11,7 @@
 
 #' @import sf
 #' @importFrom methods new
+#' @importFrom methods as
 #' @importFrom utils assignInNamespace
 #' @importFrom utils getFromNamespace
 #' @importFrom utils data

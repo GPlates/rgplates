@@ -20,6 +20,7 @@ This section describes what the hard and soft dependencies of `rgplates` are and
 Functions reused from other packages (necessary in all cases):
 
 - `methods::new()`: Used to create `platemodel` instances.
+- `methods::as()`: Used to convert between spatial types in `mapedge()`.
 - `utils::assignInNamespace()`: Used for configuring the GPlates Web Service URL.
 - `utils::getFromNamespace()`: Used for accessing the GPlates Web Service URL.
 - `utils::data()`: Used for accessing the `gws` object internally.
