@@ -2,6 +2,8 @@
 
 # rgplates 0.6.1 - 2025-09-10
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17100022.svg)](https://doi.org/10.5281/zenodo.17100022) - "In GAD we trust - still"
+
 ### Added
 
 - The `crs` argument of `mapedge` to project the created map edge immediately after creating it.
