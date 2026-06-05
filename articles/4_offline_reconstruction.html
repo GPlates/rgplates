@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="4. Offline reconstruction">
 <meta name="description" content="Learn how to rotate paleocoordinates with the GPlates Desktop Application
@@ -36,7 +36,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgplates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2-1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -226,7 +226,7 @@ you, and also tell you where to find it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">td</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpMmFXpN"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp73eBu3"</span></span></code></pre></div>
 <p><em>Each operating system handles these differently, so don’t be
 surprised if yours don’t match the result above - actually, this will
 likely be different in every session when you run the function
@@ -261,11 +261,11 @@ argument)</p>
 into the temporary directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "file12ce61407d627"                 "file12ce643152d01"                </span></span>
-<span><span class="co">#&gt;  [3] "file12ce656590f03"                 "file12ce66dd0537b"                </span></span>
-<span><span class="co">#&gt;  [5] "file12ce676192ed"                  "file12ce67d30c2fd"                </span></span>
+<span><span class="co">#&gt;  [1] "file264c73ead26c"                  "file264c73fa99dfe"                </span></span>
+<span><span class="co">#&gt;  [3] "file264c75a34a92e"                 "file264c763e23281"                </span></span>
+<span><span class="co">#&gt;  [5] "file264c76727223"                  "file264c784c348f"                 </span></span>
 <span><span class="co">#&gt;  [7] "PALEOMAP_PlateModel.rot"           "PALEOMAP_PlatePolygons.gpml"      </span></span>
-<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str12ce65d9b66e4.html"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [9] "PALEOMAP_PoliticalBoundaries.gpml" "rmarkdown-str264c75fef784c.html"</span></span></code></pre></div>
 <p>There are two files that are important for us: the one that ends with
 <code>.gpml</code> (the <strong>static plate polygons</strong> in
 GPlates Markup Language format) and the one that ends with
@@ -275,11 +275,11 @@ found at:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToPolygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlatePolygons.gpml"</span><span class="op">)</span></span>
 <span><span class="va">pathToPolygons</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpMmFXpN/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp73eBu3/PALEOMAP_PlatePolygons.gpml"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathToRotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">td</span>, <span class="st">"PALEOMAP_PlateModel.rot"</span><span class="op">)</span></span>
 <span><span class="va">pathToRotations</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpMmFXpN/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp73eBu3/PALEOMAP_PlateModel.rot"</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
