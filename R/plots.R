@@ -1,5 +1,48 @@
-################################################################################
-# Class-methods
+#' Plot shading over a geographic map
+#'
+#' An eye-candy utility function for 3d-effect of global maps
+#'
+#' The function plots a gradient on a geographic projection, either as a color or as an alpha gradient, the function relies on \link{\code{mapedge}} for the calculation of bands.
+#' @param n The number of color bands.
+#' @param left RGB color for the left side of the gradient.
+#' @param right RGB color for the right side of the gradient.
+#' @param crs A coordinate reference system string to be passed to \link{\code{mapedge}}.
+#' @param left.alpha The alpha value (0-1) used for the left side of the plot.
+#' @param right.alpha The alpha value (0-1) used for the right side of the plot.
+#' @param west The \code{xmin} argument of \link{\code{mapedge}}.
+#' @param east The \code{xmax} argument of \link{\code{mapedge}}.
+#' @export
+#' @examples
+#' # basic use
+#' me <- mapedge()
+#' plot(me)
+#' sphereshade()
+#'
+#' # In Robinson projection
+#' me <- mapedge(crs="ESRI:54030")
+#' plot(me)
+#' sphereshade(left="#0f3f67", right="#1A6BB0", crs="ESRI:54030")
+sphereshade <- function(n=180, left="#ffffff", right="#aaaaaa", crs="EPSG:4326", left.alpha=1, right.alpha=1, west=-180, east=180){
+	# create breakpoints
+	breaks <- seq(west, east, length.out=n+1)
+
+	# create a color ramp
+	colFun <- grDevices::colorRampPalette(c(left, right))
+	cols <- colFun(n)
+
+	# transparency is needed
+	alphas <- seq(left.alpha, right.alpha, length.out=n)
+	alphaVals <- as.character(as.hexmode(round(alphas*255)))
+	alphaVals[nchar(alphaVals)==1] <- paste0("0", alphaVals[nchar(alphaVals)==1])
+
+
+	# plot them sequentiallly
+	for(i in 1:n){
+		oneSlice <- mapedge(xmin=breaks[i],xmax=breaks[i+1],crs=crs)
+		plot(oneSlice, border=NA, col=paste0(cols[i], as.character(alphaVals[i])), add=TRUE)
+	}
+
+}
 
 #' Plot subduction lines
 #'
@@ -48,6 +91,7 @@ subductionlines <- function(x, add=TRUE,  ... ){
 	}
 
 }
+
 
 ################################################################################
 # Utility plotting

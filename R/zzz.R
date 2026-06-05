@@ -19,4 +19,5 @@
 #' @importFrom graphics lines
 #' @importFrom graphics xspline
 #' @importFrom graphics par
+#' @importFrom grDevices colorRampPalette
 NULL

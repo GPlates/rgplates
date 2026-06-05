@@ -1,5 +1,13 @@
 # Change log of the R package 'rgplates'
 
+# rgplates 0.6.2-1 - 2026-06-05
+
+### Added
+
+- The `sphereshade` plotting utility function
+
+* * *
+
 # rgplates 0.6.1 - 2025-09-10
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17100022.svg)](https://doi.org/10.5281/zenodo.17100022) - "In GAD we trust - still"
@@ -13,6 +21,8 @@
 
 - Documentation of missing GWS models in the help of `reconstruct()`.
 - Suppressed OGR warning messages of the offline `reconstruct()` on Windows that are output by `sf::st_read()` because of GPlates output
+
+* * *
 
 # rgplates 0.6.0 - 2025-04-26
 
